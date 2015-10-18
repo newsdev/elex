@@ -15,7 +15,7 @@ from elections import ap
 
 # Show all elections available.
 # Note: Some elections may be in the past.
-elections = ap.Election.get_elections()
+e = ap.Election.get_elections()
 
 # Get the next election.
 election = ap.Election.get_next_election()
