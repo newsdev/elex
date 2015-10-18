@@ -25,10 +25,10 @@ Elections
 
     # Show all elections available.
     # Note: Some elections may be in the past.
-    e = ap.Election.get_elections()
+    elections = ap.Election.get_elections()
 
     # Get the next election.
-    e = ap.Election.get_next_election()
+    election = ap.Election.get_next_election()
 
 Races and Candidates
 ~~~~~~~~~~~~~~~~~~~~
@@ -37,10 +37,10 @@ Races and Candidates
 
     from elections import ap
 
-    e = ap.Election.get_next_election()
-    races = e.get_races()
+    election = ap.Election.get_next_election()
+    races = election.get_races()
 
-    for race in e.get_races():
+    for race in races:
         print race
 
         for candidate in race.candidates:
