@@ -1,8 +1,8 @@
 import datetime
 import json
 
-import elections
-from elections import utils
+import elex
+from elex import utils
 
 
 class Candidate(utils.BaseObject):

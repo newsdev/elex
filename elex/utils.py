@@ -1,7 +1,7 @@
 from dateutil import parser
 import requests
 
-import elections
+import elex
 
 def ap_request(path, **params):
     """
@@ -11,11 +11,11 @@ def ap_request(path, **params):
     * Returns JSON.
     """
     if not params.get('apiKey', None):
-        params['apiKey'] = elections.API_KEY
+        params['apiKey'] = elex.API_KEY
 
     params['format'] = 'json'
 
-    return requests.get(elections.BASE_URL + path, params=params).json()
+    return requests.get(elex.BASE_URL + path, params=params).json()
 
 class BaseObject(object):
     def set_dates(self, date_fields):
