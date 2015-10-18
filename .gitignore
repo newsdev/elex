@@ -1,3 +1,5 @@
-*.pyo
 *.pyc
+*.pyo
 .DS_Store
+dist/
+*.egg-info/

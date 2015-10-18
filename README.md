@@ -1,0 +1,36 @@
+![](https://cloud.githubusercontent.com/assets/109988/10567244/25ec282e-75cc-11e5-9d9a-fdeba61828a6.png)
+
+## Usage
+### Demo app
+```
+python -m elections.demo
+```
+
+### Modules
+Use the election loader manually from within your project.
+
+#### Elections
+```
+from elections import ap
+
+# Show all elections available.
+# Note: Some elections may be in the past.
+e = ap.Election.get_elections()
+
+# Get the next election.
+e = ap.Election.get_next_election()
+```
+
+#### Races and Candidates
+```
+from elections import ap
+
+e = ap.Election.get_next_election()
+races = e.get_races()
+
+for race in e.get_races():
+    print race
+
+    for candidate in race.candidates:
+        print candidate
+```
