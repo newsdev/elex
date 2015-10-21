@@ -41,4 +41,5 @@ class BaseObject(object):
 
     @classmethod
     def get(cls, path, **params):
+        print params
         return ap_request(path, **params)

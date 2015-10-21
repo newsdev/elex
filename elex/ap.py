@@ -30,6 +30,7 @@ class Candidate(utils.BaseObject):
 class Race(utils.BaseObject):
 
     def __init__(self, **kwargs):
+        self.test = False
         self.raceid = None
         self.statepostal = None
         self.racetypeid = None
@@ -56,7 +57,7 @@ class Race(utils.BaseObject):
         candidate_objs = []
         for c in self.candidates:
             candidate_dict = dict(c)
-            if self.officename in [u"Proposition"]:
+            if self.officeid == u"I":
                 candidate_dict['is_ballot_position'] = True
             candidate_objs.append(Candidate(**candidate_dict))
         setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
@@ -74,23 +75,12 @@ class Election(utils.BaseObject):
 
         self.set_fields(**kwargs)
         self.set_dates(['electiondate'])
-        self.set_is_test()
 
     def __unicode__(self):
         if self.is_test:
             return "TEST: %s" % self.electiondate
         else:
             return self.electiondate
-
-    def set_is_test(self):
-        """
-        Why do they have two flags here?
-        Can something be both test/live or neither test/live?
-        """
-        if self.testresults == False and self.liveresults == True:
-            setattr(self, 'is_test', False)
-        else:
-            setattr(self, 'is_test', True)
 
     @classmethod
     def get_elections(cls):
@@ -113,5 +103,9 @@ class Election(utils.BaseObject):
                         lowest_diff = diff
         return next_election
 
-    def get_races(self):
-        return [Race(**r) for r in Election.get('/%s' % self.electiondate)['races']]
+    def get_races(self, national=False):
+        return [Race(**r) for r in Election.get('/%s' % self.electiondate, national=national)['races']]
+
+    @classmethod
+    def get_races(cls, date_string, national=False):
+        return [Race(**r) for r in Election.get('/%s' % date_string, national=national)['races']]
