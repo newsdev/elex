@@ -55,7 +55,4 @@ def ap_request(path, **params):
 
     params['format'] = 'json'
 
-    print elex.BASE_URL + path
-    print params
-
     return requests.get(elex.BASE_URL + path, params=params).json()
