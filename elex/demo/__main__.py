@@ -1,7 +1,7 @@
-from elex import ap
+from elex.parser import ap
 
 if __name__ == "__main__":
-    races = ap.Election.get_races('2014-11-04', national=True)
+    races = ap.Election.get_races('2012-03-13', omitResults=True)
 
     for race in races:
         print race

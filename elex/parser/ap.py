@@ -2,7 +2,7 @@ import datetime
 import json
 
 import elex
-from elex import utils
+from elex.parser import utils
 
 
 class Candidate(utils.BaseObject):
@@ -33,6 +33,7 @@ class Race(utils.BaseObject):
         self.test = False
         self.raceid = None
         self.statepostal = None
+        self.raceType = None
         self.racetypeid = None
         self.officeid = None
         self.officename = None
@@ -42,6 +43,8 @@ class Race(utils.BaseObject):
         self.uncontested = False
         self.lastupdated = None
         self.candidates = []
+
+        self.initialization_data = False
 
         self.set_fields(**kwargs)
         self.set_dates(['lastupdated'])
@@ -54,13 +57,14 @@ class Race(utils.BaseObject):
         return name
 
     def set_candidates(self):
-        candidate_objs = []
-        for c in self.candidates:
-            candidate_dict = dict(c)
-            if self.officeid == u"I":
-                candidate_dict['is_ballot_position'] = True
-            candidate_objs.append(Candidate(**candidate_dict))
-        setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
+        if self.initialization_data:
+            candidate_objs = []
+            for c in self.candidates:
+                candidate_dict = dict(c)
+                if self.officeid == u"I":
+                    candidate_dict['is_ballot_position'] = True
+                candidate_objs.append(Candidate(**candidate_dict))
+            setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
 
 
 class Election(utils.BaseObject):
@@ -103,9 +107,23 @@ class Election(utils.BaseObject):
                         lowest_diff = diff
         return next_election
 
-    def get_races(self, national=False):
-        return [Race(**r) for r in Election.get('/%s' % self.electiondate, national=national)['races']]
-
     @classmethod
-    def get_races(cls, date_string, national=False):
-        return [Race(**r) for r in Election.get('/%s' % date_string, national=national)['races']]
+    def get_races(cls, date_string, **kwargs):
+        """
+        Convenience method for fetching races by election date.
+        Accepts an AP formatting date string, e.g., YYYY-MM-DD.
+        Accepts any number of URL params as kwargs.
+        """
+
+        # With `omitResults=True`, the API will return initialization data.
+        if kwargs.get('omitResults', None):
+            payload = []
+            for r in Election.get('/%s' % date_string, **kwargs)['races']:
+                r['initialization_data'] = True
+                race = Race(**r)
+                payload.append(race)
+            return payload
+        return [Race(**r) for r in Election.get('/%s' % date_string, **kwargs)['races']]
+
+    def get_races(self, **kwargs):
+        return Election.get_races(self.electiondate, **kwargs)
