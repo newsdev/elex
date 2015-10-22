@@ -21,7 +21,7 @@ Elections
 
 ::
 
-    from elex import ap
+    from elex.parser import ap
 
     # Show all elections available.
     # Note: Some elections may be in the past.
@@ -35,13 +35,12 @@ Races and Candidates
 
 ::
 
-    from elex import ap
+    from elex.parser import ap
 
-    election = ap.Election.get_next_election()
-    races = election.get_races()
+    races = ap.Election.get_races('2012-03-13', omitResults=True)
 
     for race in races:
         print race
 
         for candidate in race.candidates:
-            print candidate
+            print "  %s" % candidate
