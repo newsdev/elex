@@ -36,7 +36,16 @@ class BaseObject(object):
         If this race has reportingunits,
         serialize them into objects.
         """
-        setattr(self, 'reportingunits', [ReportingUnit(**r) for r in self.reportingunits])
+        reportingunits_obj = []
+        for r in self.reportingunits:
+
+            # Denormalize some data.
+            for attr in ['raceid']:
+                if hasattr(self, attr):
+                    r[attr] = getattr(self, attr)
+
+            reportingunits_obj.append(ReportingUnit(**r))
+        setattr(self, 'reportingunits', reportingunits_obj)
 
     def set_candidates(self):
         """
@@ -46,9 +55,17 @@ class BaseObject(object):
         candidate_objs = []
         for c in self.candidates:
             candidate_dict = dict(c)
+
+            # Decide if this is a ballot position or a _real_ candidate.
             if hasattr(self, 'officeid'):
                 if self.officeid == u"I":
                     candidate_dict['is_ballot_position'] = True
+
+            # Denormalize some data.
+            for attr in ['raceid', 'statepostal', 'statename', 'reportingunitid']:
+                if hasattr(self, attr):
+                    candidate_dict[attr] = getattr(self, attr)
+
             candidate_objs.append(Candidate(**candidate_dict))
         setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
 
@@ -98,6 +115,10 @@ class Candidate(BaseObject):
     be a person OR a ballot position.
     """
     def __init__(self, **kwargs):
+        self.raceid = None
+        self.statepostal = None
+        self.statename = None
+        self.reportingunitid = None
         self.first = None
         self.last = None
         self.party = None
@@ -107,7 +128,6 @@ class Candidate(BaseObject):
         self.polnum = None
         self.votecount = 0
         self.winner = False
-
         self.is_ballot_position = False
 
         self.set_fields(**kwargs)
@@ -129,6 +149,7 @@ class ReportingUnit(BaseObject):
     level of reporting. Can be 
     """
     def __init__(self, **kwargs):
+        self.raceid = None
         self.statepostal = None
         self.statename = None
         self.level = None
@@ -203,8 +224,6 @@ class Election(BaseObject):
         self.testresults = False
         self.liveresults = False
         self.electiondate = None
-
-        self.electiondate_parsed = None
         self.is_test = False
 
         self.set_fields(**kwargs)
