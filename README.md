@@ -25,7 +25,7 @@ election = ap.Election.get_next_election()
 ```
 from elex.parser import ap
 
-races = ap.Election.get_races('2015-10-24', omitResults=False, level="reportingUnit")
+races = ap.Election.get_races('2015-10-24', omitResults=False, level="ru")
 
 for race in races:
     print race
