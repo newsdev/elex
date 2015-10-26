@@ -29,8 +29,6 @@ def write_recording(payload):
             with open('%s/ap_elections_loader_recording-%s.json' % (recorder_directory, timestamp), 'w') as writefile:
                 writefile.write(json.dumps(payload))
 
-
-
 def api_request(path, **params):
     """
     Function wrapping Python-requests
