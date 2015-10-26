@@ -2,22 +2,22 @@
    :alt: 
 
 Usage
-=====
+-----
 
 Demo app
---------
+~~~~~~~~
 
 ::
 
     python -m elex.demo
 
 Modules
--------
+~~~~~~~
 
 Use the election loader manually from within your project.
 
 Elections
-~~~~~~~~~
+^^^^^^^^^
 
 ::
 
@@ -30,17 +30,20 @@ Elections
     # Get the next election.
     election = ap.Election.get_next_election()
 
-Races and Candidates
-~~~~~~~~~~~~~~~~~~~~
+Races, Candidates and results
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
 
     from elex.parser import ap
 
-    races = ap.Election.get_races('2012-03-13', omitResults=True)
+    races = ap.Election.get_races('2015-10-24', omitResults=False, level="reportingUnit")
 
     for race in races:
         print race
 
-        for candidate in race.candidates:
-            print "  %s" % candidate
+        for reporting_unit in race.reportingunits:
+            print "  %s" % reporting_unit
+
+            for candidate in reporting_unit.candidates:
+                print "    %s" % candidate
