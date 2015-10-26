@@ -1,5 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import datetime
 import json
+import os
 
 from dateutil import parser
 
@@ -18,9 +21,10 @@ class BaseObject(object):
         """
         Translates winner: "X" into a boolean.
         """
-        self.winner = False
-        if self.winner == "X":
+        if self.winner == u"X":
             self.winner = True
+        else:
+            self.winner = False
 
     def set_reportingunits(self):
         """
@@ -69,7 +73,17 @@ class BaseObject(object):
 
     @classmethod
     def get(cls, path, **params):
-        return utils.api_request(path, **params)
+        """
+        Farms out request to api_request.
+        Could possibly handle choosing which
+        parser backend to use -- API-only right now.
+        Also the entry point for recording, which
+        is set via environment variable.
+        """
+        payload = utils.api_request(path, **params)
+        if os.environ.get('ELEX_RECORDING', None):
+            utils.write_recording(payload)
+        return payload
 
 
 class Candidate(BaseObject):
@@ -96,9 +110,12 @@ class Candidate(BaseObject):
 
     def __unicode__(self):
         if self.is_ballot_position:
-            return "%s" % self.party
+            payload = "%s" % self.party
         else:
-            return "%s %s (%s)" % (self.first, self.last, self.party)
+            payload = "%s %s (%s)" % (self.first, self.last, self.party)
+        if self.winner:
+            payload += '✓'.decode('utf-8')
+        return payload
 
 
 class ReportingUnit(BaseObject):
@@ -168,8 +185,6 @@ class Race(BaseObject):
             if self.seatname:
                 name += " %s" % self.seatname
         return name
-
-
 
 
 class Election(BaseObject):
