@@ -17,6 +17,11 @@ class BaseObject(object):
     transformation of data and AP connections.
     """
 
+    def set_state_fields_from_reportingunits(self):
+        if len(self.reportingunits) > 0:
+            self.statepostal = self.reportingunits[0].statepostal
+            self.statename = self.reportingunits[0].statename
+
     def set_winner(self):
         """
         Translates winner: "X" into a boolean.
@@ -156,6 +161,7 @@ class Race(BaseObject):
         self.test = False
         self.raceid = None
         self.statepostal = None
+        self.statename = None
         self.raceType = None
         self.racetypeid = None
         self.officeid = None
@@ -177,6 +183,7 @@ class Race(BaseObject):
             self.set_candidates()
         else:
             self.set_reportingunits()
+            self.set_state_fields_from_reportingunits()
 
     def __unicode__(self):
         name = self.officename
