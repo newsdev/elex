@@ -69,7 +69,7 @@ class BaseObject(object):
 
     @classmethod
     def get(cls, path, **params):
-        return utils.ap_request(path, **params)
+        return utils.api_request(path, **params)
 
 
 class Candidate(BaseObject):

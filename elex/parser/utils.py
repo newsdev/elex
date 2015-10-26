@@ -2,7 +2,7 @@ import requests
 
 import elex
 
-def ap_request(path, **params):
+def api_request(path, **params):
     """
     Function wrapping Python-requests
     for making a request to the AP's

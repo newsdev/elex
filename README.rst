@@ -21,23 +21,23 @@ Elections
 
 ::
 
-    from elex.parser import ap
+    from elex.parser import api
 
     # Show all elections available.
     # Note: Some elections may be in the past.
-    elections = ap.Election.get_elections()
+    elections = api.Election.get_elections()
 
     # Get the next election.
-    election = ap.Election.get_next_election()
+    election = api.Election.get_next_election()
 
 Races, Candidates and results
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
 
-    from elex.parser import ap
+    from elex.parser import api
 
-    races = ap.Election.get_races('2015-10-24', omitResults=False, level="ru")
+    races = api.Election.get_races('2015-10-24', omitResults=False, level="ru")
 
     for race in races:
         print race
