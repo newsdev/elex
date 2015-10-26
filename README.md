@@ -2,7 +2,7 @@
 
 ## Usage
 ### Demo app
-```
+```bash
 python -m elex.demo
 ```
 
@@ -10,7 +10,7 @@ python -m elex.demo
 Use the election loader manually from within your project.
 
 #### Elections
-```
+```python
 from elex.parser import api
 
 # Show all elections available.
@@ -22,7 +22,7 @@ election = api.Election.get_next_election()
 ```
 
 #### Races, Candidates and results
-```
+```python
 from elex.parser import api
 
 races = api.Election.get_races('2015-10-24', omitResults=False, level="ru")

@@ -7,7 +7,7 @@ Usage
 Demo app
 ~~~~~~~~
 
-::
+.. code:: bash
 
     python -m elex.demo
 
@@ -19,7 +19,7 @@ Use the election loader manually from within your project.
 Elections
 ^^^^^^^^^
 
-::
+.. code:: python
 
     from elex.parser import api
 
@@ -33,7 +33,7 @@ Elections
 Races, Candidates and results
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-::
+.. code:: python
 
     from elex.parser import api
 
