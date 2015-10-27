@@ -37,16 +37,19 @@ Races, Candidates and results
 
     from elex.parser import api
 
-    races = api.Election.get_races('2015-10-24', omitResults=False, level="ru")
+    candidates = []
+    reportingunits = []
+    races = []
 
-    for race in races:
-        print race
-
+    for race in api.Election.get_races('2015-10-24', omitResults=False, level="ru"):
+        races.append(race)
         for reporting_unit in race.reportingunits:
-            print "  %s" % reporting_unit
+            reportingunits.append(reporting_unit)
+            candidates += [c for c in reporting_unit.candidates]
 
-            for candidate in reporting_unit.candidates:
-                print "    %s" % candidate
+    print "Parsed %s candidates." % len(candidates)
+    print "Parsed %s reporting units." % len(reportingunits)
+    print "Parsed %s races." % len(races)
 
 Options
 -------

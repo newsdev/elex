@@ -19,17 +19,17 @@ class BaseObject(object):
 
     def set_state_fields_from_reportingunits(self):
         if len(self.reportingunits) > 0:
-            self.statepostal = self.reportingunits[0].statepostal
-            self.statename = self.reportingunits[0].statename
+            setattr(self, 'statepostal', self.reportingunits[0].statepostal)
+            setattr(self, 'statename', self.reportingunits[0].statename)
 
     def set_winner(self):
         """
         Translates winner: "X" into a boolean.
         """
         if self.winner == u"X":
-            self.winner = True
+            setattr(self, 'winner', True)
         else:
-            self.winner = False
+            setattr(self, 'winner', False)
 
     def set_reportingunits(self):
         """
@@ -46,6 +46,15 @@ class BaseObject(object):
 
             reportingunits_obj.append(ReportingUnit(**r))
         setattr(self, 'reportingunits', reportingunits_obj)
+
+    def set_reportingunitids(self):
+        """
+        Per Tracy / AP developers, if the level is
+        "state", the reportingunitid is always 1.
+        """
+        if not self.reportingunitid:
+            if self.level == "state":
+                setattr(self, 'reportingunitid', "1")
 
     def set_candidates(self):
         """
@@ -164,6 +173,7 @@ class ReportingUnit(BaseObject):
 
         self.set_fields(**kwargs)
         self.set_dates(['lastupdated'])
+        self.set_reportingunitids()
         self.set_candidates()
 
     def __unicode__(self):
