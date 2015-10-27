@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 
+import datetime
+
 from elex.parser import api
 from elex import loader
 from elex.loader import postgres
 
 if __name__ == "__main__":
+    start = datetime.datetime.now()
+
     candidates = []
     reportingunits = []
     races = []
@@ -22,6 +26,8 @@ if __name__ == "__main__":
     print "Parsed %s candidates." % len(candidates)
     print "Parsed %s reporting units." % len(reportingunits)
     print "Parsed %s races.\n" % len(races)
+
+    parse_end = datetime.datetime.now()
 
     # Connect to the database.
     # Drop and recreate tables, as we're bulk-loading.
@@ -44,4 +50,10 @@ if __name__ == "__main__":
 
     print "Inserted %s candidates." % len(candidates)
     print "Inserted %s reporting units." % len(reportingunits)
-    print "Inserted %s races." % len(races)
+    print "Inserted %s races.\n" % len(races)
+
+    end = datetime.datetime.now()
+
+    print "Overall: %s seconds." % float(str(end - start).split(':')[-1])
+    print "  Parsing: %s seconds." % float(str(parse_end - start).split(':')[-1])
+    print "  Loading: %s seconds." % float(str(end - parse_end).split(':')[-1])
