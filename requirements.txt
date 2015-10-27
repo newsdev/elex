@@ -7,10 +7,13 @@ ipython==4.0.0
 ipython-genutils==0.1.0
 lxml==3.4.4
 path.py==8.1.2
+peewee==2.6.4
 pexpect==4.0.1
 pickleshare==0.5
+psycopg2==2.6.1
 ptyprocess==0.5
 pycparser==2.14
+pymongo==2.8
 python-dateutil==2.4.2
 readline==6.2.4.1
 requests==2.8.1

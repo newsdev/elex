@@ -36,20 +36,56 @@ Races, Candidates and results
 .. code:: python
 
     from elex.parser import api
+    from elex import loader
+    from elex.loader import postgres
 
     candidates = []
     reportingunits = []
     races = []
 
-    for race in api.Election.get_races('2015-10-24', omitResults=False, level="ru"):
-        races.append(race)
-        for reporting_unit in race.reportingunits:
-            reportingunits.append(reporting_unit)
-            candidates += [c for c in reporting_unit.candidates]
+    # Load races, reporting units and candidates into a database.
 
-    print "Parsed %s candidates." % len(candidates)
-    print "Parsed %s reporting units." % len(reportingunits)
-    print "Parsed %s races." % len(races)
+for race in api.Election.get\_races('2015-10-24', omitResults=False,
+level="ru"): for reporting\_unit in race.reportingunits:
+reportingunits.append(reporting\_unit) candidates += [c for c in
+reporting\_unit.candidates] del reporting\_unit.candidates del
+race.candidates del race.reportingunits races.append(race)
+
+print "Parsed %s candidates." % len(candidates) print "Parsed %s
+reporting units." % len(reportingunits) print "Parsed %s
+races.:raw-latex:`\n`" % len(races)
+
+Connect to the database.
+========================
+
+Drop and recreate tables, as we're bulk-loading.
+================================================
+
+loader.ELEX\_PG\_CONNEX.connect()
+loader.ELEX\_PG\_CONNEX.drop\_tables([postgres.Candidate, postgres.Race,
+postgres.ReportingUnit], safe=True)
+loader.ELEX\_PG\_CONNEX.create\_tables([postgres.Candidate,
+postgres.Race, postgres.ReportingUnit], safe=True)
+
+Do the bulk loads with atomic transactions.
+===========================================
+
+with loader.ELEX\_PG\_CONNEX.atomic(): for idx in range(0,
+len(candidates), 1000): postgres.Candidate.insert\_many([c.\ **dict**
+for c in candidates[idx:idx+1000]]).execute()
+
+with loader.ELEX\_PG\_CONNEX.atomic(): for idx in range(0,
+len(reportingunits), 1000):
+postgres.ReportingUnit.insert\_many([c.\ **dict** for c in
+reportingunits[idx:idx+1000]]).execute()
+
+with loader.ELEX\_PG\_CONNEX.atomic(): for idx in range(0, len(races),
+1000): postgres.Race.insert\_many([c.\ **dict** for c in
+races[idx:idx+1000]]).execute()
+
+print "Inserted %s candidates." % len(candidates) print "Inserted %s
+reporting units." % len(reportingunits) print "Inserted %s races." %
+len(races) \`\`\`
 
 Options
 -------
