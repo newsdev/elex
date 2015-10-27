@@ -32,7 +32,6 @@ reportingunits = []
 races = []
 
 # Load races, reporting units and candidates into a database.
-```
 for race in api.Election.get_races('2015-10-24', omitResults=False, level="ru"):
     for reporting_unit in race.reportingunits:
         reportingunits.append(reporting_unit)
