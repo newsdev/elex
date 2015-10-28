@@ -40,7 +40,7 @@ class BaseObject(object):
         for r in self.reportingunits:
 
             # Denormalize some data.
-            for attr in ['raceid']:
+            for attr in ['raceid','seatname','description','racetype']:
                 if hasattr(self, attr):
                     r[attr] = getattr(self, attr)
 
@@ -66,12 +66,12 @@ class BaseObject(object):
             candidate_dict = dict(c)
 
             # Decide if this is a ballot position or a _real_ candidate.
-            if hasattr(self, 'officeid'):
-                if self.officeid == u"I":
+            if hasattr(self, 'racetype'):
+                if getattr(self, 'racetype') == u"Ballot Issue":
                     candidate_dict['is_ballot_position'] = True
 
             # Denormalize some data.
-            for attr in ['raceid', 'statepostal', 'statename', 'reportingunitid']:
+            for attr in ['raceid', 'statepostal', 'statename', 'reportingunitid','seatname','description','racetype']:
                 if hasattr(self, attr):
                     candidate_dict[attr] = getattr(self, attr)
 
@@ -124,6 +124,9 @@ class CandidateResult(BaseObject):
     be a person OR a ballot position.
     """
     def __init__(self, **kwargs):
+        self.racetype = None
+        self.seatname = None
+        self.description = None
         self.raceid = None
         self.statepostal = None
         self.statename = None
@@ -158,7 +161,10 @@ class ReportingUnit(BaseObject):
     level of reporting. Can be 
     """
     def __init__(self, **kwargs):
+        self.seatname = None
+        self.description = None
         self.raceid = None
+        self.racetype = None
         self.statepostal = None
         self.statename = None
         self.level = None
@@ -199,6 +205,7 @@ class Race(BaseObject):
         self.officename = None
         self.party = None
         self.seatname = None
+        self.description = None
         self.seatnum = None
         self.uncontested = False
         self.lastupdated = None

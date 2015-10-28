@@ -33,6 +33,7 @@ class CandidateResultModel(peewee.Model):
     For the record, this is a single candidate's
     record in a single reporting unit.
     """
+    racetype = peewee.CharField(null=True)
     reportingunitid = peewee.CharField(null=True)
     first = peewee.CharField(null=True)
     last = peewee.CharField(null=True)
@@ -47,6 +48,23 @@ class CandidateResultModel(peewee.Model):
     raceid = peewee.CharField(null=True)
     statepostal = peewee.CharField(null=True)
     statename = peewee.CharField(null=True)
+    seatname = peewee.CharField(null=True)
+    description = peewee.CharField(null=True)
+
+
+class BallotPositionModel(peewee.Model):
+    """
+    Fields but no database connection.
+    For flexibility.
+    last contains the 'yes/no' field.
+    """
+    last = peewee.CharField(null=True)
+    candidateid = peewee.CharField(null=True)
+    polid = peewee.CharField(null=True)
+    ballotorder = peewee.CharField(null=True)
+    polnum = peewee.CharField(null=True)
+    description = peewee.CharField(null=True)
+    seatname = peewee.CharField(null=True)
 
 
 class CandidateModel(peewee.Model):
@@ -68,6 +86,7 @@ class ReportingUnitModel(peewee.Model):
     Fields but no database connection.
     For flexibility.
     """
+    racetype = peewee.CharField(null=True)
     statepostal = peewee.CharField(null=True)
     statename = peewee.CharField(null=True)
     level = peewee.CharField(null=True)
@@ -80,6 +99,8 @@ class ReportingUnitModel(peewee.Model):
     precinctsyotal = peewee.IntegerField(default=0)
     precinctsreportingpct = peewee.FloatField(default=0.0)
     raceid = peewee.CharField(null=True)
+    description = peewee.CharField(null=True)
+    seatname = peewee.CharField(null=True)
 
 
 class RaceModel(peewee.Model):
@@ -87,6 +108,7 @@ class RaceModel(peewee.Model):
     Fields but no database connection.
     For flexibility.
     """
+    description = peewee.CharField(null=True)
     test = peewee.BooleanField(default=False)
     raceid = peewee.CharField(null=True)
     statepostal = peewee.CharField(null=True)

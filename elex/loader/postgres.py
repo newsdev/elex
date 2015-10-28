@@ -5,6 +5,10 @@ import peewee
 from elex import loader
 
 
+class BallotPosition(loader.PostgresModel, loader.BallotPositionModel):
+    pass
+
+
 class Candidate(loader.PostgresModel, loader.CandidateModel):
     pass
 
