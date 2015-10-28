@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-from sets import Set
 
 from elex.parser import api
 from elex import loader
