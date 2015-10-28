@@ -75,7 +75,7 @@ class BaseObject(object):
                 if hasattr(self, attr):
                     candidate_dict[attr] = getattr(self, attr)
 
-            candidate_objs.append(Candidate(**candidate_dict))
+            candidate_objs.append(CandidateResult(**candidate_dict))
         setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
 
     def set_dates(self, date_fields):
@@ -117,7 +117,7 @@ class BaseObject(object):
         return payload
 
 
-class Candidate(BaseObject):
+class CandidateResult(BaseObject):
     """
     Canonical reporesentation of an
     AP candidate. Note: A candidate can 

@@ -22,20 +22,16 @@ class PostgresModel(peewee.Model):
     """
     Will be inherited by the postgres-specific models.
     """
-    def __repr__(self):
-        return self.__unicode__()
-
-    def __str__(self):
-        return self.__unicode__()
-
     class Meta:
         database = ELEX_PG_CONNEX
 
 
-class CandidateModel(peewee.Model):
+class CandidateResultsModel(peewee.Model):
     """
     Fields but no database connection.
     For flexibility.
+    For the record, this is a single candidate's
+    record in a single reporting unit.
     """
     reportingunitid = peewee.CharField(null=True)
     first = peewee.CharField(null=True)
@@ -52,14 +48,19 @@ class CandidateModel(peewee.Model):
     statepostal = peewee.CharField(null=True)
     statename = peewee.CharField(null=True)
 
-    def __unicode__(self):
-        if self.is_ballot_position:
-            payload = "%s" % self.party
-        else:
-            payload = "%s %s (%s)" % (self.first, self.last, self.party)
-        if self.winner:
-            payload += '✓'.decode('utf-8')
-        return payload
+
+class CandidateModel(peewee.Model):
+    """
+    Fields but no database connection.
+    For flexibility.
+    """
+    first = peewee.CharField(null=True)
+    last = peewee.CharField(null=True)
+    party = peewee.CharField(null=True)
+    candidateid = peewee.CharField(null=True)
+    polid = peewee.CharField(null=True)
+    ballotorder = peewee.CharField(null=True)
+    polnum = peewee.CharField(null=True)
 
 
 class ReportingUnitModel(peewee.Model):
@@ -80,10 +81,6 @@ class ReportingUnitModel(peewee.Model):
     precinctsreportingpct = peewee.FloatField(default=0.0)
     raceid = peewee.CharField(null=True)
 
-    def __unicode__(self):
-        if self.reportingunitname:
-            return "%s %s (%s %% reporting)" % (self.statepostal, self.reportingunitname, self.precinctsreportingpct)
-        return "%s %s (%s %% reporting)" % (self.statepostal, self.level, self.precinctsreportingpct)
 
 class RaceModel(peewee.Model):
     """
@@ -107,14 +104,6 @@ class RaceModel(peewee.Model):
     lastupdated_parsed = peewee.DateTimeField(null=True)
     initialization_data = peewee.BooleanField(default=False)
 
-    def __unicode__(self):
-        name = self.officename
-        if self.statepostal:
-            name = "%s %s" % (self.statepostal, self.officename)
-            if self.seatname:
-                name += " %s" % self.seatname
-        return name
-
 
 class ElectionModel(peewee.Model):
     """
@@ -125,9 +114,3 @@ class ElectionModel(peewee.Model):
     liveresults = peewee.BooleanField(default=False)
     electiondate = peewee.CharField(null=True)
     is_test = peewee.BooleanField(default=False)
-
-    def __unicode__(self):
-        if self.is_test:
-            return "TEST: %s" % self.electiondate
-        else:
-            return self.electiondate

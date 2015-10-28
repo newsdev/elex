@@ -9,6 +9,10 @@ class Candidate(loader.PostgresModel, loader.CandidateModel):
     pass
 
 
+class CandidateResults(loader.PostgresModel, loader.CandidateResultsModel):
+    pass
+
+
 class ReportingUnit(loader.PostgresModel, loader.ReportingUnitModel):
     pass
 
