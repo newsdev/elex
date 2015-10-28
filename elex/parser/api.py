@@ -193,7 +193,7 @@ class Race(BaseObject):
         self.raceid = None
         self.statepostal = None
         self.statename = None
-        self.raceType = None
+        self.racetype = None
         self.racetypeid = None
         self.officeid = None
         self.officename = None

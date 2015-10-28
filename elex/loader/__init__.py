@@ -94,7 +94,7 @@ class RaceModel(peewee.Model):
     raceid = peewee.CharField(null=True)
     statepostal = peewee.CharField(null=True)
     statename = peewee.CharField(null=True)
-    raceType = peewee.CharField(null=True)
+    racetype = peewee.CharField(null=True)
     reportingunitid = peewee.CharField(null=True)
     racetypeid = peewee.CharField(null=True)
     officeid = peewee.CharField(null=True)
