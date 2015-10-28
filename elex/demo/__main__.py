@@ -41,8 +41,8 @@ if __name__ == "__main__":
     # Connect to the database.
     # Drop and recreate tables, as we're bulk-loading.
     loader.ELEX_PG_CONNEX.connect()
-    loader.ELEX_PG_CONNEX.drop_tables([postgres.Candidate, postgres.CandidateResults, postgres.Race, postgres.ReportingUnit], safe=True)
-    loader.ELEX_PG_CONNEX.create_tables([postgres.Candidate, postgres.CandidateResults, postgres.Race, postgres.ReportingUnit], safe=True)
+    loader.ELEX_PG_CONNEX.drop_tables([postgres.Candidate, postgres.CandidateResult, postgres.Race, postgres.ReportingUnit], safe=True)
+    loader.ELEX_PG_CONNEX.create_tables([postgres.Candidate, postgres.CandidateResult, postgres.Race, postgres.ReportingUnit], safe=True)
 
     # Do the bulk loads with atomic transactions.
     with loader.ELEX_PG_CONNEX.atomic():
@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     with loader.ELEX_PG_CONNEX.atomic():
         for idx in range(0, len(candidate_results), 1000):
-            postgres.CandidateResults.insert_many([c.__dict__ for c in candidate_results[idx:idx+1000]]).execute()
+            postgres.CandidateResult.insert_many([c.__dict__ for c in candidate_results[idx:idx+1000]]).execute()
 
     with loader.ELEX_PG_CONNEX.atomic():
         for idx in range(0, len(reportingunits), 1000):
