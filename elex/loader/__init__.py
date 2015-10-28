@@ -26,7 +26,7 @@ class PostgresModel(peewee.Model):
         database = ELEX_PG_CONNEX
 
 
-class CandidateResultsModel(peewee.Model):
+class CandidateResultModel(peewee.Model):
     """
     Fields but no database connection.
     For flexibility.
