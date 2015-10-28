@@ -69,6 +69,9 @@ class BaseObject(object):
             if hasattr(self, 'racetype'):
                 if getattr(self, 'racetype') == u"Ballot Issue":
                     candidate_dict['is_ballot_position'] = True
+            if hasattr(self, 'officeid'):
+                if getattr(self, 'officeid') == u"I":
+                    candidate_dict['is_ballot_position'] = True
 
             # Denormalize some data.
             for attr in ['raceid', 'statepostal', 'statename', 'reportingunitid','seatname','description','racetype']:
