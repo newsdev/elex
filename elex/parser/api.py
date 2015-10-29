@@ -69,8 +69,9 @@ class BaseObject(object):
             if hasattr(self, 'racetype'):
                 if getattr(self, 'racetype') == u"Ballot Issue":
                     candidate_dict['is_ballot_position'] = True
+
             if hasattr(self, 'officeid'):
-                if getattr(self, 'officeid') == u"I":
+                if getattr(self, 'officeid') == u'I':
                     candidate_dict['is_ballot_position'] = True
 
             # Denormalize some data.
@@ -131,6 +132,7 @@ class CandidateResult(BaseObject):
         self.seatname = None
         self.description = None
         self.raceid = None
+        self.officeid = None
         self.statepostal = None
         self.statename = None
         self.reportingunitid = None
@@ -167,6 +169,7 @@ class ReportingUnit(BaseObject):
         self.seatname = None
         self.description = None
         self.raceid = None
+        self.officeid = None
         self.racetype = None
         self.statepostal = None
         self.statename = None

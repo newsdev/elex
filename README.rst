@@ -57,7 +57,7 @@ Races, Candidates and results
     races = []
 
     # Load races, reporting units and candidates into lists.
-    for race in api.Election.get_races('2015-10-24', omitResults=False, level="ru"):
+    for race in api.Election.get_races('2015-11-03', omitResults=False, level="ru", test=True):
         for reporting_unit in race.reportingunits:
             reportingunits.append(reporting_unit)
             candidate_results += [c for c in reporting_unit.candidates]
