@@ -33,6 +33,10 @@ class CandidateResultModel(peewee.Model):
     For the record, this is a single candidate's
     record in a single reporting unit.
     """
+    accept_ap_calls = peewee.BooleanField(default=True)
+    race = peewee.IntegerField(null=True)
+    reporting_unit = peewee.IntegerField(null=True)
+    candidate = peewee.IntegerField(null=True)
     officeid = peewee.CharField(null=True)
     racetype = peewee.CharField(null=True)
     reportingunitid = peewee.CharField(null=True)
@@ -59,6 +63,8 @@ class BallotPositionModel(peewee.Model):
     For flexibility.
     last contains the 'yes/no' field.
     """
+    clean_name = peewee.CharField(null=True)
+    clean_description = peewee.TextField(null=True)
     last = peewee.CharField(null=True)
     candidateid = peewee.CharField(null=True)
     polid = peewee.CharField(null=True)
@@ -73,6 +79,8 @@ class CandidateModel(peewee.Model):
     Fields but no database connection.
     For flexibility.
     """
+    clean_name = peewee.CharField(null=True)
+    clean_description = peewee.TextField(null=True)
     first = peewee.CharField(null=True)
     last = peewee.CharField(null=True)
     party = peewee.CharField(null=True)
@@ -87,6 +95,9 @@ class ReportingUnitModel(peewee.Model):
     Fields but no database connection.
     For flexibility.
     """
+    accept_ap_calls = peewee.BooleanField(default=True)
+    clean_name = peewee.CharField(null=True)
+    clean_description = peewee.TextField(null=True)
     officeid = peewee.CharField(null=True)
     racetype = peewee.CharField(null=True)
     statepostal = peewee.CharField(null=True)
@@ -110,6 +121,9 @@ class RaceModel(peewee.Model):
     Fields but no database connection.
     For flexibility.
     """
+    accept_ap_calls = peewee.BooleanField(default=True)
+    clean_name = peewee.CharField(null=True)
+    clean_description = peewee.TextField(null=True)
     description = peewee.CharField(null=True)
     test = peewee.BooleanField(default=False)
     raceid = peewee.CharField(null=True)
