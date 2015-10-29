@@ -34,9 +34,9 @@ class CandidateResultModel(peewee.Model):
     record in a single reporting unit.
     """
     accept_ap_calls = peewee.BooleanField(default=True)
-    race = peewee.IntegerField(null=True)
-    reporting_unit = peewee.IntegerField(null=True)
-    candidate = peewee.IntegerField(null=True)
+    race_id = peewee.IntegerField(null=True)
+    reporting_unit_id = peewee.IntegerField(null=True)
+    candidate_id = peewee.IntegerField(null=True)
     officeid = peewee.CharField(null=True)
     racetype = peewee.CharField(null=True)
     reportingunitid = peewee.CharField(null=True)
@@ -98,6 +98,7 @@ class ReportingUnitModel(peewee.Model):
     accept_ap_calls = peewee.BooleanField(default=True)
     clean_name = peewee.CharField(null=True)
     clean_description = peewee.TextField(null=True)
+    race_id = peewee.IntegerField(null=True)
     officeid = peewee.CharField(null=True)
     racetype = peewee.CharField(null=True)
     statepostal = peewee.CharField(null=True)
