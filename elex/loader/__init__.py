@@ -33,6 +33,7 @@ class CandidateResultModel(peewee.Model):
     For the record, this is a single candidate's
     record in a single reporting unit.
     """
+    officeid = peewee.CharField(null=True)
     racetype = peewee.CharField(null=True)
     reportingunitid = peewee.CharField(null=True)
     first = peewee.CharField(null=True)
@@ -86,6 +87,7 @@ class ReportingUnitModel(peewee.Model):
     Fields but no database connection.
     For flexibility.
     """
+    officeid = peewee.CharField(null=True)
     racetype = peewee.CharField(null=True)
     statepostal = peewee.CharField(null=True)
     statename = peewee.CharField(null=True)
