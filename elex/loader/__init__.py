@@ -55,6 +55,11 @@ class CandidateResultModel(peewee.Model):
     statename = peewee.CharField(null=True)
     seatname = peewee.CharField(null=True)
     description = peewee.CharField(null=True)
+    reportingunit_votecount = peewee.IntegerField(default=0)
+    reportingunit_votepct = peewee.FloatField(default=0.0)
+    race_votecount = peewee.IntegerField(default=0)
+    race_votepct = peewee.FloatField(default=0.0)
+    uncontested = peewee.BooleanField(default=False)
 
 
 class BallotPositionModel(peewee.Model):
@@ -115,6 +120,10 @@ class ReportingUnitModel(peewee.Model):
     raceid = peewee.CharField(null=True)
     description = peewee.CharField(null=True)
     seatname = peewee.CharField(null=True)
+    reportingunit_votecount = peewee.IntegerField(default=0)
+    race_votecount = peewee.IntegerField(default=0)
+    race_votepct = peewee.FloatField(default=0.0)
+    uncontested = peewee.BooleanField(default=False)
 
 
 class RaceModel(peewee.Model):
@@ -142,6 +151,7 @@ class RaceModel(peewee.Model):
     lastupdated = peewee.CharField(null=True)
     lastupdated_parsed = peewee.DateTimeField(null=True)
     initialization_data = peewee.BooleanField(default=False)
+    race_votecount = peewee.IntegerField(default=0)
 
 
 class ElectionModel(peewee.Model):

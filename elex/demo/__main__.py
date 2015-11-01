@@ -7,6 +7,11 @@ from elex import loader
 from elex.loader import postgres
 
 if __name__ == "__main__":
+    """
+    Load races, reporting units, candidate results, candidates
+    and ballot positions into lists of dicts and then bulk insert
+    those into the DB using Peewee and psycopg2.
+    """
 
     TABLE_LIST = [
         postgres.Candidate,
@@ -22,17 +27,44 @@ if __name__ == "__main__":
     reportingunits = []
     races = []
 
-    # Load races, reporting units and candidates into lists.
+    ## FIRST: AGGREGATE VOTE TOTALS
     for race in api.Election.get_races('2015-11-03', omitResults=False, level="ru", test=True):
-        for reporting_unit in race.reportingunits:
-            reportingunits.append(reporting_unit)
-            candidate_results += [c for c in reporting_unit.candidates]
-            del reporting_unit.candidates
+        for ru in race.reportingunits:
+            ru.aggregate_vote_count('votecount', 'reportingunit_votecount')
+        race.aggregate_vote_count('reportingunit_votecount', 'race_votecount')
+
+        ## SECOND: AGGREGATE VOTE PCTS.
+        # Need the second loop because we have to go back through now and
+        # calculate percentages with the totals aggregated all the way
+        # down to the candidateresult level.
+        for ru in race.reportingunits:
+            for c in ru.candidates:
+ 
+                if not c.uncontested:
+                    # Aggregate back from race and reporting unit.
+                    c.race_votecount = race.race_votecount
+                    c.reportingunit_votecount = ru.reportingunit_votecount
+
+                    # Make pcts.
+                    c.race_votepct = float(c.votecount) / float(c.race_votecount)
+                    c.reportingunit_votepct = float(c.votecount) / float(c.reportingunit_votecount)
+                    candidate_results.append(c)
+ 
+            if not ru.uncontested:
+                # Aggregate back from race.
+                ru.race_votecount = race.race_votecount
+
+                # Make pcts.
+                ru.race_votecount = float(ru.reportingunit_votecount) / float(ru.race_votecount)
+            del ru.candidates
+            reportingunits.append(ru)
+ 
         del race.candidates
         del race.reportingunits
         races.append(race)
 
-
+    ## THIRD: FIND CANDIDATES, BALLOT POSITIONS
+    # Separate out unique candidates and ballot positions.
     unique_candidates = {}
     unique_ballotpositions = {}
 

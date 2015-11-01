@@ -17,6 +17,28 @@ class BaseObject(object):
     transformation of data and AP connections.
     """
 
+    def aggregate_vote_count(self, field_from, field_to):
+        """
+        Simple function for aggregating vote counts.
+        Accepts a field_from and a field_to.
+        field_from = where to aggregate votes from.
+        field_to = where to add the aggregated votes to.
+        """
+
+        # Sometimes we need to aggregate votes up from candidates arrays.
+        if hasattr(self, 'candidates') and len(getattr(self, 'candidates')) > 0:
+            setattr(
+                self,
+                field_to,
+                getattr(self, field_to) + sum([getattr(c, field_from) for c in getattr(self, 'candidates')]))
+
+        # Sometimes we need to aggregate votes up from the reportingunits arrays.
+        if hasattr(self, 'reportingunits') and len(getattr(self, 'reportingunits')) > 0:
+            setattr(
+                self,
+                field_to,
+                getattr(self, field_to) + sum([getattr(r, field_from) for r in getattr(self, 'reportingunits')]))
+
     def set_state_fields_from_reportingunits(self):
         if len(self.reportingunits) > 0:
             setattr(self, 'statepostal', self.reportingunits[0].statepostal)
@@ -40,7 +62,7 @@ class BaseObject(object):
         for r in self.reportingunits:
 
             # Denormalize some data.
-            for attr in ['raceid','seatname','description','racetype','officeid']:
+            for attr in ['raceid','seatname','description','racetype','officeid','uncontested']:
                 if hasattr(self, attr):
                     r[attr] = getattr(self, attr)
 
@@ -75,7 +97,7 @@ class BaseObject(object):
                     candidate_dict['is_ballot_position'] = True
 
             # Denormalize some data.
-            for attr in ['raceid', 'statepostal', 'statename', 'reportingunitid','seatname','description','racetype','officeid']:
+            for attr in ['raceid', 'statepostal', 'statename', 'reportingunitid','seatname','description','racetype','officeid','uncontested']:
                 if hasattr(self, attr):
                     candidate_dict[attr] = getattr(self, attr)
 
@@ -146,6 +168,11 @@ class CandidateResult(BaseObject):
         self.votecount = 0
         self.winner = False
         self.is_ballot_position = False
+        self.reportingunit_votecount = 0
+        self.reportingunit_votepct = 0.0
+        self.race_votecount = 0
+        self.race_votepct = 0.0
+        self.uncontested = False
 
         self.set_fields(**kwargs)
         self.set_winner()
@@ -182,6 +209,10 @@ class ReportingUnit(BaseObject):
         self.precinctsyotal = 0
         self.precinctsreportingpct = 0.0
         self.candidates = []
+        self.reportingunit_votecount = 0
+        self.race_votecount = 0
+        self.race_votepct = 0.0
+        self.uncontested = False
 
         self.set_fields(**kwargs)
         self.set_dates(['lastupdated'])
@@ -217,6 +248,7 @@ class Race(BaseObject):
         self.lastupdated = None
         self.candidates = []
         self.reportingunits = []
+        self.race_votecount = 0
 
         self.initialization_data = False
 
