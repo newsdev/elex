@@ -14,6 +14,15 @@ Set your AP API key:
 export AP_API_KEY=<MY_AP_API_KEY>
 ```
 
+### Additional configuration for demo
+
+Make sure you are running PostgreSQL. Then create your db and user:
+
+```bash
+createdb elex
+createuser elex
+```
+
 ## Usage
 ### Demo app
 ```bash
