@@ -1,4 +1,5 @@
 import os.path
+from pip.download import PipSession
 from pip.req import parse_requirements
 
 try:
@@ -6,7 +7,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-install_reqs = parse_requirements('requirements.txt')
+install_reqs = parse_requirements('requirements.txt', session=PipSession())
 reqs = [str(ir.req) for ir in install_reqs]
 
 def read(filename):
