@@ -1,5 +1,19 @@
 ![](https://cloud.githubusercontent.com/assets/109988/10737959/635bfb56-7beb-11e5-9ee5-102eb1582718.png)
 
+## Installation
+
+Install the Python library:
+
+```bash
+pip install nyt-ap-elections
+```
+
+Set your AP API key:
+
+```bash
+export AP_API_KEY=<MY_AP_API_KEY>
+```
+
 ## Usage
 ### Demo app
 ```bash
