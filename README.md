@@ -1,5 +1,15 @@
 ![](https://cloud.githubusercontent.com/assets/109988/10737959/635bfb56-7beb-11e5-9ee5-102eb1582718.png)
 
+## Requirements
+
+* Python 2.7
+* pip
+
+### Optional requirements:
+
+* PostgreSQL
+* MongoDB
+
 ## Installation
 
 Install the Python library:
