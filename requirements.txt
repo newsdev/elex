@@ -7,7 +7,6 @@ ipython==4.0.0
 ipython-genutils==0.1.0
 lxml==3.4.4
 nose==1.3.7
--e git+git@github.com:nprapps/nyt-ap-elections.git@094b3e29bad67b6fcad459418ba55f96e65cd13a#egg=nyt_ap_elections-master
 path.py==8.1.2
 peewee==2.6.4
 pexpect==4.0.1
