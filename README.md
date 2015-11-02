@@ -1,5 +1,38 @@
 ![](https://cloud.githubusercontent.com/assets/109988/10737959/635bfb56-7beb-11e5-9ee5-102eb1582718.png)
 
+## Requirements
+
+* Python 2.7
+* pip
+
+### Optional requirements:
+
+* PostgreSQL
+* MongoDB
+
+## Installation
+
+Install the Python library:
+
+```bash
+pip install nyt-ap-elections
+```
+
+Set your AP API key:
+
+```bash
+export AP_API_KEY=<MY_AP_API_KEY>
+```
+
+### Additional configuration for demo
+
+Make sure you are running PostgreSQL. Then create your db and user:
+
+```bash
+createdb elex
+createuser elex
+```
+
 ## Usage
 ### Demo app
 ```bash
