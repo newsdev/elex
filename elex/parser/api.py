@@ -177,6 +177,20 @@ class CandidateResult(BaseObject):
         self.set_fields(**kwargs)
         self.set_winner()
 
+    def aggregate_pcts(self, race_votecount, reportingunit_votecount):
+        """
+        Method for handling CandidateResult pcts.
+        """
+        if not self.uncontested:
+            self.race_votecount = race_votecount
+            self.reportingunit_votecount = reportingunit_votecount
+
+            if self.race_votecount > 0:
+                self.race_votepct = float(self.votecount) / float(self.race_votecount)
+
+            if self.reportingunit_votecount > 0:
+                self.reportingunit_votepct = float(self.votecount) / float(self.reportingunit_votecount)
+
     def __unicode__(self):
         if self.is_ballot_position:
             payload = "%s" % self.party
@@ -218,6 +232,16 @@ class ReportingUnit(BaseObject):
         self.set_dates(['lastupdated'])
         self.set_reportingunitids()
         self.set_candidates()
+
+    def aggregate_pcts(self, race_votecount):
+        """
+        Method for handling ReportingUnit pcts.
+        """
+        if not self.uncontested:
+            self.race_votecount = race_votecount
+
+            if self.race_votecount > 0:
+                self.race_votepct = float(self.reportingunit_votecount) / float(self.race_votecount)
 
     def __unicode__(self):
         if self.reportingunitname:

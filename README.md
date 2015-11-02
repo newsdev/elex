@@ -47,23 +47,10 @@ for race in api.Election.get_races('2015-11-03', omitResults=False, level="ru", 
     # down to the candidateresult level.
     for ru in race.reportingunits:
         for c in ru.candidates:
+            c.aggregate_pcts(race.race_votecount, ru.reportingunit_votecount)
+            candidate_results.append(c)
 
-            if not c.uncontested:
-                # Aggregate back from race and reporting unit.
-                c.race_votecount = race.race_votecount
-                c.reportingunit_votecount = ru.reportingunit_votecount
-
-                # Make pcts.
-                c.race_votepct = float(c.votecount) / float(c.race_votecount)
-                c.reportingunit_votepct = float(c.votecount) / float(c.reportingunit_votecount)
-                candidate_results.append(c)
-
-        if not ru.uncontested:
-            # Aggregate back from race.
-            ru.race_votecount = race.race_votecount
-
-            # Make pcts.
-            ru.race_votecount = float(ru.reportingunit_votecount) / float(ru.race_votecount)
+        ru.aggregate_pcts(race.race_votecount)
         del ru.candidates
         reportingunits.append(ru)
 
