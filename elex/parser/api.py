@@ -144,10 +144,7 @@ class BaseObject(object):
         Also the entry point for recording, which
         is set via environment variable.
         """
-        payload = utils.api_request(path, **params)
-        if os.environ.get('ELEX_RECORDING', None):
-            utils.write_recording(payload)
-        return payload
+        return utils.api_request(path, **params)
 
 
 class CandidateResult(BaseObject):

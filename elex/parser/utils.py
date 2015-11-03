@@ -18,10 +18,10 @@ def write_recording(payload):
     if recorder:
         timestamp = int(time.mktime(datetime.datetime.now().timetuple()))
         if recorder == u"mongodb":
-            import pymongo
             MONGODB_CLIENT = MongoClient(os.environ.get('ELEX_RECORDING_MONGO_URL', 'mongodb://localhost:27017/'))
             MONGODB_DATABASE = MONGODB_CLIENT[os.environ.get('ELEX_RECORDING_MONGO_DB', 'ap_elections_loader')]
             collection = MONGODB_DATABASE.elex_recording
+            print timestamp
             collection.insert({"time": timestamp, "data": payload})
 
         elif recorder == u"flat":
@@ -40,9 +40,15 @@ def api_request(path, **params):
     * Contains an API_KEY.
     * Returns JSON.
     """
+
+
+
     if not params.get('apiKey', None):
         params['apiKey'] = elex.API_KEY
 
     params['format'] = 'json'
 
-    return requests.get(elex.BASE_URL + path, params=params).json()
+    payload = requests.get(elex.BASE_URL + path, params=params).json()
+    write_recording(payload)
+
+    return payload
