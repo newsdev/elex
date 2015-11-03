@@ -2078,7 +2078,7 @@
       "raceTypeID": "G",
       "officeID": "I",
       "officeName": "Initiative",
-      "seatName": "1366-State Tax",
+      "seatName": "1366-Toilet Paper Up or Down",
       "reportingUnits": [
         {
           "statePostal": "WA",
@@ -3327,7 +3327,7 @@
       "raceTypeID": "G",
       "officeID": "I",
       "officeName": "Initiative",
-      "seatName": "1401-Animal Trafficking",
+      "seatName": "911-Single Quotes In Python",
       "reportingUnits": [
         {
           "statePostal": "WA",
@@ -3342,6 +3342,7 @@
               "last": "No",
               "party": "No",
               "candidateID": "7697",
+              "winner": "X",
               "polID": "3",
               "ballotOrder": 2,
               "polNum": "48347",
