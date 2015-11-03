@@ -166,6 +166,7 @@ class CandidateResult(BaseObject):
         self.statepostal = None
         self.statename = None
         self.reportingunitid = None
+        self.reportingunitname = None
         self.first = None
         self.last = None
         self.party = None

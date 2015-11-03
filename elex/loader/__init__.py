@@ -41,6 +41,7 @@ class CandidateResultModel(peewee.Model):
     officename = peewee.CharField(null=True)
     racetype = peewee.CharField(null=True)
     reportingunitid = peewee.CharField(null=True)
+    reportingunitname = peewee.CharField(null=True)
     first = peewee.CharField(null=True)
     last = peewee.CharField(null=True)
     party = peewee.CharField(null=True)
