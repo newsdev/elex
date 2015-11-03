@@ -52,8 +52,6 @@ if __name__ == "__main__":
         del race.reportingunits
         races.append(race)
 
-    print e.next_request
-
     ## THIRD: FIND CANDIDATES, BALLOT POSITIONS
     # Separate out unique candidates and ballot positions.
     unique_candidates = {}
