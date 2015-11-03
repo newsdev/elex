@@ -30,7 +30,7 @@ if __name__ == "__main__":
     ## FIRST: AGGREGATE VOTE TOTALS
 
     e = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
-    for race in e.get_races(omitResults=False, level="ru", test=True):
+    for race in e.get_races(omitResults=False, level="ru", test=False):
         for ru in race.reportingunits:
             ru.aggregate_vote_count('votecount', 'reportingunit_votecount')
         race.aggregate_vote_count('reportingunit_votecount', 'race_votecount')

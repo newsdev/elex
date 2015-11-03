@@ -10,6 +10,9 @@ import elex
 from elex.parser import utils
 
 
+STATE_ABBR = { 'AL': 'Alabama', 'AK': 'Alaska', 'AS': 'America Samoa', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware', 'DC': 'District of Columbia', 'FM': 'Micronesia1', 'FL': 'Florida', 'GA': 'Georgia', 'GU': 'Guam', 'HI': 'Hawaii', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MH': 'Islands1', 'MD': 'Maryland', 'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi', 'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York', 'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PW': 'Palau', 'PA': 'Pennsylvania', 'PR': 'Puerto Rico', 'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VT': 'Vermont', 'VI': 'Virgin Island', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming'}
+
+
 class BaseObject(object):
     """
     Base class for most objects.
@@ -42,7 +45,9 @@ class BaseObject(object):
     def set_state_fields_from_reportingunits(self):
         if len(self.reportingunits) > 0:
             setattr(self, 'statepostal', self.reportingunits[0].statepostal)
-            setattr(self, 'statename', self.reportingunits[0].statename)
+            for ru in self.reportingunits:
+                if ru.statename:
+                    setattr(self, 'statename', ru.statename)
 
     def set_winner(self):
         """
@@ -60,13 +65,14 @@ class BaseObject(object):
         """
         reportingunits_obj = []
         for r in self.reportingunits:
+            reportingunit_dict = dict(r)
 
             # Denormalize some data.
-            for attr in ['raceid', 'statepostal', 'statename', 'reportingunitid','reportingunitname','fipscode','seatname','description','racetype','officeid','uncontested']:
+            for attr in ['raceid','seatname','description','racetype','officeid','uncontested']:
                 if hasattr(self, attr):
-                    r[attr] = getattr(self, attr)
+                    reportingunit_dict[attr] = getattr(self, attr)
 
-            reportingunits_obj.append(ReportingUnit(**r))
+            reportingunits_obj.append(ReportingUnit(**reportingunit_dict))
         setattr(self, 'reportingunits', reportingunits_obj)
 
     def set_reportingunitids(self):
@@ -97,9 +103,11 @@ class BaseObject(object):
                     candidate_dict['is_ballot_position'] = True
 
             # Denormalize some data.
-            for attr in ['raceid', 'statepostal', 'statename', 'reportingunitid','reportingunitname','fipscode','seatname','description','racetype','officeid','uncontested']:
+            for attr in ['raceid','statepostal','reportingunitid','reportingunitname','fipscode','seatname','description','racetype','officeid','uncontested']:
                 if hasattr(self, attr):
                     candidate_dict[attr] = getattr(self, attr)
+
+            candidate_dict['statename'] = STATE_ABBR[getattr(self, 'statepostal')]
 
             candidate_objs.append(CandidateResult(**candidate_dict))
         setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
