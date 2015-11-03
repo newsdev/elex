@@ -118,7 +118,7 @@ class ReportingUnitModel(peewee.Model):
     lastupdated = peewee.CharField(null=True)
     lastupdated_parsed = peewee.DateTimeField(null=True)
     precinctsreporting = peewee.IntegerField(default=0)
-    precinctsyotal = peewee.IntegerField(default=0)
+    precinctstotal = peewee.IntegerField(default=0)
     precinctsreportingpct = peewee.FloatField(default=0.0)
     raceid = peewee.CharField(null=True)
     description = peewee.CharField(null=True)

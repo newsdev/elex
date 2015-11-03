@@ -227,7 +227,7 @@ class ReportingUnit(BaseObject):
         self.fipscode = None
         self.lastupdated = None
         self.precinctsreporting = 0
-        self.precinctsyotal = 0
+        self.precinctstotal = 0
         self.precinctsreportingpct = 0.0
         self.candidates = []
         self.reportingunit_votecount = 0
