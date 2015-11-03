@@ -28,7 +28,9 @@ if __name__ == "__main__":
     races = []
 
     ## FIRST: AGGREGATE VOTE TOTALS
-    for race in api.Election.get_races('2015-11-03', omitResults=False, level="ru", test=True):
+
+    e = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
+    for race in e.get_races(omitResults=False, level="ru", test=True):
         for ru in race.reportingunits:
             ru.aggregate_vote_count('votecount', 'reportingunit_votecount')
         race.aggregate_vote_count('reportingunit_votecount', 'race_votecount')
@@ -49,6 +51,8 @@ if __name__ == "__main__":
         del race.candidates
         del race.reportingunits
         races.append(race)
+
+    print e.next_request
 
     ## THIRD: FIND CANDIDATES, BALLOT POSITIONS
     # Separate out unique candidates and ballot positions.

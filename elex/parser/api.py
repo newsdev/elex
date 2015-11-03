@@ -128,8 +128,7 @@ class BaseObject(object):
     def __str__(self):
         return self.__unicode__()
 
-    @classmethod
-    def get(cls, path, **params):
+    def get(self, path, **params):
         """
         Farms out request to api_request.
         Could possibly handle choosing which
@@ -305,6 +304,9 @@ class Election(BaseObject):
         self.electiondate = None
         self.is_test = False
 
+        self.parsed_json = None
+        self.next_request = None
+
         self.set_fields(**kwargs)
         self.set_dates(['electiondate'])
 
@@ -335,20 +337,20 @@ class Election(BaseObject):
                         lowest_diff = diff
         return next_election
 
-    @classmethod
-    def get_races(cls, date_string, **kwargs):
+    def get_races(self, **kwargs):
         """
         Convenience method for fetching races by election date.
         Accepts an AP formatting date string, e.g., YYYY-MM-DD.
         Accepts any number of URL params as kwargs.
         """
+        self.parsed_json = self.get('/%s' % self.electiondate, **kwargs)
+        self.next_request = self.parsed_json['nextrequest']
 
         # With `omitResults=True`, the API will return initialization data.
         if kwargs.get('omitResults', None):
             payload = []
-            for r in Election.get('/%s' % date_string, **kwargs)['races']:
+            for r in self.parsed_json['races']:
                 r['initialization_data'] = True
-                race = Race(**r)
-                payload.append(race)
+                payload.append(Race(**r))
             return payload
-        return [Race(**r) for r in Election.get('/%s' % date_string, **kwargs)['races']]
+        return [Race(**r) for r in self.parsed_json['races']]
