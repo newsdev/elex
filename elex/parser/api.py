@@ -68,7 +68,7 @@ class BaseObject(object):
             reportingunit_dict = dict(r)
 
             # Denormalize some data.
-            for attr in ['raceid','seatname','description','racetype','officeid','uncontested']:
+            for attr in ['raceid','seatname','description','racetype','officeid','uncontested','officename']:
                 if hasattr(self, attr):
                     reportingunit_dict[attr] = getattr(self, attr)
 
@@ -103,7 +103,7 @@ class BaseObject(object):
                     candidate_dict['is_ballot_position'] = True
 
             # Denormalize some data.
-            for attr in ['raceid','statepostal','reportingunitid','reportingunitname','fipscode','seatname','description','racetype','officeid','uncontested']:
+            for attr in ['raceid','statepostal','reportingunitid','reportingunitname','fipscode','seatname','description','racetype','officeid','uncontested','officename']:
                 if hasattr(self, attr):
                     candidate_dict[attr] = getattr(self, attr)
 
@@ -159,6 +159,7 @@ class CandidateResult(BaseObject):
     def __init__(self, **kwargs):
         self.racetype = None
         self.seatname = None
+        self.officename = None
         self.description = None
         self.raceid = None
         self.officeid = None
@@ -218,6 +219,7 @@ class ReportingUnit(BaseObject):
         self.description = None
         self.raceid = None
         self.officeid = None
+        self.officename = None
         self.racetype = None
         self.statepostal = None
         self.statename = None
