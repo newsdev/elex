@@ -1,0 +1,4716 @@
+{
+  "electionDate": "1776-07-04",
+  "timestamp": "1776-07-04T20:23:38.634Z",
+  "races": [
+    {
+      "test": true,
+      "raceID": "00001",
+      "raceType": "Special General",
+      "raceTypeID": "G",
+      "officeID": "0",
+      "officeName": "School Board",
+      "description": "Jeffco Successor Direct",
+      "seatName": "District 1",
+      "seatNum": "1",
+      "uncontested": true,
+      "reportingUnits": [
+        {
+          "statePostal": "CO",
+          "stateName": "Colorado",
+          "level": "state",
+          "lastUpdated": "2015-11-02T17:52:54Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Brad",
+              "last": "Rupert",
+              "party": "BHM",
+              "candidateID": "12484",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "9037",
+              "voteCount": 0
+            }
+          ]
+        },
+        {
+          "statePostal": "CO",
+          "reportingunitName": "Jefferson",
+          "reportingunitID": "6030",
+          "level": "subunit",
+          "fipsCode": "8059",
+          "lastUpdated": "2015-11-02T17:52:54Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Brad",
+              "last": "Rupert",
+              "party": "DHM",
+              "candidateID": "12484",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "9037",
+              "voteCount": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00002",
+      "raceType": "General",
+      "raceTypeID": "G",
+      "officeID": "Z",
+      "officeName": "State Senate",
+      "seatName": "District 36",
+      "seatNum": "36",
+      "reportingUnits": [
+        {   
+          "statePostal": "VA",
+          "stateName": "Virginia",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:17:21Z",
+          "precinctsReporting": 50,
+          "precinctsTotal": 50,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Scott",
+              "last": "Surovell",
+              "party": "HSV",
+              "candidateID": "51528",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49042",
+              "voteCount": 31836
+            },
+            {
+              "first": "Gerald",
+              "last": "Foreman",
+              "party": "MOB",
+              "candidateID": "51529",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49346",
+              "voteCount": 26046
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Fairfax",
+          "reportingunitID": "47144",
+          "level": "subunit",
+          "fipsCode": "51059",
+          "lastUpdated": "2015-11-02T18:17:21Z",
+          "precinctsReporting": 18,
+          "precinctsTotal": 18,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Scott",
+              "last": "Surovell",
+              "party": "MGM",
+              "candidateID": "51528",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49042",
+              "voteCount": 11266
+            },
+            {
+              "first": "Gerald",
+              "last": "Foreman",
+              "party": "ANC",
+              "candidateID": "51529",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49346",
+              "voteCount": 11254
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Prince William",
+          "reportingunitID": "47145",
+          "level": "subunit",
+          "fipsCode": "51153",
+          "lastUpdated": "2015-11-02T18:17:21Z",
+          "precinctsReporting": 27,
+          "precinctsTotal": 27,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Scott",
+              "last": "Surovell",
+              "party": "FAI",
+              "candidateID": "51528",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49042",
+              "voteCount": 18489
+            },
+            {
+              "first": "Gerald",
+              "last": "Foreman",
+              "party": "JNU",
+              "candidateID": "51529",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49346",
+              "voteCount": 13196
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Stafford",
+          "reportingunitID": "47146",
+          "level": "subunit",
+          "fipsCode": "51179",
+          "lastUpdated": "2015-11-02T18:05:11Z",
+          "precinctsReporting": 5,
+          "precinctsTotal": 5,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Scott",
+              "last": "Surovell",
+              "party": "FLG",
+              "candidateID": "51528",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49042",
+              "voteCount": 2081
+            },
+            {
+              "first": "Gerald",
+              "last": "Foreman",
+              "party": "PHX",
+              "candidateID": "51529",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49346",
+              "voteCount": 1596
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00003",
+      "raceType": "General",
+      "raceTypeID": "G",
+      "officeID": "Z",
+      "officeName": "State Senate",
+      "seatName": "District 37",
+      "seatNum": "37",
+      "reportingUnits": [
+        {
+          "statePostal": "VA",
+          "stateName": "Virginia",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:17:21Z",
+          "precinctsReporting": 43,
+          "precinctsTotal": 43,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "David",
+              "last": "Marsden",
+              "party": "Dem",
+              "incumbent": true,
+              "candidateID": "51530",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49036",
+              "voteCount": 34839
+            },
+            {
+              "first": "David",
+              "last": "Bergman",
+              "party": "TUS",
+              "candidateID": "51531",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49298",
+              "voteCount": 28504
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Fairfax",
+          "reportingunitID": "47144",
+          "level": "subunit",
+          "fipsCode": "51059",
+          "lastUpdated": "2015-11-02T18:17:21Z",
+          "precinctsReporting": 43,
+          "precinctsTotal": 43,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "David",
+              "last": "Marsden",
+              "party": "YUM",
+              "incumbent": true,
+              "candidateID": "51530",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49036",
+              "voteCount": 34839
+            },
+            {
+              "first": "David",
+              "last": "Bergman",
+              "party": "FYV",
+              "candidateID": "51531",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49298",
+              "voteCount": 28504
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00004",
+      "raceType": "General",
+      "raceTypeID": "G",
+      "officeID": "Z",
+      "officeName": "State Senate",
+      "seatName": "District 38",
+      "seatNum": "38",
+      "uncontested": true,
+      "reportingUnits": [
+        {
+          "statePostal": "VA",
+          "stateName": "Virginia",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Benton",
+              "last": "Chafin",
+              "party": "LIT",
+              "incumbent": true,
+              "candidateID": "51532",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49299",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Bland",
+          "reportingunitID": "47011",
+          "level": "subunit",
+          "fipsCode": "51021",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Benton",
+              "last": "Chafin",
+              "party": "BUR",
+              "incumbent": true,
+              "candidateID": "51532",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49299",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Buchanan",
+          "reportingunitID": "47014",
+          "level": "subunit",
+          "fipsCode": "51027",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Benton",
+              "last": "Chafin",
+              "party": "FAT",
+              "incumbent": true,
+              "candidateID": "51532",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49299",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Dickenson",
+          "reportingunitID": "47027",
+          "level": "subunit",
+          "fipsCode": "51051",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Benton",
+              "last": "Chafin",
+              "party": "LGB",
+              "incumbent": true,
+              "candidateID": "51532",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49299",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Montgomery",
+          "reportingunitID": "47062",
+          "level": "subunit",
+          "fipsCode": "51121",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Benton",
+              "last": "Chafin",
+              "party": "LAX",
+              "incumbent": true,
+              "candidateID": "51532",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49299",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Pulaski",
+          "reportingunitID": "47077",
+          "level": "subunit",
+          "fipsCode": "51155",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Benton",
+              "last": "Chafin",
+              "party": "OAK",
+              "incumbent": true,
+              "candidateID": "51532",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49299",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Russell",
+          "reportingunitID": "47083",
+          "level": "subunit",
+          "fipsCode": "51167",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Benton",
+              "last": "Chafin",
+              "party": "ONT",
+              "incumbent": true,
+              "candidateID": "51532",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49299",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Smyth",
+          "reportingunitID": "47086",
+          "level": "subunit",
+          "fipsCode": "51173",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Benton",
+              "last": "Chafin",
+              "party": "PSP",
+              "incumbent": true,
+              "candidateID": "51532",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49299",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Tazewell",
+          "reportingunitID": "47093",
+          "level": "subunit",
+          "fipsCode": "51185",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Benton",
+              "last": "Chafin",
+              "party": "SMF",
+              "incumbent": true,
+              "candidateID": "51532",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49299",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Wise",
+          "reportingunitID": "47097",
+          "level": "subunit",
+          "fipsCode": "51195",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Benton",
+              "last": "Chafin",
+              "party": "SAN",
+              "incumbent": true,
+              "candidateID": "51532",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49299",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Norton",
+          "reportingunitID": "47127",
+          "level": "subunit",
+          "fipsCode": "51720",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Benton",
+              "last": "Chafin",
+              "party": "SFO",
+              "incumbent": true,
+              "candidateID": "51532",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49299",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Radford",
+          "reportingunitID": "47131",
+          "level": "subunit",
+          "fipsCode": "51750",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Benton",
+              "last": "Chafin",
+              "party": "SJC",
+              "incumbent": true,
+              "candidateID": "51532",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49299",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00005",
+      "raceType": "General",
+      "raceTypeID": "G",
+      "officeID": "Z",
+      "officeName": "State Senate",
+      "seatName": "District 39",
+      "seatNum": "39",
+      "reportingUnits": [
+        {
+          "statePostal": "VA",
+          "stateName": "Virginia",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:32:32Z",
+          "precinctsReporting": 49,
+          "precinctsTotal": 49,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "George",
+              "last": "Barker",
+              "party": "SNA",
+              "incumbent": true,
+              "candidateID": "51533",
+              "polID": "45533",
+              "ballotOrder": 1,
+              "polNum": "47377",
+              "voteCount": 37374
+            },
+            {
+              "first": "Joseph",
+              "last": "Murray",
+              "party": "ASE",
+              "candidateID": "51534",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49300",
+              "voteCount": 30578
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Alexandria",
+          "reportingunitID": "47100",
+          "level": "subunit",
+          "fipsCode": "51510",
+          "lastUpdated": "2015-11-02T18:32:32Z",
+          "precinctsReporting": 7,
+          "precinctsTotal": 7,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "George",
+              "last": "Barker",
+              "party": "COS",
+              "incumbent": true,
+              "candidateID": "51533",
+              "polID": "45533",
+              "ballotOrder": 1,
+              "polNum": "47377",
+              "voteCount": 7153
+            },
+            {
+              "first": "Joseph",
+              "last": "Murray",
+              "party": "DEN",
+              "candidateID": "51534",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49300",
+              "voteCount": 4285
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Fairfax",
+          "reportingunitID": "47144",
+          "level": "subunit",
+          "fipsCode": "51059",
+          "lastUpdated": "2015-11-02T18:17:21Z",
+          "precinctsReporting": 29,
+          "precinctsTotal": 29,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "George",
+              "last": "Barker",
+              "party": "GJT",
+              "incumbent": true,
+              "candidateID": "51533",
+              "polID": "45533",
+              "ballotOrder": 1,
+              "polNum": "47377",
+              "voteCount": 22671
+            },
+            {
+              "first": "Joseph",
+              "last": "Murray",
+              "party": "PUB",
+              "candidateID": "51534",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49300",
+              "voteCount": 19292
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Prince William",
+          "reportingunitID": "47145",
+          "level": "subunit",
+          "fipsCode": "51153",
+          "lastUpdated": "2015-11-02T18:17:21Z",
+          "precinctsReporting": 13,
+          "precinctsTotal": 13,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "George",
+              "last": "Barker",
+              "party": "BDL",
+              "incumbent": true,
+              "candidateID": "51533",
+              "polID": "45533",
+              "ballotOrder": 1,
+              "polNum": "47377",
+              "voteCount": 7550
+            },
+            {
+              "first": "Joseph",
+              "last": "Murray",
+              "party": "IAD",
+              "candidateID": "51534",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49300",
+              "voteCount": 7001
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00006",
+      "raceType": "General",
+      "raceTypeID": "G",
+      "officeID": "Z",
+      "officeName": "State Senate",
+      "seatName": "District 40",
+      "seatNum": "40",
+      "uncontested": true,
+      "reportingUnits": [
+        {
+          "statePostal": "VA",
+          "stateName": "Virginia",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Charles",
+              "last": "Carrico",
+              "party": "DCA",
+              "incumbent": true,
+              "candidateID": "51535",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "48984",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Grayson",
+          "reportingunitID": "47040",
+          "level": "subunit",
+          "fipsCode": "51077",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Charles",
+              "last": "Carrico",
+              "party": "WAS",
+              "incumbent": true,
+              "candidateID": "51535",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "48984",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Lee",
+          "reportingunitID": "47054",
+          "level": "subunit",
+          "fipsCode": "51105",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Charles",
+              "last": "Carrico",
+              "party": "DAB",
+              "incumbent": true,
+              "candidateID": "51535",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "48984",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Scott",
+          "reportingunitID": "47084",
+          "level": "subunit",
+          "fipsCode": "51169",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Charles",
+              "last": "Carrico",
+              "party": "FLL",
+              "incumbent": true,
+              "candidateID": "51535",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "48984",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Smyth",
+          "reportingunitID": "47086",
+          "level": "subunit",
+          "fipsCode": "51173",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Charles",
+              "last": "Carrico",
+              "party": "RSW",
+              "incumbent": true,
+              "candidateID": "51535",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "48984",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Washington",
+          "reportingunitID": "47095",
+          "level": "subunit",
+          "fipsCode": "51191",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Charles",
+              "last": "Carrico",
+              "party": "JAX",
+              "incumbent": true,
+              "candidateID": "51535",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "48984",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Wise",
+          "reportingunitID": "47097",
+          "level": "subunit",
+          "fipsCode": "51195",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Charles",
+              "last": "Carrico",
+              "party": "EYW",
+              "incumbent": true,
+              "candidateID": "51535",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "48984",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Wythe",
+          "reportingunitID": "47098",
+          "level": "subunit",
+          "fipsCode": "51197",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Charles",
+              "last": "Carrico",
+              "party": "MIA",
+              "incumbent": true,
+              "candidateID": "51535",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "48984",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Bristol",
+          "reportingunitID": "47102",
+          "level": "subunit",
+          "fipsCode": "51520",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Charles",
+              "last": "Carrico",
+              "party": "MCO",
+              "incumbent": true,
+              "candidateID": "51535",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "48984",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00007",
+      "raceType": "General",
+      "raceTypeID": "G",
+      "officeID": "Z",
+      "officeName": "State Senate",
+      "seatName": "District 2",
+      "seatNum": "2",
+      "uncontested": true,
+      "reportingUnits": [
+        {
+          "statePostal": "VA",
+          "stateName": "Virginia",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Mamie",
+              "last": "Locke",
+              "party": "PNS",
+              "incumbent": true,
+              "candidateID": "51475",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49304",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "York",
+          "reportingunitID": "47099",
+          "level": "subunit",
+          "fipsCode": "51199",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Mamie",
+              "last": "Locke",
+              "party": "PIE",
+              "incumbent": true,
+              "candidateID": "51475",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49304",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Hampton",
+          "reportingunitID": "47116",
+          "level": "subunit",
+          "fipsCode": "51650",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Mamie",
+              "last": "Locke",
+              "party": "SRQ",
+              "incumbent": true,
+              "candidateID": "51475",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49304",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Newport News",
+          "reportingunitID": "47125",
+          "level": "subunit",
+          "fipsCode": "51700",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Mamie",
+              "last": "Locke",
+              "party": "TPA",
+              "incumbent": true,
+              "candidateID": "51475",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49304",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Portsmouth",
+          "reportingunitID": "47130",
+          "level": "subunit",
+          "fipsCode": "51740",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Mamie",
+              "last": "Locke",
+              "party": "PBI",
+              "incumbent": true,
+              "candidateID": "51475",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49304",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00008",
+      "raceType": "General",
+      "raceTypeID": "G",
+      "officeID": "Z",
+      "officeName": "State Senate",
+      "seatName": "District 3",
+      "seatNum": "3",
+      "reportingUnits": [
+        {
+          "statePostal": "VA",
+          "stateName": "Virginia",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 77,
+          "precinctsTotal": 77,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Thomas",
+              "last": "Norment",
+              "party": "PFN",
+              "incumbent": true,
+              "candidateID": "51476",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49305",
+              "voteCount": 41763
+            },
+            {
+              "first": "Hugo",
+              "last": "Reyes",
+              "party": "ATL",
+              "candidateID": "51477",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49306",
+              "voteCount": 34171
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Gloucester",
+          "reportingunitID": "47038",
+          "level": "subunit",
+          "fipsCode": "51073",
+          "lastUpdated": "2015-11-02T18:11:17Z",
+          "precinctsReporting": 12,
+          "precinctsTotal": 12,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Thomas",
+              "last": "Norment",
+              "party": "AGS",
+              "incumbent": true,
+              "candidateID": "51476",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49305",
+              "voteCount": 7173
+            },
+            {
+              "first": "Hugo",
+              "last": "Reyes",
+              "party": "SAV",
+              "candidateID": "51477",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49306",
+              "voteCount": 5476
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Isle of Wight",
+          "reportingunitID": "47048",
+          "level": "subunit",
+          "fipsCode": "51093",
+          "lastUpdated": "2015-11-02T18:17:21Z",
+          "precinctsReporting": 9,
+          "precinctsTotal": 9,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Thomas",
+              "last": "Norment",
+              "party": "ITO",
+              "incumbent": true,
+              "candidateID": "51476",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49305",
+              "voteCount": 4463
+            },
+            {
+              "first": "Hugo",
+              "last": "Reyes",
+              "party": "HNL",
+              "candidateID": "51477",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49306",
+              "voteCount": 2911
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "James City",
+          "reportingunitID": "47049",
+          "level": "subunit",
+          "fipsCode": "51095",
+          "lastUpdated": "2015-11-02T18:17:21Z",
+          "precinctsReporting": 13,
+          "precinctsTotal": 13,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Thomas",
+              "last": "Norment",
+              "party": "OGG",
+              "incumbent": true,
+              "candidateID": "51476",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49305",
+              "voteCount": 11191
+            },
+            {
+              "first": "Hugo",
+              "last": "Reyes",
+              "party": "KOA",
+              "candidateID": "51477",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49306",
+              "voteCount": 9003
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "King and Queen",
+          "reportingunitID": "47050",
+          "level": "subunit",
+          "fipsCode": "51097",
+          "lastUpdated": "2015-11-02T18:14:19Z",
+          "precinctsReporting": 6,
+          "precinctsTotal": 6,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Thomas",
+              "last": "Norment",
+              "party": "LIH",
+              "incumbent": true,
+              "candidateID": "51476",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49305",
+              "voteCount": 1380
+            },
+            {
+              "first": "Hugo",
+              "last": "Reyes",
+              "party": "BOI",
+              "candidateID": "51477",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49306",
+              "voteCount": 971
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "King William",
+          "reportingunitID": "47052",
+          "level": "subunit",
+          "fipsCode": "51101",
+          "lastUpdated": "2015-11-02T18:14:19Z",
+          "precinctsReporting": 7,
+          "precinctsTotal": 7,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Hugo",
+              "last": "Reyes",
+              "party": "MDW",
+              "candidateID": "51477",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49306",
+              "voteCount": 2979
+            },
+            {
+              "first": "Thomas",
+              "last": "Norment",
+              "party": "ORD",
+              "incumbent": true,
+              "candidateID": "51476",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49305",
+              "voteCount": 2517
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "New Kent",
+          "reportingunitID": "47064",
+          "level": "subunit",
+          "fipsCode": "51127",
+          "lastUpdated": "2015-11-02T18:14:19Z",
+          "precinctsReporting": 11,
+          "precinctsTotal": 11,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Thomas",
+              "last": "Norment",
+              "party": "MLI",
+              "incumbent": true,
+              "candidateID": "51476",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49305",
+              "voteCount": 4239
+            },
+            {
+              "first": "Hugo",
+              "last": "Reyes",
+              "party": "PIA",
+              "candidateID": "51477",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49306",
+              "voteCount": 2685
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Surry",
+          "reportingunitID": "47091",
+          "level": "subunit",
+          "fipsCode": "51181",
+          "lastUpdated": "2015-11-02T18:11:17Z",
+          "precinctsReporting": 1,
+          "precinctsTotal": 1,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Hugo",
+              "last": "Reyes",
+              "party": "EVV",
+              "candidateID": "51477",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49306",
+              "voteCount": 1
+            },
+            {
+              "first": "Thomas",
+              "last": "Norment",
+              "party": "FWA",
+              "incumbent": true,
+              "candidateID": "51476",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49305",
+              "voteCount": 0
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "York",
+          "reportingunitID": "47099",
+          "level": "subunit",
+          "fipsCode": "51199",
+          "lastUpdated": "2015-11-02T18:17:21Z",
+          "precinctsReporting": 8,
+          "precinctsTotal": 8,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Thomas",
+              "last": "Norment",
+              "party": "IND",
+              "incumbent": true,
+              "candidateID": "51476",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49305",
+              "voteCount": 6436
+            },
+            {
+              "first": "Hugo",
+              "last": "Reyes",
+              "party": "SBN",
+              "candidateID": "51477",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49306",
+              "voteCount": 4258
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Hampton",
+          "reportingunitID": "47116",
+          "level": "subunit",
+          "fipsCode": "51650",
+          "lastUpdated": "2015-11-02T18:23:26Z",
+          "precinctsReporting": 2,
+          "precinctsTotal": 2,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Hugo",
+              "last": "Reyes",
+              "party": "CID",
+              "candidateID": "51477",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49306",
+              "voteCount": 1215
+            },
+            {
+              "first": "Thomas",
+              "last": "Norment",
+              "party": "DSM",
+              "incumbent": true,
+              "candidateID": "51476",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49305",
+              "voteCount": 857
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Poquoson",
+          "reportingunitID": "47129",
+          "level": "subunit",
+          "fipsCode": "51735",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 4,
+          "precinctsTotal": 4,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Hugo",
+              "last": "Reyes",
+              "party": "ICT",
+              "candidateID": "51477",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49306",
+              "voteCount": 2557
+            },
+            {
+              "first": "Thomas",
+              "last": "Norment",
+              "party": "LEX",
+              "incumbent": true,
+              "candidateID": "51476",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49305",
+              "voteCount": 1731
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Suffolk",
+          "reportingunitID": "47137",
+          "level": "subunit",
+          "fipsCode": "51800",
+          "lastUpdated": "2015-11-02T18:23:26Z",
+          "precinctsReporting": 4,
+          "precinctsTotal": 4,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Hugo",
+              "last": "Reyes",
+              "party": "SDF",
+              "candidateID": "51477",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49306",
+              "voteCount": 2115
+            },
+            {
+              "first": "Thomas",
+              "last": "Norment",
+              "party": "BTR",
+              "incumbent": true,
+              "candidateID": "51476",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49305",
+              "voteCount": 1776
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00009",
+      "raceType": "General",
+      "raceTypeID": "G",
+      "officeID": "Z",
+      "officeName": "State Senate",
+      "seatName": "District 27",
+      "seatNum": "27",
+      "uncontested": true,
+      "reportingUnits": [
+        {
+          "statePostal": "VA",
+          "stateName": "Virginia",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Jill",
+              "last": "Vogel",
+              "party": "MSY",
+              "incumbent": true,
+              "candidateID": "51513",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49335",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Clarke",
+          "reportingunitID": "47023",
+          "level": "subunit",
+          "fipsCode": "51043",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Jill",
+              "last": "Vogel",
+              "party": "SHV",
+              "incumbent": true,
+              "candidateID": "51513",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49335",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Culpeper",
+          "reportingunitID": "47025",
+          "level": "subunit",
+          "fipsCode": "51047",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Jill",
+              "last": "Vogel",
+              "party": "AUG",
+              "incumbent": true,
+              "candidateID": "51513",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49335",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Fauquier",
+          "reportingunitID": "47032",
+          "level": "subunit",
+          "fipsCode": "51061",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Jill",
+              "last": "Vogel",
+              "party": "BGR",
+              "incumbent": true,
+              "candidateID": "51513",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49335",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Frederick",
+          "reportingunitID": "47036",
+          "level": "subunit",
+          "fipsCode": "51069",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Jill",
+              "last": "Vogel",
+              "party": "PWM",
+              "incumbent": true,
+              "candidateID": "51513",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49335",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Loudoun",
+          "reportingunitID": "47055",
+          "level": "subunit",
+          "fipsCode": "51107",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Jill",
+              "last": "Vogel",
+              "party": "BWI",
+              "incumbent": true,
+              "candidateID": "51513",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49335",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Winchester",
+          "reportingunitID": "47141",
+          "level": "subunit",
+          "fipsCode": "51840",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Jill",
+              "last": "Vogel",
+              "party": "BOS",
+              "incumbent": true,
+              "candidateID": "51513",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49335",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Stafford",
+          "reportingunitID": "47146",
+          "level": "subunit",
+          "fipsCode": "51179",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Jill",
+              "last": "Vogel",
+              "party": "HYA",
+              "incumbent": true,
+              "candidateID": "51513",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49335",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00010",
+      "raceType": "General",
+      "raceTypeID": "G",
+      "officeID": "Z",
+      "officeName": "State Senate",
+      "seatName": "District 28",
+      "seatNum": "28",
+      "uncontested": true,
+      "reportingUnits": [
+        {
+          "statePostal": "VA",
+          "stateName": "Virginia",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Richard",
+              "last": "Stuart",
+              "party": "ACK",
+              "incumbent": true,
+              "candidateID": "51514",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49336",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "King George",
+          "reportingunitID": "47051",
+          "level": "subunit",
+          "fipsCode": "51099",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Richard",
+              "last": "Stuart",
+              "party": "ORH",
+              "incumbent": true,
+              "candidateID": "51514",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49336",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Spotsylvania",
+          "reportingunitID": "47088",
+          "level": "subunit",
+          "fipsCode": "51177",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Richard",
+              "last": "Stuart",
+              "party": "BTL",
+              "incumbent": true,
+              "candidateID": "51514",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49336",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Westmoreland",
+          "reportingunitID": "47096",
+          "level": "subunit",
+          "fipsCode": "51193",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Richard",
+              "last": "Stuart",
+              "party": "DTW",
+              "incumbent": true,
+              "candidateID": "51514",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49336",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Prince William",
+          "reportingunitID": "47145",
+          "level": "subunit",
+          "fipsCode": "51153",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Richard",
+              "last": "Stuart",
+              "party": "DET",
+              "incumbent": true,
+              "candidateID": "51514",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49336",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Stafford",
+          "reportingunitID": "47146",
+          "level": "subunit",
+          "fipsCode": "51179",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Richard",
+              "last": "Stuart",
+              "party": "FNT",
+              "incumbent": true,
+              "candidateID": "51514",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49336",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00011",
+      "raceType": "General",
+      "raceTypeID": "G",
+      "officeID": "Z",
+      "officeName": "State Senate",
+      "seatName": "District 32",
+      "seatNum": "32",
+      "uncontested": true,
+      "reportingUnits": [
+        {
+          "statePostal": "VA",
+          "stateName": "Virginia",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Janet",
+              "last": "Howell",
+              "party": "GRR",
+              "incumbent": true,
+              "candidateID": "51522",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49340",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Arlington",
+          "reportingunitID": "47007",
+          "level": "subunit",
+          "fipsCode": "51013",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Janet",
+              "last": "Howell",
+              "party": "AZO",
+              "incumbent": true,
+              "candidateID": "51522",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49340",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Fairfax",
+          "reportingunitID": "47144",
+          "level": "subunit",
+          "fipsCode": "51059",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "Janet",
+              "last": "Howell",
+              "party": "LAN",
+              "incumbent": true,
+              "candidateID": "51522",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49340",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00012",
+      "raceType": "General",
+      "raceTypeID": "G",
+      "officeID": "Z",
+      "officeName": "State Senate",
+      "seatName": "District 34",
+      "seatNum": "34",
+      "uncontested": true,
+      "reportingUnits": [
+        {
+          "statePostal": "VA",
+          "stateName": "Virginia",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "J.C.",
+              "last": "Petersen",
+              "party": "MBS",
+              "incumbent": true,
+              "candidateID": "51525",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49343",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Fairfax City",
+          "reportingunitID": "47111",
+          "level": "subunit",
+          "fipsCode": "51600",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "J.C.",
+              "last": "Petersen",
+              "party": "DLH",
+              "incumbent": true,
+              "candidateID": "51525",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49343",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Fairfax",
+          "reportingunitID": "47144",
+          "level": "subunit",
+          "fipsCode": "51059",
+          "lastUpdated": "2015-11-02T18:06:13Z",
+          "precinctsReporting": 0,
+          "precinctsTotal": 0,
+          "precinctsReportingPct": 0.0,
+          "candidates": [
+            {
+              "first": "J.C.",
+              "last": "Petersen",
+              "party": "MSP",
+              "incumbent": true,
+              "candidateID": "51525",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49343",
+              "voteCount": 0,
+              "winner": "X"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00013",
+      "raceType": "Ballot Issue",
+      "raceTypeID": "G",
+      "officeID": "I",
+      "officeName": "Initiative",
+      "seatName": "1366-State Tax",
+      "reportingUnits": [
+        {
+          "statePostal": "WA",
+          "stateName": "Washington",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:32:32Z",
+          "precinctsReporting": 2000,
+          "precinctsTotal": 2000,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 1203435
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 984630
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Adams",
+          "reportingunitID": "48001",
+          "level": "subunit",
+          "fipsCode": "53001",
+          "lastUpdated": "2015-11-02T18:17:20Z",
+          "precinctsReporting": 3,
+          "precinctsTotal": 3,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 2198
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 1173
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Asotin",
+          "reportingunitID": "48002",
+          "level": "subunit",
+          "fipsCode": "53003",
+          "lastUpdated": "2015-11-02T18:17:20Z",
+          "precinctsReporting": 7,
+          "precinctsTotal": 7,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 4126
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 3759
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Benton",
+          "reportingunitID": "48003",
+          "level": "subunit",
+          "fipsCode": "53005",
+          "lastUpdated": "2015-11-02T18:05:10Z",
+          "precinctsReporting": 50,
+          "precinctsTotal": 50,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 29017
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 22999
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Chelan",
+          "reportingunitID": "48004",
+          "level": "subunit",
+          "fipsCode": "53007",
+          "lastUpdated": "2015-11-02T18:05:10Z",
+          "precinctsReporting": 21,
+          "precinctsTotal": 21,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 11089
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 10718
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Clallam",
+          "reportingunitID": "48005",
+          "level": "subunit",
+          "fipsCode": "53009",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 24,
+          "precinctsTotal": 24,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 14734
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 11104
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Clark",
+          "reportingunitID": "48006",
+          "level": "subunit",
+          "fipsCode": "53011",
+          "lastUpdated": "2015-11-02T18:32:32Z",
+          "precinctsReporting": 125,
+          "precinctsTotal": 125,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 77119
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 63581
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Columbia",
+          "reportingunitID": "48007",
+          "level": "subunit",
+          "fipsCode": "53013",
+          "lastUpdated": "2015-11-02T18:23:25Z",
+          "precinctsReporting": 2,
+          "precinctsTotal": 2,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 1197
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 268
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Cowlitz",
+          "reportingunitID": "48008",
+          "level": "subunit",
+          "fipsCode": "53015",
+          "lastUpdated": "2015-11-02T18:26:27Z",
+          "precinctsReporting": 30,
+          "precinctsTotal": 30,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 19015
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 14095
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Douglas",
+          "reportingunitID": "48009",
+          "level": "subunit",
+          "fipsCode": "53017",
+          "lastUpdated": "2015-11-02T18:14:17Z",
+          "precinctsReporting": 10,
+          "precinctsTotal": 10,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 5971
+            },
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 5020
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Ferry",
+          "reportingunitID": "48010",
+          "level": "subunit",
+          "fipsCode": "53019",
+          "lastUpdated": "2015-11-02T18:14:17Z",
+          "precinctsReporting": 2,
+          "precinctsTotal": 2,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 1410
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 1099
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Franklin",
+          "reportingunitID": "48011",
+          "level": "subunit",
+          "fipsCode": "53021",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 15,
+          "precinctsTotal": 15,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 10479
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 7453
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Garfield",
+          "reportingunitID": "48012",
+          "level": "subunit",
+          "fipsCode": "53023",
+          "lastUpdated": "2015-11-02T18:08:13Z",
+          "precinctsReporting": 2,
+          "precinctsTotal": 2,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 446
+            },
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 427
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Grant",
+          "reportingunitID": "48013",
+          "level": "subunit",
+          "fipsCode": "53025",
+          "lastUpdated": "2015-11-02T18:02:08Z",
+          "precinctsReporting": 19,
+          "precinctsTotal": 19,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 11595
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 10120
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Grays Harbor",
+          "reportingunitID": "48014",
+          "level": "subunit",
+          "fipsCode": "53027",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 20,
+          "precinctsTotal": 20,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 13139
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 9263
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Island",
+          "reportingunitID": "48015",
+          "level": "subunit",
+          "fipsCode": "53029",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 24,
+          "precinctsTotal": 24,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 17080
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 11158
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Jefferson",
+          "reportingunitID": "48016",
+          "level": "subunit",
+          "fipsCode": "53031",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 12,
+          "precinctsTotal": 12,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 6616
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 6044
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "King",
+          "reportingunitID": "48017",
+          "level": "subunit",
+          "fipsCode": "53033",
+          "lastUpdated": "2015-11-02T18:32:32Z",
+          "precinctsReporting": 595,
+          "precinctsTotal": 595,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 358008
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 295174
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Kitsap",
+          "reportingunitID": "48018",
+          "level": "subunit",
+          "fipsCode": "53035",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 79,
+          "precinctsTotal": 79,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 46498
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 38441
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Kittitas",
+          "reportingunitID": "48019",
+          "level": "subunit",
+          "fipsCode": "53037",
+          "lastUpdated": "2015-11-02T18:14:17Z",
+          "precinctsReporting": 11,
+          "precinctsTotal": 11,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 7425
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 5200
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Klickitat",
+          "reportingunitID": "48020",
+          "level": "subunit",
+          "fipsCode": "53039",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 7,
+          "precinctsTotal": 7,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 3872
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 3618
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Lewis",
+          "reportingunitID": "48021",
+          "level": "subunit",
+          "fipsCode": "53041",
+          "lastUpdated": "2015-11-02T18:11:15Z",
+          "precinctsReporting": 23,
+          "precinctsTotal": 23,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 12889
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 10998
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Lincoln",
+          "reportingunitID": "48022",
+          "level": "subunit",
+          "fipsCode": "53043",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 4,
+          "precinctsTotal": 4,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 2046
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 1692
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Mason",
+          "reportingunitID": "48023",
+          "level": "subunit",
+          "fipsCode": "53045",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 18,
+          "precinctsTotal": 18,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 11383
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 7924
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Okanogan",
+          "reportingunitID": "48024",
+          "level": "subunit",
+          "fipsCode": "53047",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 11,
+          "precinctsTotal": 11,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 6210
+            },
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 5339
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Pacific",
+          "reportingunitID": "48025",
+          "level": "subunit",
+          "fipsCode": "53049",
+          "lastUpdated": "2015-11-02T18:23:25Z",
+          "precinctsReporting": 7,
+          "precinctsTotal": 7,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 3849
+            },
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 3351
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Pend Oreille",
+          "reportingunitID": "48026",
+          "level": "subunit",
+          "fipsCode": "53051",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 4,
+          "precinctsTotal": 4,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 2648
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 2449
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Pierce",
+          "reportingunitID": "48027",
+          "level": "subunit",
+          "fipsCode": "53053",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 227,
+          "precinctsTotal": 227,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 141665
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 110289
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "San Juan",
+          "reportingunitID": "48028",
+          "level": "subunit",
+          "fipsCode": "53055",
+          "lastUpdated": "2015-11-02T18:05:10Z",
+          "precinctsReporting": 6,
+          "precinctsTotal": 6,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 4162
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 2255
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Skagit",
+          "reportingunitID": "48029",
+          "level": "subunit",
+          "fipsCode": "53057",
+          "lastUpdated": "2015-11-02T18:23:25Z",
+          "precinctsReporting": 35,
+          "precinctsTotal": 35,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 20916
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 16216
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Skamania",
+          "reportingunitID": "48030",
+          "level": "subunit",
+          "fipsCode": "53059",
+          "lastUpdated": "2015-11-02T18:08:13Z",
+          "precinctsReporting": 4,
+          "precinctsTotal": 4,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 1944
+            },
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 1898
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Snohomish",
+          "reportingunitID": "48031",
+          "level": "subunit",
+          "fipsCode": "53061",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 213,
+          "precinctsTotal": 213,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 125505
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 106248
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Spokane",
+          "reportingunitID": "48032",
+          "level": "subunit",
+          "fipsCode": "53063",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 145,
+          "precinctsTotal": 145,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 83959
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 72519
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Stevens",
+          "reportingunitID": "48033",
+          "level": "subunit",
+          "fipsCode": "53065",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 15,
+          "precinctsTotal": 15,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 8419
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 8184
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Thurston",
+          "reportingunitID": "48034",
+          "level": "subunit",
+          "fipsCode": "53067",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 82,
+          "precinctsTotal": 82,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 50381
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 40365
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Wahkiakum",
+          "reportingunitID": "48035",
+          "level": "subunit",
+          "fipsCode": "53069",
+          "lastUpdated": "2015-11-02T18:11:15Z",
+          "precinctsReporting": 2,
+          "precinctsTotal": 2,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 1339
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 222
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Walla Walla",
+          "reportingunitID": "48036",
+          "level": "subunit",
+          "fipsCode": "53071",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 16,
+          "precinctsTotal": 16,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 11439
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 6169
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Whatcom",
+          "reportingunitID": "48037",
+          "level": "subunit",
+          "fipsCode": "53073",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 64,
+          "precinctsTotal": 64,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 36482
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 34171
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Whitman",
+          "reportingunitID": "48038",
+          "level": "subunit",
+          "fipsCode": "53075",
+          "lastUpdated": "2015-11-02T18:17:20Z",
+          "precinctsReporting": 11,
+          "precinctsTotal": 11,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 7011
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 5718
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Yakima",
+          "reportingunitID": "48039",
+          "level": "subunit",
+          "fipsCode": "53077",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 55,
+          "precinctsTotal": 55,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7695",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 32539
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7694",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 25524
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00014",
+      "raceType": "Ballot Issue",
+      "raceTypeID": "G",
+      "officeID": "I",
+      "officeName": "Initiative",
+      "seatName": "1401-Animal Trafficking",
+      "reportingUnits": [
+        {
+          "statePostal": "WA",
+          "stateName": "Washington",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:32:32Z",
+          "precinctsReporting": 2000,
+          "precinctsTotal": 2000,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 1203435
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 984630
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Adams",
+          "reportingunitID": "48001",
+          "level": "subunit",
+          "fipsCode": "53001",
+          "lastUpdated": "2015-11-02T18:17:20Z",
+          "precinctsReporting": 3,
+          "precinctsTotal": 3,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 1723
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 1648
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Asotin",
+          "reportingunitID": "48002",
+          "level": "subunit",
+          "fipsCode": "53003",
+          "lastUpdated": "2015-11-02T18:05:10Z",
+          "precinctsReporting": 7,
+          "precinctsTotal": 7,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 4505
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 3380
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Benton",
+          "reportingunitID": "48003",
+          "level": "subunit",
+          "fipsCode": "53005",
+          "lastUpdated": "2015-11-02T18:05:10Z",
+          "precinctsReporting": 50,
+          "precinctsTotal": 50,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 30057
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 21959
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Chelan",
+          "reportingunitID": "48004",
+          "level": "subunit",
+          "fipsCode": "53007",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 21,
+          "precinctsTotal": 21,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 12166
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 9641
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Clallam",
+          "reportingunitID": "48005",
+          "level": "subunit",
+          "fipsCode": "53009",
+          "lastUpdated": "2015-11-02T18:32:32Z",
+          "precinctsReporting": 24,
+          "precinctsTotal": 24,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 14147
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 11691
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Clark",
+          "reportingunitID": "48006",
+          "level": "subunit",
+          "fipsCode": "53011",
+          "lastUpdated": "2015-11-02T18:23:25Z",
+          "precinctsReporting": 125,
+          "precinctsTotal": 125,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 78871
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 61829
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Columbia",
+          "reportingunitID": "48007",
+          "level": "subunit",
+          "fipsCode": "53013",
+          "lastUpdated": "2015-11-02T18:26:27Z",
+          "precinctsReporting": 2,
+          "precinctsTotal": 2,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 901
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 564
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Cowlitz",
+          "reportingunitID": "48008",
+          "level": "subunit",
+          "fipsCode": "53015",
+          "lastUpdated": "2015-11-02T18:14:17Z",
+          "precinctsReporting": 30,
+          "precinctsTotal": 30,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 18279
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 14831
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Douglas",
+          "reportingunitID": "48009",
+          "level": "subunit",
+          "fipsCode": "53017",
+          "lastUpdated": "2015-11-02T18:14:17Z",
+          "precinctsReporting": 10,
+          "precinctsTotal": 10,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 5865
+            },
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 5126
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Ferry",
+          "reportingunitID": "48010",
+          "level": "subunit",
+          "fipsCode": "53019",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 2,
+          "precinctsTotal": 2,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 1433
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 1076
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Franklin",
+          "reportingunitID": "48011",
+          "level": "subunit",
+          "fipsCode": "53021",
+          "lastUpdated": "2015-11-02T18:08:13Z",
+          "precinctsReporting": 15,
+          "precinctsTotal": 15,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 10540
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 7392
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Garfield",
+          "reportingunitID": "48012",
+          "level": "subunit",
+          "fipsCode": "53023",
+          "lastUpdated": "2015-11-02T18:02:08Z",
+          "precinctsReporting": 2,
+          "precinctsTotal": 2,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 553
+            },
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 320
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Grant",
+          "reportingunitID": "48013",
+          "level": "subunit",
+          "fipsCode": "53025",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 19,
+          "precinctsTotal": 19,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 11901
+            },
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 9814
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Grays Harbor",
+          "reportingunitID": "48014",
+          "level": "subunit",
+          "fipsCode": "53027",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 20,
+          "precinctsTotal": 20,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 11373
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 11029
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Island",
+          "reportingunitID": "48015",
+          "level": "subunit",
+          "fipsCode": "53029",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 24,
+          "precinctsTotal": 24,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 16040
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 12198
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Jefferson",
+          "reportingunitID": "48016",
+          "level": "subunit",
+          "fipsCode": "53031",
+          "lastUpdated": "2015-11-02T18:32:32Z",
+          "precinctsReporting": 12,
+          "precinctsTotal": 12,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 7675
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 4985
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "King",
+          "reportingunitID": "48017",
+          "level": "subunit",
+          "fipsCode": "53033",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 595,
+          "precinctsTotal": 595,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 358670
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 294512
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Kitsap",
+          "reportingunitID": "48018",
+          "level": "subunit",
+          "fipsCode": "53035",
+          "lastUpdated": "2015-11-02T18:14:17Z",
+          "precinctsReporting": 79,
+          "precinctsTotal": 79,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 45734
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 39205
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Kittitas",
+          "reportingunitID": "48019",
+          "level": "subunit",
+          "fipsCode": "53037",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 11,
+          "precinctsTotal": 11,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 7178
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 5447
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Klickitat",
+          "reportingunitID": "48020",
+          "level": "subunit",
+          "fipsCode": "53039",
+          "lastUpdated": "2015-11-02T18:11:15Z",
+          "precinctsReporting": 7,
+          "precinctsTotal": 7,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 3773
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 3717
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Lewis",
+          "reportingunitID": "48021",
+          "level": "subunit",
+          "fipsCode": "53041",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 23,
+          "precinctsTotal": 23,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 14092
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 9795
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Lincoln",
+          "reportingunitID": "48022",
+          "level": "subunit",
+          "fipsCode": "53043",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 4,
+          "precinctsTotal": 4,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 1937
+            },
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 1801
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Mason",
+          "reportingunitID": "48023",
+          "level": "subunit",
+          "fipsCode": "53045",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 18,
+          "precinctsTotal": 18,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 9945
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 9362
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Okanogan",
+          "reportingunitID": "48024",
+          "level": "subunit",
+          "fipsCode": "53047",
+          "lastUpdated": "2015-11-02T18:23:25Z",
+          "precinctsReporting": 11,
+          "precinctsTotal": 11,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 6888
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 4661
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Pacific",
+          "reportingunitID": "48025",
+          "level": "subunit",
+          "fipsCode": "53049",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 7,
+          "precinctsTotal": 7,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 4114
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 3086
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Pend Oreille",
+          "reportingunitID": "48026",
+          "level": "subunit",
+          "fipsCode": "53051",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 4,
+          "precinctsTotal": 4,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 3068
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 2029
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Pierce",
+          "reportingunitID": "48027",
+          "level": "subunit",
+          "fipsCode": "53053",
+          "lastUpdated": "2015-11-02T18:05:10Z",
+          "precinctsReporting": 227,
+          "precinctsTotal": 227,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 134988
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 116966
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "San Juan",
+          "reportingunitID": "48028",
+          "level": "subunit",
+          "fipsCode": "53055",
+          "lastUpdated": "2015-11-02T18:23:25Z",
+          "precinctsReporting": 6,
+          "precinctsTotal": 6,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 3522
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 2895
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Skagit",
+          "reportingunitID": "48029",
+          "level": "subunit",
+          "fipsCode": "53057",
+          "lastUpdated": "2015-11-02T18:08:13Z",
+          "precinctsReporting": 35,
+          "precinctsTotal": 35,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 19898
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 17234
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Skamania",
+          "reportingunitID": "48030",
+          "level": "subunit",
+          "fipsCode": "53059",
+          "lastUpdated": "2015-11-02T18:23:25Z",
+          "precinctsReporting": 4,
+          "precinctsTotal": 4,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 2542
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 1300
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Snohomish",
+          "reportingunitID": "48031",
+          "level": "subunit",
+          "fipsCode": "53061",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 213,
+          "precinctsTotal": 213,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 125783
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 105970
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Spokane",
+          "reportingunitID": "48032",
+          "level": "subunit",
+          "fipsCode": "53063",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 145,
+          "precinctsTotal": 145,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 87509
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 68969
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Stevens",
+          "reportingunitID": "48033",
+          "level": "subunit",
+          "fipsCode": "53065",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 15,
+          "precinctsTotal": 15,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 8768
+            },
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 7835
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Thurston",
+          "reportingunitID": "48034",
+          "level": "subunit",
+          "fipsCode": "53067",
+          "lastUpdated": "2015-11-02T18:11:15Z",
+          "precinctsReporting": 82,
+          "precinctsTotal": 82,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 51514
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 39232
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Wahkiakum",
+          "reportingunitID": "48035",
+          "level": "subunit",
+          "fipsCode": "53069",
+          "lastUpdated": "2015-11-02T18:20:22Z",
+          "precinctsReporting": 2,
+          "precinctsTotal": 2,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 965
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 596
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Walla Walla",
+          "reportingunitID": "48036",
+          "level": "subunit",
+          "fipsCode": "53071",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 16,
+          "precinctsTotal": 16,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 9265
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 8343
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Whatcom",
+          "reportingunitID": "48037",
+          "level": "subunit",
+          "fipsCode": "53073",
+          "lastUpdated": "2015-11-02T18:17:20Z",
+          "precinctsReporting": 64,
+          "precinctsTotal": 64,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 39933
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 30720
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Whitman",
+          "reportingunitID": "48038",
+          "level": "subunit",
+          "fipsCode": "53075",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 11,
+          "precinctsTotal": 11,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 6863
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 5866
+            }
+          ]
+        },
+        {
+          "statePostal": "WA",
+          "reportingunitName": "Yakima",
+          "reportingunitID": "48039",
+          "level": "subunit",
+          "fipsCode": "53077",
+          "lastUpdated": "2015-11-02T18:29:30Z",
+          "precinctsReporting": 55,
+          "precinctsTotal": 55,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "last": "No",
+              "party": "No",
+              "candidateID": "7697",
+              "polID": "3",
+              "ballotOrder": 2,
+              "polNum": "48347",
+              "voteCount": 34585
+            },
+            {
+              "last": "Yes",
+              "party": "Yes",
+              "candidateID": "7696",
+              "polID": "2",
+              "ballotOrder": 1,
+              "polNum": "48346",
+              "voteCount": 23478
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": true,
+      "raceID": "00015",
+      "raceType": "General",
+      "raceTypeID": "G",
+      "officeID": "Z",
+      "officeName": "State Senate",
+      "seatName": "District 36",
+      "seatNum": "36",
+      "reportingUnits": [
+        {
+          "statePostal": "VA",
+          "stateName": "Virginia",
+          "level": "state",
+          "lastUpdated": "2015-11-02T18:17:21Z",
+          "precinctsReporting": 50,
+          "precinctsTotal": 50,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Scott",
+              "last": "Surovell",
+              "party": "CRW",
+              "candidateID": "51528",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49042",
+              "voteCount": 31836
+            },
+            {
+              "first": "Gerald",
+              "last": "Foreman",
+              "party": "GRB",
+              "candidateID": "51529",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49346",
+              "voteCount": 26046
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Fairfax",
+          "reportingunitID": "47144",
+          "level": "subunit",
+          "fipsCode": "51059",
+          "lastUpdated": "2015-11-02T18:17:21Z",
+          "precinctsReporting": 18,
+          "precinctsTotal": 18,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Scott",
+              "last": "Surovell",
+              "party": "MSN",
+              "candidateID": "51528",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49042",
+              "voteCount": 11266
+            },
+            {
+              "first": "Gerald",
+              "last": "Foreman",
+              "party": "MKE",
+              "candidateID": "51529",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49346",
+              "voteCount": 11254
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Prince William",
+          "reportingunitID": "47145",
+          "level": "subunit",
+          "fipsCode": "51153",
+          "lastUpdated": "2015-11-02T18:17:21Z",
+          "precinctsReporting": 27,
+          "precinctsTotal": 27,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Scott",
+              "last": "Surovell",
+              "party": "CPR",
+              "candidateID": "51528",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49042",
+              "voteCount": 18489
+            },
+            {
+              "first": "Gerald",
+              "last": "Foreman",
+              "party": "CYS",
+              "candidateID": "51529",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49346",
+              "voteCount": 13196
+            }
+          ]
+        },
+        {
+          "statePostal": "VA",
+          "reportingunitName": "Stafford",
+          "reportingunitID": "47146",
+          "level": "subunit",
+          "fipsCode": "51179",
+          "lastUpdated": "2015-11-02T18:05:11Z",
+          "precinctsReporting": 5,
+          "precinctsTotal": 5,
+          "precinctsReportingPct": 100.0,
+          "candidates": [
+            {
+              "first": "Scott",
+              "last": "Surovell",
+              "party": "JAC",
+              "candidateID": "51528",
+              "polID": "0",
+              "ballotOrder": 1,
+              "polNum": "49042",
+              "voteCount": 2081
+            },
+            {
+              "first": "Gerald",
+              "last": "Foreman",
+              "party": "RKS",
+              "candidateID": "51529",
+              "polID": "0",
+              "ballotOrder": 2,
+              "polNum": "49346",
+              "voteCount": 1596
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "nextrequest": "http://zombo.com"
+}
