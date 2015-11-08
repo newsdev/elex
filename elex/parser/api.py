@@ -9,6 +9,7 @@ from dateutil import parser
 import elex
 from elex.parser import utils
 
+CANDIDATE_FIELDS = []
 
 STATE_ABBR = { 'AL': 'Alabama', 'AK': 'Alaska', 'AS': 'America Samoa', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware', 'DC': 'District of Columbia', 'FM': 'Micronesia1', 'FL': 'Florida', 'GA': 'Georgia', 'GU': 'Guam', 'HI': 'Hawaii', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MH': 'Islands1', 'MD': 'Maryland', 'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi', 'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York', 'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PW': 'Palau', 'PA': 'Pennsylvania', 'PR': 'Puerto Rico', 'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VT': 'Vermont', 'VI': 'Virgin Island', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming'}
 
@@ -45,9 +46,7 @@ class BaseObject(object):
     def set_state_fields_from_reportingunits(self):
         if len(self.reportingunits) > 0:
             setattr(self, 'statepostal', self.reportingunits[0].statepostal)
-            for ru in self.reportingunits:
-                if ru.statename:
-                    setattr(self, 'statename', ru.statename)
+            setattr(self, 'statename', STATE_ABBR[self.statepostal])
 
     def set_winner(self):
         """
@@ -67,12 +66,13 @@ class BaseObject(object):
         for r in self.reportingunits:
             reportingunit_dict = dict(r)
 
-            # Denormalize some data.
-            for attr in ['raceid','seatname','description','racetype','officeid','uncontested','officename']:
-                if hasattr(self, attr):
-                    reportingunit_dict[attr] = getattr(self, attr)
+            for k,v in self.__dict__.items():
+                if k != 'candidates':
+                    reportingunit_dict[k] = v
 
-            reportingunits_obj.append(ReportingUnit(**reportingunit_dict))
+            obj = ReportingUnit(**reportingunit_dict)
+
+            reportingunits_obj.append(obj)
         setattr(self, 'reportingunits', reportingunits_obj)
 
     def set_reportingunitids(self):
@@ -93,23 +93,16 @@ class BaseObject(object):
         for c in self.candidates:
             candidate_dict = dict(c)
 
-            # Decide if this is a ballot position or a _real_ candidate.
-            if hasattr(self, 'racetype'):
-                if getattr(self, 'racetype') == u"Ballot Issue":
-                    candidate_dict['is_ballot_position'] = True
-
             if hasattr(self, 'officeid'):
                 if getattr(self, 'officeid') == u'I':
                     candidate_dict['is_ballot_position'] = True
 
-            # Denormalize some data.
-            for attr in ['raceid','statepostal','reportingunitid','reportingunitname','fipscode','seatname','description','racetype','officeid','uncontested','officename']:
-                if hasattr(self, attr):
-                    candidate_dict[attr] = getattr(self, attr)
+            for k,v in self.__dict__.items():
+                candidate_dict[k] = v
 
             candidate_dict['statename'] = STATE_ABBR[getattr(self, 'statepostal')]
-
-            candidate_objs.append(CandidateResult(**candidate_dict))
+            obj = CandidateReportingUnit(**candidate_dict)
+            candidate_objs.append(obj)
         setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
 
     def set_dates(self, date_fields):
@@ -147,23 +140,48 @@ class BaseObject(object):
         return utils.api_request(path, **params)
 
 
-class CandidateResult(BaseObject):
+class Candidate(BaseObject):
+    """
+    Canonical representation of a
+    candidate. Should be globally unique
+    for this election, across races.
+    """
+    def __init__(self, **kwargs):
+        first = None
+        last = None
+        party = None
+        candidateid = None
+        polid = None
+        ballotorder = None
+        polnum = None
+
+        self.set_fields(**kwargs)
+
+
+class BallotPosition(BaseObject):
+    """
+    Canonical representation of a ballot
+    position.
+    """
+    def __init__(self, **kwargs):
+        last = None
+        candidateid = None
+        polid = None
+        ballotorder = None
+        polnum = None
+        description = None
+        seatname = None
+
+        self.set_fields(**kwargs)
+
+
+class CandidateReportingUnit(BaseObject):
     """
     Canonical reporesentation of an
     AP candidate. Note: A candidate can 
     be a person OR a ballot position.
     """
     def __init__(self, **kwargs):
-        self.racetype = None
-        self.seatname = None
-        self.officename = None
-        self.description = None
-        self.raceid = None
-        self.officeid = None
-        self.statepostal = None
-        self.statename = None
-        self.reportingunitid = None
-        self.reportingunitname = None
         self.first = None
         self.last = None
         self.party = None
@@ -174,28 +192,34 @@ class CandidateResult(BaseObject):
         self.votecount = 0
         self.winner = False
         self.is_ballot_position = False
-        self.reportingunit_votecount = 0
-        self.reportingunit_votepct = 0.0
-        self.race_votecount = 0
-        self.race_votepct = 0.0
+        self.description = None
+        self.level = None
+        self.reportingunitname = None
+        self.reportingunitid = None
+        self.fipscode = None
+        self.lastupdated = None
+        self.precinctsreporting = 0
+        self.precinctstotal = 0
+        self.precinctsreportingpct = 0.0
         self.uncontested = False
+        self.uncontested = False
+        self.test = False
+        self.raceid = None
+        self.statepostal = None
+        self.statename = None
+        self.racetype = None
+        self.racetypeid = None
+        self.officeid = None
+        self.officename = None
+        self.party = None
+        self.seatname = None
+        self.description = None
+        self.seatnum = None
+        self.uncontested = False
+        self.lastupdated = None
 
         self.set_fields(**kwargs)
         self.set_winner()
-
-    def aggregate_pcts(self, race_votecount, reportingunit_votecount):
-        """
-        Method for handling CandidateResult pcts.
-        """
-        if not self.uncontested:
-            self.race_votecount = race_votecount
-            self.reportingunit_votecount = reportingunit_votecount
-
-            if self.race_votecount > 0:
-                self.race_votepct = float(self.votecount) / float(self.race_votecount)
-
-            if self.reportingunit_votecount > 0:
-                self.reportingunit_votepct = float(self.votecount) / float(self.reportingunit_votecount)
 
     def __unicode__(self):
         if self.is_ballot_position:
@@ -213,12 +237,6 @@ class ReportingUnit(BaseObject):
     level of reporting. Can be 
     """
     def __init__(self, **kwargs):
-        self.seatname = None
-        self.description = None
-        self.raceid = None
-        self.officeid = None
-        self.officename = None
-        self.racetype = None
         self.statepostal = None
         self.statename = None
         self.level = None
@@ -229,26 +247,27 @@ class ReportingUnit(BaseObject):
         self.precinctsreporting = 0
         self.precinctstotal = 0
         self.precinctsreportingpct = 0.0
-        self.candidates = []
-        self.reportingunit_votecount = 0
-        self.race_votecount = 0
-        self.race_votepct = 0.0
         self.uncontested = False
+        self.test = False
+        self.raceid = None
+        self.statepostal = None
+        self.statename = None
+        self.racetype = None
+        self.racetypeid = None
+        self.officeid = None
+        self.officename = None
+        self.party = None
+        self.seatname = None
+        self.description = None
+        self.seatnum = None
+        self.uncontested = False
+        self.lastupdated = None
+        self.candidates = []
 
         self.set_fields(**kwargs)
         self.set_dates(['lastupdated'])
         self.set_reportingunitids()
         self.set_candidates()
-
-    def aggregate_pcts(self, race_votecount):
-        """
-        Method for handling ReportingUnit pcts.
-        """
-        if not self.uncontested:
-            self.race_votecount = race_votecount
-
-            if self.race_votecount > 0:
-                self.race_votepct = float(self.reportingunit_votecount) / float(self.race_votecount)
 
     def __unicode__(self):
         if self.reportingunitname:
@@ -265,8 +284,6 @@ class Race(BaseObject):
     def __init__(self, **kwargs):
         self.test = False
         self.raceid = None
-        self.statepostal = None
-        self.statename = None
         self.racetype = None
         self.racetypeid = None
         self.officeid = None
@@ -277,11 +294,9 @@ class Race(BaseObject):
         self.seatnum = None
         self.uncontested = False
         self.lastupdated = None
+        self.initialization_data = False
         self.candidates = []
         self.reportingunits = []
-        self.race_votecount = 0
-
-        self.initialization_data = False
 
         self.set_fields(**kwargs)
         self.set_dates(['lastupdated'])
@@ -344,6 +359,46 @@ class Election(BaseObject):
                         next_election = e
                         lowest_diff = diff
         return next_election
+
+    def get_uniques(self, candidate_reporting_units):
+        """
+        Parses out unique candidates and ballot positions
+        from a list of CandidateReportingUnit objects.
+        """
+        unique_candidates = {}
+        unique_ballot_positions = {}
+
+        for c in candidate_reporting_units:
+            if c.is_ballot_position:
+                if not unique_ballot_positions.get(c.candidateid, None):
+                    unique_ballot_positions[c.candidateid] = {"last": c.last, "candidateid": c.candidateid, "polid": c.polid, "ballotorder": c.ballotorder, "polnum": c.polnum, "seatname": c.seatname, "description": c.description}
+            else:
+                if not unique_candidates.get(c.candidateid, None):
+                    unique_candidates[c.candidateid] = {"first": c.first, "last": c.last, "candidateid": c.candidateid, "polid": c.polid, "ballotorder": c.ballotorder, "polnum": c.polnum, "party": c.party}
+
+        candidates = [Candidate(**v) for v in unique_candidates.values()]
+        ballot_positions = [BallotPosition(**v) for v in unique_ballot_positions.values()]
+        return candidates, ballot_positions 
+
+    def get_units(self, raw_races):
+        """
+        Parses out races, reporting_units,
+        and candidate_reporting_units in a
+        single loop over the raw race JSON.
+        """
+        races = []
+        reporting_units = []
+        candidate_reporting_units = []
+        for race in raw_races:
+            for unit in race.reportingunits:
+                for candidate in unit.candidates:
+                    candidate_reporting_units.append(candidate)
+                del unit.candidates
+                reporting_units.append(unit)
+            del race.candidates
+            del race.reportingunits
+            races.append(race)
+        return races, reporting_units, candidate_reporting_units
 
     def get_races(self, **kwargs):
         """
