@@ -9,7 +9,7 @@
       "raceTypeID": "G",
       "officeID": "0",
       "officeName": "School Board",
-      "description": "Jeffco Successor Direct",
+      "description": "Laika Successor Direct",
       "seatName": "District 1",
       "seatNum": "1",
       "uncontested": true,
@@ -24,8 +24,8 @@
           "precinctsReportingPct": 0.0,
           "candidates": [
             {
-              "first": "Brad",
-              "last": "Rupert",
+              "first": "Valentina",
+              "last": "Tereshkova",
               "party": "BHM",
               "candidateID": "12484",
               "polID": "0",
@@ -47,8 +47,8 @@
           "precinctsReportingPct": 0.0,
           "candidates": [
             {
-              "first": "Brad",
-              "last": "Rupert",
+              "first": "Svetlana",
+              "last": "Savitskaya",
               "party": "DHM",
               "candidateID": "12484",
               "polID": "0",
@@ -80,8 +80,8 @@
           "precinctsReportingPct": 100.0,
           "candidates": [
             {
-              "first": "Scott",
-              "last": "Surovell",
+              "first": "Sally",
+              "last": "Ride",
               "party": "HSV",
               "candidateID": "51528",
               "polID": "0",
@@ -90,8 +90,8 @@
               "voteCount": 31836
             },
             {
-              "first": "Gerald",
-              "last": "Foreman",
+              "first": "Judith",
+              "last": "Resnik",
               "party": "MOB",
               "candidateID": "51529",
               "polID": "0",
@@ -113,8 +113,8 @@
           "precinctsReportingPct": 100.0,
           "candidates": [
             {
-              "first": "Scott",
-              "last": "Surovell",
+              "first": "Sally",
+              "last": "Ride",
               "party": "MGM",
               "candidateID": "51528",
               "polID": "0",
@@ -123,8 +123,8 @@
               "voteCount": 11266
             },
             {
-              "first": "Gerald",
-              "last": "Foreman",
+              "first": "Judith",
+              "last": "Resnik",
               "party": "ANC",
               "candidateID": "51529",
               "polID": "0",
@@ -146,8 +146,8 @@
           "precinctsReportingPct": 100.0,
           "candidates": [
             {
-              "first": "Scott",
-              "last": "Surovell",
+              "first": "Sally",
+              "last": "Ride",
               "party": "FAI",
               "candidateID": "51528",
               "polID": "0",
@@ -156,8 +156,8 @@
               "voteCount": 18489
             },
             {
-              "first": "Gerald",
-              "last": "Foreman",
+              "first": "Judith",
+              "last": "Resnik",
               "party": "JNU",
               "candidateID": "51529",
               "polID": "0",
@@ -179,8 +179,8 @@
           "precinctsReportingPct": 100.0,
           "candidates": [
             {
-              "first": "Scott",
-              "last": "Surovell",
+              "first": "Sally",
+              "last": "Ride",
               "party": "FLG",
               "candidateID": "51528",
               "polID": "0",
@@ -189,8 +189,8 @@
               "voteCount": 2081
             },
             {
-              "first": "Gerald",
-              "last": "Foreman",
+              "first": "Judith",
+              "last": "Resnik",
               "party": "PHX",
               "candidateID": "51529",
               "polID": "0",
@@ -4590,8 +4590,8 @@
           "precinctsReportingPct": 100.0,
           "candidates": [
             {
-              "first": "Scott",
-              "last": "Surovell",
+              "first": "Sally",
+              "last": "Ride",
               "party": "CRW",
               "candidateID": "51528",
               "polID": "0",
@@ -4600,8 +4600,8 @@
               "voteCount": 31836
             },
             {
-              "first": "Gerald",
-              "last": "Foreman",
+              "first": "Judith",
+              "last": "Resnik",
               "party": "GRB",
               "candidateID": "51529",
               "polID": "0",
@@ -4623,8 +4623,8 @@
           "precinctsReportingPct": 100.0,
           "candidates": [
             {
-              "first": "Scott",
-              "last": "Surovell",
+              "first": "Sally",
+              "last": "Ride",
               "party": "MSN",
               "candidateID": "51528",
               "polID": "0",
@@ -4633,8 +4633,8 @@
               "voteCount": 11266
             },
             {
-              "first": "Gerald",
-              "last": "Foreman",
+              "first": "Judith",
+              "last": "Resnik",
               "party": "MKE",
               "candidateID": "51529",
               "polID": "0",
@@ -4656,8 +4656,8 @@
           "precinctsReportingPct": 100.0,
           "candidates": [
             {
-              "first": "Scott",
-              "last": "Surovell",
+              "first": "Sally",
+              "last": "Ride",
               "party": "CPR",
               "candidateID": "51528",
               "polID": "0",
@@ -4666,8 +4666,8 @@
               "voteCount": 18489
             },
             {
-              "first": "Gerald",
-              "last": "Foreman",
+              "first": "Judith",
+              "last": "Resnik",
               "party": "CYS",
               "candidateID": "51529",
               "polID": "0",
@@ -4689,8 +4689,8 @@
           "precinctsReportingPct": 100.0,
           "candidates": [
             {
-              "first": "Scott",
-              "last": "Surovell",
+              "first": "Sally",
+              "last": "Ride",
               "party": "JAC",
               "candidateID": "51528",
               "polID": "0",
@@ -4699,8 +4699,8 @@
               "voteCount": 2081
             },
             {
-              "first": "Gerald",
-              "last": "Foreman",
+              "first": "Judith",
+              "last": "Resnik",
               "party": "RKS",
               "candidateID": "51529",
               "polID": "0",
