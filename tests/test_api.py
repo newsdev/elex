@@ -11,3 +11,11 @@ class APAPITestCase(unittest.TestCase):
     def test_number_of_races(self):
         self.assertEqual(len(self.races), 479)
 
+    def test_number_of_candidates(self):
+        num_candidates = 0
+        for race in self.races:
+            num_candidates += len(race.candidates)
+        self.assertEqual(num_candidates, 674)
+
+#    def test_number_of_ballot_positions(self):
+#        self.assertEqual(len(self.ballot_positions), 48)
