@@ -5,7 +5,7 @@ from elex.parser import api
 
 class TestCandidateReportingUnit(unittest.TestCase):
     def setUp(self):
-        with open('tests/data/test_data.json', 'r') as readfile:
+        with open('tests/data/20151103_national.json', 'r') as readfile:
             self.raw_races = list(json.loads(readfile.read())['races'])
         e = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
         self.parsed_races = [api.Race(**r) for r in self.raw_races]
@@ -51,11 +51,6 @@ class TestCandidateReportingUnit(unittest.TestCase):
         self.assertEqual(cru.incumbent, True)
 
     def test_candidate_reporting_unit_sums(self):
-        """
-        The highest-level reporting unit votecount and the sum of votes from the
-        candidate reporting units within that reporting unit should be equal.
-        """
-
         # Grab the KY governor's race.
         race = self.races[0]
 
@@ -76,7 +71,8 @@ class TestCandidateReportingUnit(unittest.TestCase):
             self.assertEqual(cru.raceid, '18525')
             self.assertEqual(cru.level, 'state')
 
-        # Check the three-way equality.
+        # The highest-level reporting unit votecount and the sum of votes from the
+        # candidate reporting units within that reporting unit should be equal.
         self.assertEqual(reporting_unit.votecount, actual_sums_from_json)
         self.assertEqual(sum_candidate_reporting_units, actual_sums_from_json)
         self.assertEqual(sum_candidate_reporting_units, reporting_unit.votecount)

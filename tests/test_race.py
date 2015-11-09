@@ -5,7 +5,7 @@ from elex.parser import api
 
 class TestRace(unittest.TestCase):
     def setUp(self):
-        with open('tests/data/test_data.json', 'r') as readfile:
+        with open('tests/data/20151103_national.json', 'r') as readfile:
             self.raw_races = list(json.loads(readfile.read())['races'])
         e = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
         self.parsed_races = [api.Race(**r) for r in self.raw_races]
