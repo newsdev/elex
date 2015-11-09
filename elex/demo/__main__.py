@@ -17,9 +17,10 @@ if __name__ == "__main__":
     start = datetime.datetime.now()
 
     e = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
-    raw_races = e.get_races(omitResults=False, level="ru", test=False)
+    raw_races = e.get_raw_races(omitResults=False, level="ru", test=False)
+    race_objs = e.get_race_objects(raw_races)
 
-    races, reporting_units, candidate_reporting_units = e.get_units(raw_races)
+    races, reporting_units, candidate_reporting_units = e.get_units(race_objs)
     candidates, ballot_positions = e.get_uniques(candidate_reporting_units)
 
     print "Parse: %s races." % len(races)
