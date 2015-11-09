@@ -16,7 +16,7 @@ def read(filename):
 
 setup(
     name='nyt-ap-elections',
-    version='0.0.30',
+    version='0.0.31',
     author='Jeremy Bowers',
     author_email='jeremy.bowers@nytimes.com',
     url='https://github.com/newsdev/nyt-ap-elections',
