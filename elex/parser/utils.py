@@ -45,6 +45,7 @@ def api_request(path, **params):
 
     params['format'] = 'json'
 
-    response = requests.get(elex.BASE_URL + path, params=params)
-    print response.url
-    return response.json()
+    payload = requests.get(elex.BASE_URL + path, params=params).json()
+    write_recording(payload)
+
+    return payload
