@@ -3,7 +3,7 @@ import unittest
 
 from elex.parser import api
 
-class TestRaceParsing(unittest.TestCase):
+class TestRace(unittest.TestCase):
     def setUp(self):
         with open('tests/data/test_data.json', 'r') as readfile:
             self.raw_races = list(json.loads(readfile.read())['races'])

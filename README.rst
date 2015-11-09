@@ -113,3 +113,13 @@ Will record a timestamped record to MongoDB, connecting via
     export ELEX_RECORDING=mongodb
     export ELEX_RECORDING_MONGO_URL=mongodb://localhost:27017/  # Or your own connection string.
     export ELEX_RECORDING_MONGO_DB=ap_elections_loader
+
+Development
+-----------
+
+Run tests
+~~~~~~~~~
+
+.. code:: bash
+
+    nosetests
