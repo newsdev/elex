@@ -204,7 +204,7 @@ class CandidateReportingUnit(BaseObject):
         else:
             payload = "%s %s (%s)" % (self.first, self.last, self.party)
         if self.winner:
-            payload += '✓'.decode('utf-8')
+            payload += ' (w)'
         return payload
 
 
