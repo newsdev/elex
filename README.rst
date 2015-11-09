@@ -55,8 +55,6 @@ Use the election loader manually from within your project.
 
 .. code:: python
 
-    import datetime
-
     from elex.parser import api
     from elex import loader
     from elex.loader import postgres
