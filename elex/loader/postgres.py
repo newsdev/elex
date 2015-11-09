@@ -13,7 +13,7 @@ class Candidate(loader.PostgresModel, loader.CandidateModel):
     pass
 
 
-class CandidateResult(loader.PostgresModel, loader.CandidateResultModel):
+class CandidateReportingUnit(loader.PostgresModel, loader.CandidateReportingUnitModel):
     pass
 
 

@@ -26,7 +26,7 @@ class PostgresModel(peewee.Model):
         database = ELEX_PG_CONNEX
 
 
-class CandidateResultModel(peewee.Model):
+class CandidateReportingUnitModel(peewee.Model):
     """
     Fields but no database connection.
     For flexibility.
@@ -34,14 +34,7 @@ class CandidateResultModel(peewee.Model):
     record in a single reporting unit.
     """
     accept_ap_calls = peewee.BooleanField(default=True)
-    race_id = peewee.IntegerField(null=True)
-    reporting_unit_id = peewee.IntegerField(null=True)
-    candidate_id = peewee.IntegerField(null=True)
-    officeid = peewee.CharField(null=True)
-    officename = peewee.CharField(null=True)
-    racetype = peewee.CharField(null=True)
-    reportingunitid = peewee.CharField(null=True)
-    reportingunitname = peewee.CharField(null=True)
+
     first = peewee.CharField(null=True)
     last = peewee.CharField(null=True)
     party = peewee.CharField(null=True)
@@ -50,93 +43,10 @@ class CandidateResultModel(peewee.Model):
     ballotorder = peewee.CharField(null=True)
     polnum = peewee.CharField(null=True)
     votecount = peewee.IntegerField(default=0)
+    votepct = peewee.FloatField(default=0)
     winner = peewee.BooleanField(default=False)
     is_ballot_position = peewee.BooleanField(default=False)
-    raceid = peewee.CharField(null=True)
-    statepostal = peewee.CharField(null=True)
-    statename = peewee.CharField(null=True)
-    seatname = peewee.CharField(null=True)
-    description = peewee.CharField(null=True)
-    reportingunit_votecount = peewee.IntegerField(default=0)
-    reportingunit_votepct = peewee.FloatField(default=0.0)
-    race_votecount = peewee.IntegerField(default=0)
-    race_votepct = peewee.FloatField(default=0.0)
-    uncontested = peewee.BooleanField(default=False)
 
-
-class BallotPositionModel(peewee.Model):
-    """
-    Fields but no database connection.
-    For flexibility.
-    last contains the 'yes/no' field.
-    """
-    clean_name = peewee.CharField(null=True)
-    clean_description = peewee.TextField(null=True)
-    last = peewee.CharField(null=True)
-    candidateid = peewee.CharField(null=True)
-    polid = peewee.CharField(null=True)
-    ballotorder = peewee.CharField(null=True)
-    polnum = peewee.CharField(null=True)
-    description = peewee.CharField(null=True)
-    seatname = peewee.CharField(null=True)
-
-
-class CandidateModel(peewee.Model):
-    """
-    Fields but no database connection.
-    For flexibility.
-    """
-    clean_name = peewee.CharField(null=True)
-    clean_description = peewee.TextField(null=True)
-    first = peewee.CharField(null=True)
-    last = peewee.CharField(null=True)
-    party = peewee.CharField(null=True)
-    candidateid = peewee.CharField(null=True)
-    polid = peewee.CharField(null=True)
-    ballotorder = peewee.CharField(null=True)
-    polnum = peewee.CharField(null=True)
-
-
-class ReportingUnitModel(peewee.Model):
-    """
-    Fields but no database connection.
-    For flexibility.
-    """
-    accept_ap_calls = peewee.BooleanField(default=True)
-    clean_name = peewee.CharField(null=True)
-    clean_description = peewee.TextField(null=True)
-    race_id = peewee.IntegerField(null=True)
-    officeid = peewee.CharField(null=True)
-    officename = peewee.CharField(null=True)
-    racetype = peewee.CharField(null=True)
-    statepostal = peewee.CharField(null=True)
-    statename = peewee.CharField(null=True)
-    level = peewee.CharField(null=True)
-    reportingunitname = peewee.CharField(null=True)
-    reportingunitid = peewee.CharField(null=True)
-    fipscode = peewee.CharField(null=True)
-    lastupdated = peewee.CharField(null=True)
-    lastupdated_parsed = peewee.DateTimeField(null=True)
-    precinctsreporting = peewee.IntegerField(default=0)
-    precinctstotal = peewee.IntegerField(default=0)
-    precinctsreportingpct = peewee.FloatField(default=0.0)
-    raceid = peewee.CharField(null=True)
-    description = peewee.CharField(null=True)
-    seatname = peewee.CharField(null=True)
-    reportingunit_votecount = peewee.IntegerField(default=0)
-    race_votecount = peewee.IntegerField(default=0)
-    race_votepct = peewee.FloatField(default=0.0)
-    uncontested = peewee.BooleanField(default=False)
-
-
-class RaceModel(peewee.Model):
-    """
-    Fields but no database connection.
-    For flexibility.
-    """
-    accept_ap_calls = peewee.BooleanField(default=True)
-    clean_name = peewee.CharField(null=True)
-    clean_description = peewee.TextField(null=True)
     description = peewee.CharField(null=True)
     test = peewee.BooleanField(default=False)
     raceid = peewee.CharField(null=True)
@@ -154,7 +64,118 @@ class RaceModel(peewee.Model):
     lastupdated = peewee.CharField(null=True)
     lastupdated_parsed = peewee.DateTimeField(null=True)
     initialization_data = peewee.BooleanField(default=False)
-    race_votecount = peewee.IntegerField(default=0)
+
+    level = peewee.CharField(null=True)
+    reportingunitname = peewee.CharField(null=True)
+    reportingunitid = peewee.CharField(null=True)
+    fipscode = peewee.CharField(null=True)
+    lastupdated = peewee.CharField(null=True)
+    lastupdated_parsed = peewee.DateTimeField(null=True)
+    precinctsreporting = peewee.IntegerField(default=0)
+    precinctstotal = peewee.IntegerField(default=0)
+    precinctsreportingpct = peewee.FloatField(default=0.0)
+
+
+class BallotPositionModel(peewee.Model):
+    """
+    Fields but no database connection.
+    For flexibility.
+    last contains the 'yes/no' field.
+    """
+    clean_name = peewee.CharField(null=True)
+    clean_description = peewee.TextField(null=True)
+
+    last = peewee.CharField(null=True)
+    candidateid = peewee.CharField(null=True)
+    polid = peewee.CharField(null=True)
+    ballotorder = peewee.CharField(null=True)
+    polnum = peewee.CharField(null=True)
+    description = peewee.CharField(null=True)
+    seatname = peewee.CharField(null=True)
+
+
+class CandidateModel(peewee.Model):
+    """
+    Fields but no database connection.
+    For flexibility.
+    """
+    clean_name = peewee.CharField(null=True)
+    clean_description = peewee.TextField(null=True)
+
+    first = peewee.CharField(null=True)
+    last = peewee.CharField(null=True)
+    party = peewee.CharField(null=True)
+    candidateid = peewee.CharField(null=True)
+    polid = peewee.CharField(null=True)
+    ballotorder = peewee.CharField(null=True)
+    polnum = peewee.CharField(null=True)
+
+
+class ReportingUnitModel(peewee.Model):
+    """
+    Fields but no database connection.
+    For flexibility.
+    """
+    accept_ap_calls = peewee.BooleanField(default=True)
+    clean_name = peewee.CharField(null=True)
+    clean_description = peewee.TextField(null=True)
+
+    description = peewee.CharField(null=True)
+    test = peewee.BooleanField(default=False)
+    raceid = peewee.CharField(null=True)
+    statepostal = peewee.CharField(null=True)
+    statename = peewee.CharField(null=True)
+    racetype = peewee.CharField(null=True)
+    reportingunitid = peewee.CharField(null=True)
+    racetypeid = peewee.CharField(null=True)
+    officeid = peewee.CharField(null=True)
+    officename = peewee.CharField(null=True)
+    party = peewee.CharField(null=True)
+    seatname = peewee.CharField(null=True)
+    seatnum = peewee.CharField(null=True)
+    uncontested = peewee.BooleanField(default=False)
+    lastupdated = peewee.CharField(null=True)
+    lastupdated_parsed = peewee.DateTimeField(null=True)
+    initialization_data = peewee.BooleanField(default=False)
+
+    level = peewee.CharField(null=True)
+    reportingunitname = peewee.CharField(null=True)
+    reportingunitid = peewee.CharField(null=True)
+    fipscode = peewee.CharField(null=True)
+    lastupdated = peewee.CharField(null=True)
+    lastupdated_parsed = peewee.DateTimeField(null=True)
+    precinctsreporting = peewee.IntegerField(default=0)
+    precinctstotal = peewee.IntegerField(default=0)
+    precinctsreportingpct = peewee.FloatField(default=0.0)
+    votecount = peewee.IntegerField(default=0)
+
+
+class RaceModel(peewee.Model):
+    """
+    Fields but no database connection.
+    For flexibility.
+    """
+    accept_ap_calls = peewee.BooleanField(default=True)
+    clean_name = peewee.CharField(null=True)
+    clean_description = peewee.TextField(null=True)
+
+    description = peewee.CharField(null=True)
+    test = peewee.BooleanField(default=False)
+    raceid = peewee.CharField(null=True)
+    statepostal = peewee.CharField(null=True)
+    statename = peewee.CharField(null=True)
+    racetype = peewee.CharField(null=True)
+    reportingunitid = peewee.CharField(null=True)
+    racetypeid = peewee.CharField(null=True)
+    officeid = peewee.CharField(null=True)
+    officename = peewee.CharField(null=True)
+    party = peewee.CharField(null=True)
+    seatname = peewee.CharField(null=True)
+    seatnum = peewee.CharField(null=True)
+    uncontested = peewee.BooleanField(default=False)
+    lastupdated = peewee.CharField(null=True)
+    lastupdated_parsed = peewee.DateTimeField(null=True)
+    initialization_data = peewee.BooleanField(default=False)
 
 
 class ElectionModel(peewee.Model):
