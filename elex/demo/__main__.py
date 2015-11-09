@@ -22,11 +22,11 @@ if __name__ == "__main__":
     races, reporting_units, candidate_reporting_units = e.get_units(raw_races)
     candidates, ballot_positions = e.get_uniques(candidate_reporting_units)
 
-    print "Parsed %s races." % len(races)
-    print "Parsed %s candidates." % len(candidates)
-    print "Parsed %s ballot positions." % len(ballot_positions)
-    print "Parsed %s reporting units." % len(reporting_units)
-    print "Parsed %s candidate reporting units." % len(candidate_reporting_units)
+    print "Parse: %s races." % len(races)
+    print "Parse: %s candidates." % len(candidates)
+    print "Parse: %s ballot positions." % len(ballot_positions)
+    print "Parse: %s reporting units." % len(reporting_units)
+    print "Parse: %s candidate reporting units." % len(candidate_reporting_units)
 
     parse_end = datetime.datetime.now()
 
@@ -51,11 +51,11 @@ if __name__ == "__main__":
 
     loader.ELEX_PG_CONNEX.close()
 
-    print "Inserted %s races." % len(races)
-    print "Inserted %s candidates." % len(candidates)
-    print "Inserted %s ballot positions." % len(ballot_positions)
-    print "Inserted %s reporting units." % len(reporting_units)
-    print "Inserted %s candidate reporting units." % len(candidate_reporting_units)
+    print "Insert: %s races." % len(races)
+    print "Insert: %s candidates." % len(candidates)
+    print "Insert: %s ballot positions." % len(ballot_positions)
+    print "Insert: %s reporting units." % len(reporting_units)
+    print "Insert: %s candidate reporting units." % len(candidate_reporting_units)
 
     end = datetime.datetime.now()
 

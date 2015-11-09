@@ -21,28 +21,6 @@ class BaseObject(object):
     transformation of data and AP connections.
     """
 
-    def aggregate_vote_count(self, field_from, field_to):
-        """
-        Simple function for aggregating vote counts.
-        Accepts a field_from and a field_to.
-        field_from = where to aggregate votes from.
-        field_to = where to add the aggregated votes to.
-        """
-
-        # Sometimes we need to aggregate votes up from candidates arrays.
-        if hasattr(self, 'candidates') and len(getattr(self, 'candidates')) > 0:
-            setattr(
-                self,
-                field_to,
-                getattr(self, field_to) + sum([getattr(c, field_from) for c in getattr(self, 'candidates')]))
-
-        # Sometimes we need to aggregate votes up from the reportingunits arrays.
-        if hasattr(self, 'reportingunits') and len(getattr(self, 'reportingunits')) > 0:
-            setattr(
-                self,
-                field_to,
-                getattr(self, field_to) + sum([getattr(r, field_from) for r in getattr(self, 'reportingunits')]))
-
     def set_state_fields_from_reportingunits(self):
         if len(self.reportingunits) > 0:
             setattr(self, 'statepostal', self.reportingunits[0].statepostal)
@@ -147,13 +125,13 @@ class Candidate(BaseObject):
     for this election, across races.
     """
     def __init__(self, **kwargs):
-        first = None
-        last = None
-        party = None
-        candidateid = None
-        polid = None
-        ballotorder = None
-        polnum = None
+        self.first = None
+        self.last = None
+        self.party = None
+        self.candidateid = None
+        self.polid = None
+        self.ballotorder = None
+        self.polnum = None
 
         self.set_fields(**kwargs)
 
@@ -164,13 +142,13 @@ class BallotPosition(BaseObject):
     position.
     """
     def __init__(self, **kwargs):
-        last = None
-        candidateid = None
-        polid = None
-        ballotorder = None
-        polnum = None
-        description = None
-        seatname = None
+        self.last = None
+        self.candidateid = None
+        self.polid = None
+        self.ballotorder = None
+        self.polnum = None
+        self.description = None
+        self.seatname = None
 
         self.set_fields(**kwargs)
 
@@ -190,9 +168,9 @@ class CandidateReportingUnit(BaseObject):
         self.ballotorder = None
         self.polnum = None
         self.votecount = 0
+        self.votepct = 0.0
         self.winner = False
         self.is_ballot_position = False
-        self.description = None
         self.level = None
         self.reportingunitname = None
         self.reportingunitid = None
@@ -211,7 +189,6 @@ class CandidateReportingUnit(BaseObject):
         self.racetypeid = None
         self.officeid = None
         self.officename = None
-        self.party = None
         self.seatname = None
         self.description = None
         self.seatnum = None
@@ -256,7 +233,6 @@ class ReportingUnit(BaseObject):
         self.racetypeid = None
         self.officeid = None
         self.officename = None
-        self.party = None
         self.seatname = None
         self.description = None
         self.seatnum = None
@@ -268,11 +244,24 @@ class ReportingUnit(BaseObject):
         self.set_dates(['lastupdated'])
         self.set_reportingunitids()
         self.set_candidates()
+        self.set_votecount()
+        self.set_candidate_votepct()
 
     def __unicode__(self):
         if self.reportingunitname:
             return "%s %s (%s %% reporting)" % (self.statepostal, self.reportingunitname, self.precinctsreportingpct)
         return "%s %s (%s %% reporting)" % (self.statepostal, self.level, self.precinctsreportingpct)
+
+    def set_votecount(self):
+        if not self.uncontested:
+            for c in self.candidates:
+                self.votecount = sum([c.votecount for c in self.candidates if c.level != 'subunit'])
+
+    def set_candidate_votepct(self):
+        if not self.uncontested:
+            for c in self.candidates:
+                if c.level != 'subunit':
+                    c.votepct = float(c.votecount) / float(self.votecount)
 
 
 class Race(BaseObject):
@@ -371,13 +360,27 @@ class Election(BaseObject):
         for c in candidate_reporting_units:
             if c.is_ballot_position:
                 if not unique_ballot_positions.get(c.candidateid, None):
-                    unique_ballot_positions[c.candidateid] = {"last": c.last, "candidateid": c.candidateid, "polid": c.polid, "ballotorder": c.ballotorder, "polnum": c.polnum, "seatname": c.seatname, "description": c.description}
+                    unique_ballot_positions[c.candidateid] = BallotPosition(
+                                                                last=c.last,
+                                                                candidateid=c.candidateid,
+                                                                polid=c.polid,
+                                                                ballotorder=c.ballotorder,
+                                                                polnum=c.polnum,
+                                                                seatname=c.seatname,
+                                                                description=c.description)
             else:
                 if not unique_candidates.get(c.candidateid, None):
-                    unique_candidates[c.candidateid] = {"first": c.first, "last": c.last, "candidateid": c.candidateid, "polid": c.polid, "ballotorder": c.ballotorder, "polnum": c.polnum, "party": c.party}
+                    unique_candidates[c.candidateid] = Candidate(
+                                                                first=c.first,
+                                                                last=c.last,
+                                                                candidateid=c.candidateid,
+                                                                polid=c.polid,
+                                                                ballotorder=c.ballotorder,
+                                                                polnum=c.polnum,
+                                                                party=c.party)
 
-        candidates = [Candidate(**v) for v in unique_candidates.values()]
-        ballot_positions = [BallotPosition(**v) for v in unique_ballot_positions.values()]
+        candidates = [v for v in unique_candidates.values()]
+        ballot_positions = [v for v in unique_ballot_positions.values()]
         return candidates, ballot_positions 
 
     def get_units(self, raw_races):

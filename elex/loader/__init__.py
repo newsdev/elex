@@ -43,6 +43,7 @@ class CandidateReportingUnitModel(peewee.Model):
     ballotorder = peewee.CharField(null=True)
     polnum = peewee.CharField(null=True)
     votecount = peewee.IntegerField(default=0)
+    votepct = peewee.FloatField(default=0)
     winner = peewee.BooleanField(default=False)
     is_ballot_position = peewee.BooleanField(default=False)
 
@@ -146,6 +147,7 @@ class ReportingUnitModel(peewee.Model):
     precinctsreporting = peewee.IntegerField(default=0)
     precinctstotal = peewee.IntegerField(default=0)
     precinctsreportingpct = peewee.FloatField(default=0.0)
+    votecount = peewee.IntegerField(default=0)
 
 
 class RaceModel(peewee.Model):
