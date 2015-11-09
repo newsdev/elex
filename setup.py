@@ -23,6 +23,11 @@ setup(
     description='Python client for parsing the Associated Press\'s elections API.',
     long_description=read('README.rst'),
     packages=['elex'],
+    entry_points={
+        'console_scripts': [
+            'elex = elex.cli:main',
+        ],
+    },
     license="Apache License 2.0",
     keywords='election race candidate democracy news associated press',
     install_requires=reqs,
