@@ -6,10 +6,11 @@ from elex.parser import api
 class TestCandidateReportingUnit(unittest.TestCase):
     def setUp(self):
         with open('tests/data/20151103_national.json', 'r') as readfile:
-            self.raw_races = list(json.loads(readfile.read())['races'])
+            self.raw_races = dict(json.loads(readfile.read()))
+
         e = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
-        self.parsed_races = [api.Race(**r) for r in self.raw_races]
-        self.races, self.reporting_units, self.candidate_reporting_units = e.get_units(self.parsed_races)
+        self.race_objs = e.get_race_objects(self.raw_races)
+        self.races, self.reporting_units, self.candidate_reporting_units = e.get_units(self.race_objs)
 
     def tearDown(self):
         self.races = None
@@ -20,7 +21,7 @@ class TestCandidateReportingUnit(unittest.TestCase):
         self.assertEqual(len(self.candidate_reporting_units), 612)
 
     def test_composition_of_candidate_reporting_units_json(self):
-        cru_dict = self.raw_races[1]['reportingUnits'][0]['candidates'][0]
+        cru_dict = self.raw_races['races'][1]['reportingUnits'][0]['candidates'][0]
         self.assertEqual(cru_dict['first'], 'Phil')
         self.assertEqual(cru_dict['last'], 'Bryant')
         self.assertEqual(cru_dict['party'], 'GOP')
