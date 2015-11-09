@@ -41,8 +41,8 @@ if __name__ == "__main__":
     # # Connect to the database.
     # # Drop and recreate tables, as we're bulk-loading.
     loader.ELEX_PG_CONNEX.connect()
-    loader.ELEX_PG_CONNEX.drop_tables([m[0] for m in DB_MAPPING], safe=True)
-    loader.ELEX_PG_CONNEX.create_tables([m[0] for m in DB_MAPPING], safe=True)
+    loader.ELEX_PG_CONNEX.drop_tables([mapping[0] for mapping in DB_MAPPING], safe=True)
+    loader.ELEX_PG_CONNEX.create_tables([mapping[0] for mapping in DB_MAPPING], safe=True)
 
     for obj, obj_list in DB_MAPPING:
         with loader.ELEX_PG_CONNEX.atomic():
