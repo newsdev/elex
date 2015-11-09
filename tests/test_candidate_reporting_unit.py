@@ -48,7 +48,7 @@ class TestCandidateReportingUnit(unittest.TestCase):
         self.assertEqual(cru.polnum, '19601')
         self.assertEqual(cru.votecount, 426944)
         self.assertEqual(cru.winner, False)
-        self.assertEqual(cru.incumbent, True)
+        self.assertEqual(cru.incumbent, False)
 
     def test_candidate_reporting_unit_sums(self):
         # Grab the KY governor's race.

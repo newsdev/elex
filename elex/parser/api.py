@@ -194,6 +194,9 @@ class CandidateReportingUnit(BaseObject):
         self.seatnum = None
         self.uncontested = False
         self.lastupdated = None
+        self.initialization_data = False
+        self.national = False
+        self.incumbent = False
 
         self.set_fields(**kwargs)
         self.set_winner()
@@ -238,6 +241,8 @@ class ReportingUnit(BaseObject):
         self.seatnum = None
         self.uncontested = False
         self.lastupdated = None
+        self.initialization_data = False
+        self.national = False
         self.candidates = []
 
         self.set_fields(**kwargs)
@@ -284,6 +289,7 @@ class Race(BaseObject):
         self.uncontested = False
         self.lastupdated = None
         self.initialization_data = False
+        self.national = False
         self.candidates = []
         self.reportingunits = []
 
