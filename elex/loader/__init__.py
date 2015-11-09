@@ -46,6 +46,7 @@ class CandidateReportingUnitModel(peewee.Model):
     votepct = peewee.FloatField(default=0)
     winner = peewee.BooleanField(default=False)
     is_ballot_position = peewee.BooleanField(default=False)
+    incumbent = peewee.BooleanField(default=False)
 
     description = peewee.CharField(null=True)
     test = peewee.BooleanField(default=False)
@@ -64,6 +65,7 @@ class CandidateReportingUnitModel(peewee.Model):
     lastupdated = peewee.CharField(null=True)
     lastupdated_parsed = peewee.DateTimeField(null=True)
     initialization_data = peewee.BooleanField(default=False)
+    national = peewee.BooleanField(default=False)
 
     level = peewee.CharField(null=True)
     reportingunitname = peewee.CharField(null=True)
@@ -137,6 +139,7 @@ class ReportingUnitModel(peewee.Model):
     lastupdated = peewee.CharField(null=True)
     lastupdated_parsed = peewee.DateTimeField(null=True)
     initialization_data = peewee.BooleanField(default=False)
+    national = peewee.BooleanField(default=False)
 
     level = peewee.CharField(null=True)
     reportingunitname = peewee.CharField(null=True)
@@ -176,7 +179,7 @@ class RaceModel(peewee.Model):
     lastupdated = peewee.CharField(null=True)
     lastupdated_parsed = peewee.DateTimeField(null=True)
     initialization_data = peewee.BooleanField(default=False)
-
+    national = peewee.BooleanField(default=False)
 
 class ElectionModel(peewee.Model):
     """
