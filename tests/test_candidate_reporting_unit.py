@@ -18,20 +18,18 @@ class TestCandidateReportingUnit(unittest.TestCase):
         self.candidate_reporting_units = None
 
     def test_number_of_parsed_candidate_reporting_units(self):
-        self.assertEqual(len(self.candidate_reporting_units), 612)
+        self.assertEqual(len(self.candidate_reporting_units), 505)
 
     def test_composition_of_candidate_reporting_units_json(self):
-        cru_dict = self.raw_races['races'][1]['reportingUnits'][0]['candidates'][0]
-        self.assertEqual(cru_dict['first'], 'Phil')
-        self.assertEqual(cru_dict['last'], 'Bryant')
-        self.assertEqual(cru_dict['party'], 'GOP')
-        self.assertEqual(cru_dict['incumbent'], True)
-        self.assertEqual(cru_dict['candidateID'], '31345')
-        self.assertEqual(cru_dict['polID'], '27207')
+        cru_dict = self.raw_races['races'][-1]['reportingUnits'][0]['candidates'][1]
+        self.assertEqual(cru_dict['first'], 'Jack')
+        self.assertEqual(cru_dict['last'], 'Conway')
+        self.assertEqual(cru_dict['party'], 'Dem')
+        self.assertEqual(cru_dict['candidateID'], '5266')
+        self.assertEqual(cru_dict['polID'], '204')
         self.assertEqual(cru_dict['ballotOrder'], 1)
-        self.assertEqual(cru_dict['polNum'], '25514')
-        self.assertEqual(cru_dict['voteCount'], 472197)
-        self.assertEqual(cru_dict['winner'], 'X')
+        self.assertEqual(cru_dict['polNum'], '19601')
+        self.assertEqual(cru_dict['voteCount'], 426944)
 
     def test_candidate_reporting_unit_object_inflation(self):
         cru = self.candidate_reporting_units[0]
@@ -39,7 +37,8 @@ class TestCandidateReportingUnit(unittest.TestCase):
         self.assertEqual(cru.__module__, 'elex.parser.api')
 
     def test_candidate_reporting_unit_get_units_construction(self):
-        cru = self.candidate_reporting_units[0]
+        cru = self.candidate_reporting_units[(4*64)+0]
+        self.assertEqual(cru.raceid, '18525')
         self.assertEqual(cru.first, 'Jack')
         self.assertEqual(cru.last, 'Conway')
         self.assertEqual(cru.party, 'Dem')
@@ -47,30 +46,26 @@ class TestCandidateReportingUnit(unittest.TestCase):
         self.assertEqual(cru.polid, '204')
         self.assertEqual(cru.ballotorder, 1)
         self.assertEqual(cru.polnum, '19601')
-        self.assertEqual(cru.votecount, 426944)
+        self.assertEqual(cru.votecount, 504)
         self.assertEqual(cru.winner, False)
         self.assertEqual(cru.incumbent, False)
 
     def test_candidate_reporting_unit_sums(self):
-        # Grab the KY governor's race.
-        race = self.races[0]
-
-        # Grab the reporting unit associated with this race.
         reporting_unit = self.reporting_units[0]
 
-        # Grab the three candidate reporting units associated with
-        # this reporting unit.
-        candidate_reporting_units = self.candidate_reporting_units[0:3]
+        self.assertEqual(len(self.reporting_units), 192)
 
-        # Hand-added for additional (in)accuracy.
-        actual_sums_from_json = 511771 + 426944 + 35629
+        candidate_reporting_units = self.candidate_reporting_units[0:2]
+        actual_sums_from_json = 805617 + 354769
         sum_candidate_reporting_units = sum([v.votecount for v in candidate_reporting_units])
 
         # Make sure we got the right race / reporting unit / candidate reporting units.
         # Thankfully, we denormalized the race fields all the way down!
         for cru in candidate_reporting_units:
-            self.assertEqual(cru.raceid, '18525')
+            self.assertEqual(cru.raceid, '7582')
             self.assertEqual(cru.level, 'state')
+
+        self.assertEqual(candidate_reporting_units[0].votecount / float(reporting_unit.votecount), 0.694266390666554)
 
         # The highest-level reporting unit votecount and the sum of votes from the
         # candidate reporting units within that reporting unit should be equal.
