@@ -44,8 +44,10 @@ class BaseObject(object):
         for r in self.reportingunits:
             reportingunit_dict = dict(r)
 
+            SKIP_FIELDS = ['candidates', 'statepostal', 'statename']
+
             for k,v in self.__dict__.items():
-                if k != 'candidates':
+                if k not in SKIP_FIELDS:
                     reportingunit_dict[k] = v
 
             obj = ReportingUnit(**reportingunit_dict)
@@ -78,7 +80,9 @@ class BaseObject(object):
             for k,v in self.__dict__.items():
                 candidate_dict[k] = v
 
-            candidate_dict['statename'] = STATE_ABBR[getattr(self, 'statepostal')]
+            if hasattr(self, 'statepostal'):
+                if getattr(self, 'statepostal') != None:
+                    candidate_dict['statename'] = STATE_ABBR[getattr(self, 'statepostal')]
             obj = CandidateReportingUnit(**candidate_dict)
             candidate_objs.append(obj)
         setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
@@ -266,6 +270,8 @@ class Race(BaseObject):
     within a certain election.
     """
     def __init__(self, **kwargs):
+        self.statepostal = None
+        self.statename = None
         self.test = False
         self.raceid = None
         self.racetype = None
@@ -293,12 +299,7 @@ class Race(BaseObject):
             self.set_state_fields_from_reportingunits()
 
     def __unicode__(self):
-        name = self.officename
-        if self.statepostal:
-            name = "%s %s" % (self.statepostal, self.officename)
-            if self.seatname:
-                name += " %s" % self.seatname
-        return name
+        return "%s %s" % (self.racetype, self.officename)
 
 
 class Election(BaseObject):
@@ -310,7 +311,6 @@ class Election(BaseObject):
         self.testresults = False
         self.liveresults = False
         self.electiondate = None
-        self.is_test = False
 
         self.parsed_json = None
         self.next_request = None
@@ -319,10 +319,7 @@ class Election(BaseObject):
         self.set_dates(['electiondate'])
 
     def __unicode__(self):
-        if self.is_test:
-            return "TEST: %s" % self.electiondate
-        else:
-            return self.electiondate
+        return self.electiondate
 
     @classmethod
     def get_elections(cls):
@@ -404,7 +401,6 @@ class Election(BaseObject):
         Given some parsed JSON, decided if this is standard
         results data or 
         """
-        # With `omitResults=True`, the API will return initialization data.
         if parsed_json['races'][0].get('candidates', None):
             payload = []
             for r in parsed_json['races']:
@@ -423,12 +419,19 @@ class Election(BaseObject):
         reporting_units = []
         candidate_reporting_units = []
         for race in raw_races:
-            for unit in race.reportingunits:
-                for candidate in unit.candidates:
+            if not race.initialization_data:
+                for unit in race.reportingunits:
+                    for candidate in unit.candidates:
+                        candidate_reporting_units.append(candidate)
+                    del unit.candidates
+                    reporting_units.append(unit)
+                del race.candidates
+                del race.reportingunits
+                races.append(race)
+            else:
+                for candidate in race.candidates:
                     candidate_reporting_units.append(candidate)
-                del unit.candidates
-                reporting_units.append(unit)
-            del race.candidates
-            del race.reportingunits
-            races.append(race)
+                del race.candidates
+                del race.reportingunits
+                races.append(race)
         return races, reporting_units, candidate_reporting_units
