@@ -58,7 +58,7 @@ class ElexBaseController(CementBaseController):
     def default(self):
         puts('stub')
 
-    @expose(help="Intialize races")
+    @expose(help="Initialize races")
     def init_races(self):
         races, reporting_units, candidate_reporting_units = self.app.election.get_units(self.app.race_data)
         writer = csv.writer(sys.stdout)
