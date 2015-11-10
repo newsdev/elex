@@ -56,16 +56,16 @@ class ElexBaseController(CementBaseController):
 
     @expose(hide=True)
     def default(self):
-        print self.app.pargs.date[0]
+        puts('stub')
 
     @expose(help="Intialize races")
     def init_races(self):
         races, reporting_units, candidate_reporting_units = self.app.election.get_units(self.app.race_data)
         writer = csv.writer(sys.stdout)
 
-        writer.writerow(('office name', 'seat name', 'seat num'))
+        writer.writerow([field for field in races[0].fields if (field != 'reportingunits' and field != 'candidates')])
         for race in races:
-            writer.writerow((race.officename, race.seatname, race.seatnum))
+            writer.writerow([getattr(race, field) for field in race.fields if (field != 'reportingunits' and field != 'candidates')])
 
 
 class ElexApp(CementApp):
