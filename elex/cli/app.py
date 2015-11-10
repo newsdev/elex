@@ -8,12 +8,19 @@ from clint.textui import puts
 from dateutil import parser
 from elex.parser import api
 
+
 def _parse_date(datestring, app):
+    """
+    Parse many date formats into an AP friendly format.
+    """
     dateobj = parser.parse(datestring)
     return dateobj.strftime('%Y-%m-%d')
 
 
 def process_date_hook(app):
+    """
+    Pre-parse date argument.
+    """
     if len(app.argv):
         try:
             app.argv[-1] = _parse_date(app.argv[-1], app)
@@ -28,6 +35,9 @@ def process_date_hook(app):
 
 
 def add_races_hook(app):
+    """
+    Cache data after parsing args.
+    """
     app.election = api.Election(electiondate=app.pargs.date[0], testresults=False, liveresults=True, is_test=False)
     app.race_data = app.election.get_races(omitResults=False, level="ru", test=False)
 
