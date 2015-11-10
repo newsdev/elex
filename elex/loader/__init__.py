@@ -189,4 +189,3 @@ class ElectionModel(peewee.Model):
     testresults = peewee.BooleanField(default=False)
     liveresults = peewee.BooleanField(default=False)
     electiondate = peewee.CharField(null=True)
-    is_test = peewee.BooleanField(default=False)

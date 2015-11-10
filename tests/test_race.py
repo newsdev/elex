@@ -8,7 +8,7 @@ class TestRaceResults(unittest.TestCase):
         with open('tests/data/20151103_national.json', 'r') as readfile:
             self.raw_races = dict(json.loads(readfile.read()))
 
-        e = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
+        e = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True)
         self.race_objs = e.get_race_objects(self.raw_races)
         self.races, self.reporting_units, self.candidate_reporting_units = e.get_units(self.race_objs)
 
@@ -84,4 +84,4 @@ class TestRaceInitialization(unittest.TestCase):
     def test_initialization_data_number_of_races(self):
         self.assertEqual(len(self.races), 2)
         self.assertEqual(len(self.reporting_units), 0)
-        self.assertEqual(len(self.candidate_reporting_units), 20)
+        self.assertEqual(len(self.candidate_reporting_units), 6)
