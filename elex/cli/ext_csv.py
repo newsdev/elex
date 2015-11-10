@@ -34,4 +34,3 @@ class CSVOutputHandler(output.CementOutputHandler):
 
 def load(app):
     handler.register(CSVOutputHandler)
-
