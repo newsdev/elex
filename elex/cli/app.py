@@ -4,46 +4,7 @@ import sys
 
 from cement.core.foundation import CementApp
 from cement.core.controller import CementBaseController, expose
-from clint.textui import puts
-from dateutil import parser
-from elex.parser import api
-
-
-def _parse_date(datestring, app):
-    """
-    Parse many date formats into an AP friendly format.
-    """
-    dateobj = parser.parse(datestring)
-    return dateobj.strftime('%Y-%m-%d')
-
-
-def process_date_hook(app):
-    """
-    Pre-parse date argument.
-    """
-    if len(app.argv):
-        try:
-            app.argv[-1] = _parse_date(app.argv[-1], app)
-        except ValueError:
-            puts('"{0}" could not be recognized as a date.\n'.format(app.argv[-1]))
-            app.args.print_help()
-            app.close()
-    else:
-        puts('Please specify an election date and optional command (e.g. `elex init-races 2015-11-03`)\n')
-        app.args.print_help()
-        app.close()
-
-
-def add_races_hook(app):
-    """
-    Cache data after parsing args.
-    """
-    app.election = api.Election(
-        electiondate=app.pargs.date[0],
-        testresults=app.pargs.test,
-        liveresults=not app.pargs.not_live,
-        is_test=False
-    )
+from elex.cli.hooks import process_date_hook, add_races_hook
 
 
 class ElexBaseController(CementBaseController):
@@ -53,9 +14,11 @@ class ElexBaseController(CementBaseController):
         arguments = [
             (['-t', '--test'], dict(
                 action='store_true',
+                help='Use testing API calls'
             )),
             (['-n', '--not-live'], dict(
                 action='store_true',
+                help='Do not use live data API calls'
             )),
             (['date'], dict(
                 nargs=1,
@@ -66,6 +29,9 @@ class ElexBaseController(CementBaseController):
 
     @expose(help="Initialize races")
     def init_races(self):
+        """
+        Initialize races
+        """
         race_data = self.app.election.get_races(
             omitResults=False,
             level="ru",
@@ -83,6 +49,9 @@ class ElexBaseController(CementBaseController):
 
     @expose(help="Initialize reporting units")
     def init_reporting_units(self):
+        """
+        Initialize reporting units
+        """
         race_data = self.app.election.get_races(
             omitResults=False,
             level="ru",
