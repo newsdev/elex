@@ -38,7 +38,6 @@ def add_races_hook(app):
     """
     Cache data after parsing args.
     """
-    print app.pargs
     app.election = api.Election(
         electiondate=app.pargs.date[0],
         testresults=app.pargs.test,
@@ -74,10 +73,30 @@ class ElexBaseController(CementBaseController):
         )
         races, reporting_units, candidate_reporting_units = self.app.election.get_units(race_data)
 
+        fields = races[0].__dict__.keys()
+        fields.sort()
+
         writer = csv.writer(sys.stdout)
-        writer.writerow([field for field in races[0].fields if (field != 'reportingunits' and field != 'candidates')])
+        writer.writerow([field for field in fields if (field != 'reportingunits' and field != 'candidates')])
         for race in races:
-            writer.writerow([getattr(race, field) for field in race.fields if (field != 'reportingunits' and field != 'candidates')])
+            writer.writerow([getattr(race, field) for field in fields if (field != 'reportingunits' and field != 'candidates')])
+
+    @expose(help="Initialize reporting units")
+    def init_reporting_units(self):
+        race_data = self.app.election.get_races(
+            omitResults=False,
+            level="ru",
+            test=self.app.pargs.test
+        )
+        races, reporting_units, candidate_reporting_units = self.app.election.get_units(race_data)
+
+        fields = reporting_units[0].__dict__.keys()
+        fields.sort()
+
+        writer = csv.writer(sys.stdout)
+        writer.writerow(fields)
+        for ru in reporting_units:
+            writer.writerow([getattr(ru, field) for field in fields])
 
 
 class ElexApp(CementApp):
