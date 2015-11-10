@@ -24,20 +24,36 @@ Set your AP API key:
 export AP_API_KEY=<MY_AP_API_KEY>
 ```
 
-### Additional configuration for demo
-
-Make sure you are running PostgreSQL. Then create your db and user:
-
-```bash
-createdb elex
-createuser elex
-```
-
 ## Usage
-### Demo app
+
+### Command line utility
+
+This tool is primarily designed for use on the command line using standard *NIX operations like pipes and output redirection.
+
+To write a stream of races in CSV format to your terminal, run:
+
 ```bash
-python -m elex.demo
+elex init-races '11-03-2015'
 ```
+
+To write this data to a file:
+
+```bash
+elex init-races '11-03-2015' > races.csv
+```
+
+To pipe it into PostgreSQL:
+
+```bash
+elex init-races '11-03-2015' | psql elections -c "COPY races FROM stdin DELIMITER ',' CSV HEADER;"```
+```
+
+Output could also be piped to tools like sed, awk, or csvkit.
+
+
+### Demo app
+
+See the [NPR Visuals Demo Loader](https://github.com/nprapps/ap-election-loader).
 
 ### Modules
 Use the election loader manually from within your project.
