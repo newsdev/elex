@@ -26,7 +26,7 @@ def add_races_hook(app):
     Cache election API object reference after parsing args.
     """
     app.election = api.Election(
-        electiondate=app.pargs.date[0],
+        electiondate=app.pargs.date,
         testresults=app.pargs.test,
         liveresults=not app.pargs.not_live,
         is_test=False
