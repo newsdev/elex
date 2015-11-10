@@ -10,6 +10,9 @@ class CSVOutputHandler(output.CementOutputHandler):
         overridable = True
 
     def render(self, data, template=None):
+        if len(data) == 0:
+            return
+
         fields = data[0].__dict__.keys()
         fields.sort()
 

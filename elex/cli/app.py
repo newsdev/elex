@@ -28,7 +28,7 @@ class ElexBaseController(CementBaseController):
         """
         Initialize races
         """
-        races, reporting_units, candidate_reporting_units = self._get_units()
+        races, reporting_units, candidate_reporting_units = self._get_init_units()
         self.app.render(races)
 
     @expose(help="Initialize reporting units")
@@ -36,23 +36,23 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
-        races, reporting_units, candidate_reporting_units = self._get_units()
+        races, reporting_units, candidate_reporting_units = self._get_init_units()
         self.app.render(reporting_units)
 
-    @expose(help="Initialize candidate reporting units")
-    def init_candidate_reporting_units(self):
-        """
-        Initialize reporting units
-        """
-        races, reporting_units, candidate_reporting_units = self._get_units()
-        self.app.render(candidate_reporting_units)
+    #@expose(help="Initialize candidate reporting units")
+    #def init_candidate_reporting_units(self):
+        #"""
+        #Initialize reporting units
+        #"""
+        #races, reporting_units, candidate_reporting_units = self._get_init__units()
+        #self.app.render(candidate_reporting_units)
 
-    @expose(help="Initialize ballot positions")
+    @expose(help="Initialize candidates")
     def init_candidates(self):
         """
         Initialize reporting units
         """
-        candidates, ballot_positions = self._get_units()
+        candidates, ballot_positions = self._get_init_uniques()
         self.app.render(candidates)
 
     @expose(help="Initialize ballot positions")
@@ -60,10 +60,25 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
-        candidates, ballot_positions = self._get_units()
+        candidates, ballot_positions = self._get_init_uniques()
         self.app.render(ballot_positions)
 
-    def _get_units(self):
+    @expose(help="Get results")
+    def get_results(self):
+        """
+        Initialize reporting units
+        """
+        raw_races = self.app.election.get_raw_races(
+            omitResults=False,
+            level="ru",
+            test=self.app.pargs.test
+        )
+        race_objs = self.app.election.get_race_objects(raw_races)
+        races, reporting_units, candidate_reporting_units = self.app.election.get_units(race_objs)
+
+        self.app.render(candidate_reporting_units)
+
+    def _get_init_units(self):
         """
         Wrapper for Election.get_units()
         """
@@ -75,7 +90,7 @@ class ElexBaseController(CementBaseController):
         race_objs = self.app.election.get_race_objects(raw_races)
         return self.app.election.get_units(race_objs)
 
-    def _get_uniques(self):
+    def _get_init_uniques(self):
         """
         Wrapper for Election.get_uniques()
         """
