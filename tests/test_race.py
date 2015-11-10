@@ -1,21 +1,6 @@
-import json
-import unittest
+import tests
 
-from elex.parser import api
-
-class TestRaceResults(unittest.TestCase):
-    def setUp(self):
-        with open('tests/data/20151103_national.json', 'r') as readfile:
-            self.raw_races = dict(json.loads(readfile.read()))
-
-        e = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True)
-        self.race_objs = e.get_race_objects(self.raw_races)
-        self.races, self.reporting_units, self.candidate_reporting_units = e.get_units(self.race_objs)
-
-    def tearDown(self):
-        self.races = None
-        self.reporting_units = None
-        self.candidate_reporting_units = None
+class TestRaceResults(tests.ElectionResultsTestCase):
 
     def test_number_of_raw_races(self):
         self.assertEqual(len(self.raw_races['races']), 2)
@@ -61,19 +46,8 @@ class TestRaceResults(unittest.TestCase):
         self.assertEqual(race.officename, 'Governor')
         self.assertEqual(race.racetypeid, 'G')
 
-class TestRaceInitialization(unittest.TestCase):
-    def setUp(self):
-        with open('tests/data/20151103_national_initialization.json') as readfile:
-            self.raw_races = dict(json.loads(readfile.read()))
-
-        e = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
-        self.race_objs = e.get_race_objects(self.raw_races)
-        self.races, self.reporting_units, self.candidate_reporting_units = e.get_units(self.race_objs)
-
-    def tearDown(self):
-        self.races = None
-        self.reporting_units = None
-        self.candidate_reporting_units = None
+class TestRaceInitialization(tests.ElectionResultsTestCase):
+    data_url = 'tests/data/20151103_national_initialization.json'
 
     def test_json_shape(self):
         self.assertTrue(self.raw_races['races'][0].get('candidates', None))
