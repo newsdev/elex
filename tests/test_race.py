@@ -3,16 +3,16 @@ import tests
 class TestRaceResults(tests.ElectionResultsTestCase):
 
     def test_number_of_raw_races(self):
-        self.assertEqual(len(self.raw_races['races']), 2)
+        self.assertEqual(len(self.raw_races['races']), 5)
 
     def test_number_of_parsed_races(self):
-        self.assertEqual(len(self.race_objs), 2)
+        self.assertEqual(len(self.race_objs), 5)
 
     def test_number_of_get_units_races(self):
-        self.assertEqual(len(self.races), 2)
+        self.assertEqual(len(self.races), 5)
 
     def test_composition_of_race_json(self):
-        race_dict = self.raw_races['races'][0]
+        race_dict = self.raw_races['races'][-1]
         self.assertEqual(race_dict['officeName'], 'Governor')
         self.assertEqual(race_dict['officeID'], 'G')
         self.assertEqual(race_dict['raceID'], '18525')
@@ -27,7 +27,7 @@ class TestRaceResults(tests.ElectionResultsTestCase):
         self.assertEqual(race.__module__, 'elex.parser.api')
 
     def test_race_attribute_construction(self):
-        race = self.race_objs[0]
+        race = self.race_objs[-1]
         self.assertEqual(race.officeid, 'G')
         self.assertEqual(race.statepostal, 'KY')
         self.assertEqual(race.raceid, '18525')
@@ -37,7 +37,7 @@ class TestRaceResults(tests.ElectionResultsTestCase):
         self.assertEqual(race.racetypeid, 'G')
 
     def test_race_get_units_construction(self):
-        race = self.races[0]
+        race = self.races[-1]
         self.assertEqual(race.officeid, 'G')
         self.assertEqual(race.statepostal, 'KY')
         self.assertEqual(race.raceid, '18525')

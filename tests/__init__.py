@@ -9,7 +9,6 @@ class ElectionResultsTestCase(unittest.TestCase):
     def setUp(self, **kwargs):
         with open(self.data_url, 'r') as readfile:
             self.raw_races = dict(json.loads(readfile.read()))
-
         e = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
         self.race_objs = e.get_race_objects(self.raw_races)
         self.races, self.reporting_units, self.candidate_reporting_units = e.get_units(self.race_objs)
