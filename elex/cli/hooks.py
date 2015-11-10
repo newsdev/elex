@@ -7,13 +7,13 @@ def process_date_hook(app):
     """
     Pre-parse date argument.
     """
-    if len(app.argv):
+    if len(app.pargs.date):
         try:
-            app.argv[-1] = parse_date(app.argv[-1])
+            app.pargs.date = parse_date(app.pargs.date[0])
             return
         except ValueError:
             puts(colored.green('Whoa there, friend! There was an error:\n'))
-            puts('{0} could not be recognized as a date.\n'.format(colored.yellow(app.argv[-1])))
+            puts('{0} could not be recognized as a date.\n'.format(colored.yellow(app.pargs.date[0])))
     else:
         puts(colored.yellow('Please specify a command and election date (e.g. `elex init-races 2015-11-03`). See below for details.\n'))
 

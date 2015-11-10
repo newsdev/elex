@@ -17,7 +17,7 @@ class ElexBaseController(CementBaseController):
                 help='Do not use live data API calls'
             )),
             (['date'], dict(
-                nargs=1,
+                nargs='*',
                 action='store',
                 help='Election date (e.g. "2015-11-03"; most common date formats accepted).'
             )),
@@ -55,7 +55,7 @@ class ElexApp(CementApp):
         label = 'elex'
         base_controller = ElexBaseController
         hooks = [
-            ('pre_argument_parsing', process_date_hook),
+            ('post_argument_parsing', process_date_hook),
             ('post_argument_parsing', add_races_hook)
         ]
         extensions = ['elex.cli.ext_csv', 'json']
