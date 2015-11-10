@@ -1,7 +1,3 @@
-import csv
-import json
-import sys
-
 from cement.core.foundation import CementApp
 from cement.core.controller import CementBaseController, expose
 from elex.cli.hooks import process_date_hook, add_races_hook
@@ -38,14 +34,7 @@ class ElexBaseController(CementBaseController):
             test=self.app.pargs.test
         )
         races, reporting_units, candidate_reporting_units = self.app.election.get_units(race_data)
-
-        fields = races[0].__dict__.keys()
-        fields.sort()
-
-        writer = csv.writer(sys.stdout)
-        writer.writerow([field for field in fields if (field != 'reportingunits' and field != 'candidates')])
-        for race in races:
-            writer.writerow([getattr(race, field) for field in fields if (field != 'reportingunits' and field != 'candidates')])
+        self.app.render(races)
 
     @expose(help="Initialize reporting units")
     def init_reporting_units(self):
@@ -58,14 +47,7 @@ class ElexBaseController(CementBaseController):
             test=self.app.pargs.test
         )
         races, reporting_units, candidate_reporting_units = self.app.election.get_units(race_data)
-
-        fields = reporting_units[0].__dict__.keys()
-        fields.sort()
-
-        writer = csv.writer(sys.stdout)
-        writer.writerow(fields)
-        for ru in reporting_units:
-            writer.writerow([getattr(ru, field) for field in fields])
+        self.app.render(reporting_units)
 
 
 class ElexApp(CementApp):
@@ -76,6 +58,12 @@ class ElexApp(CementApp):
             ('pre_argument_parsing', process_date_hook),
             ('post_argument_parsing', add_races_hook)
         ]
+        extensions = ['elex.cli.ext_csv', 'json']
+        output_handler = 'csv'
+
+        handler_override_options = dict(
+            output=(['-o'], dict(help='output format (default: csv)')),
+        )
 
 
 def main():
