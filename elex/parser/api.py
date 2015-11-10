@@ -91,15 +91,14 @@ class BaseObject(object):
                 pass
 
     def set_fields(self, **kwargs):
-        self.fields = self.__dict__.keys()
-        self.fields.sort()
+        fieldnames = self.__dict__.keys()
         for k,v in kwargs.items():
             k = k.lower().strip()
             try:
                 v = unicode(v.decode('utf-8'))
             except AttributeError:
                 pass
-            if k in self.fields:
+            if k in fieldnames:
                 setattr(self, k, v)
 
     def __repr__(self):
