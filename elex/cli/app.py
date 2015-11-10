@@ -29,7 +29,7 @@ def process_date_hook(app):
             app.args.print_help()
             app.close()
     else:
-        puts('Please specify an election date and optional command (e.g. `elex init 2015-11-03`)\n')
+        puts('Please specify an election date and optional command (e.g. `elex init-races 2015-11-03`)\n')
         app.args.print_help()
         app.close()
 
@@ -38,8 +38,13 @@ def add_races_hook(app):
     """
     Cache data after parsing args.
     """
-    app.election = api.Election(electiondate=app.pargs.date[0], testresults=False, liveresults=True, is_test=False)
-    app.race_data = app.election.get_races(omitResults=False, level="ru", test=False)
+    print app.pargs
+    app.election = api.Election(
+        electiondate=app.pargs.date[0],
+        testresults=app.pargs.test,
+        liveresults=not app.pargs.not_live,
+        is_test=False
+    )
 
 
 class ElexBaseController(CementBaseController):
@@ -47,6 +52,12 @@ class ElexBaseController(CementBaseController):
         label = 'base'
         description = "Get and process AP elections data"
         arguments = [
+            (['-t', '--test'], dict(
+                action='store_true',
+            )),
+            (['-n', '--not-live'], dict(
+                action='store_true',
+            )),
             (['date'], dict(
                 nargs=1,
                 action='store',
@@ -54,15 +65,16 @@ class ElexBaseController(CementBaseController):
             )),
         ]
 
-    @expose(hide=True)
-    def default(self):
-        puts('stub')
-
     @expose(help="Initialize races")
     def init_races(self):
-        races, reporting_units, candidate_reporting_units = self.app.election.get_units(self.app.race_data)
-        writer = csv.writer(sys.stdout)
+        race_data = self.app.election.get_races(
+            omitResults=False,
+            level="ru",
+            test=self.app.pargs.test
+        )
+        races, reporting_units, candidate_reporting_units = self.app.election.get_units(race_data)
 
+        writer = csv.writer(sys.stdout)
         writer.writerow([field for field in races[0].fields if (field != 'reportingunits' and field != 'candidates')])
         for race in races:
             writer.writerow([getattr(race, field) for field in race.fields if (field != 'reportingunits' and field != 'candidates')])
