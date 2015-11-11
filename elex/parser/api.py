@@ -55,6 +55,25 @@ class BaseObject(object):
             reportingunits_obj.append(obj)
         setattr(self, 'reportingunits', reportingunits_obj)
 
+    def set_polid(self):
+        if self.polid == "0":
+            self.polid = None
+
+    def set_unique_id(self):
+        """
+        Candidate IDs are not globally unique.
+        AP National Politian IDs (NPIDs or polid)
+        are unique, but only national-level
+        candidates have them; everyone else gets '0'.
+        The unique key, then, is the NAME of the ID
+        we're using and then the ID itself.
+        Verified this is globally unique with Tracy.
+        """
+        if self.polid:
+            self.unique_id = 'polid-%s' % self.polid
+        else:
+            self.unique_id = 'polnum-%s' % self.polnum
+
     def set_reportingunitids(self):
         """
         Per Tracy / AP developers, if the level is
@@ -126,9 +145,11 @@ class Candidate(BaseObject):
         self.polid = None
         self.ballotorder = None
         self.polnum = None
+        self.unique_id = None
 
         self.set_fields(**kwargs)
-
+        self.set_polid()
+        self.set_unique_id()
 
 class BallotPosition(BaseObject):
     """
@@ -143,9 +164,11 @@ class BallotPosition(BaseObject):
         self.polnum = None
         self.description = None
         self.seatname = None
+        self.unique_id = None
 
         self.set_fields(**kwargs)
-
+        self.set_polid()
+        self.set_unique_id()
 
 class CandidateReportingUnit(BaseObject):
     """
