@@ -16,6 +16,10 @@ class ElexBaseController(CementBaseController):
                 action='store_true',
                 help='Do not use live data API calls'
             )),
+            (['--format-json'], dict(
+                action='store_true',
+                help='Print print JSON (only when using -o json)'
+            )),
             (['date'], dict(
                 nargs='*',
                 action='store',
@@ -113,7 +117,7 @@ class ElexApp(CementApp):
             ('post_argument_parsing', process_date_hook),
             ('post_argument_parsing', add_races_hook)
         ]
-        extensions = ['elex.cli.ext_csv', 'json']
+        extensions = ['elex.cli.ext_csv', 'elex.cli.ext_json']
         output_handler = 'csv'
 
         handler_override_options = dict(
