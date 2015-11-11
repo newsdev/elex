@@ -69,24 +69,7 @@ raw_races = e.get_races(omitResults=False, level="ru", test=False)
 races, reporting_units, candidate_reporting_units = e.get_units(raw_races)
 candidates, ballot_positions = e.get_uniques(candidate_reporting_units)
 
-DB_MAPPING = [
-    (postgres.Candidate, candidates),
-    (postgres.BallotPosition, ballot_positions),
-    (postgres.CandidateReportingUnit, candidate_reporting_units),
-    (postgres.ReportingUnit, reporting_units),
-    (postgres.Race, races)
-]
-
-loader.ELEX_PG_CONNEX.connect()
-loader.ELEX_PG_CONNEX.drop_tables([mapping[0] for mapping in DB_MAPPING], safe=True)
-loader.ELEX_PG_CONNEX.create_tables([mapping[0] for mapping in DB_MAPPING], safe=True)
-
-for obj, obj_list in DB_MAPPING:
-    with loader.ELEX_PG_CONNEX.atomic():
-        for idx in range(0, len(obj_list), 2000):
-            obj.insert_many([o.__dict__ for o in obj_list[idx:idx+2000]]).execute()
-
-loader.ELEX_PG_CONNEX.close()
+# Now you can do whatever it is you want with these objects.
 ```
 
 ## Options

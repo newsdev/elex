@@ -28,25 +28,40 @@ Set your AP API key:
 
     export AP_API_KEY=<MY_AP_API_KEY>
 
-Additional configuration for demo
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Usage
+-----
 
-Make sure you are running PostgreSQL. Then create your db and user:
+Command line utility
+~~~~~~~~~~~~~~~~~~~~
+
+This tool is primarily designed for use on the command line using
+standard \*NIX operations like pipes and output redirection.
+
+To write a stream of races in CSV format to your terminal, run:
 
 .. code:: bash
 
-    createdb elex
-    createuser elex
+    elex init-races '11-03-2015'
 
-Usage
------
+To write this data to a file:
+
+.. code:: bash
+
+    elex init-races '11-03-2015' > races.csv
+
+To pipe it into PostgreSQL:
+
+.. code:: bash
+
+    elex init-races '11-03-2015' | psql elections -c "COPY races FROM stdin DELIMITER ',' CSV HEADER;"```
+
+Output could also be piped to tools like sed, awk, or csvkit.
 
 Demo app
 ~~~~~~~~
 
-.. code:: bash
-
-    python -m elex.demo
+See the `NPR Visuals Demo
+Loader <https://github.com/nprapps/ap-election-loader>`__.
 
 Modules
 ~~~~~~~
@@ -65,24 +80,7 @@ Use the election loader manually from within your project.
     races, reporting_units, candidate_reporting_units = e.get_units(raw_races)
     candidates, ballot_positions = e.get_uniques(candidate_reporting_units)
 
-    DB_MAPPING = [
-        (postgres.Candidate, candidates),
-        (postgres.BallotPosition, ballot_positions),
-        (postgres.CandidateReportingUnit, candidate_reporting_units),
-        (postgres.ReportingUnit, reporting_units),
-        (postgres.Race, races)
-    ]
-
-    loader.ELEX_PG_CONNEX.connect()
-    loader.ELEX_PG_CONNEX.drop_tables([mapping[0] for mapping in DB_MAPPING], safe=True)
-    loader.ELEX_PG_CONNEX.create_tables([mapping[0] for mapping in DB_MAPPING], safe=True)
-
-    for obj, obj_list in DB_MAPPING:
-        with loader.ELEX_PG_CONNEX.atomic():
-            for idx in range(0, len(obj_list), 2000):
-                obj.insert_many([o.__dict__ for o in obj_list[idx:idx+2000]]).execute()
-
-    loader.ELEX_PG_CONNEX.close()
+    # Now you can do whatever it is you want with these objects.
 
 Options
 -------
