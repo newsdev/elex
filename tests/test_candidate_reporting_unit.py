@@ -1,21 +1,6 @@
-import json
-import unittest
+import tests
 
-from elex.parser import api
-
-class TestCandidateReportingUnit(unittest.TestCase):
-    def setUp(self):
-        with open('tests/data/20151103_national.json', 'r') as readfile:
-            self.raw_races = dict(json.loads(readfile.read()))
-
-        e = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
-        self.race_objs = e.get_race_objects(self.raw_races)
-        self.races, self.reporting_units, self.candidate_reporting_units = e.get_units(self.race_objs)
-
-    def tearDown(self):
-        self.races = None
-        self.reporting_units = None
-        self.candidate_reporting_units = None
+class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
 
     def test_number_of_parsed_candidate_reporting_units(self):
         self.assertEqual(len(self.candidate_reporting_units), 505)
