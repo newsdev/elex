@@ -40,8 +40,7 @@ class ElexBaseController(CementBaseController):
         """
         Initialize races
         """
-        races, reporting_units, candidate_reporting_units = self._get_init_units()
-        self.app.render(races)
+        self.app.render(self.app.election.races)
 
     @expose(help="Initialize reporting units")
     @require_date
@@ -49,8 +48,7 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
-        races, reporting_units, candidate_reporting_units = self._get_init_units()
-        self.app.render(reporting_units)
+        self.app.render(self.app.election.reporting_units)
 
     @expose(help="Initialize candidate reporting units")
     @require_date
@@ -58,8 +56,7 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
-        races, reporting_units, candidate_reporting_units = self._get_init__units()
-        self.app.render(candidate_reporting_units)
+        self.app.render(self.app.election.candidate_reporting_units)
 
     @expose(help="Initialize candidates")
     @require_date
@@ -67,8 +64,7 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
-        candidates, ballot_positions = self._get_init_uniques()
-        self.app.render(candidates)
+        self.app.render(self.app.election.candidates)
 
     @expose(help="Initialize ballot positions")
     @require_date
@@ -76,8 +72,7 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
-        candidates, ballot_positions = self._get_init_uniques()
-        self.app.render(ballot_positions)
+        self.app.render(self.app.election.ballot_positions)
 
     @expose(help="Get results")
     @require_date
@@ -85,15 +80,7 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
-        raw_races = self.app.election.get_raw_races(
-            omitResults=False,
-            level="ru",
-            test=self.app.pargs.test
-        )
-        race_objs = self.app.election.get_race_objects(raw_races)
-        races, reporting_units, candidate_reporting_units = self.app.election.get_units(race_objs)
-
-        self.app.render(candidate_reporting_units)
+        self.app.render(self.app.election.results)
 
     @expose(help="Show list of elections known to the API")
     def elections(self):
@@ -110,31 +97,6 @@ class ElexBaseController(CementBaseController):
         """
         election = self.app.election.get_next_election()
         self.app.render(election)
-
-    def _get_init_units(self):
-        """
-        Wrapper for Election.get_units()
-        """
-        raw_races = self.app.election.get_raw_races(
-            omitResults=True,
-            level="ru",
-            test=self.app.pargs.test
-        )
-        race_objs = self.app.election.get_race_objects(raw_races)
-        return self.app.election.get_units(race_objs)
-
-    def _get_init_uniques(self):
-        """
-        Wrapper for Election.get_uniques()
-        """
-        raw_races = self.app.election.get_raw_races(
-            omitResults=True,
-            level="ru",
-            test=self.app.pargs.test
-        )
-        race_objs = self.app.election.get_race_objects(raw_races)
-        races, reporting_units, candidate_reporting_units = self.app.election.get_units(race_objs)
-        return self.app.election.get_uniques(candidate_reporting_units)
 
 
 class ElexApp(CementApp):
