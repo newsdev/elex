@@ -20,6 +20,10 @@ class ElexBaseController(CementBaseController):
                 action='store_true',
                 help='Do not use live data API calls'
             )),
+            (['-d', '--data-file'], dict(
+                action='store',
+                help='Specify data file instead of making HTTP request'
+            )),
             (['--format-json'], dict(
                 action='store_true',
                 help='Pretty print JSON (only when using -o json)'
