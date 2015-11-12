@@ -13,7 +13,7 @@ def require_date(fn):
                 return fn(self)
             except ValueError:
                 puts(colored.yellow('Whoa there, friend! There was an error:\n'))
-                puts('{0} could not be recognized as a date.\n'.format(colored.yellow(self.app.pargs.date[0])))
+                puts('{0} could not be recognized as a date.\n'.format(colored.green(self.app.pargs.date[0])))
         else:
             puts(colored.yellow('Please specify an election date (e.g. `elex init-races 2015-11-03`). Run `elex --help` for details.\n'))
 
