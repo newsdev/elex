@@ -10,6 +10,9 @@ class CSVOutputHandler(output.CementOutputHandler):
         overridable = True
 
     def render(self, data, template=None):
+        if not isinstance(data, (list, tuple)):
+            data = [data]
+
         if len(data) == 0:
             return
 

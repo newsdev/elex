@@ -1,7 +1,7 @@
 from cement.core.foundation import CementApp
 from cement.core.controller import CementBaseController, expose
-from elex.cli.hooks import process_date_hook, add_races_hook
-
+from elex.cli.hooks import add_races_hook
+from elex.cli.decorators import require_date_argument
 
 class ElexBaseController(CementBaseController):
     class Meta:
@@ -27,15 +27,25 @@ class ElexBaseController(CementBaseController):
             )),
         ]
 
+    @expose(hide=True)
+    def default(self):
+        """
+        Print help
+        """
+        self.app.args.print_help()
+
     @expose(help="Initialize races")
+    #@require_date_argument
     def init_races(self):
         """
         Initialize races
         """
+        import ipdb; ipdb.set_trace();
         races, reporting_units, candidate_reporting_units = self._get_init_units()
         self.app.render(races)
 
     @expose(help="Initialize reporting units")
+    #@require_date_argument
     def init_reporting_units(self):
         """
         Initialize reporting units
@@ -44,6 +54,7 @@ class ElexBaseController(CementBaseController):
         self.app.render(reporting_units)
 
     @expose(help="Initialize candidate reporting units")
+    #@require_date_argument
     def init_candidate_reporting_units(self):
         """
         Initialize reporting units
@@ -52,6 +63,7 @@ class ElexBaseController(CementBaseController):
         self.app.render(candidate_reporting_units)
 
     @expose(help="Initialize candidates")
+    #@require_date_argument
     def init_candidates(self):
         """
         Initialize reporting units
@@ -60,6 +72,7 @@ class ElexBaseController(CementBaseController):
         self.app.render(candidates)
 
     @expose(help="Initialize ballot positions")
+    #@require_date_argument
     def init_ballot_positions(self):
         """
         Initialize reporting units
@@ -68,6 +81,7 @@ class ElexBaseController(CementBaseController):
         self.app.render(ballot_positions)
 
     @expose(help="Get results")
+    #@require_date_argument
     def get_results(self):
         """
         Initialize reporting units
@@ -81,6 +95,22 @@ class ElexBaseController(CementBaseController):
         races, reporting_units, candidate_reporting_units = self.app.election.get_units(race_objs)
 
         self.app.render(candidate_reporting_units)
+
+    @expose(help="Show list of elections known to the API")
+    def elections(self):
+        """
+        Initialize reporting units
+        """
+        elections = self.app.election.get_elections()
+        self.app.render(elections)
+
+    @expose(help="Print next election")
+    def next_election(self):
+        """
+        Initialize reporting units
+        """
+        election = self.app.election.get_next_election()
+        self.app.render(election)
 
     def _get_init_units(self):
         """
@@ -108,16 +138,17 @@ class ElexBaseController(CementBaseController):
         return self.app.election.get_uniques(candidate_reporting_units)
 
 
-
 class ElexApp(CementApp):
     class Meta:
         label = 'elex'
         base_controller = ElexBaseController
         hooks = [
-            ('post_argument_parsing', process_date_hook),
-            ('post_argument_parsing', add_races_hook)
+            ('post_argument_parsing', add_races_hook),
         ]
-        extensions = ['elex.cli.ext_csv', 'elex.cli.ext_json']
+        extensions = [
+            'elex.cli.ext_csv',
+            'elex.cli.ext_json'
+        ]
         output_handler = 'csv'
 
         handler_override_options = dict(
