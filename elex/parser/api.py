@@ -461,6 +461,9 @@ class Election(BaseObject):
 
     @property
     def races(self):
+        """
+        Return list of race objects
+        """
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
@@ -472,6 +475,9 @@ class Election(BaseObject):
 
     @property
     def reporting_units(self):
+        """
+        Return list of reporting unit objects
+        """
         raw_races = self.get_raw_races(
             omitResults=False,
             level="ru",
@@ -483,6 +489,9 @@ class Election(BaseObject):
 
     @property
     def candidate_reporting_units(self):
+        """
+        Return list of candidate reporting unit objects
+        """
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
@@ -494,6 +503,9 @@ class Election(BaseObject):
 
     @property
     def results(self):
+        """
+        Return list of candidate reporting unit objects with results
+        """
         raw_races = self.get_raw_races(
             omitResults=False,
             level="ru",
@@ -505,6 +517,9 @@ class Election(BaseObject):
 
     @property
     def candidates(self):
+        """
+        Return list of candidate objects with results
+        """
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
@@ -517,6 +532,9 @@ class Election(BaseObject):
 
     @property
     def ballot_positions(self):
+        """
+        Return list of ballot position (aka ballot issue) objects with results
+        """
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
