@@ -337,6 +337,7 @@ class Election(BaseObject):
 
         self.parsed_json = None
         self.next_request = None
+        self.datafile = None
 
         self.set_fields(**kwargs)
         self.set_dates(['electiondate'])
@@ -415,8 +416,13 @@ class Election(BaseObject):
         Accepts an AP formatting date string, e.g., YYYY-MM-DD.
         Accepts any number of URL params as kwargs.
         """
-        payload = self.get('/%s' % self.electiondate, **kwargs)
-        self.next_request = payload['nextrequest']
+        if self.datafile:
+            with open(self.datafile, 'r') as readfile:
+                payload = dict(json.loads(readfile.read()))
+        else:
+            payload = self.get('/%s' % self.electiondate, **kwargs)
+            self.next_request = payload['nextrequest']
+
         return payload
 
     def get_race_objects(self, parsed_json):
