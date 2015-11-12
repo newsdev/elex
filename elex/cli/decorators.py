@@ -1,4 +1,3 @@
-from clint.textui import puts, puts_err, colored
 from elex.cli.utils import parse_date
 from functools import wraps
 
@@ -10,10 +9,6 @@ def require_date(fn):
         if len(self.app.pargs.date) and self.app.pargs.date[0]:
             try:
                 self.app.election.electiondate = parse_date(self.app.pargs.date[0])
-                puts_err(colored.yellow('Running {0} for election {1}'.format(
-                    fn.__name__,
-                    self.app.election.electiondate
-                )))
                 return fn(self)
             except ValueError:
                 puts(colored.yellow('Whoa there, friend! There was an error:\n'))
