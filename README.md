@@ -28,7 +28,7 @@ export AP_API_KEY=<MY_AP_API_KEY>
 
 ### Command line utility
 
-This tool is primarily designed for use on the command line using standard *NIX operations like pipes and output redirection.
+This tool is primarily designed for use on the command line using standard \*NIX operations like pipes and output redirection.
 
 To write a stream of races in CSV format to your terminal, run:
 
@@ -95,4 +95,14 @@ export ELEX_RECORDING_MONGO_DB=ap_elections_loader
 ### Run tests
 ```bash
 nosetests
+```
+
+## CLI Recipes
+
+### Pretty print upcoming elections
+
+First, install `underscore-cli` (`npm install -g underscore-cli`).
+
+```bash
+elex elections -o json | underscore print --color
 ```

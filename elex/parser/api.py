@@ -456,3 +456,71 @@ class Election(BaseObject):
                 del race.reportingunits
                 races.append(race)
         return races, reporting_units, candidate_reporting_units
+
+    @property
+    def races(self):
+        raw_races = self.get_raw_races(
+            omitResults=True,
+            level="ru",
+            test=self.testresults
+        )
+        race_objs = self.get_race_objects(raw_races)
+        races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
+        return races
+
+    @property
+    def reporting_units(self):
+        raw_races = self.get_raw_races(
+            omitResults=False,
+            level="ru",
+            test=self.testresults
+        )
+        race_objs = self.get_race_objects(raw_races)
+        races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
+        return reporting_units
+
+    @property
+    def candidate_reporting_units(self):
+        raw_races = self.get_raw_races(
+            omitResults=True,
+            level="ru",
+            test=self.testresults
+        )
+        race_objs = self.get_race_objects(raw_races)
+        races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
+        return candidate_reporting_units
+
+    @property
+    def results(self):
+        raw_races = self.get_raw_races(
+            omitResults=False,
+            level="ru",
+            test=self.testresults
+        )
+        race_objs = self.get_race_objects(raw_races)
+        races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
+        return candidate_reporting_units
+
+    @property
+    def candidates(self):
+        raw_races = self.get_raw_races(
+            omitResults=True,
+            level="ru",
+            test=self.testresults
+        )
+        race_objs = self.get_race_objects(raw_races)
+        races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
+        candidates, ballot_positions = self.get_uniques(candidate_reporting_units)
+        return candidates
+
+    @property
+    def ballot_positions(self):
+        raw_races = self.get_raw_races(
+            omitResults=True,
+            level="ru",
+            test=self.testresults
+        )
+        race_objs = self.get_race_objects(raw_races)
+        races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
+        candidates, ballot_positions = self.get_uniques(candidate_reporting_units)
+        return ballot_positions
