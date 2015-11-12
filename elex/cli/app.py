@@ -18,7 +18,7 @@ class ElexBaseController(CementBaseController):
             )),
             (['--format-json'], dict(
                 action='store_true',
-                help='Print print JSON (only when using -o json)'
+                help='Pretty print JSON (only when using -o json)'
             )),
             (['date'], dict(
                 nargs='*',
