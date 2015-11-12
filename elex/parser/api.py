@@ -415,6 +415,8 @@ class Election(BaseObject):
         Convenience method for fetching races by election date.
         Accepts an AP formatting date string, e.g., YYYY-MM-DD.
         Accepts any number of URL params as kwargs.
+
+        If datafile passed to constructor, the file will be used instead of making an HTTP request.
         """
         if self.datafile:
             with open(self.datafile, 'r') as readfile:
