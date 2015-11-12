@@ -22,7 +22,6 @@ def write_recording(payload):
             MONGODB_DATABASE = MONGODB_CLIENT[os.environ.get('ELEX_RECORDING_MONGO_DB', 'ap_elections_loader')]
             collection = MONGODB_DATABASE.elex_recording
             collection.insert({"time": timestamp, "data": payload})
-
         elif recorder == u"flat":
             recorder_directory = os.environ.get('ELEX_RECORDING_DIR', '/tmp')
             with open('%s/ap_elections_loader_recording-%s.json' % (recorder_directory, timestamp), 'w') as writefile:
@@ -39,14 +38,9 @@ def api_request(path, **params):
     * Contains an API_KEY.
     * Returns JSON.
     """
-
     if not params.get('apiKey', None):
         params['apiKey'] = elex.API_KEY
-
     params['format'] = 'json'
-
     payload = requests.get(elex.BASE_URL + path, params=params).json()
-
     write_recording(payload)
-
     return payload
