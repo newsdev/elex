@@ -346,7 +346,7 @@ class Election(BaseObject):
 
     @classmethod
     def get_elections(cls):
-        return [Election(**election) for election in list(Election.get('/')['elections'])]
+        return [Election(**election) for election in list(utils.api_request('/')['elections'])]
 
     @classmethod
     def get_next_election(cls):
