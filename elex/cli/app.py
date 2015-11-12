@@ -43,13 +43,13 @@ class ElexBaseController(CementBaseController):
         races, reporting_units, candidate_reporting_units = self._get_init_units()
         self.app.render(reporting_units)
 
-    #@expose(help="Initialize candidate reporting units")
-    #def init_candidate_reporting_units(self):
-        #"""
-        #Initialize reporting units
-        #"""
-        #races, reporting_units, candidate_reporting_units = self._get_init__units()
-        #self.app.render(candidate_reporting_units)
+    @expose(help="Initialize candidate reporting units")
+    def init_candidate_reporting_units(self):
+        """
+        Initialize reporting units
+        """
+        races, reporting_units, candidate_reporting_units = self._get_init__units()
+        self.app.render(candidate_reporting_units)
 
     @expose(help="Initialize candidates")
     def init_candidates(self):
