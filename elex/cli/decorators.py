@@ -7,7 +7,7 @@ from functools import wraps
 def require_date(fn):
     @wraps(fn)
     def decorated(self):
-        if len(self.app.pargs.date):
+        if len(self.app.pargs.date) and self.app.pargs.date[0]:
             try:
                 self.app.election.electiondate = parse_date(self.app.pargs.date[0])
                 return fn(self)
