@@ -1,7 +1,11 @@
 from cement.core.foundation import CementApp
 from cement.core.controller import CementBaseController, expose
+from cement.ext.ext_logging import LoggingLogHandler
 from elex.cli.hooks import add_election_hook
 from elex.cli.decorators import require_date
+
+LOG_FORMAT = "%(asctime)s (%(levelname)s) %(namespace)s : %(message)s"
+
 
 class ElexBaseController(CementBaseController):
     class Meta:
@@ -40,6 +44,8 @@ class ElexBaseController(CementBaseController):
         """
         Initialize races
         """
+        self.app.log.info('Running init_races for election {0}'
+            .format(self.app.election.electiondate))
         self.app.render(self.app.election.races)
 
     @expose(help="Initialize reporting units")
@@ -48,6 +54,8 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
+        self.app.log.info('Running init_reporting_units for election {0}'
+            .format(self.app.election.electiondate))
         self.app.render(self.app.election.reporting_units)
 
     @expose(help="Initialize candidate reporting units")
@@ -56,6 +64,8 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
+        self.app.log.info('Running init_candidate_reporting_units for election {0}'
+            .format(self.app.election.electiondate))
         self.app.render(self.app.election.candidate_reporting_units)
 
     @expose(help="Initialize candidates")
@@ -64,6 +74,8 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
+        self.app.log.info('Running init_candidates for election {0}'
+            .format(self.app.election.electiondate))
         self.app.render(self.app.election.candidates)
 
     @expose(help="Initialize ballot positions")
@@ -72,6 +84,8 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
+        self.app.log.info('Running init_ballot_positions for election {0}'
+            .format(self.app.election.electiondate))
         self.app.render(self.app.election.ballot_positions)
 
     @expose(help="Get results")
@@ -80,6 +94,8 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
+        self.app.log.info('Running get-results for election {0}'
+            .format(self.app.election.electiondate))
         self.app.render(self.app.election.results)
 
     @expose(help="Show list of elections known to the API")
@@ -87,6 +103,7 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
+        self.app.log.info('Getting election list')
         elections = self.app.election.get_elections()
         self.app.render(elections)
 
@@ -95,6 +112,7 @@ class ElexBaseController(CementBaseController):
         """
         Initialize reporting units
         """
+        self.app.log.info('Getting next election')
         election = self.app.election.get_next_election()
         self.app.render(election)
 
@@ -115,6 +133,7 @@ class ElexApp(CementApp):
         handler_override_options = dict(
             output=(['-o'], dict(help='output format (default: csv)')),
         )
+        log_handler = LoggingLogHandler(console_format=LOG_FORMAT, file_format=LOG_FORMAT)
 
 
 def main():
