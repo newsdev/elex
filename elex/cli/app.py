@@ -1,6 +1,6 @@
 from cement.core.foundation import CementApp
 from cement.core.controller import CementBaseController, expose
-from elex.cli.hooks import add_races_hook
+from elex.cli.hooks import add_election_hook
 from elex.cli.decorators import require_date
 
 class ElexBaseController(CementBaseController):
@@ -142,7 +142,7 @@ class ElexApp(CementApp):
         label = 'elex'
         base_controller = ElexBaseController
         hooks = [
-            ('post_argument_parsing', add_races_hook),
+            ('post_argument_parsing', add_election_hook),
         ]
         extensions = [
             'elex.cli.ext_csv',
