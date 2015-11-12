@@ -1,7 +1,7 @@
 from cement.core.foundation import CementApp
 from cement.core.controller import CementBaseController, expose
 from elex.cli.hooks import add_races_hook
-from elex.cli.decorators import require_date_argument
+from elex.cli.decorators import require_date
 
 class ElexBaseController(CementBaseController):
     class Meta:
@@ -35,17 +35,16 @@ class ElexBaseController(CementBaseController):
         self.app.args.print_help()
 
     @expose(help="Initialize races")
-    #@require_date_argument
+    @require_date
     def init_races(self):
         """
         Initialize races
         """
-        import ipdb; ipdb.set_trace();
         races, reporting_units, candidate_reporting_units = self._get_init_units()
         self.app.render(races)
 
     @expose(help="Initialize reporting units")
-    #@require_date_argument
+    @require_date
     def init_reporting_units(self):
         """
         Initialize reporting units
@@ -54,7 +53,7 @@ class ElexBaseController(CementBaseController):
         self.app.render(reporting_units)
 
     @expose(help="Initialize candidate reporting units")
-    #@require_date_argument
+    @require_date
     def init_candidate_reporting_units(self):
         """
         Initialize reporting units
@@ -63,7 +62,7 @@ class ElexBaseController(CementBaseController):
         self.app.render(candidate_reporting_units)
 
     @expose(help="Initialize candidates")
-    #@require_date_argument
+    @require_date
     def init_candidates(self):
         """
         Initialize reporting units
@@ -72,7 +71,7 @@ class ElexBaseController(CementBaseController):
         self.app.render(candidates)
 
     @expose(help="Initialize ballot positions")
-    #@require_date_argument
+    @require_date
     def init_ballot_positions(self):
         """
         Initialize reporting units
@@ -81,7 +80,7 @@ class ElexBaseController(CementBaseController):
         self.app.render(ballot_positions)
 
     @expose(help="Get results")
-    #@require_date_argument
+    @require_date
     def get_results(self):
         """
         Initialize reporting units
