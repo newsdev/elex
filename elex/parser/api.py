@@ -2,12 +2,11 @@
 
 import datetime
 import json
-import os
 
+from collections import OrderedDict
 from dateutil import parser
-
-import elex
 from elex.parser import utils
+
 
 STATE_ABBR = { 'AL': 'Alabama', 'AK': 'Alaska', 'AS': 'America Samoa', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware', 'DC': 'District of Columbia', 'FM': 'Micronesia1', 'FL': 'Florida', 'GA': 'Georgia', 'GU': 'Guam', 'HI': 'Hawaii', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MH': 'Islands1', 'MD': 'Maryland', 'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi', 'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York', 'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PW': 'Palau', 'PA': 'Pennsylvania', 'PR': 'Puerto Rico', 'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VT': 'Vermont', 'VI': 'Virgin Island', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming'}
 
@@ -121,6 +120,9 @@ class BaseObject(object):
                 pass
             if k in fieldnames:
                 setattr(self, k, v)
+
+    def serialize(self):
+        raise NotImplementedError
 
     def __repr__(self):
         return self.__unicode__()
@@ -283,6 +285,35 @@ class ReportingUnit(BaseObject):
                 if c.level != 'subunit':
                     c.votepct = float(c.votecount) / float(self.votecount)
 
+    def serialize(self):
+        return OrderedDict((
+            'reportingunitid', self.reportingunitid,
+            'reportingunitname', self.reportingunitname,
+            'fipscode', self.fipscode,
+            'level', self.level,
+            'statepostal', self.statepostal,
+            'statename', self.statename,
+            'description', self.description,
+            'initialization_data', self.initialization_data,
+            'lastupdated', self.lastupdated,
+            'lastupdated', self.lastupdated,
+            'national', self.national,
+            'officeid', self.officeid,
+            'officename', self.officename,
+            'precinctsreporting', self.precinctsreporting,
+            'precinctsreportingpct', self.precinctsreportingpct,
+            'precinctstotal', self.precinctstotal,
+            'raceid', self.raceid,
+            'racetype', self.racetype,
+            'racetypeid', self.racetypeid,
+            'seatname', self.seatname,
+            'seatnum', self.seatnum,
+            'statename', self.statename,
+            'statepostal', self.statepostal,
+            'test', self.test,
+            'uncontested', self.uncontested
+        ))
+
 
 class Race(BaseObject):
     """
@@ -318,6 +349,26 @@ class Race(BaseObject):
         else:
             self.set_reportingunits()
             self.set_state_fields_from_reportingunits()
+
+    def serialize(self):
+        return OrderedDict((
+            ('raceid', self.raceid),
+            ('racetype', self.racetype),
+            ('racetypeid', self.racetypeid),
+            ('description', self.description),
+            ('initialization_data', self.initialization_data),
+            ('lastupdated', self.lastupdated),
+            ('national', self.national),
+            ('officeid', self.officeid),
+            ('officename', self.officename),
+            ('party', self.party),
+            ('seatname', self.seatname),
+            ('seatnum', self.seatnum),
+            ('statename', self.statename),
+            ('statepostal', self.statepostal),
+            ('test', self.test),
+            ('uncontested', self.uncontested)
+        ))
 
     def __unicode__(self):
         return "%s %s" % (self.racetype, self.officename)
@@ -464,6 +515,14 @@ class Election(BaseObject):
                 del race.reportingunits
                 races.append(race)
         return races, reporting_units, candidate_reporting_units
+
+    def serialize(self):
+        return OrderedDict((
+            ('electiondate', self.electiondate),
+            ('electiondate_parsed', self.electiondate_parsed),
+            ('liveresults', self.liveresults),
+            ('testresults', self.testresults)
+        ))
 
     @property
     def races(self):
