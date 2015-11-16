@@ -43,7 +43,7 @@ class BaseObject(object):
 
             SKIP_FIELDS = ['candidates', 'statepostal', 'statename']
 
-            for k,v in self.__dict__.items():
+            for k, v in self.__dict__.items():
                 if k not in SKIP_FIELDS:
                     reportingunit_dict[k] = v
 
@@ -93,7 +93,7 @@ class BaseObject(object):
                 if getattr(self, 'officeid') == u'I':
                     candidate_dict['is_ballot_position'] = True
 
-            for k,v in self.__dict__.items():
+            for k, v in self.__dict__.items():
                 candidate_dict[k] = v
 
             if hasattr(self, 'statepostal'):
@@ -112,7 +112,7 @@ class BaseObject(object):
 
     def set_fields(self, **kwargs):
         fieldnames = self.__dict__.keys()
-        for k,v in kwargs.items():
+        for k, v in kwargs.items():
             k = k.lower().strip()
             try:
                 v = unicode(v.decode('utf-8'))
@@ -163,6 +163,7 @@ class Candidate(BaseObject):
             ('unique_id', self.uniqueid),
         ))
 
+
 class BallotPosition(BaseObject):
     """
     Canonical representation of a ballot
@@ -192,6 +193,7 @@ class BallotPosition(BaseObject):
             ('seatname', self.seatname),
             ('unique_id', self.uniqueid),
         ))
+
 
 class CandidateReportingUnit(BaseObject):
     """
