@@ -138,18 +138,30 @@ class Candidate(BaseObject):
     for this election, across races.
     """
     def __init__(self, **kwargs):
+        self.ballotorder = None
+        self.candidateid = None
         self.first = None
         self.last = None
         self.party = None
-        self.candidateid = None
         self.polid = None
-        self.ballotorder = None
         self.polnum = None
         self.unique_id = None
 
         self.set_fields(**kwargs)
         self.set_polid()
         self.set_unique_id()
+
+    def serialize(self):
+        return OrderedDict((
+            ('candidateid', self.candidateid),
+            ('ballotorder', self.ballotorder),
+            ('description', self.description),
+            ('first', self.first),
+            ('last', self.last),
+            ('polid', self.polid),
+            ('seatname', self.seatname),
+            ('unique_id', self.uniqueid),
+        ))
 
 class BallotPosition(BaseObject):
     """
@@ -157,18 +169,29 @@ class BallotPosition(BaseObject):
     position.
     """
     def __init__(self, **kwargs):
-        self.last = None
-        self.candidateid = None
-        self.polid = None
         self.ballotorder = None
-        self.polnum = None
+        self.candidateid = None
         self.description = None
+        self.last = None
+        self.polid = None
+        self.polnum = None
         self.seatname = None
         self.unique_id = None
 
         self.set_fields(**kwargs)
         self.set_polid()
         self.set_unique_id()
+
+    def serialize(self):
+        return OrderedDict((
+            ('candidateid', self.candidateid),
+            ('last', self.last),
+            ('polid', self.polid),
+            ('ballotorder', self.ballotorder),
+            ('description', self.description),
+            ('seatname', self.seatname),
+            ('unique_id', self.uniqueid),
+        ))
 
 class CandidateReportingUnit(BaseObject):
     """
@@ -217,6 +240,49 @@ class CandidateReportingUnit(BaseObject):
 
         self.set_fields(**kwargs)
         self.set_winner()
+
+    def serialize(self):
+        return OrderedDict((
+            ('raceid', self.raceid),
+            ('racetype', self.racetype),
+            ('racetypeid', self.racetypeid),
+            ('first', self.first),
+            ('last', self.last),
+            ('party', self.party),
+            ('candidateid', self.candidateid),
+            ('polid', self.polid),
+            ('ballotorder', self.ballotorder),
+            ('polnum', self.polnum),
+            ('votecount', self.votecount),
+            ('votepct', self.votepctsdf),
+            ('winner', self.winner),
+            ('is_ballot_position', self.is_ballot_position),
+            ('level', self.level),
+            ('reportingunitname', self.reportingunitname),
+            ('reportingunitid', self.reportingunitid),
+            ('fipscode', self.fipscode),
+            ('lastupdated', self.lastupdated),
+            ('precinctsreporting', self.precinctsreporting),
+            ('precinctstotal', self.precinctstotal),
+            ('precinctsreportingpct', self.precinctsreportingpct),
+            ('uncontested', self.uncontested),
+            ('uncontested', self.uncontested),
+            ('test', self.test),
+            ('statepostal', self.statepostal),
+            ('statename', self.statename),
+            ('officeid', self.officeid),
+            ('officename', self.officename),
+            ('seatname', self.seatname),
+            ('description', self.description),
+            ('seatnum', self.seatnum),
+            ('uncontested', self.uncontested),
+            ('lastupdated', self.lastupdated),
+            ('initialization_data', self.initialization_data),
+            ('national', self.national),
+            ('incumbent', self.incumbent),
+            ('winner', self.winner),
+        ))
+
 
     def __unicode__(self):
         if self.is_ballot_position:
@@ -287,31 +353,33 @@ class ReportingUnit(BaseObject):
 
     def serialize(self):
         return OrderedDict((
-            'reportingunitid', self.reportingunitid,
-            'reportingunitname', self.reportingunitname,
-            'fipscode', self.fipscode,
-            'level', self.level,
-            'statepostal', self.statepostal,
-            'statename', self.statename,
-            'description', self.description,
-            'initialization_data', self.initialization_data,
-            'lastupdated', self.lastupdated,
-            'lastupdated', self.lastupdated,
-            'national', self.national,
-            'officeid', self.officeid,
-            'officename', self.officename,
-            'precinctsreporting', self.precinctsreporting,
-            'precinctsreportingpct', self.precinctsreportingpct,
-            'precinctstotal', self.precinctstotal,
-            'raceid', self.raceid,
-            'racetype', self.racetype,
-            'racetypeid', self.racetypeid,
-            'seatname', self.seatname,
-            'seatnum', self.seatnum,
-            'statename', self.statename,
-            'statepostal', self.statepostal,
-            'test', self.test,
-            'uncontested', self.uncontested
+            ('reportingunitid', self.reportingunitid),
+            ('reportingunitname', self.reportingunitname),
+            ('fipscode', self.fipscode),
+            ('level', self.level),
+            ('statepostal', self.statepostal),
+            ('statename', self.statename),
+            ('description', self.description),
+            ('initialization_data', self.initialization_data),
+            ('lastupdated', self.lastupdated),
+            ('lastupdated', self.lastupdated),
+            ('national', self.national),
+            ('officeid', self.officeid),
+            ('officename', self.officename),
+            ('precinctsreporting', self.precinctsreporting),
+            ('precinctsreportingpct', self.precinctsreportingpct),
+            ('precinctstotal', self.precinctstotal),
+            ('raceid', self.raceid),
+            ('racetype', self.racetype),
+            ('racetypeid', self.racetypeid),
+            ('seatname', self.seatname),
+            ('seatnum', self.seatnum),
+            ('statename', self.statename),
+            ('statepostal', self.statepostal),
+            ('test', self.test),
+            ('uncontested', self.uncontested),
+            ('votecount', self.votecount),
+            ('votepct', self.votepct),
         ))
 
 
