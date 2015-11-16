@@ -46,6 +46,28 @@ class ElexCLITestCase(test.CementTestCase):
         self.assertEqual(race['racetype'], 'General')
         self.assertEqual(race['racetypeid'], 'G')
 
+    def test_init_candidates_fields(self):
+        """
+        Test `elex init-candidates` field names
+        """
+        fields, data = self._test_command(argv=['init-candidates'])
+        self.assertEqual(fields, ['unique_id', 'candidateid', 'ballotorder', 'first', 'last', 'party', 'polid', 'polnum'])
+
+    def test_init_candidates_data(self):
+        """
+        Test `elex init-candidates` data
+        """
+        fields, candidates = self._test_command(argv=['init-candidates'])
+        candidate = candidates[-1]
+        self.assertEqual(candidate['ballotorder'], '2')
+        self.assertEqual(candidate['candidateid'], '5295')
+        self.assertEqual(candidate['first'], 'Matt')
+        self.assertEqual(candidate['last'], 'Bevin')
+        self.assertEqual(candidate['party'], 'GOP')
+        self.assertEqual(candidate['polid'], '63424')
+        self.assertEqual(candidate['polnum'], '20103')
+        self.assertEqual(candidate['unique_id'], 'polid-63424')
+
     def test_elections_fields(self):
         """
         Test `elex elections` field names
@@ -63,9 +85,24 @@ class ElexCLITestCase(test.CementTestCase):
         self.assertEqual(election['liveresults'], 'False')
         self.assertEqual(election['testresults'], 'True')
 
+    def test_next_election_fields(self):
+        """
+        Test `elex elections` field names
+        """
+        fields, data = self._test_command(argv=['elections'], datafile=ELECTIONS_DATA_FILE)
+        self.assertEqual(fields, ['electiondate', 'liveresults', 'testresults'])
+
+    def test_next_election_data(self):
+        """
+        Test `elex next-election` field names
+        """
+        fields, data = self._test_command(argv=['next-election'], datafile=ELECTIONS_DATA_FILE)
+        # @TODO implement with fixed "now" date
+        pass
+
     def _test_command(self, argv, datafile=DATA_FILE):
         """
-        Execute an app command
+        Execute an `elex` sub-command; returns fieldnames and rows
         """
         app = ElexApp(argv=argv + ['--data-file', datafile])
         app.setup()
