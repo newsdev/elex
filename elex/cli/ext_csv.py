@@ -16,15 +16,13 @@ class CSVOutputHandler(output.CementOutputHandler):
         if len(data) == 0:
             return
 
-        fields = data[0].__dict__.keys()
-        fields.sort()
-
         try:
             writer = csv.writer(sys.stdout)
-            writer.writerow([field for field in fields if (field != 'reportingunits' and field != 'candidates')])
 
-            for row in data:
-                writer.writerow([getattr(row, field) for field in fields if (field != 'reportingunits' and field != 'candidates')])
+            for i, row in enumerate(data):
+                if i == 0:
+                    writer.writerow(row.serialize().keys())
+                writer.writerow(row.serialize().values())
 
         except IOError:
             # Handle pipes that could close before output is done, see http://stackoverflow.com/questions/15793886/

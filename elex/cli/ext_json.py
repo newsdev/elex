@@ -23,7 +23,7 @@ class ElexJSONOutputHandler(output.CementOutputHandler):
                 kwargs['sort_keys'] = True
                 kwargs['indent'] = 4
 
-            json_data = [row.__dict__ for row in data]
+            json_data = [row.serialize() for row in data]
             json.dump(json_data, sys.stdout, default=json_util.default, **kwargs)
 
         except IOError:

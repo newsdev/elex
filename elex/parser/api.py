@@ -2,12 +2,11 @@
 
 import datetime
 import json
-import os
 
+from collections import OrderedDict
 from dateutil import parser
-
-import elex
 from elex.parser import utils
+
 
 STATE_ABBR = { 'AL': 'Alabama', 'AK': 'Alaska', 'AS': 'America Samoa', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware', 'DC': 'District of Columbia', 'FM': 'Micronesia1', 'FL': 'Florida', 'GA': 'Georgia', 'GU': 'Guam', 'HI': 'Hawaii', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MH': 'Islands1', 'MD': 'Maryland', 'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi', 'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York', 'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PW': 'Palau', 'PA': 'Pennsylvania', 'PR': 'Puerto Rico', 'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VT': 'Vermont', 'VI': 'Virgin Island', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming'}
 
@@ -44,7 +43,7 @@ class BaseObject(object):
 
             SKIP_FIELDS = ['candidates', 'statepostal', 'statename']
 
-            for k,v in self.__dict__.items():
+            for k, v in self.__dict__.items():
                 if k not in SKIP_FIELDS:
                     reportingunit_dict[k] = v
 
@@ -94,7 +93,7 @@ class BaseObject(object):
                 if getattr(self, 'officeid') == u'I':
                     candidate_dict['is_ballot_position'] = True
 
-            for k,v in self.__dict__.items():
+            for k, v in self.__dict__.items():
                 candidate_dict[k] = v
 
             if hasattr(self, 'statepostal'):
@@ -113,7 +112,7 @@ class BaseObject(object):
 
     def set_fields(self, **kwargs):
         fieldnames = self.__dict__.keys()
-        for k,v in kwargs.items():
+        for k, v in kwargs.items():
             k = k.lower().strip()
             try:
                 v = unicode(v.decode('utf-8'))
@@ -121,6 +120,9 @@ class BaseObject(object):
                 pass
             if k in fieldnames:
                 setattr(self, k, v)
+
+    def serialize(self):
+        raise NotImplementedError
 
     def __repr__(self):
         return self.__unicode__()
@@ -136,18 +138,31 @@ class Candidate(BaseObject):
     for this election, across races.
     """
     def __init__(self, **kwargs):
+        self.ballotorder = None
+        self.candidateid = None
         self.first = None
         self.last = None
         self.party = None
-        self.candidateid = None
         self.polid = None
-        self.ballotorder = None
         self.polnum = None
         self.unique_id = None
 
         self.set_fields(**kwargs)
         self.set_polid()
         self.set_unique_id()
+
+    def serialize(self):
+        return OrderedDict((
+            ('unique_id', self.unique_id),
+            ('candidateid', self.candidateid),
+            ('ballotorder', self.ballotorder),
+            ('first', self.first),
+            ('last', self.last),
+            ('party', self.party),
+            ('polid', self.polid),
+            ('polnum', self.polnum),
+        ))
+
 
 class BallotPosition(BaseObject):
     """
@@ -155,18 +170,31 @@ class BallotPosition(BaseObject):
     position.
     """
     def __init__(self, **kwargs):
-        self.last = None
-        self.candidateid = None
-        self.polid = None
         self.ballotorder = None
-        self.polnum = None
+        self.candidateid = None
         self.description = None
+        self.last = None
+        self.polid = None
+        self.polnum = None
         self.seatname = None
         self.unique_id = None
 
         self.set_fields(**kwargs)
         self.set_polid()
         self.set_unique_id()
+
+    def serialize(self):
+        return OrderedDict((
+            ('unique_id', self.unique_id),
+            ('candidateid', self.candidateid),
+            ('ballotorder', self.ballotorder),
+            ('description', self.description),
+            ('last', self.last),
+            ('polid', self.polid),
+            ('polnum', self.polnum),
+            ('seatname', self.seatname),
+        ))
+
 
 class CandidateReportingUnit(BaseObject):
     """
@@ -215,6 +243,45 @@ class CandidateReportingUnit(BaseObject):
 
         self.set_fields(**kwargs)
         self.set_winner()
+
+    def serialize(self):
+        return OrderedDict((
+            ('raceid', self.raceid),
+            ('racetype', self.racetype),
+            ('racetypeid', self.racetypeid),
+            ('ballotorder', self.ballotorder),
+            ('candidateid', self.candidateid),
+            ('description', self.description),
+            ('fipscode', self.fipscode),
+            ('first', self.first),
+            ('incumbent', self.incumbent),
+            ('initialization_data', self.initialization_data),
+            ('is_ballot_position', self.is_ballot_position),
+            ('last', self.last),
+            ('lastupdated', self.lastupdated),
+            ('level', self.level),
+            ('national', self.national),
+            ('officeid', self.officeid),
+            ('officename', self.officename),
+            ('party', self.party),
+            ('polid', self.polid),
+            ('polnum', self.polnum),
+            ('precinctsreporting', self.precinctsreporting),
+            ('precinctsreportingpct', self.precinctsreportingpct),
+            ('precinctstotal', self.precinctstotal),
+            ('reportingunitid', self.reportingunitid),
+            ('reportingunitname', self.reportingunitname),
+            ('seatname', self.seatname),
+            ('seatnum', self.seatnum),
+            ('statename', self.statename),
+            ('statepostal', self.statepostal),
+            ('test', self.test),
+            ('uncontested', self.uncontested),
+            ('votecount', self.votecount),
+            ('votepct', self.votepct),
+            ('winner', self.winner),
+        ))
+
 
     def __unicode__(self):
         if self.is_ballot_position:
@@ -276,12 +343,44 @@ class ReportingUnit(BaseObject):
         if not self.uncontested:
             for c in self.candidates:
                 self.votecount = sum([c.votecount for c in self.candidates if c.level != 'subunit'])
+        else:
+            self.votecount = None
 
     def set_candidate_votepct(self):
         if not self.uncontested:
             for c in self.candidates:
                 if c.level != 'subunit':
                     c.votepct = float(c.votecount) / float(self.votecount)
+
+    def serialize(self):
+        return OrderedDict((
+            ('reportingunitid', self.reportingunitid),
+            ('reportingunitname', self.reportingunitname),
+            ('description', self.description),
+            ('fipscode', self.fipscode),
+            ('initialization_data', self.initialization_data),
+            ('lastupdated', self.lastupdated),
+            ('lastupdated', self.lastupdated),
+            ('level', self.level),
+            ('national', self.national),
+            ('officeid', self.officeid),
+            ('officename', self.officename),
+            ('precinctsreporting', self.precinctsreporting),
+            ('precinctsreportingpct', self.precinctsreportingpct),
+            ('precinctstotal', self.precinctstotal),
+            ('raceid', self.raceid),
+            ('racetype', self.racetype),
+            ('racetypeid', self.racetypeid),
+            ('seatname', self.seatname),
+            ('seatnum', self.seatnum),
+            ('statename', self.statename),
+            ('statename', self.statename),
+            ('statepostal', self.statepostal),
+            ('statepostal', self.statepostal),
+            ('test', self.test),
+            ('uncontested', self.uncontested),
+            ('votecount', self.votecount),
+        ))
 
 
 class Race(BaseObject):
@@ -318,6 +417,26 @@ class Race(BaseObject):
         else:
             self.set_reportingunits()
             self.set_state_fields_from_reportingunits()
+
+    def serialize(self):
+        return OrderedDict((
+            ('raceid', self.raceid),
+            ('racetype', self.racetype),
+            ('racetypeid', self.racetypeid),
+            ('description', self.description),
+            ('initialization_data', self.initialization_data),
+            ('lastupdated', self.lastupdated),
+            ('national', self.national),
+            ('officeid', self.officeid),
+            ('officename', self.officename),
+            ('party', self.party),
+            ('seatname', self.seatname),
+            ('seatnum', self.seatnum),
+            ('statename', self.statename),
+            ('statepostal', self.statepostal),
+            ('test', self.test),
+            ('uncontested', self.uncontested)
+        ))
 
     def __unicode__(self):
         return "%s %s" % (self.racetype, self.officename)
@@ -464,6 +583,14 @@ class Election(BaseObject):
                 del race.reportingunits
                 races.append(race)
         return races, reporting_units, candidate_reporting_units
+
+    def serialize(self):
+        return OrderedDict((
+            ('electiondate', self.electiondate),
+            ('electiondate_parsed', self.electiondate_parsed),
+            ('liveresults', self.liveresults),
+            ('testresults', self.testresults)
+        ))
 
     @property
     def races(self):
