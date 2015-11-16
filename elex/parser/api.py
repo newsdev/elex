@@ -587,7 +587,6 @@ class Election(BaseObject):
     def serialize(self):
         return OrderedDict((
             ('electiondate', self.electiondate),
-            ('electiondate_parsed', self.electiondate_parsed),
             ('liveresults', self.liveresults),
             ('testresults', self.testresults)
         ))
