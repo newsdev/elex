@@ -13,12 +13,11 @@ class TestRaceResults(tests.ElectionResultsTestCase):
 
     def test_composition_of_race_json(self):
         race_dict = self.raw_races['races'][-1]
-        self.assertEqual(race_dict['officeName'], 'Governor')
+        self.assertEqual(race_dict['national'], True)
         self.assertEqual(race_dict['officeID'], 'G')
+        self.assertEqual(race_dict['officeName'], 'Governor')
         self.assertEqual(race_dict['raceID'], '18525')
         self.assertEqual(race_dict['raceType'], 'General')
-        self.assertEqual(race_dict['national'], True)
-        self.assertEqual(race_dict['officeName'], 'Governor')
         self.assertEqual(race_dict['raceTypeID'], 'G')
 
     def test_race_object_inflation(self):

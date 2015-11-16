@@ -41,6 +41,7 @@ def api_request(path, **params):
     if not params.get('apiKey', None):
         params['apiKey'] = elex.API_KEY
     params['format'] = 'json'
-    payload = requests.get(elex.BASE_URL + path, params=params).json()
+    response = requests.get(elex.BASE_URL + path, params=params)
+    payload = response.json()
     write_recording(payload)
     return payload
