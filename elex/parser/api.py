@@ -154,13 +154,13 @@ class Candidate(BaseObject):
     def serialize(self):
         return OrderedDict((
             ('candidateid', self.candidateid),
-            ('ballotorder', self.ballotorder),
-            ('description', self.description),
             ('first', self.first),
             ('last', self.last),
+            ('ballotorder', self.ballotorder),
             ('polid', self.polid),
-            ('seatname', self.seatname),
-            ('unique_id', self.uniqueid),
+            ('polnum', self.polnum),
+            ('party', self.party),
+            ('unique_id', self.unique_id),
         ))
 
 
@@ -186,12 +186,13 @@ class BallotPosition(BaseObject):
     def serialize(self):
         return OrderedDict((
             ('candidateid', self.candidateid),
-            ('last', self.last),
-            ('polid', self.polid),
             ('ballotorder', self.ballotorder),
             ('description', self.description),
+            ('last', self.last),
+            ('polid', self.polid),
+            ('polnum', self.polnum),
             ('seatname', self.seatname),
-            ('unique_id', self.uniqueid),
+            ('unique_id', self.unique_id),
         ))
 
 
@@ -256,7 +257,7 @@ class CandidateReportingUnit(BaseObject):
             ('ballotorder', self.ballotorder),
             ('polnum', self.polnum),
             ('votecount', self.votecount),
-            ('votepct', self.votepctsdf),
+            ('votepct', self.votepct),
             ('winner', self.winner),
             ('is_ballot_position', self.is_ballot_position),
             ('level', self.level),
@@ -346,6 +347,8 @@ class ReportingUnit(BaseObject):
         if not self.uncontested:
             for c in self.candidates:
                 self.votecount = sum([c.votecount for c in self.candidates if c.level != 'subunit'])
+        else:
+            self.votecount = None
 
     def set_candidate_votepct(self):
         if not self.uncontested:
@@ -381,7 +384,6 @@ class ReportingUnit(BaseObject):
             ('test', self.test),
             ('uncontested', self.uncontested),
             ('votecount', self.votecount),
-            ('votepct', self.votepct),
         ))
 
 
