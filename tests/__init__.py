@@ -16,12 +16,4 @@ class ElectionResultsTestCase(unittest.TestCase):
         self.candidates = e.candidates
         self.races = e.races
         self.reporting_units = e.reporting_units
-
-    def tearDown(self):
-        self.raw_races = None
-        self.race_objs = None
-        self.ballot_positions = None
-        self.candidate_reporting_units = None
-        self.candidates = None
-        self.races = None
-        self.reporting_units = None
+        self.results = e.results

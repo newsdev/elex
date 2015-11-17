@@ -8,19 +8,24 @@ from cStringIO import StringIO
 from elex.cli.app import ElexApp
 
 DATA_FILE = 'tests/data/20151103_national.json'
-ELECTIONS_DATA_FILE = 'tests/data/00000000_elections.json'
-TEST_COMMANDS = ['races', 'candidates', 'reporting-units', 'candidate-reporting-units']
+
+TEST_COMMANDS = [
+    'races',
+    'candidates',
+    'reporting-units',
+    'candidate-reporting-units',
+    'results',
+]
 
 
 class ElexCLICSVTestMeta(type):
     def __new__(mcs, name, bases, dict):
-
-        def gen_test(command, subcommand):
+        def gen_test(command):
             """
             Dynamically generate a test function, like test_init_races
             """
             def test(self):
-                cli_fields, cli_data = self._test_command(argv=[subcommand])
+                cli_fields, cli_data = self._test_command(command=command)
                 api_data = getattr(self, command.replace('-', '_'))
                 api_fields = api_data[0].serialize().keys()
                 self.assertEqual(cli_fields, api_fields)
@@ -34,9 +39,8 @@ class ElexCLICSVTestMeta(type):
             return test
 
         for command in TEST_COMMANDS:
-            subcommand = 'init-{0}'.format(command)
-            test_name = 'test_{0}'.format(subcommand.replace('-', '_'))
-            dict[test_name] = gen_test(command, subcommand)
+            test_name = 'test_{0}'.format(command.replace('-', '_'))
+            dict[test_name] = gen_test(command)
 
         return type.__new__(mcs, name, bases, dict)
 
@@ -49,20 +53,21 @@ class ElexCLICSVTestCase(tests.ElectionResultsTestCase):
     Python API. The API tests guarantee the validity of the data, while these
     tests guarantee the CLI provides the same data in CSV format.
     """
-
     __metaclass__ = ElexCLICSVTestMeta
 
-    def _test_command(self, argv, datafile=DATA_FILE):
+    def _test_command(self, command, datafile=DATA_FILE):
         """
         Execute an `elex` sub-command; returns fieldnames and rows
         """
         stdout_backup = sys.stdout
         sys.stdout = StringIO()
 
-        app = ElexApp(argv=argv + ['--data-file', datafile])
+        app = ElexApp(argv=[command, '--data-file', datafile])
+
         app.setup()
         app.log.set_level('FATAL')
         app.run()
+
         lines = sys.stdout.getvalue().split('\n')
         reader = csv.DictReader(lines)
 
@@ -74,13 +79,12 @@ class ElexCLICSVTestCase(tests.ElectionResultsTestCase):
 
 class ElexCLIJSONTestMeta(type):
     def __new__(mcs, name, bases, dict):
-
-        def gen_test(command, subcommand):
+        def gen_test(command):
             """
             Dynamically generate a test function, like test_init_races
             """
             def test(self):
-                cli_fields, cli_data = self._test_command(argv=[subcommand])
+                cli_fields, cli_data = self._test_command(command=command)
                 api_data = getattr(self, command.replace('-', '_'))
                 api_fields = api_data[0].serialize().keys()
                 self.assertEqual(cli_fields, api_fields)
@@ -92,9 +96,8 @@ class ElexCLIJSONTestMeta(type):
             return test
 
         for command in TEST_COMMANDS:
-            subcommand = 'init-{0}'.format(command)
-            test_name = 'test_{0}'.format(subcommand.replace('-', '_'))
-            dict[test_name] = gen_test(command, subcommand)
+            test_name = 'test_{0}'.format(command.replace('-', '_'))
+            dict[test_name] = gen_test(command)
 
         return type.__new__(mcs, name, bases, dict)
 
@@ -109,19 +112,22 @@ class ElexCLIJSONTestCase(tests.ElectionResultsTestCase):
     """
     __metaclass__ = ElexCLIJSONTestMeta
 
-    def _test_command(self, argv, datafile=DATA_FILE):
+    def _test_command(self, command, datafile=DATA_FILE):
         """
         Execute an `elex` sub-command; returns fieldnames and rows
         """
         stdout_backup = sys.stdout
         sys.stdout = StringIO()
 
-        app = ElexApp(argv=argv + ['--data-file', datafile, '-o', 'json'])
+        app = ElexApp(argv=[command, '--data-file', datafile, '-o', 'json'])
+
         app.setup()
         app.log.set_level('FATAL')
         app.run()
+
         json_data = sys.stdout.getvalue()
         data = json.loads(json_data, object_pairs_hook=OrderedDict)
+
         sys.stdout.close()
         sys.stdout = stdout_backup
 
