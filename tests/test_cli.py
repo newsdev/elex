@@ -8,6 +8,7 @@ from cStringIO import StringIO
 from elex.cli.app import ElexApp
 
 DATA_FILE = 'tests/data/20151103_national.json'
+ELECTIONS_DATA_FILE = 'tests/data/00000000_elections.json'
 
 TEST_COMMANDS = [
     'races',
@@ -54,6 +55,26 @@ class ElexCLICSVTestCase(tests.ElectionResultsTestCase):
     tests guarantee the CLI provides the same data in CSV format.
     """
     __metaclass__ = ElexCLICSVTestMeta
+
+    def test_elections_fields(self):
+        fields, data = self._test_command(command='elections', datafile=ELECTIONS_DATA_FILE)
+        self.assertEqual(fields, ['electiondate', 'liveresults', 'testresults'])
+
+    def test_elections_length(self):
+        fields, data = self._test_command(command='elections', datafile=ELECTIONS_DATA_FILE)
+        self.assertEqual(len(data), 11)
+
+    def test_elections_date(self):
+        fields, data = self._test_command(command='elections', datafile=ELECTIONS_DATA_FILE)
+        self.assertEqual(data[4]['electiondate'], '2015-08-04')
+
+    def test_elections_liveresults(self):
+        fields, data = self._test_command(command='elections', datafile=ELECTIONS_DATA_FILE)
+        self.assertEqual(data[4]['liveresults'], 'False')
+
+    def test_elections_testresults(self):
+        fields, data = self._test_command(command='elections', datafile=ELECTIONS_DATA_FILE)
+        self.assertEqual(data[4]['testresults'], 'True')
 
     def _test_command(self, command, datafile=DATA_FILE):
         """

@@ -34,10 +34,6 @@
       "liveResults": true
     },
     {
-      "electionDate": "2012-11-06",
-      "liveResults": true
-    },
-    {
       "electionDate": "2015-05-19",
       "liveResults": true
     },
@@ -50,12 +46,8 @@
       "liveResults": true
     },
     {
-      "electionDate": "2015-07-07",
-      "liveResults": true
-    },
-    {
       "electionDate": "2015-08-04",
-      "liveResults": true
+      "testResults": true
     },
     {
       "electionDate": "2015-08-25",
@@ -63,10 +55,6 @@
     },
     {
       "electionDate": "2015-09-10",
-      "liveResults": true
-    },
-    {
-      "electionDate": "2015-10-24",
       "liveResults": true
     },
     {
