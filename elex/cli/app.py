@@ -42,67 +42,67 @@ class ElexBaseController(CementBaseController):
         """
         self.app.args.print_help()
 
-    @expose(help="Initialize races")
+    @expose(help="Get races")
     @require_date
-    def init_races(self):
+    def races(self):
         """
         Initialize races
         """
-        self.app.log.info('Running init_races for election {0}'
+        self.app.log.info('Getting races for election {0}'
             .format(self.app.election.electiondate))
         self.app.render(self.app.election.races)
 
-    @expose(help="Initialize reporting units")
+    @expose(help="Get reporting units")
     @require_date
-    def init_reporting_units(self):
+    def reporting_units(self):
         """
         Initialize reporting units
         """
-        self.app.log.info('Running init_reporting_units for election {0}'
+        self.app.log.info('Getting reporting units for election {0}'
             .format(self.app.election.electiondate))
         self.app.render(self.app.election.reporting_units)
 
-    @expose(help="Initialize candidate reporting units")
+    @expose(help="Get candidate reporting units (without results)")
     @require_date
-    def init_candidate_reporting_units(self):
+    def candidate_reporting_units(self):
         """
         Initialize reporting units
         """
-        self.app.log.info('Running init_candidate_reporting_units for election {0}'
+        self.app.log.info('Getting candidate reporting units for election {0}'
             .format(self.app.election.electiondate))
         self.app.render(self.app.election.candidate_reporting_units)
 
-    @expose(help="Initialize candidates")
+    @expose(help="Get candidates")
     @require_date
-    def init_candidates(self):
+    def candidates(self):
         """
         Initialize reporting units
         """
-        self.app.log.info('Running init_candidates for election {0}'
+        self.app.log.info('Getting candidates for election {0}'
             .format(self.app.election.electiondate))
         self.app.render(self.app.election.candidates)
 
-    @expose(help="Initialize ballot positions")
+    @expose(help="Get ballot positions (also known as ballot issues)")
     @require_date
-    def init_ballot_positions(self):
+    def ballot_positions(self):
         """
         Initialize reporting units
         """
-        self.app.log.info('Running init_ballot_positions for election {0}'
+        self.app.log.info('Getting ballot positions for election {0}'
             .format(self.app.election.electiondate))
         self.app.render(self.app.election.ballot_positions)
 
     @expose(help="Get results")
     @require_date
-    def get_results(self):
+    def results(self):
         """
         Initialize reporting units
         """
-        self.app.log.info('Running get-results for election {0}'
+        self.app.log.info('Getting results for election {0}'
             .format(self.app.election.electiondate))
         self.app.render(self.app.election.results)
 
-    @expose(help="Show list of elections known to the API")
+    @expose(help="Get list of available elections")
     def elections(self):
         """
         Initialize reporting units
@@ -111,7 +111,7 @@ class ElexBaseController(CementBaseController):
         elections = self.app.election.get_elections()
         self.app.render(elections)
 
-    @expose(help="Print next election")
+    @expose(help="Get the next election")
     def next_election(self):
         """
         Initialize reporting units
