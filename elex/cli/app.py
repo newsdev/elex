@@ -108,7 +108,7 @@ class ElexBaseController(CementBaseController):
         Initialize reporting units
         """
         self.app.log.info('Getting election list')
-        elections = self.app.election.get_elections()
+        elections = self.app.election.get_elections(datafile=self.app.pargs.data_file)
         self.app.render(elections)
 
     @expose(help="Get the next election (if date is specified, will be relative to that date, otherwise will use today's date)")
@@ -117,7 +117,7 @@ class ElexBaseController(CementBaseController):
         Initialize reporting units
         """
         self.app.log.info('Getting next election')
-        election = self.app.election.get_next_election()
+        election = self.app.election.get_next_election(datafile=self.app.pargs.data_file, electiondate=self.app.pargs.date[0])
         self.app.render(election)
 
 
