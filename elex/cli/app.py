@@ -111,7 +111,7 @@ class ElexBaseController(CementBaseController):
         elections = self.app.election.get_elections()
         self.app.render(elections)
 
-    @expose(help="Get the next election")
+    @expose(help="Get the next election (if date is specified, will be relative to that date, otherwise will use today's date)")
     def next_election(self):
         """
         Initialize reporting units
