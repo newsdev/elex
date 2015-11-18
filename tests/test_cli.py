@@ -216,11 +216,11 @@ class ElexCLIJSONTestCase(tests.ElectionResultsTestCase):
 
     def test_elections_liveresults(self):
         fields, data = self._test_command(command='elections', datafile=ELECTIONS_DATA_FILE)
-        self.assertEqual(data[4]['liveresults'], 'False')
+        self.assertEqual(data[4]['liveresults'], False)
 
     def test_elections_testresults(self):
         fields, data = self._test_command(command='elections', datafile=ELECTIONS_DATA_FILE)
-        self.assertEqual(data[4]['testresults'], 'True')
+        self.assertEqual(data[4]['testresults'], True)
 
     def test_next_election_fields(self):
         fields, data = self._test_command(command='next-election', datafile=ELECTIONS_DATA_FILE, electiondate='2015-08-04')
@@ -236,11 +236,11 @@ class ElexCLIJSONTestCase(tests.ElectionResultsTestCase):
 
     def test_next_election_liveresults(self):
         fields, data = self._test_command(command='next-election', datafile=ELECTIONS_DATA_FILE, electiondate='2015-08-04')
-        self.assertEqual(data[0]['liveresults'], 'True')
+        self.assertEqual(data[0]['liveresults'], True)
 
     def test_next_election_testresults(self):
         fields, data = self._test_command(command='next-election', datafile=ELECTIONS_DATA_FILE, electiondate='2015-08-04')
-        self.assertEqual(data[0]['testresults'], 'False')
+        self.assertEqual(data[0]['testresults'], False)
 
     def _test_command(self, command, datafile=DATA_FILE, electiondate=None):
         """
