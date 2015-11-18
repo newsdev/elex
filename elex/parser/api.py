@@ -223,7 +223,6 @@ class CandidateReportingUnit(BaseObject):
         self.precinctstotal = 0
         self.precinctsreportingpct = 0.0
         self.uncontested = False
-        self.uncontested = False
         self.test = False
         self.raceid = None
         self.statepostal = None
