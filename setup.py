@@ -10,19 +10,21 @@ except ImportError:
 install_reqs = parse_requirements('requirements.txt', session=PipSession())
 reqs = [str(ir.req) for ir in install_reqs]
 
+
 def read(filename):
     return open(os.path.join(os.path.dirname(__file__), filename)).read()
 
 
 setup(
     name='nyt-ap-elections',
-    version='0.0.36',
+    version='0.0.37',
     author='Jeremy Bowers',
     author_email='jeremy.bowers@nytimes.com',
     url='https://github.com/newsdev/nyt-ap-elections',
     description='Python client for parsing the Associated Press\'s elections API.',
     long_description=read('README.rst'),
     packages=['elex'],
+    py_modules=['elex'],
     entry_points={
         'console_scripts': [
             'elex = elex.cli:main',
