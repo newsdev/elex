@@ -203,6 +203,7 @@ class CandidateReportingUnit(BaseObject):
     be a person OR a ballot position.
     """
     def __init__(self, **kwargs):
+        self.unique_id = None
         self.first = None
         self.last = None
         self.party = None
@@ -243,9 +244,11 @@ class CandidateReportingUnit(BaseObject):
 
         self.set_fields(**kwargs)
         self.set_winner()
+        self.set_unique_id()
 
     def serialize(self):
         return OrderedDict((
+            ('unique_id', self.unique_id)
             ('raceid', self.raceid),
             ('racetype', self.racetype),
             ('racetypeid', self.racetypeid),
