@@ -446,6 +446,9 @@ class Election(BaseObject):
     """
     Canonical representation of an election on
     a single date.
+
+    :param electiondate: The date of the election.
+    :param datafile: A cached data file.
     """
     def __init__(self, **kwargs):
         self.testresults = False
