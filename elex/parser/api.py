@@ -550,7 +550,6 @@ class Election(BaseObject):
                 payload = dict(json.loads(readfile.read()))
         else:
             payload = self.get('/%s' % self.electiondate, **kwargs)
-            self.next_request = payload['nextrequest']
 
         return payload
 
