@@ -6,8 +6,8 @@ from cement.ext.ext_logging import LoggingLogHandler
 from elex.cli.hooks import add_election_hook
 from elex.cli.decorators import require_date
 
-LOG_FORMAT = '%(asctime)s (%(levelname)s) %(namespace)s : %(message)s'
 VERSION = pkg_resources.get_distribution('nyt-ap-elections').version
+LOG_FORMAT = '%(asctime)s (%(levelname)s) %(namespace)s (v{0}) : %(message)s'.format(VERSION)
 
 BANNER = """
 NYT AP Elections version {0}
@@ -37,8 +37,8 @@ class ElexBaseController(CementBaseController):
             )),
             (['-v', '--version'], dict(
                 action='version',
-                version=BANNER)
-            ),
+                version=BANNER
+            )),
             (['date'], dict(
                 nargs='*',
                 action='store',
