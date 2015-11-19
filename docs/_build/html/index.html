@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nyt-ap-elections 0.0.39 &mdash; nyt-ap-elections 0.0.39 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="nyt-ap-elections 0.0.39 documentation" href="#"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> nyt-ap-elections
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.39
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <!-- Local TOC -->
+                <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">nyt-ap-elections 0.0.39</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li><a class="reference internal" href="#optional-requirements">Optional requirements:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#command-line-utility">Command line utility</a></li>
+<li><a class="reference internal" href="#demo-app">Demo app</a></li>
+<li><a class="reference internal" href="#modules">Modules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#options">Options</a><ul>
+<li><a class="reference internal" href="#recording">Recording</a><ul>
+<li><a class="reference internal" href="#flat-files">Flat files</a></li>
+<li><a class="reference internal" href="#mongodb">MongoDB</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#development">Development</a><ul>
+<li><a class="reference internal" href="#run-tests">Run tests</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">nyt-ap-elections</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>nyt-ap-elections 0.0.39</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nyt-ap-elections-release">
+<h1>nyt-ap-elections 0.0.39<a class="headerlink" href="#nyt-ap-elections-release" title="Permalink to this headline">¶</a></h1>
+<div class="figure">
+<img alt="" src="https://cloud.githubusercontent.com/assets/109988/10737959/635bfb56-7beb-11e5-9ee5-102eb1582718.png" />
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Python 2.7</li>
+<li>pip</li>
+</ul>
+<div class="section" id="optional-requirements">
+<h3>Optional requirements:<a class="headerlink" href="#optional-requirements" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>PostgreSQL</li>
+<li>MongoDB</li>
+</ul>
+</div>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Install the Python library:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>pip install nyt-ap-elections
+</pre></div>
+</div>
+<p>Set your AP API key:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>export AP_API_KEY=&lt;MY_AP_API_KEY&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="command-line-utility">
+<h3>Command line utility<a class="headerlink" href="#command-line-utility" title="Permalink to this headline">¶</a></h3>
+<p>This tool is primarily designed for use on the command line using
+standard *NIX operations like pipes and output redirection.</p>
+<p>To write a stream of races in CSV format to your terminal, run:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>elex init-races &#39;11-03-2015&#39;
+</pre></div>
+</div>
+<p>To write this data to a file:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>elex init-races &#39;11-03-2015&#39; &gt; races.csv
+</pre></div>
+</div>
+<p>To pipe it into PostgreSQL:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>elex init-races &#39;11-03-2015&#39; | psql elections -c &quot;COPY races FROM stdin DELIMITER &#39;,&#39; CSV HEADER;&quot;```
+</pre></div>
+</div>
+<p>Output could also be piped to tools like sed, awk, or csvkit.</p>
+</div>
+<div class="section" id="demo-app">
+<h3>Demo app<a class="headerlink" href="#demo-app" title="Permalink to this headline">¶</a></h3>
+<p>See the <a class="reference external" href="https://github.com/nprapps/ap-election-loader">NPR Visuals Demo
+Loader</a>.</p>
+</div>
+<div class="section" id="modules">
+<h3>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h3>
+<p>Use the election loader manually from within your project.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">elex.parser</span> <span class="kn">import</span> <span class="n">api</span>
+<span class="kn">from</span> <span class="nn">elex</span> <span class="kn">import</span> <span class="n">loader</span>
+<span class="kn">from</span> <span class="nn">elex.loader</span> <span class="kn">import</span> <span class="n">postgres</span>
+
+<span class="n">e</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">Election</span><span class="p">(</span><span class="n">electiondate</span><span class="o">=</span><span class="s">&#39;2015-11-03&#39;</span><span class="p">,</span> <span class="n">testresults</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">liveresults</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">is_test</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">raw_races</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">get_races</span><span class="p">(</span><span class="n">omitResults</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s">&quot;ru&quot;</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">races</span><span class="p">,</span> <span class="n">reporting_units</span><span class="p">,</span> <span class="n">candidate_reporting_units</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">get_units</span><span class="p">(</span><span class="n">raw_races</span><span class="p">)</span>
+<span class="n">candidates</span><span class="p">,</span> <span class="n">ballot_positions</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">get_uniques</span><span class="p">(</span><span class="n">candidate_reporting_units</span><span class="p">)</span>
+
+<span class="c"># Now you can do whatever it is you want with these objects.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="recording">
+<h3>Recording<a class="headerlink" href="#recording" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="flat-files">
+<h4>Flat files<a class="headerlink" href="#flat-files" title="Permalink to this headline">¶</a></h4>
+<p>Will record timestamped and namespaced files to the
+<code class="docutils literal"><span class="pre">ELEX_RECORDING_DIR</span></code> before parsing.</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>export ELEX_RECORDING=flat
+export ELEX_RECORDING_DIR=/tmp
+</pre></div>
+</div>
+</div>
+<div class="section" id="mongodb">
+<h4>MongoDB<a class="headerlink" href="#mongodb" title="Permalink to this headline">¶</a></h4>
+<p>Will record a timestamped record to MongoDB, connecting via
+<code class="docutils literal"><span class="pre">ELEX_RECORDING_MONGO_URL</span></code> and writing to the
+<code class="docutils literal"><span class="pre">ELEX_RECORDING_MONGO_DB</span></code> database.</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>export ELEX_RECORDING=mongodb
+export ELEX_RECORDING_MONGO_URL=mongodb://localhost:27017/  # Or your own connection string.
+export ELEX_RECORDING_MONGO_DB=ap_elections_loader
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="development">
+<h2>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="run-tests">
+<h3>Run tests<a class="headerlink" href="#run-tests" title="Permalink to this headline">¶</a></h3>
+<div class="code bash highlight-python"><div class="highlight"><pre><span class="n">nosetests</span>
+</pre></div>
+</div>
+<p>Why NYT AP Elections?</p>
+<ul class="simple">
+<li>Uses v2.0 of the Associated Press Election API.</li>
+<li>Intuitive command line interface: Get data as CSV or JSON and pipe to the data tool of your choice.</li>
+<li>Friendly Python API for use as a library.</li>
+<li>Simple election recording (to MongoDB).</li>
+<li>Comprehensive tests.</li>
+<li>Extensive documentation.</li>
+<li>Decently fast (several times faster than previous efforts at NYT and NPR).</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, New York Times &amp; NPR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.39',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

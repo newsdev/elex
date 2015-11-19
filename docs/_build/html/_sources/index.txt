@@ -1,0 +1,15 @@
+==========================
+nyt-ap-elections |release|
+==========================
+
+.. include:: ../README.rst
+
+Why NYT AP Elections?
+
+* Uses v2.0 of the Associated Press Election API.
+* Intuitive command line interface: Get data as CSV or JSON and pipe to the data tool of your choice. 
+* Friendly Python API for use as a library.
+* Simple election recording (to MongoDB).
+* Comprehensive tests.
+* Extensive documentation.
+* Decently fast (several times faster than previous efforts at NYT and NPR).
