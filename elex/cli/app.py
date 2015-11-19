@@ -1,12 +1,11 @@
-import pkg_resources
 
 from cement.core.foundation import CementApp
 from cement.core.controller import CementBaseController, expose
 from cement.ext.ext_logging import LoggingLogHandler
+from elex import __version__ as VERSION
 from elex.cli.hooks import add_election_hook
 from elex.cli.decorators import require_date
 
-VERSION = pkg_resources.get_distribution('nyt-ap-elections').version
 LOG_FORMAT = '%(asctime)s (%(levelname)s) %(namespace)s (v{0}) : %(message)s'.format(VERSION)
 
 BANNER = """
