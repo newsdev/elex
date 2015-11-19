@@ -248,7 +248,7 @@ class CandidateReportingUnit(BaseObject):
 
     def serialize(self):
         return OrderedDict((
-            ('unique_id', self.unique_id)
+            ('unique_id', self.unique_id),
             ('raceid', self.raceid),
             ('racetype', self.racetype),
             ('racetypeid', self.racetypeid),
