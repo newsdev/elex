@@ -244,6 +244,7 @@ class CandidateReportingUnit(BaseObject):
 
         self.set_fields(**kwargs)
         self.set_winner()
+        self.set_polid()
         self.set_unique_id()
 
     def serialize(self):
