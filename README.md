@@ -1,5 +1,9 @@
 ![](https://cloud.githubusercontent.com/assets/109988/10737959/635bfb56-7beb-11e5-9ee5-102eb1582718.png)
 
+A library for working with the Associated Press Election Results JSON API v2.x.
+
+_The name of this project will change before the first major release._
+
 ## Requirements
 
 * Python 2.7
@@ -7,8 +11,7 @@
 
 ### Optional requirements:
 
-* PostgreSQL
-* MongoDB
+* MongoDB (for recording election results)
 
 ## Installation
 
