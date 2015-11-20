@@ -46,6 +46,7 @@ class BaseObject(object):
         for r in self.reportingunits:
             reportingunit_dict = dict(r)
 
+            # Don't obliterate good data with possibly empty fields.
             SKIP_FIELDS = ['candidates', 'statepostal', 'statename']
 
             for k, v in self.__dict__.items():
