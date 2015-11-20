@@ -40,6 +40,10 @@ def api_request(path, **params):
     """
     if not params.get('apiKey', None):
         params['apiKey'] = elex.API_KEY
+
+    if not params['apiKey']:
+        raise ValueError('Oops! You have not exported an AP_API_KEY variable.')
+
     params['format'] = 'json'
     response = requests.get(elex.BASE_URL + path, params=params)
     payload = response.json()
