@@ -373,7 +373,10 @@ class ReportingUnit(BaseObject):
         if not self.uncontested:
             for c in self.candidates:
                 if c.level != 'subunit':
-                    c.votepct = float(c.votecount) / float(self.votecount)
+                    try:
+                        c.votepct = float(c.votecount) / float(self.votecount)
+                    except ZeroDivisionError:
+                        pass
 
     def serialize(self):
         return OrderedDict((
@@ -496,7 +499,7 @@ class Election(BaseObject):
         return self.electiondate
 
     def set_id_field(self):
-        self.id = self.electiondate()
+        self.id = self.electiondate
 
     @classmethod
     def get_elections(cls, datafile=None):
