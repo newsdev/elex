@@ -138,6 +138,7 @@ class Candidate(BaseObject):
     for this election, across races.
     """
     def __init__(self, **kwargs):
+        self.id = None
         self.ballotorder = None
         self.candidateid = None
         self.first = None
@@ -150,9 +151,11 @@ class Candidate(BaseObject):
         self.set_fields(**kwargs)
         self.set_polid()
         self.set_unique_id()
+        self.set_id_field()
 
     def serialize(self):
         return OrderedDict((
+            ('id', self.id),
             ('unique_id', self.unique_id),
             ('candidateid', self.candidateid),
             ('ballotorder', self.ballotorder),
@@ -163,6 +166,8 @@ class Candidate(BaseObject):
             ('polnum', self.polnum),
         ))
 
+    def set_id_field(self):
+        self.id = self.unique_id
 
 class BallotPosition(BaseObject):
     """
@@ -170,6 +175,7 @@ class BallotPosition(BaseObject):
     position.
     """
     def __init__(self, **kwargs):
+        self.id = None
         self.ballotorder = None
         self.candidateid = None
         self.description = None
@@ -182,9 +188,11 @@ class BallotPosition(BaseObject):
         self.set_fields(**kwargs)
         self.set_polid()
         self.set_unique_id()
+        self.set_id_field()
 
     def serialize(self):
         return OrderedDict((
+            ('id', self.id),
             ('unique_id', self.unique_id),
             ('candidateid', self.candidateid),
             ('ballotorder', self.ballotorder),
@@ -195,6 +203,8 @@ class BallotPosition(BaseObject):
             ('seatname', self.seatname),
         ))
 
+    def set_id_field(self):
+        self.id = self.unique_id
 
 class CandidateReportingUnit(BaseObject):
     """
@@ -203,6 +213,7 @@ class CandidateReportingUnit(BaseObject):
     be a person OR a ballot position.
     """
     def __init__(self, **kwargs):
+        self.id = None
         self.unique_id = None
         self.first = None
         self.last = None
@@ -245,9 +256,14 @@ class CandidateReportingUnit(BaseObject):
         self.set_winner()
         self.set_polid()
         self.set_unique_id()
+        self.set_id_field()
+
+        def set_id_field(self):
+            self.id = "%s-%s-%s" % (self.raceid, self.unique_id, self.reportingunitid)
 
     def serialize(self):
         return OrderedDict((
+            ('id', self.id),
             ('unique_id', self.unique_id),
             ('raceid', self.raceid),
             ('racetype', self.racetype),
@@ -336,11 +352,15 @@ class ReportingUnit(BaseObject):
         self.set_candidates()
         self.set_votecount()
         self.set_candidate_votepct()
+        self.set_id_field()
 
     def __unicode__(self):
         if self.reportingunitname:
             return "%s %s (%s %% reporting)" % (self.statepostal, self.reportingunitname, self.precinctsreportingpct)
         return "%s %s (%s %% reporting)" % (self.statepostal, self.level, self.precinctsreportingpct)
+
+    def set_id_field(self):
+        self.id = self.reportingunitid
 
     def set_votecount(self):
         if not self.uncontested:
@@ -357,6 +377,7 @@ class ReportingUnit(BaseObject):
 
     def serialize(self):
         return OrderedDict((
+            ('id', self.id),
             ('reportingunitid', self.reportingunitid),
             ('reportingunitname', self.reportingunitname),
             ('description', self.description),
@@ -414,6 +435,7 @@ class Race(BaseObject):
 
         self.set_fields(**kwargs)
         self.set_dates(['lastupdated'])
+        self.set_id_field()
 
         if self.initialization_data:
             self.set_candidates()
@@ -421,8 +443,12 @@ class Race(BaseObject):
             self.set_reportingunits()
             self.set_state_fields_from_reportingunits()
 
+    def set_id_field():
+        self.id = self.raceid
+
     def serialize(self):
         return OrderedDict((
+            ('id', self.id),
             ('raceid', self.raceid),
             ('racetype', self.racetype),
             ('racetypeid', self.racetypeid),
@@ -464,9 +490,13 @@ class Election(BaseObject):
 
         self.set_fields(**kwargs)
         self.set_dates(['electiondate'])
+        self.set_id_field()
 
     def __unicode__(self):
         return self.electiondate
+
+    def set_id_field(self):
+        self.id = self.electiondate()
 
     @classmethod
     def get_elections(cls, datafile=None):
@@ -601,6 +631,7 @@ class Election(BaseObject):
 
     def serialize(self):
         return OrderedDict((
+            ('id', self.id),
             ('electiondate', self.electiondate),
             ('liveresults', self.liveresults),
             ('testresults', self.testresults)
