@@ -79,7 +79,7 @@ class ElexCLICSVTestCase(tests.ElectionResultsTestCase):
 
     def test_elections_fields(self):
         fields, data = self._test_command(command='elections', datafile=ELECTIONS_DATA_FILE)
-        self.assertEqual(fields, ['electiondate', 'liveresults', 'testresults'])
+        self.assertEqual(fields, ['id', 'electiondate', 'liveresults', 'testresults'])
 
     def test_elections_length(self):
         fields, data = self._test_command(command='elections', datafile=ELECTIONS_DATA_FILE)
@@ -99,7 +99,7 @@ class ElexCLICSVTestCase(tests.ElectionResultsTestCase):
 
     def test_next_election_fields(self):
         fields, data = self._test_command(command='next-election', datafile=ELECTIONS_DATA_FILE, electiondate='2015-08-04')
-        self.assertEqual(fields, ['electiondate', 'liveresults', 'testresults'])
+        self.assertEqual(fields, ['id', 'electiondate', 'liveresults', 'testresults'])
 
     def test_next_election_length(self):
         fields, data = self._test_command(command='next-election', datafile=ELECTIONS_DATA_FILE, electiondate='2015-08-04')
@@ -204,7 +204,7 @@ class ElexCLIJSONTestCase(tests.ElectionResultsTestCase):
 
     def test_elections_fields(self):
         fields, data = self._test_command(command='elections', datafile=ELECTIONS_DATA_FILE)
-        self.assertEqual(fields, ['electiondate', 'liveresults', 'testresults'])
+        self.assertEqual(fields, ['id', 'electiondate', 'liveresults', 'testresults'])
 
     def test_elections_length(self):
         fields, data = self._test_command(command='elections', datafile=ELECTIONS_DATA_FILE)
@@ -224,7 +224,7 @@ class ElexCLIJSONTestCase(tests.ElectionResultsTestCase):
 
     def test_next_election_fields(self):
         fields, data = self._test_command(command='next-election', datafile=ELECTIONS_DATA_FILE, electiondate='2015-08-04')
-        self.assertEqual(fields, ['electiondate', 'liveresults', 'testresults'])
+        self.assertEqual(fields, ['id', 'electiondate', 'liveresults', 'testresults'])
 
     def test_next_election_length(self):
         fields, data = self._test_command(command='next-election', datafile=ELECTIONS_DATA_FILE, electiondate='2015-08-04')
