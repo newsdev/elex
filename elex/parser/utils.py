@@ -41,6 +41,8 @@ def api_request(path, **params):
     if not params.get('apiKey', None):
         if elex.API_KEY != '':
             params['apiKey'] = elex.API_KEY
+        else:
+            params['apiKey'] = None
 
     if not params['apiKey']:
         raise ValueError('Oops! You have not exported an AP_API_KEY variable.')
