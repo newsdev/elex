@@ -258,8 +258,8 @@ class CandidateReportingUnit(BaseObject):
         self.set_unique_id()
         self.set_id_field()
 
-        def set_id_field(self):
-            self.id = "%s-%s-%s" % (self.raceid, self.unique_id, self.reportingunitid)
+    def set_id_field(self):
+        self.id = "%s-%s-%s" % (self.raceid, self.unique_id, self.reportingunitid)
 
     def serialize(self):
         return OrderedDict((
