@@ -23,13 +23,18 @@ class BaseObject(object):
             setattr(self, 'statepostal', self.reportingunits[0].statepostal)
             setattr(self, 'statename', STATE_ABBR[self.statepostal])
 
-    def set_winner(self):
+    def set_winner_runoff(self):
         """
-        Translates winner: "X" into a boolean.
+        Translates winner: "X" or "R" into a booleans on winner and runoff.
         """
-        if self.winner == u"X":
+        if self.winner == u'X':
+            setattr(self, 'winner', True)
+            setattr(self, 'runoff', False)
+        elif self.winner == u'R':
+            setattr(self, 'runoff', True)
             setattr(self, 'winner', True)
         else:
+            setattr(self, 'runoff', False)
             setattr(self, 'winner', False)
 
     def set_reportingunits(self):
@@ -225,6 +230,7 @@ class CandidateReportingUnit(BaseObject):
         self.votecount = 0
         self.votepct = 0.0
         self.winner = False
+        self.runoff = False
         self.is_ballot_position = False
         self.level = None
         self.reportingunitname = None
@@ -253,7 +259,7 @@ class CandidateReportingUnit(BaseObject):
         self.incumbent = False
 
         self.set_fields(**kwargs)
-        self.set_winner()
+        self.set_winner_runoff()
         self.set_polid()
         self.set_unique_id()
         self.set_id_field()
@@ -290,6 +296,7 @@ class CandidateReportingUnit(BaseObject):
             ('precinctstotal', self.precinctstotal),
             ('reportingunitid', self.reportingunitid),
             ('reportingunitname', self.reportingunitname),
+            ('runoff', self.runoff),
             ('seatname', self.seatname),
             ('seatnum', self.seatnum),
             ('statename', self.statename),
