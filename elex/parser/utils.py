@@ -39,7 +39,7 @@ def api_request(path, **params):
     * Returns JSON.
     """
     if not params.get('apiKey', None):
-        if elex.API_KEY != ''
+        if elex.API_KEY != '':
             params['apiKey'] = elex.API_KEY
 
     if not params['apiKey']:
