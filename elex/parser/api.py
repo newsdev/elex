@@ -446,7 +446,7 @@ class Race(BaseObject):
             self.set_reportingunits()
             self.set_state_fields_from_reportingunits()
 
-    def set_id_field():
+    def set_id_field(self):
         self.id = self.raceid
 
     def serialize(self):
