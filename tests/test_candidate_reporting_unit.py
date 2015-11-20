@@ -6,6 +6,7 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
         cru = [c for c in self.candidate_reporting_units if c.reportingunitid == '6020']
         for c in cru:
             self.assertEqual(c.votepct, 0.0)
+            self.assertEqual(c.votecount, 0.0)
 
     def test_number_of_parsed_candidate_reporting_units(self):
         self.assertEqual(len(self.candidate_reporting_units), 505)
