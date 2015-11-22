@@ -15,6 +15,7 @@ def write_recording(payload):
     FACTOR FOR USE; REFACTOR FOR REUSE.
     """
     recorder = os.environ.get('ELEX_RECORDING', False)
+    print recorder
     if recorder:
         timestamp = int(time.mktime(datetime.datetime.now().timetuple()))
         if recorder == u"mongodb":
