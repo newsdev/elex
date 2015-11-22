@@ -145,6 +145,7 @@ class Candidate(BaseObject):
     """
     def __init__(self, **kwargs):
         self.id = None
+        self.unique_id = None
         self.ballotorder = None
         self.candidateid = None
         self.first = None
@@ -182,6 +183,7 @@ class BallotPosition(BaseObject):
     """
     def __init__(self, **kwargs):
         self.id = None
+        self.unique_id = None
         self.ballotorder = None
         self.candidateid = None
         self.description = None
