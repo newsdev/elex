@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>elex.parser &mdash; nyt-ap-elections 0.0.39 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="nyt-ap-elections 0.0.39 documentation" href="../index.html"/>
+        <link rel="up" title="API" href="../api.html"/>
+        <link rel="next" title="elex.cli" href="cli.html"/>
+        <link rel="prev" title="API" href="../api.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> nyt-ap-elections
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.39
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">Command line interface</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">elex.parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">elex.cli</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">nyt-ap-elections</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../api.html">API</a> &raquo;</li>
+      
+    <li>elex.parser</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/parser.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-elex.parser.api">
+<span id="elex-parser"></span><h1>elex.parser<a class="headerlink" href="#module-elex.parser.api" title="Permalink to this headline">¶</a></h1>
+<p>This module contains the primary <a class="reference internal" href="#elex.parser.api.Election" title="elex.parser.api.Election"><code class="xref py py-class docutils literal"><span class="pre">Election</span></code></a> class, as well as model classes <a class="reference internal" href="#elex.parser.api.Candidate" title="elex.parser.api.Candidate"><code class="xref py py-class docutils literal"><span class="pre">Candidate</span></code></a>, <a class="reference internal" href="#elex.parser.api.BallotPosition" title="elex.parser.api.BallotPosition"><code class="xref py py-class docutils literal"><span class="pre">BallotPosition</span></code></a>, <a class="reference internal" href="#elex.parser.api.CandidateReportingUnit" title="elex.parser.api.CandidateReportingUnit"><code class="xref py py-class docutils literal"><span class="pre">CandidateReportingUnit</span></code></a>, <a class="reference internal" href="#elex.parser.api.ReportingUnit" title="elex.parser.api.ReportingUnit"><code class="xref py py-class docutils literal"><span class="pre">ReportingUnit</span></code></a>, <a class="reference internal" href="#elex.parser.api.Race" title="elex.parser.api.Race"><code class="xref py py-class docutils literal"><span class="pre">Race</span></code></a> model classes, and <a class="reference internal" href="#elex.parser.api.BaseObject" title="elex.parser.api.BaseObject"><code class="xref py py-class docutils literal"><span class="pre">BaseObject</span></code></a> which provides utility methods common to all AP API access.</p>
+<dl class="class">
+<dt id="elex.parser.api.BaseObject">
+<em class="property">class </em><code class="descclassname">elex.parser.api.</code><code class="descname">BaseObject</code><a class="headerlink" href="#elex.parser.api.BaseObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for most objects.
+Handy container for methods for first level
+transformation of data and AP connections.</p>
+<dl class="method">
+<dt id="elex.parser.api.BaseObject.set_state_fields_from_reportingunits">
+<code class="descname">set_state_fields_from_reportingunits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.BaseObject.set_state_fields_from_reportingunits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set state fields.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.BaseObject.set_winner_runoff">
+<code class="descname">set_winner_runoff</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.BaseObject.set_winner_runoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates winner: &#8220;X&#8221; or &#8220;R&#8221; into a booleans on winner and runoff.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.BaseObject.set_reportingunits">
+<code class="descname">set_reportingunits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.BaseObject.set_reportingunits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set reporting units.</p>
+<p>If this race has reportingunits,
+serialize them into objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.BaseObject.set_polid">
+<code class="descname">set_polid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.BaseObject.set_polid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set politication id.</p>
+<p>If <cite>polid</cite> is zero, set to <cite>None</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.BaseObject.set_unique_id">
+<code class="descname">set_unique_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.BaseObject.set_unique_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate and set unique id.</p>
+<p>Candidate IDs are not globally unique.
+AP National Politian IDs (NPIDs or polid)
+are unique, but only national-level
+candidates have them; everyone else gets &#8216;0&#8217;.
+The unique key, then, is the NAME of the ID
+we&#8217;re using and then the ID itself.
+Verified this is globally unique with Tracy.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.BaseObject.set_reportingunitids">
+<code class="descname">set_reportingunitids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.BaseObject.set_reportingunitids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set reporting unit ID.</p>
+<p>Per Tracy / AP developers, if the level is
+&#8220;state&#8221;, the reportingunitid is always 1.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.BaseObject.set_candidates">
+<code class="descname">set_candidates</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.BaseObject.set_candidates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set candidates.</p>
+<p>If this thing (race, reportingunit) has candidates,
+serialize them into objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.BaseObject.set_dates">
+<code class="descname">set_dates</code><span class="sig-paren">(</span><em>date_fields</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.BaseObject.set_dates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse dates into objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.BaseObject.set_fields">
+<code class="descname">set_fields</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.BaseObject.set_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set fields from keywords. Only sets fields if pre-defined in the object&#8217;s class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>**kwargs</strong> &#8211; <p>A dict of key, value pairs to set as fields on the object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.BaseObject.serialize">
+<code class="descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.BaseObject.serialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialize the object. Should be implemented in all classes that inherit from
+<code class="xref py py-class docutils literal"><span class="pre">BaseOject</span></code>.</p>
+<p>Should return an <a class="reference external" href="https://docs.python.org/2/library/collections.html#ordereddict-objects">OrderedDict</a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="elex.parser.api.BaseObject.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#elex.parser.api.BaseObject.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="elex.parser.api.Candidate">
+<em class="property">class </em><code class="descclassname">elex.parser.api.</code><code class="descname">Candidate</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.Candidate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Canonical representation of a
+candidate. Should be globally unique
+for this election, across races.</p>
+<dl class="method">
+<dt id="elex.parser.api.Candidate.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.Candidate.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> &#8211; Global identifier.</li>
+<li><strong>unique_id</strong> &#8211; Unique identifier.</li>
+<li><strong>candidateid</strong> &#8211; Candidate ID (raw AP).</li>
+<li><strong>first</strong> &#8211; First name.</li>
+<li><strong>last</strong> &#8211; Last name.</li>
+<li><strong>party</strong> &#8211; Party.</li>
+<li><strong>polid</strong> &#8211; Politician ID.</li>
+<li><strong>polnum</strong> &#8211; Politician number.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.Candidate.serialize">
+<code class="descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.Candidate.serialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>See <a class="reference internal" href="#elex.parser.api.BaseObject.serialize" title="elex.parser.api.BaseObject.serialize"><code class="xref py py-meth docutils literal"><span class="pre">BaseObject.serialize()</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="elex.parser.api.BallotPosition">
+<em class="property">class </em><code class="descclassname">elex.parser.api.</code><code class="descname">BallotPosition</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.BallotPosition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Canonical representation of a ballot
+position.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="elex.parser.api.CandidateReportingUnit">
+<em class="property">class </em><code class="descclassname">elex.parser.api.</code><code class="descname">CandidateReportingUnit</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.CandidateReportingUnit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Canonical reporesentation of an
+AP candidate. Note: A candidate can 
+be a person OR a ballot position.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="elex.parser.api.ReportingUnit">
+<em class="property">class </em><code class="descclassname">elex.parser.api.</code><code class="descname">ReportingUnit</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.ReportingUnit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Canonical representation of a single
+level of reporting. Can be</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="elex.parser.api.Race">
+<em class="property">class </em><code class="descclassname">elex.parser.api.</code><code class="descname">Race</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.Race" title="Permalink to this definition">¶</a></dt>
+<dd><p>Canonical representation of a single
+race, which is a seat in a political geography
+within a certain election.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="elex.parser.api.Election">
+<em class="property">class </em><code class="descclassname">elex.parser.api.</code><code class="descname">Election</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.Election" title="Permalink to this definition">¶</a></dt>
+<dd><p>Canonical representation of an election on
+a single date.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>electiondate</strong> &#8211; The date of the election.</li>
+<li><strong>datafile</strong> &#8211; A cached data file.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="elex.parser.api.Election.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>path</em>, <em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.Election.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Farms out request to api_request.
+Could possibly handle choosing which
+parser backend to use &#8211; API-only right now.
+Also the entry point for recording, which
+is set via environment variable.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.Election.get_uniques">
+<code class="descname">get_uniques</code><span class="sig-paren">(</span><em>candidate_reporting_units</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.Election.get_uniques" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses out unique candidates and ballot positions
+from a list of CandidateReportingUnit objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.Election.get_raw_races">
+<code class="descname">get_raw_races</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.Election.get_raw_races" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience method for fetching races by election date.
+Accepts an AP formatting date string, e.g., YYYY-MM-DD.
+Accepts any number of URL params as kwargs.</p>
+<p>If datafile passed to constructor, the file will be used instead of making an HTTP request.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.Election.get_race_objects">
+<code class="descname">get_race_objects</code><span class="sig-paren">(</span><em>parsed_json</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.Election.get_race_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given some parsed JSON, decided if this is standard
+results data or</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="elex.parser.api.Election.get_units">
+<code class="descname">get_units</code><span class="sig-paren">(</span><em>raw_races</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.api.Election.get_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses out races, reporting_units,
+and candidate_reporting_units in a
+single loop over the raw race JSON.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="elex.parser.api.Election.races">
+<code class="descname">races</code><a class="headerlink" href="#elex.parser.api.Election.races" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of race objects</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="elex.parser.api.Election.reporting_units">
+<code class="descname">reporting_units</code><a class="headerlink" href="#elex.parser.api.Election.reporting_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of reporting unit objects</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="elex.parser.api.Election.candidate_reporting_units">
+<code class="descname">candidate_reporting_units</code><a class="headerlink" href="#elex.parser.api.Election.candidate_reporting_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of candidate reporting unit objects</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="elex.parser.api.Election.results">
+<code class="descname">results</code><a class="headerlink" href="#elex.parser.api.Election.results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of candidate reporting unit objects with results</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="elex.parser.api.Election.candidates">
+<code class="descname">candidates</code><a class="headerlink" href="#elex.parser.api.Election.candidates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of candidate objects with results</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="elex.parser.api.Election.ballot_positions">
+<code class="descname">ballot_positions</code><a class="headerlink" href="#elex.parser.api.Election.ballot_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of ballot position (aka ballot issue) objects with results</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-elex.parser.utils"></span><dl class="function">
+<dt id="elex.parser.utils.write_recording">
+<code class="descclassname">elex.parser.utils.</code><code class="descname">write_recording</code><span class="sig-paren">(</span><em>payload</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.utils.write_recording" title="Permalink to this definition">¶</a></dt>
+<dd><p>Presumes JSON at the moment.
+Would have to refactor if using XML or FTP.
+FACTOR FOR USE; REFACTOR FOR REUSE.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="elex.parser.utils.api_request">
+<code class="descclassname">elex.parser.utils.</code><code class="descname">api_request</code><span class="sig-paren">(</span><em>path</em>, <em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#elex.parser.utils.api_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function wrapping Python-requests
+for making a request to the AP&#8217;s
+elections API.</p>
+<p>A properly formatted request:
+* Modifies the BASE_URL with a path.
+* Contains an API_KEY.
+* Returns JSON.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cli.html" class="btn btn-neutral float-right" title="elex.cli" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../api.html" class="btn btn-neutral" title="API" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, New York Times &amp; NPR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.39',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
