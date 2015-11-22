@@ -207,7 +207,6 @@ class Candidate(BaseObject):
         self.party = None
         self.polid = None
         self.polnum = None
-        self.unique_id = None
 
         self.set_fields(**kwargs)
         self.set_polid()
@@ -216,7 +215,7 @@ class Candidate(BaseObject):
 
     def serialize(self):
         """
-        See :meth:`BaseObject.serialize()`.
+        Implements :meth:`BaseObject.serialize()`.
         """
         return OrderedDict((
             ('id', self.id),
@@ -231,14 +230,41 @@ class Candidate(BaseObject):
         ))
 
     def set_id_field(self):
+        """
+        Set id to `<unique_id>`.
+        """
         self.id = self.unique_id
+
 
 class BallotPosition(BaseObject):
     """
-    Canonical representation of a ballot
-    position.
+    Canonical representation of a ballot position.
+
+    Ballot positions are similar to :class:`Candidate`s, but represent a position such as
+    "In favor of" or "Against" for ballot issues such as a referendum.
     """
     def __init__(self, **kwargs):
+        """
+        :param id:
+            Global identifier.
+        :param unique_id:
+            Unique identifier.
+        :param ballotorder:
+            Order on ballot (e.g. first, second, etc).
+        :param candidateid:
+            Candidate idenfitier (raw AP).
+        :param description:
+            Description.
+        :param last:
+            ???
+        :param polid:
+            Politician ID.
+        :param polnum:
+            Politician number.
+        :param seatname:
+            Seat name.
+        """
+
         self.id = None
         self.unique_id = None
         self.ballotorder = None
@@ -248,7 +274,6 @@ class BallotPosition(BaseObject):
         self.polid = None
         self.polnum = None
         self.seatname = None
-        self.unique_id = None
 
         self.set_fields(**kwargs)
         self.set_polid()
@@ -256,6 +281,9 @@ class BallotPosition(BaseObject):
         self.set_id_field()
 
     def serialize(self):
+        """
+        Implements :meth:`BaseObject.serialize()`.
+        """
         return OrderedDict((
             ('id', self.id),
             ('unique_id', self.unique_id),
@@ -269,6 +297,9 @@ class BallotPosition(BaseObject):
         ))
 
     def set_id_field(self):
+        """
+        Set id to `<unique_id>`.
+        """
         self.id = self.unique_id
 
 class CandidateReportingUnit(BaseObject):
@@ -325,9 +356,15 @@ class CandidateReportingUnit(BaseObject):
         self.set_id_field()
 
     def set_id_field(self):
+        """
+        Set id to `<raceid>-<uniqueid>-<reportingunitid>`.
+        """
         self.id = "%s-%s-%s" % (self.raceid, self.unique_id, self.reportingunitid)
 
     def serialize(self):
+        """
+        Implements :meth:`BaseObject.serialize()`.
+        """
         return OrderedDict((
             ('id', self.id),
             ('unique_id', self.unique_id),
@@ -382,7 +419,7 @@ class CandidateReportingUnit(BaseObject):
 class ReportingUnit(BaseObject):
     """
     Canonical representation of a single
-    level of reporting. Can be 
+    level of reporting.
     """
     def __init__(self, **kwargs):
         self.statepostal = None
@@ -427,9 +464,15 @@ class ReportingUnit(BaseObject):
         return "%s %s (%s %% reporting)" % (self.statepostal, self.level, self.precinctsreportingpct)
 
     def set_id_field(self):
+        """
+        Set id to `<reportingunitid>`.
+        """
         self.id = self.reportingunitid
 
     def set_votecount(self):
+        """
+        Set vote count.
+        """
         if not self.uncontested:
             for c in self.candidates:
                 self.votecount = sum([c.votecount for c in self.candidates if c.level != 'subunit'])
@@ -437,6 +480,9 @@ class ReportingUnit(BaseObject):
             self.votecount = None
 
     def set_candidate_votepct(self):
+        """
+        Set vote percentage for each candidate.
+        """
         if not self.uncontested:
             for c in self.candidates:
                 if c.level != 'subunit':
@@ -446,6 +492,9 @@ class ReportingUnit(BaseObject):
                         pass
 
     def serialize(self):
+        """
+        Implements :meth:`BaseObject.serialize()`.
+        """
         return OrderedDict((
             ('id', self.id),
             ('reportingunitid', self.reportingunitid),
@@ -514,9 +563,15 @@ class Race(BaseObject):
             self.set_state_fields_from_reportingunits()
 
     def set_id_field(self):
+        """
+        Set id to `<raceid>`.
+        """
         self.id = self.raceid
 
     def serialize(self):
+        """
+        Implements :meth:`BaseObject.serialize()`.
+        """
         return OrderedDict((
             ('id', self.id),
             ('raceid', self.raceid),
@@ -566,6 +621,9 @@ class Election(BaseObject):
         return self.electiondate
 
     def set_id_field(self):
+        """
+        Set id to `electiondate`.
+        """
         self.id = self.electiondate
 
     @classmethod
@@ -700,6 +758,9 @@ class Election(BaseObject):
         return races, reporting_units, candidate_reporting_units
 
     def serialize(self):
+        """
+        Implements :meth:`BaseObject.serialize()`.
+        """
         return OrderedDict((
             ('id', self.id),
             ('electiondate', self.electiondate),
