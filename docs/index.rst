@@ -22,5 +22,6 @@ Table of contents
 
 .. toctree::
     install
+    quickstart
     cli
     api
