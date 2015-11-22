@@ -622,7 +622,7 @@ class Election(BaseObject):
 
     def set_id_field(self):
         """
-        Set id to `electiondate`.
+        Set id to `<electiondate>`.
         """
         self.id = self.electiondate
 
