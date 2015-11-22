@@ -600,11 +600,12 @@ class Election(BaseObject):
     """
     Canonical representation of an election on
     a single date.
-
-    :param electiondate: The date of the election.
-    :param datafile: A cached data file.
     """
     def __init__(self, **kwargs):
+        """
+        :param electiondate: The date of the election.
+        :param datafile: A cached data file.
+        """
         self.testresults = False
         self.liveresults = False
         self.electiondate = None
@@ -628,6 +629,12 @@ class Election(BaseObject):
 
     @classmethod
     def get_elections(cls, datafile=None):
+        """
+        Get election data from API or cached file.
+
+        :param datafile:
+            If datafile is specified, use instead of making an API call.
+        """
         if not datafile:
             elections = list(utils.api_request('/')['elections'])
         else:
@@ -638,6 +645,14 @@ class Election(BaseObject):
 
     @classmethod
     def get_next_election(cls, datafile=None, electiondate=None):
+        """
+        Get next election. By default, will be relative to the current date.
+
+        :param datafile:
+            If datafile is specified, use instead of making an API call.
+        :param electiondate:
+            If electiondate is specified, gets the next election after the specified date.
+        """
         if not electiondate:
             today = datetime.datetime.now()
         else:
@@ -664,6 +679,11 @@ class Election(BaseObject):
         parser backend to use -- API-only right now.
         Also the entry point for recording, which
         is set via environment variable.
+
+        :param path:
+            API url path.
+        :param **params:
+            A dict of optional parameters to be included in API request.
         """
         return utils.api_request(path, **params)
 
@@ -701,26 +721,32 @@ class Election(BaseObject):
         ballot_positions = [v for v in unique_ballot_positions.values()]
         return candidates, ballot_positions 
 
-    def get_raw_races(self, **kwargs):
+    def get_raw_races(self, **params):
         """
         Convenience method for fetching races by election date.
         Accepts an AP formatting date string, e.g., YYYY-MM-DD.
         Accepts any number of URL params as kwargs.
 
         If datafile passed to constructor, the file will be used instead of making an HTTP request.
+
+        :param **params:
+            A dict of additional parameters to pass to API. Ignored if `datafile` was passed to the
+            constructor.
         """
         if self.datafile:
             with open(self.datafile, 'r') as readfile:
                 payload = dict(json.loads(readfile.read()))
         else:
-            payload = self.get('/%s' % self.electiondate, **kwargs)
+            payload = self.get('/%s' % self.electiondate, **params)
 
         return payload
 
     def get_race_objects(self, parsed_json):
         """
-        Given some parsed JSON, decided if this is standard
-        results data or 
+        Get parsed race objects.
+
+        :param parsed_json:
+            Dict of parsed JSON.
         """
         if parsed_json['races'][0].get('candidates', None):
             payload = []
@@ -735,6 +761,9 @@ class Election(BaseObject):
         Parses out races, reporting_units,
         and candidate_reporting_units in a
         single loop over the raw race JSON.
+
+        :param raw_races:
+            Raw race JSON.
         """
         races = []
         reporting_units = []
@@ -771,7 +800,7 @@ class Election(BaseObject):
     @property
     def races(self):
         """
-        Return list of race objects
+        Return list of race objects.
         """
         raw_races = self.get_raw_races(
             omitResults=True,
@@ -785,7 +814,7 @@ class Election(BaseObject):
     @property
     def reporting_units(self):
         """
-        Return list of reporting unit objects
+        Return list of reporting unit objects.
         """
         raw_races = self.get_raw_races(
             omitResults=False,
@@ -799,7 +828,7 @@ class Election(BaseObject):
     @property
     def candidate_reporting_units(self):
         """
-        Return list of candidate reporting unit objects
+        Return list of candidate reporting unit objects.
         """
         raw_races = self.get_raw_races(
             omitResults=True,
@@ -813,7 +842,7 @@ class Election(BaseObject):
     @property
     def results(self):
         """
-        Return list of candidate reporting unit objects with results
+        Return list of candidate reporting unit objects with results.
         """
         raw_races = self.get_raw_races(
             omitResults=False,
@@ -827,7 +856,7 @@ class Election(BaseObject):
     @property
     def candidates(self):
         """
-        Return list of candidate objects with results
+        Return list of candidate objects with results.
         """
         raw_races = self.get_raw_races(
             omitResults=True,
@@ -842,7 +871,7 @@ class Election(BaseObject):
     @property
     def ballot_positions(self):
         """
-        Return list of ballot position (aka ballot issue) objects with results
+        Return list of ballot position (aka ballot issue) objects with results.
         """
         raw_races = self.get_raw_races(
             omitResults=True,
