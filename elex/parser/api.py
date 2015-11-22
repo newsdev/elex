@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+This module contains the primary :class:`Election` class, as well as model classes :class:`Candidate`, :class:`BallotPosition`, :class:`CandidateReportingUnit`, :class:`ReportingUnit`, :class:`Race` model classes, and :class:`BaseObject` which provides utility methods common to all AP API access.
+
+"""
 
 import datetime
 import json
@@ -19,6 +23,9 @@ class BaseObject(object):
     """
 
     def set_state_fields_from_reportingunits(self):
+        """
+        Set state fields.
+        """
         if len(self.reportingunits) > 0:
             setattr(self, 'statepostal', self.reportingunits[0].statepostal)
             setattr(self, 'statename', STATE_ABBR[self.statepostal])
@@ -39,6 +46,8 @@ class BaseObject(object):
 
     def set_reportingunits(self):
         """
+        Set reporting units.
+
         If this race has reportingunits,
         serialize them into objects.
         """
@@ -59,11 +68,18 @@ class BaseObject(object):
         setattr(self, 'reportingunits', reportingunits_obj)
 
     def set_polid(self):
+        """
+        Set politication id.
+
+        If `polid` is zero, set to `None`.
+        """
         if self.polid == "0":
             self.polid = None
 
     def set_unique_id(self):
         """
+        Generate and set unique id.
+
         Candidate IDs are not globally unique.
         AP National Politian IDs (NPIDs or polid)
         are unique, but only national-level
@@ -73,12 +89,14 @@ class BaseObject(object):
         Verified this is globally unique with Tracy.
         """
         if self.polid:
-            self.unique_id = 'polid-%s' % self.polid
+            self.unique_id = 'polid-{0}'.format(self.polid)
         else:
-            self.unique_id = 'polnum-%s' % self.polnum
+            self.unique_id = 'polnum-{0}'.format(self.polnum)
 
     def set_reportingunitids(self):
         """
+        Set reporting unit ID.
+
         Per Tracy / AP developers, if the level is
         "state", the reportingunitid is always 1.
         """
@@ -88,6 +106,8 @@ class BaseObject(object):
 
     def set_candidates(self):
         """
+        Set candidates.
+
         If this thing (race, reportingunit) has candidates,
         serialize them into objects.
         """
@@ -110,6 +130,9 @@ class BaseObject(object):
         setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
 
     def set_dates(self, date_fields):
+        """
+        Parse dates into objects.
+        """
         for field in date_fields:
             try:
                 setattr(self, field + '_parsed', parser.parse(getattr(self, field)))
@@ -117,6 +140,13 @@ class BaseObject(object):
                 pass
 
     def set_fields(self, **kwargs):
+        """
+        Set fields from keywords. Only sets fields if pre-defined in the object's class.
+
+        :param **kwargs:
+            A dict of key, value pairs to set as fields on the object.
+        """
+
         fieldnames = self.__dict__.keys()
         for k, v in kwargs.items():
             k = k.lower().strip()
@@ -128,6 +158,12 @@ class BaseObject(object):
                 setattr(self, k, v)
 
     def serialize(self):
+        """
+        Serialize the object. Should be implemented in all classes that inherit from
+        :class:`BaseOject`.
+
+        Should return an `OrderedDict <https://docs.python.org/2/library/collections.html#ordereddict-objects>`_.
+        """
         raise NotImplementedError
 
     def __repr__(self):
@@ -144,6 +180,24 @@ class Candidate(BaseObject):
     for this election, across races.
     """
     def __init__(self, **kwargs):
+        """
+        :param id:
+            Global identifier.
+        :param unique_id:
+            Unique identifier.
+        :param candidateid:
+            Candidate ID (raw AP).
+        :param first:
+            First name.
+        :param last:
+            Last name.
+        :param party:
+            Party.
+        :param polid:
+            Politician ID.
+        :param polnum:
+            Politician number.
+        """
         self.id = None
         self.unique_id = None
         self.ballotorder = None
@@ -161,6 +215,9 @@ class Candidate(BaseObject):
         self.set_id_field()
 
     def serialize(self):
+        """
+        See :meth:`BaseObject.serialize()`.
+        """
         return OrderedDict((
             ('id', self.id),
             ('unique_id', self.unique_id),
