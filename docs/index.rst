@@ -2,14 +2,7 @@
 nyt-ap-elections |release|
 ==========================
 
-Get database-ready election results from the Associated Press Election API v2.0.
-
-Handy links:
-
-* Documentation: http://nyt-ap-elections.readthedocs.org/
-* Repository: https://github.com/newsdev/nyt-ap-elections/
-* Issues: https://github.com/newsdev/nyt-ap-elections/issues
-* Demo implementation: https://github.com/nprapps/ap-election-loader
+.. include:: ../README.rst
 
 Features
 ========
