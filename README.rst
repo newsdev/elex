@@ -10,7 +10,6 @@ Requirements
 Optional requirements:
 ~~~~~~~~~~~~~~~~~~~~~~
 
--  PostgreSQL
 -  MongoDB
 
 Installation
@@ -41,13 +40,13 @@ To write a stream of races in CSV format to your terminal, run:
 
 .. code:: bash
 
-    elex init-races '11-03-2015'
+    elex races 11-03-2015
 
 To write this data to a file:
 
 .. code:: bash
 
-    elex init-races '11-03-2015' > races.csv
+    elex races '11-03-2015' > races.csv
 
 To pipe it into PostgreSQL:
 
@@ -72,7 +71,6 @@ Use the election loader manually from within your project.
 
     from elex.parser import api
     from elex import loader
-    from elex.loader import postgres
 
     e = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
     raw_races = e.get_races(omitResults=False, level="ru", test=False)

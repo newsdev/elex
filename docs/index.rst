@@ -2,8 +2,14 @@
 nyt-ap-elections |release|
 ==========================
 
-Load election results data from the AP version 2.0 API.
+Get database-ready election results from the Associated Press Election API v2.0.
 
+Handy links:
+
+* Documentation: http://nyt-ap-elections.readthedocs.org/
+* Repository: https://github.com/newsdev/nyt-ap-elections/
+* Issues: https://github.com/newsdev/nyt-ap-elections/issues
+* Demo implementation: https://github.com/nprapps/ap-election-loader
 
 Features
 ========
@@ -14,14 +20,16 @@ Features
 * Simple election recording (to MongoDB).
 * Comprehensive tests.
 * Extensive documentation.
-* Decently fast (several times faster than previous efforts at NYT and NPR).
-
+* Fast (performance is a work in progress; contributions are welcome).
 
 Table of contents
 =================
 
 .. toctree::
     install
-    quickstart
+    tutorial
     cli
     api
+    recording
+    contributing
+    changelog

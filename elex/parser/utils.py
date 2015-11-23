@@ -1,5 +1,6 @@
 """
-Utility functions.
+Utility functions to record raw election results and handle low-level HTTP interaction with the
+Associated Press Election API.
 """
 import datetime
 import elex
