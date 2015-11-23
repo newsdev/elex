@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+This module contains the primary :class:`Election` class, as well as model classes :class:`Candidate`, :class:`BallotPosition`, :class:`CandidateReportingUnit`, :class:`ReportingUnit`, :class:`Race` model classes, and :class:`BaseObject` which provides utility methods common to all AP API access.
+
+"""
 
 import datetime
 import json
@@ -19,6 +23,9 @@ class BaseObject(object):
     """
 
     def set_state_fields_from_reportingunits(self):
+        """
+        Set state fields.
+        """
         if len(self.reportingunits) > 0:
             setattr(self, 'statepostal', self.reportingunits[0].statepostal)
             setattr(self, 'statename', STATE_ABBR[self.statepostal])
@@ -39,6 +46,8 @@ class BaseObject(object):
 
     def set_reportingunits(self):
         """
+        Set reporting units.
+
         If this race has reportingunits,
         serialize them into objects.
         """
@@ -59,11 +68,18 @@ class BaseObject(object):
         setattr(self, 'reportingunits', reportingunits_obj)
 
     def set_polid(self):
+        """
+        Set politication id.
+
+        If `polid` is zero, set to `None`.
+        """
         if self.polid == "0":
             self.polid = None
 
     def set_unique_id(self):
         """
+        Generate and set unique id.
+
         Candidate IDs are not globally unique.
         AP National Politian IDs (NPIDs or polid)
         are unique, but only national-level
@@ -73,12 +89,14 @@ class BaseObject(object):
         Verified this is globally unique with Tracy.
         """
         if self.polid:
-            self.unique_id = 'polid-%s' % self.polid
+            self.unique_id = 'polid-{0}'.format(self.polid)
         else:
-            self.unique_id = 'polnum-%s' % self.polnum
+            self.unique_id = 'polnum-{0}'.format(self.polnum)
 
     def set_reportingunitids(self):
         """
+        Set reporting unit ID.
+
         Per Tracy / AP developers, if the level is
         "state", the reportingunitid is always 1.
         """
@@ -88,6 +106,8 @@ class BaseObject(object):
 
     def set_candidates(self):
         """
+        Set candidates.
+
         If this thing (race, reportingunit) has candidates,
         serialize them into objects.
         """
@@ -110,6 +130,9 @@ class BaseObject(object):
         setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
 
     def set_dates(self, date_fields):
+        """
+        Parse dates into objects.
+        """
         for field in date_fields:
             try:
                 setattr(self, field + '_parsed', parser.parse(getattr(self, field)))
@@ -117,6 +140,13 @@ class BaseObject(object):
                 pass
 
     def set_fields(self, **kwargs):
+        """
+        Set fields from keywords. Only sets fields if pre-defined in the object's class.
+
+        :param **kwargs:
+            A dict of key, value pairs to set as fields on the object.
+        """
+
         fieldnames = self.__dict__.keys()
         for k, v in kwargs.items():
             k = k.lower().strip()
@@ -128,6 +158,12 @@ class BaseObject(object):
                 setattr(self, k, v)
 
     def serialize(self):
+        """
+        Serialize the object. Should be implemented in all classes that inherit from
+        :class:`BaseOject`.
+
+        Should return an `OrderedDict <https://docs.python.org/2/library/collections.html#ordereddict-objects>`_.
+        """
         raise NotImplementedError
 
     def __repr__(self):
@@ -144,6 +180,24 @@ class Candidate(BaseObject):
     for this election, across races.
     """
     def __init__(self, **kwargs):
+        """
+        :param id:
+            Global identifier.
+        :param unique_id:
+            Unique identifier.
+        :param candidateid:
+            Candidate ID (raw AP).
+        :param first:
+            First name.
+        :param last:
+            Last name.
+        :param party:
+            Party.
+        :param polid:
+            Politician ID.
+        :param polnum:
+            Politician number.
+        """
         self.id = None
         self.unique_id = None
         self.ballotorder = None
@@ -153,7 +207,6 @@ class Candidate(BaseObject):
         self.party = None
         self.polid = None
         self.polnum = None
-        self.unique_id = None
 
         self.set_fields(**kwargs)
         self.set_polid()
@@ -161,6 +214,9 @@ class Candidate(BaseObject):
         self.set_id_field()
 
     def serialize(self):
+        """
+        Implements :meth:`BaseObject.serialize()`.
+        """
         return OrderedDict((
             ('id', self.id),
             ('unique_id', self.unique_id),
@@ -174,14 +230,41 @@ class Candidate(BaseObject):
         ))
 
     def set_id_field(self):
+        """
+        Set id to `<unique_id>`.
+        """
         self.id = self.unique_id
+
 
 class BallotPosition(BaseObject):
     """
-    Canonical representation of a ballot
-    position.
+    Canonical representation of a ballot position.
+
+    Ballot positions are similar to :class:`Candidate`s, but represent a position such as
+    "In favor of" or "Against" for ballot issues such as a referendum.
     """
     def __init__(self, **kwargs):
+        """
+        :param id:
+            Global identifier.
+        :param unique_id:
+            Unique identifier.
+        :param ballotorder:
+            Order on ballot (e.g. first, second, etc).
+        :param candidateid:
+            Candidate idenfitier (raw AP).
+        :param description:
+            Description.
+        :param last:
+            ???
+        :param polid:
+            Politician ID.
+        :param polnum:
+            Politician number.
+        :param seatname:
+            Seat name.
+        """
+
         self.id = None
         self.unique_id = None
         self.ballotorder = None
@@ -191,7 +274,6 @@ class BallotPosition(BaseObject):
         self.polid = None
         self.polnum = None
         self.seatname = None
-        self.unique_id = None
 
         self.set_fields(**kwargs)
         self.set_polid()
@@ -199,6 +281,9 @@ class BallotPosition(BaseObject):
         self.set_id_field()
 
     def serialize(self):
+        """
+        Implements :meth:`BaseObject.serialize()`.
+        """
         return OrderedDict((
             ('id', self.id),
             ('unique_id', self.unique_id),
@@ -212,6 +297,9 @@ class BallotPosition(BaseObject):
         ))
 
     def set_id_field(self):
+        """
+        Set id to `<unique_id>`.
+        """
         self.id = self.unique_id
 
 class CandidateReportingUnit(BaseObject):
@@ -268,9 +356,15 @@ class CandidateReportingUnit(BaseObject):
         self.set_id_field()
 
     def set_id_field(self):
+        """
+        Set id to `<raceid>-<uniqueid>-<reportingunitid>`.
+        """
         self.id = "%s-%s-%s" % (self.raceid, self.unique_id, self.reportingunitid)
 
     def serialize(self):
+        """
+        Implements :meth:`BaseObject.serialize()`.
+        """
         return OrderedDict((
             ('id', self.id),
             ('unique_id', self.unique_id),
@@ -325,7 +419,7 @@ class CandidateReportingUnit(BaseObject):
 class ReportingUnit(BaseObject):
     """
     Canonical representation of a single
-    level of reporting. Can be 
+    level of reporting.
     """
     def __init__(self, **kwargs):
         self.statepostal = None
@@ -370,9 +464,15 @@ class ReportingUnit(BaseObject):
         return "%s %s (%s %% reporting)" % (self.statepostal, self.level, self.precinctsreportingpct)
 
     def set_id_field(self):
+        """
+        Set id to `<reportingunitid>`.
+        """
         self.id = self.reportingunitid
 
     def set_votecount(self):
+        """
+        Set vote count.
+        """
         if not self.uncontested:
             for c in self.candidates:
                 self.votecount = sum([c.votecount for c in self.candidates if c.level != 'subunit'])
@@ -380,6 +480,9 @@ class ReportingUnit(BaseObject):
             self.votecount = None
 
     def set_candidate_votepct(self):
+        """
+        Set vote percentage for each candidate.
+        """
         if not self.uncontested:
             for c in self.candidates:
                 if c.level != 'subunit':
@@ -389,6 +492,9 @@ class ReportingUnit(BaseObject):
                         pass
 
     def serialize(self):
+        """
+        Implements :meth:`BaseObject.serialize()`.
+        """
         return OrderedDict((
             ('id', self.id),
             ('reportingunitid', self.reportingunitid),
@@ -457,9 +563,15 @@ class Race(BaseObject):
             self.set_state_fields_from_reportingunits()
 
     def set_id_field(self):
+        """
+        Set id to `<raceid>`.
+        """
         self.id = self.raceid
 
     def serialize(self):
+        """
+        Implements :meth:`BaseObject.serialize()`.
+        """
         return OrderedDict((
             ('id', self.id),
             ('raceid', self.raceid),
@@ -488,11 +600,12 @@ class Election(BaseObject):
     """
     Canonical representation of an election on
     a single date.
-
-    :param electiondate: The date of the election.
-    :param datafile: A cached data file.
     """
     def __init__(self, **kwargs):
+        """
+        :param electiondate: The date of the election.
+        :param datafile: A cached data file.
+        """
         self.testresults = False
         self.liveresults = False
         self.electiondate = None
@@ -509,10 +622,19 @@ class Election(BaseObject):
         return self.electiondate
 
     def set_id_field(self):
+        """
+        Set id to `<electiondate>`.
+        """
         self.id = self.electiondate
 
     @classmethod
     def get_elections(cls, datafile=None):
+        """
+        Get election data from API or cached file.
+
+        :param datafile:
+            If datafile is specified, use instead of making an API call.
+        """
         if not datafile:
             elections = list(utils.api_request('/')['elections'])
         else:
@@ -523,6 +645,14 @@ class Election(BaseObject):
 
     @classmethod
     def get_next_election(cls, datafile=None, electiondate=None):
+        """
+        Get next election. By default, will be relative to the current date.
+
+        :param datafile:
+            If datafile is specified, use instead of making an API call.
+        :param electiondate:
+            If electiondate is specified, gets the next election after the specified date.
+        """
         if not electiondate:
             today = datetime.datetime.now()
         else:
@@ -549,6 +679,11 @@ class Election(BaseObject):
         parser backend to use -- API-only right now.
         Also the entry point for recording, which
         is set via environment variable.
+
+        :param path:
+            API url path.
+        :param **params:
+            A dict of optional parameters to be included in API request.
         """
         return utils.api_request(path, **params)
 
@@ -586,26 +721,32 @@ class Election(BaseObject):
         ballot_positions = [v for v in unique_ballot_positions.values()]
         return candidates, ballot_positions 
 
-    def get_raw_races(self, **kwargs):
+    def get_raw_races(self, **params):
         """
         Convenience method for fetching races by election date.
         Accepts an AP formatting date string, e.g., YYYY-MM-DD.
         Accepts any number of URL params as kwargs.
 
         If datafile passed to constructor, the file will be used instead of making an HTTP request.
+
+        :param **params:
+            A dict of additional parameters to pass to API. Ignored if `datafile` was passed to the
+            constructor.
         """
         if self.datafile:
             with open(self.datafile, 'r') as readfile:
                 payload = dict(json.loads(readfile.read()))
         else:
-            payload = self.get('/%s' % self.electiondate, **kwargs)
+            payload = self.get('/%s' % self.electiondate, **params)
 
         return payload
 
     def get_race_objects(self, parsed_json):
         """
-        Given some parsed JSON, decided if this is standard
-        results data or 
+        Get parsed race objects.
+
+        :param parsed_json:
+            Dict of parsed JSON.
         """
         if parsed_json['races'][0].get('candidates', None):
             payload = []
@@ -620,6 +761,9 @@ class Election(BaseObject):
         Parses out races, reporting_units,
         and candidate_reporting_units in a
         single loop over the raw race JSON.
+
+        :param raw_races:
+            Raw race JSON.
         """
         races = []
         reporting_units = []
@@ -643,6 +787,9 @@ class Election(BaseObject):
         return races, reporting_units, candidate_reporting_units
 
     def serialize(self):
+        """
+        Implements :meth:`BaseObject.serialize()`.
+        """
         return OrderedDict((
             ('id', self.id),
             ('electiondate', self.electiondate),
@@ -653,7 +800,7 @@ class Election(BaseObject):
     @property
     def races(self):
         """
-        Return list of race objects
+        Return list of race objects.
         """
         raw_races = self.get_raw_races(
             omitResults=True,
@@ -667,7 +814,7 @@ class Election(BaseObject):
     @property
     def reporting_units(self):
         """
-        Return list of reporting unit objects
+        Return list of reporting unit objects.
         """
         raw_races = self.get_raw_races(
             omitResults=False,
@@ -681,7 +828,7 @@ class Election(BaseObject):
     @property
     def candidate_reporting_units(self):
         """
-        Return list of candidate reporting unit objects
+        Return list of candidate reporting unit objects.
         """
         raw_races = self.get_raw_races(
             omitResults=True,
@@ -695,7 +842,7 @@ class Election(BaseObject):
     @property
     def results(self):
         """
-        Return list of candidate reporting unit objects with results
+        Return list of candidate reporting unit objects with results.
         """
         raw_races = self.get_raw_races(
             omitResults=False,
@@ -709,7 +856,7 @@ class Election(BaseObject):
     @property
     def candidates(self):
         """
-        Return list of candidate objects with results
+        Return list of candidate objects with results.
         """
         raw_races = self.get_raw_races(
             omitResults=True,
@@ -724,7 +871,7 @@ class Election(BaseObject):
     @property
     def ballot_positions(self):
         """
-        Return list of ballot position (aka ballot issue) objects with results
+        Return list of ballot position (aka ballot issue) objects with results.
         """
         raw_races = self.get_raw_races(
             omitResults=True,

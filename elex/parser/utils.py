@@ -1,18 +1,27 @@
+"""
+Utility functions to record raw election results and handle low-level HTTP interaction with the
+Associated Press Election API.
+"""
 import datetime
+import elex
 import json
 import os
+import requests
 import time
 
 from pymongo import MongoClient
-import requests
 
-import elex
 
 def write_recording(payload):
     """
+    Record a timestamped version of an Associated Press Elections API data download.
+
     Presumes JSON at the moment.
     Would have to refactor if using XML or FTP.
     FACTOR FOR USE; REFACTOR FOR REUSE.
+
+    :param payload:
+        JSON payload from Associated Press Elections API.
     """
     recorder = os.environ.get('ELEX_RECORDING', False)
     if recorder:
@@ -27,6 +36,7 @@ def write_recording(payload):
             with open('%s/ap_elections_loader_recording-%s.json' % (recorder_directory, timestamp), 'w') as writefile:
                 writefile.write(json.dumps(payload))
 
+
 def api_request(path, **params):
     """
     Function wrapping Python-requests
@@ -37,6 +47,9 @@ def api_request(path, **params):
     * Modifies the BASE_URL with a path.
     * Contains an API_KEY.
     * Returns JSON.
+
+    :param **params:
+        Extra parameters to pass to `requests`.
     """
     if not params.get('apiKey', None):
         if elex.API_KEY != '':

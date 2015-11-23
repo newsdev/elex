@@ -1,3 +1,7 @@
+"""
+Defines ``FIPS_TO_STATE`` and ``OFFICE_NAMES`` look-up constants.
+"""
+
 FIPS_TO_STATE = {
     "CT": {
         "FAIRFIELD":"09001",
