@@ -9,7 +9,7 @@ Install the Python library:
 
 .. code:: bash
 
-    pip install nyt-ap-elections
+    pip install elex
 
 Set your AP API key:
 

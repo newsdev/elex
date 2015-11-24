@@ -1,5 +1,5 @@
 ==========================
-nyt-ap-elections |release|
+elex |release|
 ==========================
 
 .. include:: ../README.rst

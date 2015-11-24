@@ -9,7 +9,7 @@ as simple as:
 
 Important links:
 
-* Documentation: http://nyt-ap-elections.readthedocs.org/
-* Repository: https://github.com/newsdev/nyt-ap-elections/
-* Issues: https://github.com/newsdev/nyt-ap-elections/issues
+* Documentation: http://elex.readthedocs.org/
+* Repository: https://github.com/newsdev/elex/
+* Issues: https://github.com/newsdev/elex/issues
 * Demo implementation: https://github.com/nprapps/ap-election-loader

@@ -21,7 +21,7 @@ templates_path = ['_templates']
 master_doc = 'index'
 
 # Metadata
-project = u'nyt-ap-elections'
+project = u'elex'
 copyright = u'2015, New York Times & NPR'
 version = elex.__version__
 release = elex.__version__

@@ -16,11 +16,11 @@ def read(filename):
 
 
 setup(
-    name='nyt-ap-elections',
-    version='0.0.41',
+    name='elex',
+    version='0.0.42',
     author='Jeremy Bowers',
     author_email='jeremy.bowers@nytimes.com',
-    url='https://github.com/newsdev/nyt-ap-elections',
+    url='https://github.com/newsdev/elex',
     description='Python client for parsing the Associated Press\'s elections API.',
     long_description=read('README.rst'),
     packages=['elex', 'elex.cli', 'elex.parser', 'tests'],
