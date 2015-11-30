@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module contains the primary :class:`Election` class, as well as model classes :class:`Candidate`, :class:`BallotPosition`, :class:`CandidateReportingUnit`, :class:`ReportingUnit`, :class:`Race` model classes, and :class:`BaseObject` which provides utility methods common to all AP API access.
+This module contains the primary :class:`Election` class, as well as model classes :class:`Candidate`, :class:`BallotPosition`, :class:`CandidateReportingUnit`, :class:`ReportingUnit`, :class:`Race` model classes, and :class:`APElection` which provides utility methods common to all AP API access.
 
 """
 
@@ -15,7 +15,7 @@ PCT_PRECISION = 6
 STATE_ABBR = { 'AL': 'Alabama', 'AK': 'Alaska', 'AS': 'America Samoa', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware', 'DC': 'District of Columbia', 'FM': 'Micronesia1', 'FL': 'Florida', 'GA': 'Georgia', 'GU': 'Guam', 'HI': 'Hawaii', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MH': 'Islands1', 'MD': 'Maryland', 'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi', 'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York', 'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PW': 'Palau', 'PA': 'Pennsylvania', 'PR': 'Puerto Rico', 'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VT': 'Vermont', 'VI': 'Virgin Island', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming'}
 
 
-class BaseObject(object):
+class APElection(object):
     """
     Base class for most objects.
     Handy container for methods for first level
@@ -173,7 +173,7 @@ class BaseObject(object):
         return self.__unicode__()
 
 
-class Candidate(BaseObject):
+class Candidate(APElection):
     """
     Canonical representation of a
     candidate. Should be globally unique
@@ -215,7 +215,7 @@ class Candidate(BaseObject):
 
     def serialize(self):
         """
-        Implements :meth:`BaseObject.serialize()`.
+        Implements :meth:`APElection.serialize()`.
         """
         return OrderedDict((
             ('id', self.id),
@@ -236,7 +236,7 @@ class Candidate(BaseObject):
         self.id = self.unique_id
 
 
-class BallotPosition(BaseObject):
+class BallotPosition(APElection):
     """
     Canonical representation of a ballot position.
 
@@ -282,7 +282,7 @@ class BallotPosition(BaseObject):
 
     def serialize(self):
         """
-        Implements :meth:`BaseObject.serialize()`.
+        Implements :meth:`APElection.serialize()`.
         """
         return OrderedDict((
             ('id', self.id),
@@ -302,7 +302,7 @@ class BallotPosition(BaseObject):
         """
         self.id = self.unique_id
 
-class CandidateReportingUnit(BaseObject):
+class CandidateReportingUnit(APElection):
     """
     Canonical reporesentation of an
     AP candidate. Note: A candidate can 
@@ -363,7 +363,7 @@ class CandidateReportingUnit(BaseObject):
 
     def serialize(self):
         """
-        Implements :meth:`BaseObject.serialize()`.
+        Implements :meth:`APElection.serialize()`.
         """
         return OrderedDict((
             ('id', self.id),
@@ -416,7 +416,7 @@ class CandidateReportingUnit(BaseObject):
         return payload
 
 
-class ReportingUnit(BaseObject):
+class ReportingUnit(APElection):
     """
     Canonical representation of a single
     level of reporting.
@@ -493,7 +493,7 @@ class ReportingUnit(BaseObject):
 
     def serialize(self):
         """
-        Implements :meth:`BaseObject.serialize()`.
+        Implements :meth:`APElection.serialize()`.
         """
         return OrderedDict((
             ('id', self.id),
@@ -526,7 +526,7 @@ class ReportingUnit(BaseObject):
         ))
 
 
-class Race(BaseObject):
+class Race(APElection):
     """
     Canonical representation of a single
     race, which is a seat in a political geography
@@ -570,7 +570,7 @@ class Race(BaseObject):
 
     def serialize(self):
         """
-        Implements :meth:`BaseObject.serialize()`.
+        Implements :meth:`APElection.serialize()`.
         """
         return OrderedDict((
             ('id', self.id),
@@ -596,7 +596,7 @@ class Race(BaseObject):
         return "%s %s" % (self.racetype, self.officename)
 
 
-class Election(BaseObject):
+class Election(APElection):
     """
     Canonical representation of an election on
     a single date.
@@ -788,7 +788,7 @@ class Election(BaseObject):
 
     def serialize(self):
         """
-        Implements :meth:`BaseObject.serialize()`.
+        Implements :meth:`APElection.serialize()`.
         """
         return OrderedDict((
             ('id', self.id),
