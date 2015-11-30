@@ -7,8 +7,9 @@ This module contains the primary :class:`Election` class, as well as model class
 import datetime
 import json
 
-from collections import OrderedDict
 from dateutil import parser
+
+from collections import OrderedDict
 from elex.parser import utils
 
 PCT_PRECISION = 6
@@ -128,16 +129,6 @@ class APElection(object):
             obj = CandidateReportingUnit(**candidate_dict)
             candidate_objs.append(obj)
         setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
-
-    def set_dates(self, date_fields):
-        """
-        Parse dates into objects.
-        """
-        for field in date_fields:
-            try:
-                setattr(self, field + '_parsed', parser.parse(getattr(self, field)))
-            except AttributeError:
-                pass
 
     def set_fields(self, **kwargs):
         """
@@ -451,7 +442,6 @@ class ReportingUnit(APElection):
         self.candidates = []
 
         self.set_fields(**kwargs)
-        self.set_dates(['lastupdated'])
         self.set_reportingunitids()
         self.set_candidates()
         self.set_votecount()
@@ -553,7 +543,6 @@ class Race(APElection):
         self.reportingunits = []
 
         self.set_fields(**kwargs)
-        self.set_dates(['lastupdated'])
         self.set_id_field()
 
         if self.initialization_data:
@@ -615,7 +604,6 @@ class Election(APElection):
         self.datafile = None
 
         self.set_fields(**kwargs)
-        self.set_dates(['electiondate'])
         self.set_id_field()
 
     def __unicode__(self):
@@ -661,7 +649,7 @@ class Election(APElection):
         next_election = None
         lowest_diff = None
         for e in Election.get_elections(datafile=datafile):
-            diff = (e.electiondate_parsed - today).days
+            diff = (parser.parse(e.electiondate) - today).days
             if diff > 0:
                 if not lowest_diff and not next_election:
                     next_election = e
