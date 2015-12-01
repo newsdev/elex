@@ -458,7 +458,7 @@ class ReportingUnit(APElection):
                     # know this is a county. Previous level would have
                     # been 'township'.
                     results[c.unique_id][c.fipscode]['level'] = 'county'
-                    results[c.unique_id][c.reportingunitname] = maps.FIPS_TO_STATE[c.statepostal][c.fipscode]
+                    results[c.unique_id][c.fipscode]['reportingunitname'] = maps.FIPS_TO_STATE[c.statepostal][c.fipscode]
                     results[c.unique_id][c.fipscode]['votecount'] = 0
                     results[c.unique_id][c.fipscode]['precinctstotal'] = 0
                     results[c.unique_id][c.fipscode]['precinctsreporting'] = 0
@@ -490,10 +490,11 @@ class ReportingUnit(APElection):
         So, change the level from 'subunit' to the 
         actual level name, either 'state' or 'township'.
         """
-        if self.statepostal in maps.FIPS_TO_STATE.keys():
-            self.level = 'township'
-        else:
-            self.level = 'county'
+        if self.level == 'subunit':
+            if self.statepostal in maps.FIPS_TO_STATE.keys():
+                self.level = 'township'
+            else:
+                self.level = 'county'
 
     def set_id_field(self):
         """

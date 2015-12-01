@@ -19,18 +19,38 @@ class TestCandidate(tests.ElectionResultsTestCase):
     data_url = 'tests/data/20121106_me_fl_senate.json'
     NE_STATES = maps.FIPS_TO_STATE.keys()
 
-    def test_new_england_rollup(self):
-        """
-        New England states should create county-level rollups.
-        One way to test this: FIPS codes should be unique in the
-        ReportingUnits. If any FIPS code shows up multiple times,
-        we're looking at a New England state.
-        """
-
+    def test_number_of_races(self):
         self.assertEqual(len(self.races), 2)
 
+    def test_results_parsing(self):
         florida_results = [r for r in self.reporting_units if r.raceid == '10005']
         maine_results = [r for r in self.reporting_units if r.raceid == '20978']
 
-        self.assertEqual(len(florida_results), 50)
-        self.assertEqual(len(maine_results), 50)
+        self.assertEqual(len(florida_results), 68)
+        self.assertEqual(len(maine_results), 500)
+
+    def test_florida_townships(self):
+        florida_results = [r for r in self.reporting_units if r.raceid == '10005']
+        florida_townships = [r for r in florida_results if r.level == 'township']
+
+        self.assertEqual(len(florida_townships), 0)
+
+    def test_florida_counties(self):
+        florida_results = [r for r in self.reporting_units if r.raceid == '10005']
+        florida_counties = [r for r in florida_results if r.level == 'county']
+
+        self.assertEqual(len(florida_counties), len(florida_results))
+
+    def test_maine_townships(self):
+        maine_results = [r for r in self.reporting_units if r.raceid == '20978']
+        maine_townships = [r for r in maine_results if r.level == 'township' ]
+        count_maine_counties = len(maps.FIPS_TO_STATE['ME'].keys())
+
+        self.assertEqual(len(maine_townships), 500 - count_maine_counties)
+
+    def test_maine_counties(self):
+        maine_results = [r for r in self.reporting_units if r.raceid == '20978']
+        maine_counties = [r for r in maine_results if r.level == 'county']
+        count_maine_counties = len(maps.FIPS_TO_STATE['ME'].keys())
+
+        self.assertEqual(len(maine_counties), count_maine_counties)
