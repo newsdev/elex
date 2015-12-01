@@ -39,14 +39,16 @@ class TestCandidate(tests.ElectionResultsTestCase):
         florida_results = [r for r in self.reporting_units if r.raceid == '10005']
         florida_counties = [r for r in florida_results if r.level == 'county']
 
-        self.assertEqual(len(florida_counties), len(florida_results))
+        # One result will be for the state.
+        self.assertEqual(len(florida_counties), len(florida_results) - 1)
 
     def test_maine_townships(self):
         maine_results = [r for r in self.reporting_units if r.raceid == '20978']
         maine_townships = [r for r in maine_results if r.level == 'township' ]
         count_maine_counties = len(maps.FIPS_TO_STATE['ME'].keys())
+        count_maine_results_minus_state = len(maine_results) - 1
 
-        self.assertEqual(len(maine_townships), 500 - count_maine_counties)
+        self.assertEqual(len(maine_townships), count_maine_results_minus_state - count_maine_counties)
 
     def test_maine_counties(self):
         maine_results = [r for r in self.reporting_units if r.raceid == '20978']
