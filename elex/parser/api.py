@@ -417,7 +417,6 @@ class ReportingUnit(APElection):
         self.set_level()
         self.set_reportingunitids()
         self.set_candidates()
-        self.set_new_england_counties()
         self.set_votecount()
         self.set_candidate_votepct()
         self.set_id_field()
@@ -427,62 +426,6 @@ class ReportingUnit(APElection):
             return "%s %s (%s %% reporting)" % (self.statepostal, self.reportingunitname, self.precinctsreportingpct)
         return "%s %s (%s %% reporting)" % (self.statepostal, self.level, self.precinctsreportingpct)
 
-    def set_new_england_counties(self):
-        """
-        Create new CandidateReportingUnits for each New England county that
-        rolls up vote counts and precinct counts / pcts from each
-        township under that county.
-        """
-        if self.level == 'township':
-
-            # First, build the results.
-            results = {}
-
-            # Loop over the candidate reporting unit objects and
-            # build out a nested results dict where the first layer
-            # is the unique candidate ID and the second layer is
-            # the county FIPS.
-            for c in self.candidates:
-
-                # If we haven't seen this candidate before, add them
-                # to the results dictionary.
-                if not results.get(c.unique_id, None):
-                    results[c.unique_id] = {}
-
-                # If we haven't seen this candidate + FIPS combination
-                # before, add it to the results dictionary.
-                if not results[c.unique_id].get(c.fipscode, None):
-                    results[c.unique_id][c.fipscode] = c.__dict__
-
-                    # Since we're aggregating these up to the FIPS level, we
-                    # know this is a county. Previous level would have
-                    # been 'township'.
-                    results[c.unique_id][c.fipscode]['level'] = 'county'
-                    results[c.unique_id][c.fipscode]['reportingunitname'] = maps.FIPS_TO_STATE[c.statepostal][c.fipscode]
-                    results[c.unique_id][c.fipscode]['votecount'] = 0
-                    results[c.unique_id][c.fipscode]['precinctstotal'] = 0
-                    results[c.unique_id][c.fipscode]['precinctsreporting'] = 0
-                    results[c.unique_id][c.fipscode]['precinctsreportingpct'] = 0.0
-
-                # Increment the results for this candidate + FIPS combination
-                # by this candidate reporting unit's items.
-                results[c.unique_id][c.fipscode]['votecount'] += c.votecount
-                results[c.unique_id][c.fipscode]['precinctstotal'] += c.precinctstotal
-                results[c.unique_id][c.fipscode]['precinctsreporting'] += c.precinctsreporting
-
-                # Recalculate the precincts reporting percentage each time through the loop.
-                try:
-                    results[c.unique_id][c.fipscode]['precinctsreportingpct'] = results[c.unique_id][c.fipscode]['precinctsreporting'] / float(results[c.unique_id][c.fipscode]['precinctstotal'])
-                except ZeroDivisionError:
-                    pass
-
-            # Now that we've built the results (which are a candidate + FIPS combination),
-            # loop over the values and create a CandidateReportingUnit for this county.
-            for county_candidates in results.values():
-                for c in county_candidates.values():
-                    obj = CandidateReportingUnit(**c)
-                    self.candidates.append(obj)
-
     def set_level(self):
         """
         New England states report at the township level.
@@ -490,11 +433,11 @@ class ReportingUnit(APElection):
         So, change the level from 'subunit' to the 
         actual level name, either 'state' or 'township'.
         """
-        if self.level == 'subunit':
-            if self.statepostal in maps.FIPS_TO_STATE.keys():
+        if self.statepostal in maps.FIPS_TO_STATE.keys():
+            if self.level == 'subunit':
                 self.level = 'township'
-            else:
-                self.level = 'county'
+        if self.level == 'subunit':
+            self.level = 'county'
 
     def set_id_field(self):
         """
@@ -595,6 +538,57 @@ class Race(APElection):
         else:
             self.set_reportingunits()
             self.set_state_fields_from_reportingunits()
+            self.set_new_england_counties()
+
+    def set_new_england_counties(self):
+        """
+        Create new CandidateReportingUnits for each New England county that
+        rolls up vote counts and precinct counts / pcts from each
+        township under that county.
+        """
+
+        if self.statepostal in maps.FIPS_TO_STATE.keys():
+            results = {}
+            for ru in [r for r in self.reportingunits if r.level == 'township']:
+
+                # This should loop over reporting units.
+                # It should create a new reporting unit for each county.
+                # It should store all the keys/values for the reporting unit.
+                # It should create a list called candidates in that new reporting unit.
+                # That list should be filled with candidate reporting unit objects.
+                # Those candidate reporting unit objects should sum the townships.
+                # The reporting unit should also sum the townships.
+                # Also it should be fast.
+
+                if not results.get(ru.fipscode, None):
+                    results[ru.fipscode] = dict(ru.__dict__)
+                    results[ru.fipscode]['level'] = 'county'
+                    results[ru.fipscode]['reportingunitid'] = None
+                    results[ru.fipscode]['reportingunitname'] =  maps.FIPS_TO_STATE[ru.statepostal][ru.fipscode]
+                    results[ru.fipscode]['candidates'] = {}
+
+                else:
+                    for c in ru.candidates:
+                        if not results[ru.fipscode]['candidates'].get(c.unique_id, None):
+                            results[ru.fipscode]['candidates'][c.unique_id] = dict(c.__dict__)
+                            results[ru.fipscode]['candidates'][c.unique_id]['level'] = 'county'
+                            results[ru.fipscode]['candidates'][c.unique_id]['reportingunitid'] = None
+                            results[ru.fipscode]['candidates'][c.unique_id]['reportingunitname'] =  maps.FIPS_TO_STATE[ru.statepostal][ru.fipscode]
+                        else:
+                            results[ru.fipscode]['candidates'][c.unique_id]['votecount'] += c.votecount
+                            results[ru.fipscode]['candidates'][c.unique_id]['precinctstotal'] += c.precinctstotal
+                            results[ru.fipscode]['candidates'][c.unique_id]['precinctsreporting'] += c.precinctsreporting
+                            try:
+                                results[ru.fipscode]['candidates'][c.unique_id]['precinctsreportingpct'] = float(results[ru.fipscode]['candidates'][c.unique_id]['precinctsreporting']) / float(results[ru.fipscode]['candidates'][c.unique_id]['precinctstotal'])
+                            except ZeroDivisionError:
+                                results[ru.fipscode]['candidates'][c.unique_id]['precinctsreportingpct'] = 0.0
+
+            for ru in results.values():
+                cands = list([dict(c) for c in ru['candidates'].values()])
+                del ru['candidates']
+                ru['candidates'] = [c for c in cands]
+                r = ReportingUnit(**ru)
+                self.reportingunits.append(r)
 
     def set_id_field(self):
         """

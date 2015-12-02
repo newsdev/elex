@@ -27,7 +27,7 @@ class TestCandidate(tests.ElectionResultsTestCase):
         maine_results = [r for r in self.reporting_units if r.raceid == '20978']
 
         self.assertEqual(len(florida_results), 68)
-        self.assertEqual(len(maine_results), 500)
+        self.assertEqual(len(maine_results), 516)
 
     def test_florida_townships(self):
         florida_results = [r for r in self.reporting_units if r.raceid == '10005']
