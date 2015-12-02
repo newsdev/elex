@@ -9,18 +9,24 @@ To write a stream of races in CSV format to your terminal, run:
 
 .. code:: bash
 
-    elex init-races '11-03-2015'
+    elex races '11-03-2015'
 
 To write this data to a file:
 
 .. code:: bash
 
-    elex init-races '11-03-2015' > races.csv
+    elex races '11-03-2015' > races.csv
 
 To pipe it into PostgreSQL:
 
 .. code:: bash
 
-    elex init-races '11-03-2015' | psql elections -c "COPY races FROM stdin DELIMITER ',' CSV HEADER;"```
+    elex races 11-03-2015 | psql elections -c "COPY races FROM stdin DELIMITER ',' CSV HEADER;"```
 
-Output could also be piped to tools like sed, awk, or csvkit.
+To get JSON output:
+
+.. code:: bash
+
+    elex races 11-03-2015 -o json
+
+Output can be piped to tools like sed, awk, jq, or csvkit for further processing.
