@@ -1,4 +1,6 @@
-# ELEX
+====
+ELEX
+====
 
 Get database-ready election results from the Associated Press Election API v2.0.
 
