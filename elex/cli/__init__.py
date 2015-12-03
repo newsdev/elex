@@ -1,1 +1,1 @@
-from app import main
+from elex.cli.app import main
