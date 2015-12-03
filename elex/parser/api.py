@@ -413,6 +413,7 @@ class ReportingUnit(APElection):
         self.initialization_data = kwargs.get('initialization_data', False)
         self.national = kwargs.get('national', False)
         self.candidates = kwargs.get('candidates', [])
+        self.votecount = kwargs.get('votecount', 0)
 
         self.set_level()
         self.pad_fipscode()
