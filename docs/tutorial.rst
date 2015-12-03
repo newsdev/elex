@@ -2,6 +2,9 @@
 Tutorial
 ========
 
+Command Line Interface
+----------------------
+
 This tool is primarily designed for use on the command line using
 standard \*NIX operations like pipes and output redirection.
 
@@ -30,6 +33,9 @@ To get JSON output:
     elex races 11-03-2015 -o json
 
 Output can be piped to tools like sed, awk, jq, or csvkit for further processing.
+
+Python Modules
+---------------
 
 Perhaps you'd like to use Python objects in your application. This is how you would call the Elex modules directly without using the command line tool.
 
