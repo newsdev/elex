@@ -271,4 +271,4 @@ class ElexCLIJSONTestCase(tests.ElectionResultsTestCase):
         sys.stdout.close()
         sys.stdout = stdout_backup
 
-        return data[0].keys(), data
+        return list(data[0].keys()), data
