@@ -8,7 +8,7 @@ class TestCandidate(tests.ElectionResultsTestCase):
     def test_candidate_object_inflation(self):
         c = self.candidates[0]
         self.assertEqual(type(c).__name__, 'Candidate')
-        self.assertEqual(c.__module__, 'elex.parser.api')
+        self.assertEqual(c.__module__, 'elex.api.api')
 
     def test_candidate_attributes(self):
         c = self.candidates[2]

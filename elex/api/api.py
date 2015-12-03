@@ -7,11 +7,11 @@ This module contains the primary :class:`Election` class, as well as model class
 import datetime
 import json
 
-from dateutil import parser
+from dateutil import parser as dateutil_parser
 from collections import OrderedDict
 
-from elex.parser import maps
-from elex.parser import utils
+from elex.api import maps
+from elex.api import utils
 
 PCT_PRECISION = 6
 
@@ -734,12 +734,12 @@ class Election(APElection):
         if not electiondate:
             today = datetime.datetime.now()
         else:
-            today = parser.parse(electiondate)
+            today = dateutil_parser.parse(electiondate)
 
         next_election = None
         lowest_diff = None
         for e in Election.get_elections(datafile=datafile):
-            diff = (parser.parse(e.electiondate) - today).days
+            diff = (dateutil_parser.parse(e.electiondate) - today).days
             if diff > 0:
                 if not lowest_diff and not next_election:
                     next_election = e

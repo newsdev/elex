@@ -1,8 +1,8 @@
-from dateutil import parser
+from dateutil import parser as dateutil_parser
 
 def parse_date(datestring):
     """
     Parse many date formats into an AP friendly format.
     """
-    dateobj = parser.parse(datestring)
+    dateobj = dateutil_parser.parse(datestring)
     return dateobj.strftime('%Y-%m-%d')

@@ -23,7 +23,7 @@ class TestRaceResults(tests.ElectionResultsTestCase):
     def test_race_object_inflation(self):
         race = self.race_objs[0]
         self.assertEqual(type(race).__name__, 'Race')
-        self.assertEqual(race.__module__, 'elex.parser.api')
+        self.assertEqual(race.__module__, 'elex.api.api')
 
     def test_race_attribute_construction(self):
         race = self.race_objs[-1]

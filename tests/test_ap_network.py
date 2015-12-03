@@ -2,7 +2,7 @@ import json
 import os
 import unittest
 
-from elex.parser import utils
+from elex.api import utils
 
 class APNetworkTestCase(unittest.TestCase):
 

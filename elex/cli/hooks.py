@@ -1,4 +1,4 @@
-from elex.parser import api
+from elex.api import api
 
 
 def add_election_hook(app):

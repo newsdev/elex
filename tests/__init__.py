@@ -1,7 +1,7 @@
 import json
 import unittest
 
-from elex.parser import api
+from elex.api import api
 
 
 class ElectionResultsTestCase(unittest.TestCase):

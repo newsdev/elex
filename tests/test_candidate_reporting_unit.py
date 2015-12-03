@@ -25,7 +25,7 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
     def test_candidate_reporting_unit_object_inflation(self):
         cru = self.candidate_reporting_units[0]
         self.assertEqual(type(cru).__name__, 'CandidateReportingUnit')
-        self.assertEqual(cru.__module__, 'elex.parser.api')
+        self.assertEqual(cru.__module__, 'elex.api.api')
 
     def test_candidate_reporting_unit_get_units_construction(self):
         cru = self.candidate_reporting_units[(4*64)+0]

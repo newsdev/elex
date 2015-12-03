@@ -9,7 +9,7 @@ To use the election loader manually from within your project:
 
 .. code:: python
 
-    from elex.parser import api
+    from elex.api import api
 
     election = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
     races = election.races
@@ -24,7 +24,7 @@ Models
     api/reportingunit
     api/race
     api/candidate
-    api/ballotposition
+    api/ballotmeasure
     api/candidatereportingunit
     api/baseobject
 
