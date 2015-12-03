@@ -15,3 +15,12 @@ class TestBallotPosition(tests.ElectionResultsTestCase):
         self.assertEqual(c.last, "Yes")
         self.assertFalse(hasattr(c, 'first'))
         self.assertEqual(c.unique_id, "polid-2")
+
+    def test_ballot_measure_serialization_keys(self):
+        c = self.ballot_measures[0].serialize()
+        self.assertEqual(c['last'], "Yes")
+        self.assertEqual(c['unique_id'], "polid-2")
+
+    def test_ballot_measure_serialization_order(self):
+        c = list(self.ballot_measures[0].serialize())
+        self.assertEqual(c, ['id','unique_id','candidateid','ballotorder','description','last','polid','polnum','seatname'])

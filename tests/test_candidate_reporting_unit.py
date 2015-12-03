@@ -63,3 +63,21 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
         self.assertEqual(reporting_unit.votecount, actual_sums_from_json)
         self.assertEqual(sum_candidate_reporting_units, actual_sums_from_json)
         self.assertEqual(sum_candidate_reporting_units, reporting_unit.votecount)
+
+    def test_candidate_reporting_unit_serialization_keys(self):
+        cru = self.candidate_reporting_units[(4*64)+0].serialize()
+        self.assertEqual(cru['raceid'], '18525')
+        self.assertEqual(cru['first'], 'Jack')
+        self.assertEqual(cru['last'], 'Conway')
+        self.assertEqual(cru['party'], 'Dem')
+        self.assertEqual(cru['candidateid'], '5266')
+        self.assertEqual(cru['polid'], '204')
+        self.assertEqual(cru['ballotorder'], 1)
+        self.assertEqual(cru['polnum'], '19601')
+        self.assertEqual(cru['votecount'], 504)
+        self.assertEqual(cru['winner'], False)
+        self.assertEqual(cru['incumbent'], False)
+
+    def test_candidate_reporting_unit_serialization_order(self):
+        cru = list(self.candidate_reporting_units[(4*64)+0].serialize())
+        self.assertEqual(cru, ['id','unique_id','raceid','racetype','racetypeid','ballotorder','candidateid','description','fipscode','first','incumbent','initialization_data','is_ballot_measure','last','lastupdated','level','national','officeid','officename','party','polid','polnum','precinctsreporting','precinctsreportingpct','precinctstotal','reportingunitid','reportingunitname','runoff','seatname','seatnum','statename','statepostal','test','uncontested','votecount','votepct','winner'])
