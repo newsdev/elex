@@ -81,3 +81,8 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
     def test_candidate_reporting_unit_serialization_order(self):
         cru = list(self.candidate_reporting_units[(4*64)+0].serialize())
         self.assertEqual(cru, ['id','unique_id','raceid','racetype','racetypeid','ballotorder','candidateid','description','fipscode','first','incumbent','initialization_data','is_ballot_measure','last','lastupdated','level','national','officeid','officename','party','polid','polnum','precinctsreporting','precinctsreportingpct','precinctstotal','reportingunitid','reportingunitname','runoff','seatname','seatnum','statename','statepostal','test','uncontested','votecount','votepct','winner'])
+
+    def test_unique_ids(self):
+        all_ids = list([b.id for b in self.candidate_reporting_units])
+        unique_ids = set(all_ids)
+        self.assertEqual(len(all_ids), len(unique_ids))

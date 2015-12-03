@@ -37,3 +37,9 @@ class TestCandidate(tests.ElectionResultsTestCase):
     def test_candidate_serialization_order(self):
         c = list(self.candidates[2].serialize())
         self.assertEqual(c, ['id','unique_id','candidateid','ballotorder','first','last','party','polid','polnum'])
+
+    def test_unique_ids(self):
+        all_ids = list([b.id for b in self.candidates])
+        unique_ids = set(all_ids)
+
+        self.assertEqual(len(all_ids), len(unique_ids))
