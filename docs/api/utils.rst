@@ -1,7 +1,7 @@
 =================
-elex.parser.utils
+elex.api.utils
 =================
 
-.. automodule:: elex.parser.utils
+.. automodule:: elex.api.utils
     :members:
     :undoc-members:

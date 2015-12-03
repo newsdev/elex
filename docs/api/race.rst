@@ -1,7 +1,7 @@
 ====================
-elex.parser.api.Race
+elex.api.api.Race
 ====================
 
-.. autoclass:: elex.parser.api.Race
+.. autoclass:: elex.api.api.Race
     :members:
     :undoc-members:

@@ -1,8 +1,8 @@
 ================
-elex.parser.maps
+elex.api.maps
 ================
 
-.. automodule:: elex.parser.maps
+.. automodule:: elex.api.maps
     :members:
     :undoc-members:
 

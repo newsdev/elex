@@ -1,7 +1,7 @@
 =============================
-elex.parser.api.BallotMeasure
+elex.api.api.BallotMeasure
 =============================
 
-.. autoclass:: elex.parser.api.BallotMeasure
+.. autoclass:: elex.api.api.BallotMeasure
     :members:
     :undoc-members:

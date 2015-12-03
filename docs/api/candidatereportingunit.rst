@@ -1,7 +1,7 @@
 ======================================
-elex.parser.api.CandidateReportingUnit
+elex.api.api.CandidateReportingUnit
 ======================================
 
-.. autoclass:: elex.parser.api.CandidateReportingUnit
+.. autoclass:: elex.api.api.CandidateReportingUnit
     :members:
     :undoc-members:
