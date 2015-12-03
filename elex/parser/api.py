@@ -77,23 +77,6 @@ class APElection(object):
         if self.polid == "0":
             self.polid = None
 
-    def set_unique_id(self):
-        """
-        Generate and set unique id.
-
-        Candidate IDs are not globally unique.
-        AP National Politian IDs (NPIDs or polid)
-        are unique, but only national-level
-        candidates have them; everyone else gets '0'.
-        The unique key, then, is the NAME of the ID
-        we're using and then the ID itself.
-        Verified this is globally unique with Tracy.
-        """
-        if self.polid:
-            self.unique_id = 'polid-{0}'.format(self.polid)
-        else:
-            self.unique_id = 'polnum-{0}'.format(self.polnum)
-
     def set_reportingunitids(self):
         """
         Set reporting unit ID.
@@ -202,6 +185,23 @@ class Candidate(APElection):
             ('polnum', self.polnum),
         ))
 
+    def set_unique_id(self):
+        """
+        Generate and set unique id.
+
+        Candidate IDs are not globally unique.
+        AP National Politian IDs (NPIDs or polid)
+        are unique, but only national-level
+        candidates have them; everyone else gets '0'.
+        The unique key, then, is the NAME of the ID
+        we're using and then the ID itself.
+        Verified this is globally unique with Tracy.
+        """
+        if self.polid:
+            self.unique_id = 'polid-{0}'.format(self.polid)
+        else:
+            self.unique_id = 'polnum-{0}'.format(self.polnum)
+
     def set_id_field(self):
         """
         Set id to `<unique_id>`.
@@ -267,6 +267,20 @@ class BallotMeasure(APElection):
             ('seatname', self.seatname),
         ))
 
+    def set_unique_id(self):
+        """
+        Generate and set unique id.
+
+        Candidate IDs are not globally unique.
+        AP National Politian IDs (NPIDs or polid)
+        are unique, but only national-level
+        candidates have them; everyone else gets '0'.
+        The unique key, then, is the NAME of the ID
+        we're using and then the ID itself.
+        Verified this is globally unique with Tracy.
+        """
+        self.unique_id = self.candidateid
+
     def set_id_field(self):
         """
         Set id to `<unique_id>`.
@@ -328,6 +342,26 @@ class CandidateReportingUnit(APElection):
         Set id to `<raceid>-<uniqueid>-<reportingunitid>`.
         """
         self.id = "%s-%s-%s" % (self.raceid, self.unique_id, self.reportingunitid)
+
+    def set_unique_id(self):
+        """
+        Generate and set unique id.
+
+        Candidate IDs are not globally unique.
+        AP National Politian IDs (NPIDs or polid)
+        are unique, but only national-level
+        candidates have them; everyone else gets '0'.
+        The unique key, then, is the NAME of the ID
+        we're using and then the ID itself.
+        Verified this is globally unique with Tracy.
+        """
+        if not self.is_ballot_measure:
+            if self.polid:
+                self.unique_id = 'polid-{0}'.format(self.polid)
+            else:
+                self.unique_id = 'polnum-{0}'.format(self.polnum)
+        else:
+            self.unique_id = self.candidateid
 
     def serialize(self):
         """
