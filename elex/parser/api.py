@@ -415,6 +415,7 @@ class ReportingUnit(APElection):
         self.candidates = kwargs.get('candidates', [])
 
         self.set_level()
+        self.pad_fipscode()
         self.set_reportingunitids()
         self.set_candidates()
         self.set_votecount()
@@ -425,6 +426,9 @@ class ReportingUnit(APElection):
         if self.reportingunitname:
             return "%s %s (%s %% reporting)" % (self.statepostal, self.reportingunitname, self.precinctsreportingpct)
         return "%s %s (%s %% reporting)" % (self.statepostal, self.level, self.precinctsreportingpct)
+
+    def pad_fipscode(self):
+        return self.fipcode.zfill(5)
 
     def set_level(self):
         """
