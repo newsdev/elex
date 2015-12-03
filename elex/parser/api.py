@@ -419,9 +419,9 @@ class ReportingUnit(APElection):
         self.pad_fipscode()
         self.set_reportingunitids()
         self.set_candidates()
-        self.set_votecount()
         self.set_candidate_votepct()
         self.set_id_field()
+        self.set_votecount()
 
     def __unicode__(self):
         if self.reportingunitname:
