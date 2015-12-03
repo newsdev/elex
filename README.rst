@@ -1,3 +1,5 @@
+# ELEX
+
 Get database-ready election results from the Associated Press Election API v2.0.
 
 Designed to be fast, friendly, and largely agnostic to stack/language/database choice. Basic usage is
