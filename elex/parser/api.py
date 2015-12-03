@@ -16,7 +16,7 @@ from elex.parser import utils
 PCT_PRECISION = 6
 
 
-class APElection(object):
+class APElection(utils.UnicodeMixin):
     """
     Base class for most objects.
     Handy container for methods for first level
@@ -139,12 +139,6 @@ class APElection(object):
         Should return an `OrderedDict <https://docs.python.org/2/library/collections.html#ordereddict-objects>`_.
         """
         raise NotImplementedError
-
-    def __repr__(self):
-        return self.__unicode__()
-
-    def __str__(self):
-        return self.__unicode__()
 
 
 class Candidate(APElection):
@@ -373,8 +367,7 @@ class CandidateReportingUnit(APElection):
             ('winner', self.winner),
         ))
 
-
-    def __unicode__(self):
+    def __str__(self):
         if self.is_ballot_position:
             payload = "%s" % self.party
         else:
@@ -421,7 +414,7 @@ class ReportingUnit(APElection):
         self.set_candidate_votepct()
         self.set_id_field()
 
-    def __unicode__(self):
+    def __str__(self):
         if self.reportingunitname:
             return "%s %s (%s %% reporting)" % (self.statepostal, self.reportingunitname, self.precinctsreportingpct)
         return "%s %s (%s %% reporting)" % (self.statepostal, self.level, self.precinctsreportingpct)
@@ -620,7 +613,7 @@ class Race(APElection):
             ('uncontested', self.uncontested)
         ))
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s %s" % (self.racetype, self.officename)
 
 
@@ -646,7 +639,7 @@ class Election(APElection):
 
         self.set_id_field()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.electiondate
 
     def set_id_field(self):

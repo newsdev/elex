@@ -7,9 +7,20 @@ import elex
 import json
 import os
 import requests
+import sys
 import time
 
 from pymongo import MongoClient
+
+
+class UnicodeMixin(object):
+    """
+    Python 2 + 3 compatibility for __unicode__
+    """
+    if sys.version_info > (3, 0):
+        __str__ = lambda x: x.__unicode__()
+    else:
+        __str__ = lambda x: unicode(x).encode('utf-8')
 
 
 def write_recording(payload):
