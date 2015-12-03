@@ -429,8 +429,7 @@ class ReportingUnit(APElection):
 
     def pad_fipscode(self):
         if self.fipscode:
-            return self.fipscode.zfill(5)
-        return None
+            self.fipscode = self.fipscode.zfill(5)
 
     def set_level(self):
         """
