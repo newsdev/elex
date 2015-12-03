@@ -20,9 +20,3 @@ class TestCandidate(tests.ElectionResultsTestCase):
         self.assertEqual(c.ballotorder, 2)
         self.assertEqual(c.polnum, "20103")
         self.assertEqual(c.unique_id, "polid-63424")
-
-    def test_ballot_position_attributes(self):
-        c = self.ballot_positions[0]
-        self.assertEqual(c.last, "Yes")
-        self.assertFalse(hasattr(c, 'first'))
-        self.assertEqual(c.unique_id, "polid-2")

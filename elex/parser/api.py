@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module contains the primary :class:`Election` class, as well as model classes :class:`Candidate`, :class:`BallotPosition`, :class:`CandidateReportingUnit`, :class:`ReportingUnit`, :class:`Race` model classes, and :class:`APElection` which provides utility methods common to all AP API access.
+This module contains the primary :class:`Election` class, as well as model classes :class:`Candidate`, :class:`BallotMeasure`, :class:`CandidateReportingUnit`, :class:`ReportingUnit`, :class:`Race` model classes, and :class:`APElection` which provides utility methods common to all AP API access.
 
 """
 
@@ -121,7 +121,7 @@ class APElection(object):
 
             if hasattr(self, 'officeid'):
                 if getattr(self, 'officeid') == 'I':
-                    candidate_dict['is_ballot_position'] = True
+                    candidate_dict['is_ballot_measure'] = True
 
             if hasattr(self, 'statepostal'):
                 if getattr(self, 'statepostal') != None:
@@ -209,12 +209,12 @@ class Candidate(APElection):
         self.id = self.unique_id
 
 
-class BallotPosition(APElection):
+class BallotMeasure(APElection):
     """
-    Canonical representation of a ballot position.
+    Canonical representation of a ballot measure.
 
-    Ballot positions are similar to :class:`Candidate`s, but represent a position such as
-    "In favor of" or "Against" for ballot issues such as a referendum.
+    Ballot measures are similar to :class:`Candidate`s, but represent a position on a ballot such as
+    "In favor of" or "Against" for ballot measures such as a referendum.
     """
     def __init__(self, **kwargs):
         """
@@ -277,7 +277,7 @@ class CandidateReportingUnit(APElection):
     """
     Canonical reporesentation of an
     AP candidate. Note: A candidate can 
-    be a person OR a ballot position.
+    be a person OR a ballot measure.
     """
     def __init__(self, **kwargs):
         self.id = None
@@ -293,7 +293,7 @@ class CandidateReportingUnit(APElection):
         self.votepct = kwargs.get('votePct', 0.0)
         self.winner = False
         self.runoff = False
-        self.is_ballot_position = kwargs.get('is_ballot_position', None)
+        self.is_ballot_measure = kwargs.get('is_ballot_measure', None)
         self.level = kwargs.get('level', None)
         self.reportingunitname = kwargs.get('reportingunitname', None)
         self.reportingunitid = kwargs.get('reportingunitid', None)
@@ -346,7 +346,7 @@ class CandidateReportingUnit(APElection):
             ('first', self.first),
             ('incumbent', self.incumbent),
             ('initialization_data', self.initialization_data),
-            ('is_ballot_position', self.is_ballot_position),
+            ('is_ballot_measure', self.is_ballot_measure),
             ('last', self.last),
             ('lastupdated', self.lastupdated),
             ('level', self.level),
@@ -375,7 +375,7 @@ class CandidateReportingUnit(APElection):
 
 
     def __unicode__(self):
-        if self.is_ballot_position:
+        if self.is_ballot_measure:
             payload = "%s" % self.party
         else:
             payload = "%s %s (%s)" % (self.first, self.last, self.party)
@@ -732,16 +732,16 @@ class Election(APElection):
 
     def get_uniques(self, candidate_reporting_units):
         """
-        Parses out unique candidates and ballot positions
+        Parses out unique candidates and ballot measures
         from a list of CandidateReportingUnit objects.
         """
         unique_candidates = {}
-        unique_ballot_positions = {}
+        unique_ballot_measures = {}
 
         for c in candidate_reporting_units:
-            if c.is_ballot_position:
-                if not unique_ballot_positions.get(c.candidateid, None):
-                    unique_ballot_positions[c.candidateid] = BallotPosition(
+            if c.is_ballot_measure:
+                if not unique_ballot_measures.get(c.candidateid, None):
+                    unique_ballot_measures[c.candidateid] = BallotMeasure(
                                                                 last=c.last,
                                                                 candidateid=c.candidateid,
                                                                 polid=c.polid,
@@ -761,8 +761,8 @@ class Election(APElection):
                                                                 party=c.party)
 
         candidates = [v for v in unique_candidates.values()]
-        ballot_positions = [v for v in unique_ballot_positions.values()]
-        return candidates, ballot_positions 
+        ballot_measures = [v for v in unique_ballot_measures.values()]
+        return candidates, ballot_measures 
 
     def get_raw_races(self, **params):
         """
@@ -908,13 +908,13 @@ class Election(APElection):
         )
         race_objs = self.get_race_objects(raw_races)
         races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
-        candidates, ballot_positions = self.get_uniques(candidate_reporting_units)
+        candidates, ballot_measures = self.get_uniques(candidate_reporting_units)
         return candidates
 
     @property
-    def ballot_positions(self):
+    def ballot_measures(self):
         """
-        Return list of ballot position (aka ballot issue) objects with results.
+        Return list of ballot measure objects with results.
         """
         raw_races = self.get_raw_races(
             omitResults=True,
@@ -923,5 +923,5 @@ class Election(APElection):
         )
         race_objs = self.get_race_objects(raw_races)
         races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
-        candidates, ballot_positions = self.get_uniques(candidate_reporting_units)
-        return ballot_positions
+        candidates, ballot_measures = self.get_uniques(candidate_reporting_units)
+        return ballot_measures
