@@ -4,7 +4,10 @@ import sys
 import tests
 
 from collections import OrderedDict
-from cStringIO import StringIO
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from io import StringIO
 from elex.cli.app import ElexApp
 
 DATA_FILE = 'tests/data/20151103_national.json'
