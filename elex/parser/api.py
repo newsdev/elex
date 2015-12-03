@@ -428,7 +428,9 @@ class ReportingUnit(APElection):
         return "%s %s (%s %% reporting)" % (self.statepostal, self.level, self.precinctsreportingpct)
 
     def pad_fipscode(self):
-        return self.fipscode.zfill(5)
+        if self.fipscode:
+            return self.fipscode.zfill(5)
+        return None
 
     def set_level(self):
         """
