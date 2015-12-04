@@ -23,7 +23,7 @@ setup(
     url='https://github.com/newsdev/elex',
     description='Python client for parsing the Associated Press\'s elections API.',
     long_description=read('README.rst'),
-    packages=['elex', 'elex.cli', 'elex.parser', 'tests'],
+    packages=['elex', 'elex.cli', 'elex.api', 'tests'],
     entry_points={
         'console_scripts': [
             'elex = elex.cli:main',

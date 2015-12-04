@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-This module contains the primary :class:`Election` class, as well as model classes :class:`Candidate`, :class:`BallotPosition`, :class:`CandidateReportingUnit`, :class:`ReportingUnit`, :class:`Race` model classes, and :class:`APElection` which provides utility methods common to all AP API access.
+This module contains the primary :class:`Election` class, as well as model classes :class:`Candidate`, :class:`BallotMeasure`, :class:`CandidateReportingUnit`, :class:`ReportingUnit`, :class:`Race` model classes, and :class:`APElection` which provides utility methods common to all AP API access.
 
 """
 
 import datetime
 import json
 
-from dateutil import parser
+from dateutil import parser as dateutil_parser
 from collections import OrderedDict
 
-from elex.parser import maps
-from elex.parser import utils
+from elex.api import maps
+from elex.api import utils
 
 PCT_PRECISION = 6
 
@@ -77,23 +77,6 @@ class APElection(utils.UnicodeMixin):
         if self.polid == "0":
             self.polid = None
 
-    def set_unique_id(self):
-        """
-        Generate and set unique id.
-
-        Candidate IDs are not globally unique.
-        AP National Politian IDs (NPIDs or polid)
-        are unique, but only national-level
-        candidates have them; everyone else gets '0'.
-        The unique key, then, is the NAME of the ID
-        we're using and then the ID itself.
-        Verified this is globally unique with Tracy.
-        """
-        if self.polid:
-            self.unique_id = 'polid-{0}'.format(self.polid)
-        else:
-            self.unique_id = 'polnum-{0}'.format(self.polnum)
-
     def set_reportingunitids(self):
         """
         Set reporting unit ID.
@@ -121,7 +104,7 @@ class APElection(utils.UnicodeMixin):
 
             if hasattr(self, 'officeid'):
                 if getattr(self, 'officeid') == 'I':
-                    candidate_dict['is_ballot_position'] = True
+                    candidate_dict['is_ballot_measure'] = True
 
             if hasattr(self, 'statepostal'):
                 if getattr(self, 'statepostal') != None:
@@ -196,6 +179,23 @@ class Candidate(APElection):
             ('polnum', self.polnum),
         ))
 
+    def set_unique_id(self):
+        """
+        Generate and set unique id.
+
+        Candidate IDs are not globally unique.
+        AP National Politian IDs (NPIDs or polid)
+        are unique, but only national-level
+        candidates have them; everyone else gets '0'.
+        The unique key, then, is the NAME of the ID
+        we're using and then the ID itself.
+        Verified this is globally unique with Tracy.
+        """
+        if self.polid:
+            self.unique_id = 'polid-{0}'.format(self.polid)
+        else:
+            self.unique_id = 'polnum-{0}'.format(self.polnum)
+
     def set_id_field(self):
         """
         Set id to `<unique_id>`.
@@ -203,12 +203,12 @@ class Candidate(APElection):
         self.id = self.unique_id
 
 
-class BallotPosition(APElection):
+class BallotMeasure(APElection):
     """
-    Canonical representation of a ballot position.
+    Canonical representation of a ballot measure.
 
-    Ballot positions are similar to :class:`Candidate`s, but represent a position such as
-    "In favor of" or "Against" for ballot issues such as a referendum.
+    Ballot measures are similar to :class:`Candidate`s, but represent a position on a ballot such as
+    "In favor of" or "Against" for ballot measures such as a referendum.
     """
     def __init__(self, **kwargs):
         """
@@ -261,6 +261,20 @@ class BallotPosition(APElection):
             ('seatname', self.seatname),
         ))
 
+    def set_unique_id(self):
+        """
+        Generate and set unique id.
+
+        Candidate IDs are not globally unique.
+        AP National Politian IDs (NPIDs or polid)
+        are unique, but only national-level
+        candidates have them; everyone else gets '0'.
+        The unique key, then, is the NAME of the ID
+        we're using and then the ID itself.
+        Verified this is globally unique with Tracy.
+        """
+        self.unique_id = self.candidateid
+
     def set_id_field(self):
         """
         Set id to `<unique_id>`.
@@ -271,7 +285,7 @@ class CandidateReportingUnit(APElection):
     """
     Canonical reporesentation of an
     AP candidate. Note: A candidate can 
-    be a person OR a ballot position.
+    be a person OR a ballot measure.
     """
     def __init__(self, **kwargs):
         self.id = None
@@ -287,7 +301,7 @@ class CandidateReportingUnit(APElection):
         self.votepct = kwargs.get('votePct', 0.0)
         self.winner = False
         self.runoff = False
-        self.is_ballot_position = kwargs.get('is_ballot_position', None)
+        self.is_ballot_measure = kwargs.get('is_ballot_measure', None)
         self.level = kwargs.get('level', None)
         self.reportingunitname = kwargs.get('reportingunitname', None)
         self.reportingunitid = kwargs.get('reportingunitid', None)
@@ -323,6 +337,26 @@ class CandidateReportingUnit(APElection):
         """
         self.id = "%s-%s-%s" % (self.raceid, self.unique_id, self.reportingunitid)
 
+    def set_unique_id(self):
+        """
+        Generate and set unique id.
+
+        Candidate IDs are not globally unique.
+        AP National Politian IDs (NPIDs or polid)
+        are unique, but only national-level
+        candidates have them; everyone else gets '0'.
+        The unique key, then, is the NAME of the ID
+        we're using and then the ID itself.
+        Verified this is globally unique with Tracy.
+        """
+        if not self.is_ballot_measure:
+            if self.polid:
+                self.unique_id = 'polid-{0}'.format(self.polid)
+            else:
+                self.unique_id = 'polnum-{0}'.format(self.polnum)
+        else:
+            self.unique_id = self.candidateid
+
     def serialize(self):
         """
         Implements :meth:`APElection.serialize()`.
@@ -340,7 +374,7 @@ class CandidateReportingUnit(APElection):
             ('first', self.first),
             ('incumbent', self.incumbent),
             ('initialization_data', self.initialization_data),
-            ('is_ballot_position', self.is_ballot_position),
+            ('is_ballot_measure', self.is_ballot_measure),
             ('last', self.last),
             ('lastupdated', self.lastupdated),
             ('level', self.level),
@@ -406,18 +440,24 @@ class ReportingUnit(APElection):
         self.initialization_data = kwargs.get('initialization_data', False)
         self.national = kwargs.get('national', False)
         self.candidates = kwargs.get('candidates', [])
+        self.votecount = kwargs.get('votecount', 0)
 
         self.set_level()
+        self.pad_fipscode()
         self.set_reportingunitids()
         self.set_candidates()
-        self.set_votecount()
         self.set_candidate_votepct()
         self.set_id_field()
+        self.set_votecount()
 
     def __str__(self):
         if self.reportingunitname:
             return "%s %s (%s %% reporting)" % (self.statepostal, self.reportingunitname, self.precinctsreportingpct)
         return "%s %s (%s %% reporting)" % (self.statepostal, self.level, self.precinctsreportingpct)
+
+    def pad_fipscode(self):
+        if self.fipscode:
+            self.fipscode = self.fipscode.zfill(5)
 
     def set_level(self):
         """
@@ -687,12 +727,12 @@ class Election(APElection):
         if not electiondate:
             today = datetime.datetime.now()
         else:
-            today = parser.parse(electiondate)
+            today = dateutil_parser.parse(electiondate)
 
         next_election = None
         lowest_diff = None
         for e in Election.get_elections(datafile=datafile):
-            diff = (parser.parse(e.electiondate) - today).days
+            diff = (dateutil_parser.parse(e.electiondate) - today).days
             if diff > 0:
                 if not lowest_diff and not next_election:
                     next_election = e
@@ -720,16 +760,16 @@ class Election(APElection):
 
     def get_uniques(self, candidate_reporting_units):
         """
-        Parses out unique candidates and ballot positions
+        Parses out unique candidates and ballot measures
         from a list of CandidateReportingUnit objects.
         """
         unique_candidates = {}
-        unique_ballot_positions = {}
+        unique_ballot_measures = {}
 
         for c in candidate_reporting_units:
-            if c.is_ballot_position:
-                if not unique_ballot_positions.get(c.candidateid, None):
-                    unique_ballot_positions[c.candidateid] = BallotPosition(
+            if c.is_ballot_measure:
+                if not unique_ballot_measures.get(c.candidateid, None):
+                    unique_ballot_measures[c.candidateid] = BallotMeasure(
                                                                 last=c.last,
                                                                 candidateid=c.candidateid,
                                                                 polid=c.polid,
@@ -749,8 +789,8 @@ class Election(APElection):
                                                                 party=c.party)
 
         candidates = [v for v in unique_candidates.values()]
-        ballot_positions = [v for v in unique_ballot_positions.values()]
-        return candidates, ballot_positions 
+        ballot_measures = [v for v in unique_ballot_measures.values()]
+        return candidates, ballot_measures 
 
     def get_raw_races(self, **params):
         """
@@ -896,13 +936,13 @@ class Election(APElection):
         )
         race_objs = self.get_race_objects(raw_races)
         races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
-        candidates, ballot_positions = self.get_uniques(candidate_reporting_units)
+        candidates, ballot_measures = self.get_uniques(candidate_reporting_units)
         return candidates
 
     @property
-    def ballot_positions(self):
+    def ballot_measures(self):
         """
-        Return list of ballot position (aka ballot issue) objects with results.
+        Return list of ballot measure objects with results.
         """
         raw_races = self.get_raw_races(
             omitResults=True,
@@ -911,5 +951,5 @@ class Election(APElection):
         )
         race_objs = self.get_race_objects(raw_races)
         races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
-        candidates, ballot_positions = self.get_uniques(candidate_reporting_units)
-        return ballot_positions
+        candidates, ballot_measures = self.get_uniques(candidate_reporting_units)
+        return ballot_measures

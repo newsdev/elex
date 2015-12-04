@@ -1,4 +1,4 @@
-from elex.parser import maps
+from elex.api import maps
 import tests
 
 class TestCandidate(tests.ElectionResultsTestCase):

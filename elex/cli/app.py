@@ -94,13 +94,13 @@ class ElexBaseController(CementBaseController):
 
     @expose(help="Get ballot positions (also known as ballot issues)")
     @require_date
-    def ballot_positions(self):
+    def ballot_measures(self):
         """
         Initialize reporting units
         """
         self.app.log.info('Getting ballot positions for election {0}'
             .format(self.app.election.electiondate))
-        self.app.render(self.app.election.ballot_positions)
+        self.app.render(self.app.election.ballot_measures)
 
     @expose(help="Get results")
     @require_date
