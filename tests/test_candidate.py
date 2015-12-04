@@ -12,26 +12,26 @@ class TestCandidate(tests.ElectionResultsTestCase):
 
     def test_candidate_attributes(self):
         c = self.candidates[2]
-        self.assertEqual(c.first, 'Matt')
-        self.assertEqual(c.last, 'Bevin')
-        self.assertEqual(c.party, 'GOP')
-        self.assertEqual(c.candidateid, '5295')
-        self.assertEqual(c.polid, '63424')
-        self.assertEqual(c.ballotorder, 2)
-        self.assertEqual(c.polnum, '20103')
-        self.assertEqual(c.unique_id, 'polid-63424')
+        self.assertEqual(c.first, 'Drew')
+        self.assertEqual(c.last, 'Curtis')
+        self.assertEqual(c.party, 'Ind')
+        self.assertEqual(c.candidateid, '5296')
+        self.assertEqual(c.polid, '64511')
+        self.assertEqual(c.ballotorder, 3)
+        self.assertEqual(c.polnum, '20249')
+        self.assertEqual(c.unique_id, 'polid-64511')
         self.assertEqual(c.id, c.unique_id)
 
     def test_candidate_serialization_keys(self):
         c = self.candidates[2].serialize()
-        self.assertEqual(c['first'], 'Matt')
-        self.assertEqual(c['last'], 'Bevin')
-        self.assertEqual(c['party'], 'GOP')
-        self.assertEqual(c['candidateid'], '5295')
-        self.assertEqual(c['polid'], '63424')
-        self.assertEqual(c['ballotorder'], 2)
-        self.assertEqual(c['polnum'], '20103')
-        self.assertEqual(c['unique_id'], 'polid-63424')
+        self.assertEqual(c['first'], 'Drew')
+        self.assertEqual(c['last'], 'Curtis')
+        self.assertEqual(c['party'], 'Ind')
+        self.assertEqual(c['candidateid'], '5296')
+        self.assertEqual(c['polid'], '64511')
+        self.assertEqual(c['ballotorder'], 3)
+        self.assertEqual(c['polnum'], '20249')
+        self.assertEqual(c['unique_id'], 'polid-64511')
         self.assertEqual(c['unique_id'], c['id'])
 
     def test_candidate_serialization_order(self):

@@ -110,7 +110,8 @@ class APElection(utils.UnicodeMixin):
 
             obj = CandidateReportingUnit(**candidate_dict)
             candidate_objs.append(obj)
-        setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
+
+        self.candidates = sorted(candidate_objs, key=lambda x: x.ballotorder or x.last)
 
     def serialize(self):
         """
@@ -761,8 +762,8 @@ class Election(APElection):
         Parses out unique candidates and ballot measures
         from a list of CandidateReportingUnit objects.
         """
-        unique_candidates = {}
-        unique_ballot_measures = {}
+        unique_candidates = OrderedDict()
+        unique_ballot_measures = OrderedDict()
 
         for c in candidate_reporting_units:
             if c.is_ballot_measure:
