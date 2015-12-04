@@ -102,13 +102,11 @@ class APElection(utils.UnicodeMixin):
             for k, v in self.__dict__.items():
                 candidate_dict[k] = v
 
-            if hasattr(self, 'officeid'):
-                if getattr(self, 'officeid') == 'I':
-                    candidate_dict['is_ballot_measure'] = True
+            if hasattr(self, 'officeid') and getattr(self, 'officeid') == 'I':
+                candidate_dict['is_ballot_measure'] = True
 
-            if hasattr(self, 'statepostal'):
-                if getattr(self, 'statepostal') != None:
-                    candidate_dict['statename'] = maps.STATE_ABBR[getattr(self, 'statepostal')]
+            if hasattr(self, 'statepostal') and getattr(self, 'statepostal') is not None:
+                candidate_dict['statename'] = maps.STATE_ABBR[getattr(self, 'statepostal')]
 
             obj = CandidateReportingUnit(**candidate_dict)
             candidate_objs.append(obj)
