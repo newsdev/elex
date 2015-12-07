@@ -11,38 +11,92 @@ class TestRaceResults(tests.ElectionResultsTestCase):
     def test_number_of_get_units_races(self):
         self.assertEqual(len(self.races), 5)
 
-    def test_composition_of_race_json(self):
+    def test_composition_of_race_json_national(self):
         race_dict = self.raw_races['races'][-1]
         self.assertEqual(race_dict['national'], True)
+
+    def test_composition_of_race_json_officeid(self):
+        race_dict = self.raw_races['races'][-1]
         self.assertEqual(race_dict['officeID'], 'G')
+
+    def test_composition_of_race_json_officename(self):
+        race_dict = self.raw_races['races'][-1]
         self.assertEqual(race_dict['officeName'], 'Governor')
+
+    def test_composition_of_race_json_raceid(self):
+        race_dict = self.raw_races['races'][-1]
         self.assertEqual(race_dict['raceID'], '18525')
+
+    def test_composition_of_race_json_racetype(self):
+        race_dict = self.raw_races['races'][-1]
         self.assertEqual(race_dict['raceType'], 'General')
+
+    def test_composition_of_race_json_racetypeid(self):
+        race_dict = self.raw_races['races'][-1]
         self.assertEqual(race_dict['raceTypeID'], 'G')
 
-    def test_race_object_inflation(self):
+    def test_race_object_inflation_name(self):
         race = self.race_objs[0]
         self.assertEqual(type(race).__name__, 'Race')
+
+    def test_race_object_inflation_module(self):
+        race = self.race_objs[0]
         self.assertEqual(race.__module__, 'elex.api.api')
 
-    def test_race_attribute_construction(self):
+    def test_race_attribute_construction_officeid(self):
         race = self.race_objs[-1]
         self.assertEqual(race.officeid, 'G')
+
+    def test_race_attribute_construction_statepostal(self):
+        race = self.race_objs[-1]
         self.assertEqual(race.statepostal, 'KY')
+
+    def test_race_attribute_construction_raceid(self):
+        race = self.race_objs[-1]
         self.assertEqual(race.raceid, '18525')
+
+    def test_race_attribute_construction_general(self):
+        race = self.race_objs[-1]
         self.assertEqual(race.racetype, 'General')
+
+    def test_race_attribute_construction_national(self):
+        race = self.race_objs[-1]
         self.assertEqual(race.national, True)
+
+    def test_race_attribute_construction_officename(self):
+        race = self.race_objs[-1]
         self.assertEqual(race.officename, 'Governor')
+
+    def test_race_attribute_construction_racetypeid(self):
+        race = self.race_objs[-1]
         self.assertEqual(race.racetypeid, 'G')
 
-    def test_race_get_units_construction(self):
+    def test_race_get_units_construction_officeid(self):
         race = self.races[-1]
         self.assertEqual(race.officeid, 'G')
+
+    def test_race_get_units_construction_statepostal(self):
+        race = self.races[-1]
         self.assertEqual(race.statepostal, 'KY')
+
+    def test_race_get_units_construction_raceid(self):
+        race = self.races[-1]
         self.assertEqual(race.raceid, '18525')
+
+    def test_race_get_units_construction_racetype(self):
+        race = self.races[-1]
         self.assertEqual(race.racetype, 'General')
+
+    def test_race_get_units_construction_national(self):
+        race = self.races[-1]
         self.assertEqual(race.national, True)
+
+    def test_race_get_units_construction_officename(self):
+        race = self.races[-1]
         self.assertEqual(race.officename, 'Governor')
+
+    def test_race_get_units_construction_racetypeid(self):
+        race = self.races[-1]
         self.assertEqual(race.racetypeid, 'G')
 
 class TestRaceInitialization(tests.ElectionResultsTestCase):
@@ -56,5 +110,9 @@ class TestRaceInitialization(tests.ElectionResultsTestCase):
 
     def test_initialization_data_number_of_races(self):
         self.assertEqual(len(self.races), 2)
+
+    def test_initialization_data_number_of_reportingunits(self):
         self.assertEqual(len(self.reporting_units), 0)
+
+    def test_initialization_data_number_of_candidate_reportingunits(self):
         self.assertEqual(len(self.candidate_reporting_units), 6)
