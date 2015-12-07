@@ -17,7 +17,7 @@ def read(filename):
 
 setup(
     name='elex',
-    version='0.0.42',
+    version='0.1.0',
     author='Jeremy Bowers',
     author_email='jeremy.bowers@nytimes.com',
     url='https://github.com/newsdev/elex',
