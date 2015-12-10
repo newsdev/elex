@@ -34,6 +34,10 @@ setup(
     install_requires=reqs,
     classifiers=['Development Status :: 3 - Alpha',
                  'Intended Audience :: Developers',
+                 'Topic :: Software Development :: Libraries :: Python Modules',
                  'Programming Language :: Python',
-                 'Topic :: Software Development :: Libraries :: Python Modules']
+                 'Programming Language :: Python :: 2',
+                 'Programming Language :: Python :: 2.7',
+                 'Programming Language :: Python :: 3.5',
+                 ]
 )
