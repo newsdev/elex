@@ -33,7 +33,7 @@ class ElexCLICSVTestMeta(type):
                 cli_fields, cli_data = self._test_command(command=command)
                 api_data = getattr(self, command.replace('-', '_'))
                 api_fields = api_data[0].serialize().keys()
-                self.assertEqual(cli_fields, api_fields)
+                self.assertEqual(cli_fields, list(api_fields))
             return test
 
         def gen_length_test(command):
@@ -158,7 +158,7 @@ class ElexCLIJSONTestMeta(type):
                 cli_fields, cli_data = self._test_command(command=command)
                 api_data = getattr(self, command.replace('-', '_'))
                 api_fields = api_data[0].serialize().keys()
-                self.assertEqual(cli_fields, api_fields)
+                self.assertEqual(cli_fields, list(api_fields))
             return test
 
         def gen_length_test(command):
