@@ -31,20 +31,6 @@ class APElection(utils.UnicodeMixin):
             setattr(self, 'statepostal', self.reportingunits[0].statepostal)
             setattr(self, 'statename', maps.STATE_ABBR[self.statepostal])
 
-    def set_winner_runoff(self):
-        """
-        Translates winner: "X" or "R" into a booleans on winner and runoff.
-        """
-        if self.winner == u'X':
-            setattr(self, 'winner', True)
-            setattr(self, 'runoff', False)
-        elif self.winner == u'R':
-            setattr(self, 'runoff', True)
-            setattr(self, 'winner', True)
-        else:
-            setattr(self, 'runoff', False)
-            setattr(self, 'winner', False)
-
     def set_reportingunits(self):
         """
         Set reporting units.
@@ -298,8 +284,8 @@ class CandidateReportingUnit(APElection):
         self.polnum = kwargs.get('polNum', None)
         self.votecount = kwargs.get('voteCount', 0)
         self.votepct = kwargs.get('votePct', 0.0)
-        self.winner = False
-        self.runoff = False
+        self.winner = kwargs.get('winner', False) == 'X'
+        self.runoff = kwargs.get('winner', False) == 'R'
         self.is_ballot_measure = kwargs.get('is_ballot_measure', None)
         self.level = kwargs.get('level', None)
         self.reportingunitname = kwargs.get('reportingunitname', None)
@@ -325,7 +311,6 @@ class CandidateReportingUnit(APElection):
         self.national = kwargs.get('national', False)
         self.incumbent = kwargs.get('incumbent', False)
 
-        self.set_winner_runoff()
         self.set_polid()
         self.set_unique_id()
         self.set_id_field()
