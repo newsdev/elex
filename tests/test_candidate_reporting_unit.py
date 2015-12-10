@@ -28,18 +28,15 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
         self.assertEqual(cru.__module__, 'elex.api.api')
 
     def test_candidate_reporting_unit_get_units_construction(self):
-        cru = self.candidate_reporting_units[(4*64)+0]
-        self.assertEqual(cru.raceid, '18525')
-        self.assertEqual(cru.first, 'Jack')
-        self.assertEqual(cru.last, 'Conway')
-        self.assertEqual(cru.party, 'Dem')
-        self.assertEqual(cru.candidateid, '5266')
-        self.assertEqual(cru.polid, '204')
+        cru = self.candidate_reporting_units[0]
+        self.assertEqual(cru.raceid, '7582')
+        self.assertEqual(cru.last, 'Yes')
+        self.assertEqual(cru.candidateid, '12480')
+        self.assertEqual(cru.polid, '2')
         self.assertEqual(cru.ballotorder, 1)
-        self.assertEqual(cru.polnum, '19601')
-        self.assertEqual(cru.votecount, 504)
-        self.assertEqual(cru.winner, False)
-        self.assertEqual(cru.incumbent, False)
+        self.assertEqual(cru.polnum, '6212')
+        self.assertEqual(cru.votecount, 805617)
+        self.assertEqual(cru.winner, True)
 
     def test_candidate_reporting_unit_sums(self):
         reporting_unit = self.reporting_units[0]
@@ -65,18 +62,15 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
         self.assertEqual(sum_candidate_reporting_units, reporting_unit.votecount)
 
     def test_candidate_reporting_unit_serialization_keys(self):
-        cru = self.candidate_reporting_units[(4*64)+0].serialize()
-        self.assertEqual(cru['raceid'], '18525')
-        self.assertEqual(cru['first'], 'Jack')
-        self.assertEqual(cru['last'], 'Conway')
-        self.assertEqual(cru['party'], 'Dem')
-        self.assertEqual(cru['candidateid'], '5266')
-        self.assertEqual(cru['polid'], '204')
-        self.assertEqual(cru['ballotorder'], 1)
-        self.assertEqual(cru['polnum'], '19601')
-        self.assertEqual(cru['votecount'], 504)
+        cru = self.candidate_reporting_units[1].serialize()
+        self.assertEqual(cru['raceid'], '7582')
+        self.assertEqual(cru['last'], 'No')
+        self.assertEqual(cru['candidateid'], '12481')
+        self.assertEqual(cru['polid'], '3')
+        self.assertEqual(cru['ballotorder'], 2)
+        self.assertEqual(cru['polnum'], '7922')
+        self.assertEqual(cru['votecount'], 354769)
         self.assertEqual(cru['winner'], False)
-        self.assertEqual(cru['incumbent'], False)
 
     def test_candidate_reporting_unit_serialization_order(self):
         cru = list(self.candidate_reporting_units[(4*64)+0].serialize())
