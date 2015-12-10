@@ -34,7 +34,7 @@ Still using the AP's FTP system for results? Use the Los Angeles Times' `python-
     :alt: Version
 
 .. image:: https://img.shields.io/pypi/l/elex.svg
-    :target: https://pypi.python.org/pypi/elex
+    :target: https://github.com/newsdev/elex/blob/master/LICENSE
     :alt: License
 
 .. image:: https://img.shields.io/pypi/pyversions/elex.svg
