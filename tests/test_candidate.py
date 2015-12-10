@@ -11,7 +11,7 @@ class TestCandidate(tests.ElectionResultsTestCase):
         self.assertEqual(c.__module__, 'elex.api.api')
 
     def test_candidate_attributes(self):
-        c = self.candidates[2]
+        c = self.candidates[0]
         self.assertEqual(c.first, 'Matt')
         self.assertEqual(c.last, 'Bevin')
         self.assertEqual(c.party, 'GOP')
@@ -23,7 +23,7 @@ class TestCandidate(tests.ElectionResultsTestCase):
         self.assertEqual(c.id, c.unique_id)
 
     def test_candidate_serialization_keys(self):
-        c = self.candidates[2].serialize()
+        c = self.candidates[0].serialize()
         self.assertEqual(c['first'], 'Matt')
         self.assertEqual(c['last'], 'Bevin')
         self.assertEqual(c['party'], 'GOP')

@@ -110,7 +110,8 @@ class APElection(utils.UnicodeMixin):
 
             obj = CandidateReportingUnit(**candidate_dict)
             candidate_objs.append(obj)
-        setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
+
+        self.candidates = candidate_objs
 
     def serialize(self):
         """
@@ -579,7 +580,7 @@ class Race(APElection):
         """
 
         if self.statepostal in maps.FIPS_TO_STATE.keys():
-            results = {}
+            results = OrderedDict()
             for ru in [r for r in self.reportingunits if r.level == 'township']:
 
                 # This should loop over reporting units.
@@ -596,7 +597,7 @@ class Race(APElection):
                     results[ru.fipscode]['level'] = 'county'
                     results[ru.fipscode]['reportingunitid'] = None
                     results[ru.fipscode]['reportingunitname'] =  maps.FIPS_TO_STATE[ru.statepostal][ru.fipscode]
-                    results[ru.fipscode]['candidates'] = {}
+                    results[ru.fipscode]['candidates'] = OrderedDict()
 
                 else:
                     for c in ru.candidates:
@@ -705,7 +706,7 @@ class Election(APElection):
         # kwargs instead. So, for just this object, lowercase the kwargs.
         payload = []
         for e in elections:
-            init_dict = {}
+            init_dict = OrderedDict()
             for k,v in e.items():
                 init_dict[k.lower()] = v
             payload.append(Election(**init_dict))
@@ -761,8 +762,8 @@ class Election(APElection):
         Parses out unique candidates and ballot measures
         from a list of CandidateReportingUnit objects.
         """
-        unique_candidates = {}
-        unique_ballot_measures = {}
+        unique_candidates = OrderedDict()
+        unique_ballot_measures = OrderedDict()
 
         for c in candidate_reporting_units:
             if c.is_ballot_measure:
