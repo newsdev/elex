@@ -19,3 +19,7 @@ Important links:
 * Demo implementation: https://github.com/nprapps/ap-election-loader
 
 Still using the AP's FTP system for results? Use the Los Angeles Times' `python-elections <https://github.com/datadesk/python-elections>`_ library.
+
+.. image:: https://travis-ci.org/eads/elex.png
+    :target: https://travis-ci.org/eads/elex
+    :alt: Build status
