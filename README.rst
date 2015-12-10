@@ -24,3 +24,24 @@ Still using the AP's FTP system for results? Use the Los Angeles Times' `python-
 .. image:: https://travis-ci.org/eads/elex.png
     :target: https://travis-ci.org/eads/elex
     :alt: Build status
+
+
+.. image:: https://img.shields.io/pypi/dw/elex.svg
+    :target: https://pypi.python.org/pypi/elex
+    :alt: PyPI downloads
+
+
+.. image:: https://img.shields.io/pypi/v/elex.svg
+    :target: https://pypi.python.org/pypi/elex
+    :alt: Version
+
+
+.. image:: https://img.shields.io/pypi/l/elex.svg
+    :target: https://pypi.python.org/pypi/elex
+    :alt: License
+
+
+.. image:: https://img.shields.io/pypi/pyversions/elex.svg
+    :target: https://pypi.python.org/pypi/elex
+    :alt: Support Python versions
+ 
