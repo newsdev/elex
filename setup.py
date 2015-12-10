@@ -17,7 +17,7 @@ def read(filename):
 
 setup(
     name='elex',
-    version='0.1.0',
+    version='0.1.1',
     author='Jeremy Bowers',
     author_email='jeremy.bowers@nytimes.com',
     url='https://github.com/newsdev/elex',
@@ -34,6 +34,11 @@ setup(
     install_requires=reqs,
     classifiers=['Development Status :: 3 - Alpha',
                  'Intended Audience :: Developers',
+                 'Topic :: Software Development :: Libraries :: Python Modules',
                  'Programming Language :: Python',
-                 'Topic :: Software Development :: Libraries :: Python Modules']
+                 'Programming Language :: Python :: 2',
+                 'Programming Language :: Python :: 2.7',
+                 'Programming Language :: Python :: 3',
+                 'Programming Language :: Python :: 3.5',
+                 ]
 )
