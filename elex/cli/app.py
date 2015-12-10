@@ -4,7 +4,7 @@ from cement.core.controller import CementBaseController, expose
 from cement.ext.ext_logging import LoggingLogHandler
 from elex import __version__ as VERSION
 from elex.cli.hooks import add_election_hook
-from elex.cli.decorators import require_date
+from elex.cli.decorators import require_date_argument, require_ap_api_key
 
 LOG_FORMAT = '%(asctime)s (%(levelname)s) %(namespace)s (v{0}) : %(message)s'.format(VERSION)
 
@@ -53,7 +53,8 @@ class ElexBaseController(CementBaseController):
         self.app.args.print_help()
 
     @expose(help="Get races")
-    @require_date
+    @require_ap_api_key
+    @require_date_argument
     def races(self):
         """
         Initialize races
@@ -63,7 +64,8 @@ class ElexBaseController(CementBaseController):
         self.app.render(self.app.election.races)
 
     @expose(help="Get reporting units")
-    @require_date
+    @require_ap_api_key
+    @require_date_argument
     def reporting_units(self):
         """
         Initialize reporting units
@@ -73,7 +75,8 @@ class ElexBaseController(CementBaseController):
         self.app.render(self.app.election.reporting_units)
 
     @expose(help="Get candidate reporting units (without results)")
-    @require_date
+    @require_ap_api_key
+    @require_date_argument
     def candidate_reporting_units(self):
         """
         Initialize reporting units
@@ -83,7 +86,8 @@ class ElexBaseController(CementBaseController):
         self.app.render(self.app.election.candidate_reporting_units)
 
     @expose(help="Get candidates")
-    @require_date
+    @require_ap_api_key
+    @require_date_argument
     def candidates(self):
         """
         Initialize reporting units
@@ -93,7 +97,8 @@ class ElexBaseController(CementBaseController):
         self.app.render(self.app.election.candidates)
 
     @expose(help="Get ballot positions (also known as ballot issues)")
-    @require_date
+    @require_ap_api_key
+    @require_date_argument
     def ballot_measures(self):
         """
         Initialize reporting units
@@ -103,7 +108,8 @@ class ElexBaseController(CementBaseController):
         self.app.render(self.app.election.ballot_measures)
 
     @expose(help="Get results")
-    @require_date
+    @require_ap_api_key
+    @require_date_argument
     def results(self):
         """
         Initialize reporting units
@@ -113,6 +119,7 @@ class ElexBaseController(CementBaseController):
         self.app.render(self.app.election.results)
 
     @expose(help="Get list of available elections")
+    @require_ap_api_key
     def elections(self):
         """
         Initialize reporting units
@@ -122,6 +129,7 @@ class ElexBaseController(CementBaseController):
         self.app.render(elections)
 
     @expose(help="Get the next election (if date is specified, will be relative to that date, otherwise will use today's date)")
+    @require_ap_api_key
     def next_election(self):
         """
         Initialize reporting units

@@ -9,7 +9,7 @@ Install the Python library:
 
 .. code:: bash
 
-    pip install --pre elex
+    pip install elex
 
 Set your AP API key:
 
