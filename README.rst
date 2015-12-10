@@ -16,6 +16,7 @@ Important links:
 * Documentation: http://elex.readthedocs.org/
 * Repository: https://github.com/newsdev/elex/
 * Issues: https://github.com/newsdev/elex/issues
+* Roadmap: https://github.com/newsdev/elex/milestones
 * Demo implementation: https://github.com/nprapps/ap-election-loader
 
 Still using the AP's FTP system for results? Use the Los Angeles Times' `python-elections <https://github.com/datadesk/python-elections>`_ library.
