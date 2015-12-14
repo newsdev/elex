@@ -16,7 +16,7 @@ from elex.api import utils
 PCT_PRECISION = 6
 
 
-class APElection(object):
+class APElection(utils.UnicodeMixin):
     """
     Base class for most objects.
     Handy container for methods for first level
@@ -30,20 +30,6 @@ class APElection(object):
         if len(self.reportingunits) > 0:
             setattr(self, 'statepostal', self.reportingunits[0].statepostal)
             setattr(self, 'statename', maps.STATE_ABBR[self.statepostal])
-
-    def set_winner_runoff(self):
-        """
-        Translates winner: "X" or "R" into a booleans on winner and runoff.
-        """
-        if self.winner == u'X':
-            setattr(self, 'winner', True)
-            setattr(self, 'runoff', False)
-        elif self.winner == u'R':
-            setattr(self, 'runoff', True)
-            setattr(self, 'winner', True)
-        else:
-            setattr(self, 'runoff', False)
-            setattr(self, 'winner', False)
 
     def set_reportingunits(self):
         """
@@ -102,17 +88,16 @@ class APElection(object):
             for k, v in self.__dict__.items():
                 candidate_dict[k] = v
 
-            if hasattr(self, 'officeid'):
-                if getattr(self, 'officeid') == 'I':
-                    candidate_dict['is_ballot_measure'] = True
+            if hasattr(self, 'officeid') and getattr(self, 'officeid') == 'I':
+                candidate_dict['is_ballot_measure'] = True
 
-            if hasattr(self, 'statepostal'):
-                if getattr(self, 'statepostal') != None:
-                    candidate_dict['statename'] = maps.STATE_ABBR[getattr(self, 'statepostal')]
+            if hasattr(self, 'statepostal') and getattr(self, 'statepostal') is not None:
+                candidate_dict['statename'] = maps.STATE_ABBR[getattr(self, 'statepostal')]
 
             obj = CandidateReportingUnit(**candidate_dict)
             candidate_objs.append(obj)
-        setattr(self, 'candidates', sorted(candidate_objs, key=lambda x: x.ballotorder))
+
+        self.candidates = candidate_objs
 
     def serialize(self):
         """
@@ -122,12 +107,6 @@ class APElection(object):
         Should return an `OrderedDict <https://docs.python.org/2/library/collections.html#ordereddict-objects>`_.
         """
         raise NotImplementedError
-
-    def __repr__(self):
-        return self.__unicode__()
-
-    def __str__(self):
-        return self.__unicode__()
 
 
 class Candidate(APElection):
@@ -305,8 +284,8 @@ class CandidateReportingUnit(APElection):
         self.polnum = kwargs.get('polNum', None)
         self.votecount = kwargs.get('voteCount', 0)
         self.votepct = kwargs.get('votePct', 0.0)
-        self.winner = False
-        self.runoff = False
+        self.winner = kwargs.get('winner', False) == 'X'
+        self.runoff = kwargs.get('winner', False) == 'R'
         self.is_ballot_measure = kwargs.get('is_ballot_measure', None)
         self.level = kwargs.get('level', None)
         self.reportingunitname = kwargs.get('reportingunitname', None)
@@ -332,7 +311,6 @@ class CandidateReportingUnit(APElection):
         self.national = kwargs.get('national', False)
         self.incumbent = kwargs.get('incumbent', False)
 
-        self.set_winner_runoff()
         self.set_polid()
         self.set_unique_id()
         self.set_id_field()
@@ -407,9 +385,8 @@ class CandidateReportingUnit(APElection):
             ('winner', self.winner),
         ))
 
-
-    def __unicode__(self):
-        if self.is_ballot_measure:
+    def __str__(self):
+        if self.is_ballot_position:
             payload = "%s" % self.party
         else:
             payload = "%s %s (%s)" % (self.first, self.last, self.party)
@@ -457,7 +434,7 @@ class ReportingUnit(APElection):
         self.set_id_field()
         self.set_votecount()
 
-    def __unicode__(self):
+    def __str__(self):
         if self.reportingunitname:
             return "%s %s (%s %% reporting)" % (self.statepostal, self.reportingunitname, self.precinctsreportingpct)
         return "%s %s (%s %% reporting)" % (self.statepostal, self.level, self.precinctsreportingpct)
@@ -588,7 +565,7 @@ class Race(APElection):
         """
 
         if self.statepostal in maps.FIPS_TO_STATE.keys():
-            results = {}
+            results = OrderedDict()
             for ru in [r for r in self.reportingunits if r.level == 'township']:
 
                 # This should loop over reporting units.
@@ -605,7 +582,7 @@ class Race(APElection):
                     results[ru.fipscode]['level'] = 'county'
                     results[ru.fipscode]['reportingunitid'] = None
                     results[ru.fipscode]['reportingunitname'] =  maps.FIPS_TO_STATE[ru.statepostal][ru.fipscode]
-                    results[ru.fipscode]['candidates'] = {}
+                    results[ru.fipscode]['candidates'] = OrderedDict()
 
                 else:
                     for c in ru.candidates:
@@ -660,7 +637,7 @@ class Race(APElection):
             ('uncontested', self.uncontested)
         ))
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s %s" % (self.racetype, self.officename)
 
 
@@ -686,7 +663,7 @@ class Election(APElection):
 
         self.set_id_field()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.electiondate
 
     def set_id_field(self):
@@ -714,7 +691,7 @@ class Election(APElection):
         # kwargs instead. So, for just this object, lowercase the kwargs.
         payload = []
         for e in elections:
-            init_dict = {}
+            init_dict = OrderedDict()
             for k,v in e.items():
                 init_dict[k.lower()] = v
             payload.append(Election(**init_dict))
@@ -770,8 +747,8 @@ class Election(APElection):
         Parses out unique candidates and ballot measures
         from a list of CandidateReportingUnit objects.
         """
-        unique_candidates = {}
-        unique_ballot_measures = {}
+        unique_candidates = OrderedDict()
+        unique_ballot_measures = OrderedDict()
 
         for c in candidate_reporting_units:
             if c.is_ballot_measure:

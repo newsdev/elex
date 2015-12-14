@@ -51,47 +51,47 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
         self.assertEqual(cru.__module__, 'elex.api.api')
 
     def test_candidate_reporting_unit_get_units_construction_raceid(self):
-        cru = self.candidate_reporting_units[(4*64)+0]
+        cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.raceid, '18525')
 
     def test_candidate_reporting_unit_get_units_construction_first(self):
-        cru = self.candidate_reporting_units[(4*64)+0]
+        cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.first, 'Jack')
 
     def test_candidate_reporting_unit_get_units_construction_last(self):
-        cru = self.candidate_reporting_units[(4*64)+0]
+        cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.last, 'Conway')
 
     def test_candidate_reporting_unit_get_units_construction_party(self):
-        cru = self.candidate_reporting_units[(4*64)+0]
+        cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.party, 'Dem')
 
     def test_candidate_reporting_unit_get_units_construction_candidateid(self):
-        cru = self.candidate_reporting_units[(4*64)+0]
+        cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.candidateid, '5266')
 
     def test_candidate_reporting_unit_get_units_construction_polid(self):
-        cru = self.candidate_reporting_units[(4*64)+0]
+        cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.polid, '204')
 
     def test_candidate_reporting_unit_get_units_construction_ballotorder(self):
-        cru = self.candidate_reporting_units[(4*64)+0]
+        cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.ballotorder, 1)
 
     def test_candidate_reporting_unit_get_units_construction_polnum(self):
-        cru = self.candidate_reporting_units[(4*64)+0]
+        cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.polnum, '19601')
 
     def test_candidate_reporting_unit_get_units_construction_votecount(self):
-        cru = self.candidate_reporting_units[(4*64)+0]
+        cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.votecount, 504)
 
     def test_candidate_reporting_unit_get_units_construction_winner(self):
-        cru = self.candidate_reporting_units[(4*64)+0]
+        cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.winner, False)
 
     def test_candidate_reporting_unit_get_units_construction_incumbent(self):
-        cru = self.candidate_reporting_units[(4*64)+0]
+        cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.incumbent, False)
 
     def test_candidate_reporting_unit_count(self):
@@ -145,51 +145,51 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
         self.assertEqual(sum_candidate_reporting_units, reporting_unit.votecount)
 
     def test_candidate_reporting_unit_serialization_keys_raceid(self):
-        cru = self.candidate_reporting_units[(4*64)+0].serialize()
+        cru = self.candidate_reporting_units[(4*64)+1].serialize()
         self.assertEqual(cru['raceid'], '18525')
 
     def test_candidate_reporting_unit_serialization_keys_first(self):
-        cru = self.candidate_reporting_units[(4*64)+0].serialize()
+        cru = self.candidate_reporting_units[(4*64)+1].serialize()
         self.assertEqual(cru['first'], 'Jack')
 
     def test_candidate_reporting_unit_serialization_keys_last(self):
-        cru = self.candidate_reporting_units[(4*64)+0].serialize()
+        cru = self.candidate_reporting_units[(4*64)+1].serialize()
         self.assertEqual(cru['last'], 'Conway')
 
     def test_candidate_reporting_unit_serialization_keys_party(self):
-        cru = self.candidate_reporting_units[(4*64)+0].serialize()
+        cru = self.candidate_reporting_units[(4*64)+1].serialize()
         self.assertEqual(cru['party'], 'Dem')
 
     def test_candidate_reporting_unit_serialization_keys_candidateid(self):
-        cru = self.candidate_reporting_units[(4*64)+0].serialize()
+        cru = self.candidate_reporting_units[(4*64)+1].serialize()
         self.assertEqual(cru['candidateid'], '5266')
 
     def test_candidate_reporting_unit_serialization_keys_polid(self):
-        cru = self.candidate_reporting_units[(4*64)+0].serialize()
+        cru = self.candidate_reporting_units[(4*64)+1].serialize()
         self.assertEqual(cru['polid'], '204')
 
     def test_candidate_reporting_unit_serialization_keys_ballotorder(self):
-        cru = self.candidate_reporting_units[(4*64)+0].serialize()
+        cru = self.candidate_reporting_units[(4*64)+1].serialize()
         self.assertEqual(cru['ballotorder'], 1)
 
     def test_candidate_reporting_unit_serialization_keys_polnum(self):
-        cru = self.candidate_reporting_units[(4*64)+0].serialize()
+        cru = self.candidate_reporting_units[(4*64)+1].serialize()
         self.assertEqual(cru['polnum'], '19601')
 
     def test_candidate_reporting_unit_serialization_keys_votecount(self):
-        cru = self.candidate_reporting_units[(4*64)+0].serialize()
+        cru = self.candidate_reporting_units[(4*64)+1].serialize()
         self.assertEqual(cru['votecount'], 504)
 
     def test_candidate_reporting_unit_serialization_keys_winner(self):
-        cru = self.candidate_reporting_units[(4*64)+0].serialize()
+        cru = self.candidate_reporting_units[(4*64)+1].serialize()
         self.assertEqual(cru['winner'], False)
 
     def test_candidate_reporting_unit_serialization_keys_incumbent(self):
-        cru = self.candidate_reporting_units[(4*64)+0].serialize()
+        cru = self.candidate_reporting_units[(4*64)+1].serialize()
         self.assertEqual(cru['incumbent'], False)
 
     def test_candidate_reporting_unit_serialization_order(self):
-        cru = list(self.candidate_reporting_units[(4*64)+0].serialize())
+        cru = list(self.candidate_reporting_units[(4*64)+1].serialize())
         self.assertEqual(cru, ['id','unique_id','raceid','racetype','racetypeid','ballotorder','candidateid','description','fipscode','first','incumbent','initialization_data','is_ballot_measure','last','lastupdated','level','national','officeid','officename','party','polid','polnum','precinctsreporting','precinctsreportingpct','precinctstotal','reportingunitid','reportingunitname','runoff','seatname','seatnum','statename','statepostal','test','uncontested','votecount','votepct','winner'])
 
     def test_unique_ids(self):
