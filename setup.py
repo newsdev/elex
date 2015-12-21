@@ -18,8 +18,8 @@ def read(filename):
 setup(
     name='elex',
     version='0.1.2',
-    author='Jeremy Bowers',
-    author_email='jeremy.bowers@nytimes.com',
+    author='Jeremy Bowers, David Eads',
+    author_email='jeremy.bowers@nytimes.com, deads@npr.org',
     url='https://github.com/newsdev/elex',
     description='Python client for parsing the Associated Press\'s elections API.',
     long_description=read('README.rst'),
