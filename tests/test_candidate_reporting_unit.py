@@ -86,6 +86,10 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
         cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.votecount, 504)
 
+    def test_candidate_reporting_unit_get_units_construction_votepct(self):
+        cru = self.candidate_reporting_units[(4*64)+1]
+        self.assertEqual(cru.votepct, 0.45652173913043476)
+
     def test_candidate_reporting_unit_get_units_construction_winner(self):
         cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.winner, False)

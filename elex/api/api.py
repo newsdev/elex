@@ -430,9 +430,9 @@ class ReportingUnit(APElection):
         self.pad_fipscode()
         self.set_reportingunitids()
         self.set_candidates()
+        self.set_votecount()
         self.set_candidate_votepct()
         self.set_id_field()
-        self.set_votecount()
 
     def __str__(self):
         if self.reportingunitname:
@@ -468,10 +468,7 @@ class ReportingUnit(APElection):
         """
         if not self.uncontested:
             for c in self.candidates:
-
-                # This would have broken if c.level != 'subunit' because we are now
-                # annotating with the actual subunit name, e.g., state, county or township.
-                self.votecount = sum([c.votecount for c in self.candidates if c.level == "state"])
+                self.votecount = sum([c.votecount for c in self.candidates])
         else:
             self.votecount = None
 
@@ -481,11 +478,10 @@ class ReportingUnit(APElection):
         """
         if not self.uncontested:
             for c in self.candidates:
-                if c.level != 'subunit':
-                    try:
-                        c.votepct = float(c.votecount) / float(self.votecount)
-                    except ZeroDivisionError:
-                        pass
+                try:
+                    c.votepct = float(c.votecount) / float(self.votecount)
+                except ZeroDivisionError:
+                    pass
 
     def serialize(self):
         """
