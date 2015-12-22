@@ -637,6 +637,71 @@ class Race(APElection):
         return "%s %s" % (self.racetype, self.officename)
 
 
+class Elections():
+    """
+    Holds a collection of election objects
+    """
+
+    def __init__(self, **kwargs):
+
+        self.elections = []
+
+
+    def get_elections(self, datafile=None):
+        """
+        Get election data from API or cached file.
+
+        :param datafile:
+            If datafile is specified, use instead of making an API call.
+        """
+        if not datafile:
+            self.elections = list(utils.api_request('/')['elections'])
+        else:
+            with open(datafile) as f:
+                self.elections = list(json.load(f)['elections'])
+
+        # Developer API expects to give lowercase kwargs to an Election
+        # object, but initializing from the API / file will have camelCase 
+        # kwargs instead. So, for just this object, lowercase the kwargs.
+        payload = []
+        for e in self.elections:
+            init_dict = OrderedDict()
+            for k, v in e.items():
+                init_dict[k.lower()] = v
+            payload.append(Election(**init_dict))
+
+        return payload
+
+
+    def get_next_election(self, datafile=None, electiondate=None):
+        """
+        Get next election. By default, will be relative to the current date.
+
+        :param datafile:
+            If datafile is specified, use instead of making an API call.
+        :param electiondate:
+            If electiondate is specified, gets the next election after the specified date.
+        """
+        if not electiondate:
+            today = datetime.datetime.now()
+        else:
+            today = dateutil_parser.parse(electiondate)
+
+        next_election = None
+        lowest_diff = None
+        for e in self.get_elections(datafile=datafile):
+            diff = (dateutil_parser.parse(e.electiondate) - today).days
+            if diff > 0:
+                if not lowest_diff and not next_election:
+                    next_election = e
+                    lowest_diff = diff
+                elif lowest_diff and next_election:
+                    if diff < lowest_diff:
+                        next_election = e
+                        lowest_diff = diff
+        return next_election
+
+
 class Election(APElection):
     """
     Canonical representation of an election on
@@ -659,6 +724,8 @@ class Election(APElection):
 
         self.set_id_field()
 
+        self._response = None
+
     def __str__(self):
         return self.electiondate
 
@@ -667,61 +734,6 @@ class Election(APElection):
         Set id to `<electiondate>`.
         """
         self.id = self.electiondate
-
-    @classmethod
-    def get_elections(cls, datafile=None):
-        """
-        Get election data from API or cached file.
-
-        :param datafile:
-            If datafile is specified, use instead of making an API call.
-        """
-        if not datafile:
-            elections = list(utils.api_request('/')['elections'])
-        else:
-            with open(datafile) as f:
-                elections = list(json.load(f)['elections'])
-
-        # Developer API expects to give lowercase kwargs to an Election
-        # object, but initializing from the API / file will have camelCase 
-        # kwargs instead. So, for just this object, lowercase the kwargs.
-        payload = []
-        for e in elections:
-            init_dict = OrderedDict()
-            for k,v in e.items():
-                init_dict[k.lower()] = v
-            payload.append(Election(**init_dict))
-
-        return payload
-
-    @classmethod
-    def get_next_election(cls, datafile=None, electiondate=None):
-        """
-        Get next election. By default, will be relative to the current date.
-
-        :param datafile:
-            If datafile is specified, use instead of making an API call.
-        :param electiondate:
-            If electiondate is specified, gets the next election after the specified date.
-        """
-        if not electiondate:
-            today = datetime.datetime.now()
-        else:
-            today = dateutil_parser.parse(electiondate)
-
-        next_election = None
-        lowest_diff = None
-        for e in Election.get_elections(datafile=datafile):
-            diff = (dateutil_parser.parse(e.electiondate) - today).days
-            if diff > 0:
-                if not lowest_diff and not next_election:
-                    next_election = e
-                    lowest_diff = diff
-                elif lowest_diff and next_election:
-                    if diff < lowest_diff:
-                        next_election = e
-                        lowest_diff = diff
-        return next_election
 
     def get(self, path, **params):
         """
