@@ -19,7 +19,6 @@ Contributors should use the following roadmap to guide them through the process 
 
 You got this!
 
-=====================
 Performance profiling
 =====================
 
