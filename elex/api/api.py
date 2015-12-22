@@ -748,7 +748,8 @@ class Election(APElection):
         :param **params:
             A dict of optional parameters to be included in API request.
         """
-        return utils.api_request(path, **params)
+        self._response = utils.api_request(path, **params)
+        return self._response.json()
 
     def get_uniques(self, candidate_reporting_units):
         """

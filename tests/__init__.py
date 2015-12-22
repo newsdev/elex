@@ -1,7 +1,6 @@
-import json
 import unittest
 
-from elex.api import api
+from elex.api import api, utils
 
 
 class ElectionResultsTestCase(unittest.TestCase):
@@ -17,3 +16,14 @@ class ElectionResultsTestCase(unittest.TestCase):
         self.races = e.races
         self.reporting_units = e.reporting_units
         self.results = e.results
+
+
+class ElectionNetworkTestCase(unittest.TestCase):
+    def setUp(self, **kwargs):
+        """
+        Cache all responses to allow for single assertion per test without
+        exceeding the API request limit.
+        """
+        self.nonexistent_response = utils.api_request('/1965-01-01')
+        self.nonexistent_param_response = utils.api_request('/', foo='bar')
+        self.bad_date_response = utils.api_request('/9999-99-99')
