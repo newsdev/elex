@@ -2,7 +2,7 @@
 ELEX
 ====
 
-*Elex is not an official project of the Associated Press. There is no warranty, express or implied, for the results Elex provides. If you have questions, check out the license or contact the authors.*
+*Elex was developed by The New York Times and NPR and not in concert with the Associated Press. Though we plan on using Elex for the 2016 cycle, there is no guarantee that this software will work for you. If you’re thinking about using Elex, check out the license and contact the authors.*
 
 Get database-ready election results from the Associated Press Election API v2.0.
 
