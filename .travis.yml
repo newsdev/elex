@@ -6,6 +6,7 @@ python:
 install:
   - travis_retry pip install .
   - travis_retry pip install -r requirements.txt
+  - travis_retry pip install -e git+https://github.com/peteut/nose2-cprof.git#egg=nose2cprof
 # command to run tests
 script: python -m nose2.__main__ -v
 sudo: false
