@@ -2,9 +2,11 @@
 ELEX
 ====
 
+*Elex is not an official project of the Associated Press. There is no warranty, express or implied, for the results Elex provides. If you have questions, check out the license or contact the authors.*
+
 Get database-ready election results from the Associated Press Election API v2.0.
 
-Designed to be fast, friendly, and largely agnostic to stack/language/database choice. Basic usage is
+Elex is designed to be fast, friendly, and largely agnostic to stack/language/database choice. Basic usage is
 as simple as:
 
 .. code:: bash
