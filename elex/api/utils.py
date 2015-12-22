@@ -57,7 +57,7 @@ def api_request(path, **params):
     A properly formatted request:
     * Modifies the BASE_URL with a path.
     * Contains an API_KEY.
-    * Returns JSON.
+    * Returns a response object.
 
     :param **params:
         Extra parameters to pass to `requests`.
@@ -73,6 +73,5 @@ def api_request(path, **params):
 
     params['format'] = 'json'
     response = requests.get(elex.BASE_URL + path, params=params)
-    payload = response.json()
-    write_recording(payload)
-    return payload
+    write_recording(response.json())
+    return response
