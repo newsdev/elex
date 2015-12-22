@@ -29,7 +29,7 @@ setup(
             'elex = elex.cli:main',
         ],
     },
-    dependency_links=['http://github.com/peteut/nose2-cprof/tarball/master#egg=nose2cprof'],
+    dependency_links=['git+ssh://github.com/peteut/nose2-cprof.git#egg=nose2cprof'],
     license="Apache License 2.0",
     keywords='election race candidate democracy news associated press',
     install_requires=reqs,
