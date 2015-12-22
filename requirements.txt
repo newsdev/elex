@@ -5,3 +5,4 @@ nose2==0.5.0
 pymongo==2.8
 python-dateutil==2.4.2
 requests==2.8.1
+-e git+https://github.com/peteut/nose2-cprof.git#egg=nose2cprof
