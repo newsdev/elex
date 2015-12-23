@@ -41,17 +41,20 @@ Important links:
 Elex projects and implementations
 =================================
 
-NPR
----
+**NPR**
+
 
 * `NPR loader <https://github.com/nprapps/ap-election-loader>`_: A simple reference data loader for PostgreSQL.
 
-New York Times
---------------
+**New York Times**
 
 * `New York Times loader <https://github.com/newsdev/elex-loader>`_: A more sophisticated data loader for PostgreSQL.
 * `New York Times Deja Vu <https://github.com/newsdev/ap-deja-vu>`_: A webservice to replay JSON captured during an election.
 * `New York Times Elex Admin <https://github.com/newsdev/elex-admin>`_: An admin interface for Elex data loaded with the New York Times loader written in Flask.
+
+**Experimental**
+
+* `node-elex-admin <https://github.com/eads/node-elex-admin>`_: Incomplete node-based admin interface.
 
 News
 ====
