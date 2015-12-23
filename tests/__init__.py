@@ -1,6 +1,9 @@
 import unittest
 
 from elex.api import api, utils
+from time import sleep
+
+API_MESSAGE = "We require that you export AP_API_KEY in your environment in order to test AP connectivity."
 
 
 class ElectionResultsTestCase(unittest.TestCase):
@@ -18,12 +21,8 @@ class ElectionResultsTestCase(unittest.TestCase):
         self.results = e.results
 
 
-class ElectionNetworkTestCase(unittest.TestCase):
-    def setUp(self, **kwargs):
-        """
-        Cache all responses to allow for single assertion per test without
-        exceeding the API request limit.
-        """
-        self.nonexistent_response = utils.api_request('/1965-01-01')
-        self.nonexistent_param_response = utils.api_request('/', foo='bar')
-        self.bad_date_response = utils.api_request('/9999-99-99')
+class NetworkTestCase(unittest.TestCase):
+    def api_request(self, *args, **kwargs):
+        response = utils.api_request(*args, **kwargs)
+        sleep(10)
+        return response
