@@ -27,6 +27,7 @@ Models
     api/ballotmeasure
     api/candidatereportingunit
     api/baseobject
+    api/elections
 
 Utilities
 =========
