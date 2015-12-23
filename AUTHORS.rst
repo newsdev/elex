@@ -7,3 +7,4 @@ These individuals have contributed code, tests, documentation, and troubleshooti
 * Livia Labate
 * Wilson Andrews
 * Eric Buth
+* Juan Elosua
