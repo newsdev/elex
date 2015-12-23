@@ -642,11 +642,6 @@ class Elections():
     Holds a collection of election objects
     """
 
-    def __init__(self, **kwargs):
-
-        self.elections = []
-
-
     def get_elections(self, datafile=None):
         """
         Get election data from API or cached file.
@@ -655,16 +650,16 @@ class Elections():
             If datafile is specified, use instead of making an API call.
         """
         if not datafile:
-            self.elections = list(utils.api_request('/')['elections'])
+            elections = list(utils.api_request('/').json().get('elections'))
         else:
             with open(datafile) as f:
-                self.elections = list(json.load(f)['elections'])
+                elections = list(json.load(f).get('elections'))
 
         # Developer API expects to give lowercase kwargs to an Election
         # object, but initializing from the API / file will have camelCase 
         # kwargs instead. So, for just this object, lowercase the kwargs.
         payload = []
-        for e in self.elections:
+        for e in elections:
             init_dict = OrderedDict()
             for k, v in e.items():
                 init_dict[k.lower()] = v

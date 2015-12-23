@@ -136,7 +136,11 @@ class ElexBaseController(CementBaseController):
         Initialize reporting units
         """
         self.app.log.info('Getting next election')
-        election = Elections().get_next_election(datafile=self.app.pargs.data_file, electiondate=self.app.pargs.date[0])
+        if len(self.app.pargs.date):
+            electiondate = self.app.pargs.date[0]
+        else:
+            electiondate = None
+        election = Elections().get_next_election(datafile=self.app.pargs.data_file, electiondate=electiondate)
         self.app.render(election)
 
 
