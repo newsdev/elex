@@ -2,6 +2,7 @@
 Utility functions to record raw election results and handle low-level HTTP interaction with the
 Associated Press Election API.
 """
+from __future__ import print_function
 import datetime
 import elex
 import json
@@ -11,7 +12,7 @@ import sys
 import time
 
 from pymongo import MongoClient
-
+from xml.dom.minidom import parseString
 
 class UnicodeMixin(object):
     """
@@ -57,7 +58,7 @@ def api_request(path, **params):
     A properly formatted request:
     * Modifies the BASE_URL with a path.
     * Contains an API_KEY.
-    * Returns JSON.
+    * Returns a response object.
 
     :param **params:
         Extra parameters to pass to `requests`.
@@ -73,6 +74,14 @@ def api_request(path, **params):
 
     params['format'] = 'json'
     response = requests.get(elex.BASE_URL + path, params=params)
-    payload = response.json()
-    write_recording(payload)
-    return payload
+    if response.ok:
+        write_recording(response.json())
+
+    # When response is 403, take emergency action and write to stderr
+    if response.status_code == 403:
+        messagedom = parseString(response.content)
+        message = messagedom.getElementsByTagName('Message')[0].childNodes[0].data
+        print('ELEX ERROR: %s (url: %s)' % (message, response.url), file=sys.stderr)
+
+    return response
+

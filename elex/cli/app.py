@@ -5,6 +5,7 @@ from cement.ext.ext_logging import LoggingLogHandler
 from elex import __version__ as VERSION
 from elex.cli.hooks import add_election_hook
 from elex.cli.decorators import require_date_argument, require_ap_api_key
+from elex.api.api import Elections
 
 LOG_FORMAT = '%(asctime)s (%(levelname)s) %(namespace)s (v{0}) : %(message)s'.format(VERSION)
 
@@ -125,7 +126,7 @@ class ElexBaseController(CementBaseController):
         Initialize reporting units
         """
         self.app.log.info('Getting election list')
-        elections = self.app.election.get_elections(datafile=self.app.pargs.data_file)
+        elections = Elections().get_elections(datafile=self.app.pargs.data_file)
         self.app.render(elections)
 
     @expose(help="Get the next election (if date is specified, will be relative to that date, otherwise will use today's date)")
@@ -135,7 +136,7 @@ class ElexBaseController(CementBaseController):
         Initialize reporting units
         """
         self.app.log.info('Getting next election')
-        election = self.app.election.get_next_election(datafile=self.app.pargs.data_file, electiondate=self.app.pargs.date[0])
+        election = Elections().get_next_election(datafile=self.app.pargs.data_file, electiondate=self.app.pargs.date[0])
         self.app.render(election)
 
 

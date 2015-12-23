@@ -28,6 +28,16 @@ To get detailed information about performance, run the tests with the --profile 
 
     nose2 tests --profile
 
+Testing API request limit
+=========================
+
+You can test the API request limit, but only by setting an environment variable. Use with extreme
+care.
+
+.. code:: bash
+
+    AP_RUN_QUOTA_TEST=1 nose2 tests.test_ap_quota
+
 Authors
 =======
 

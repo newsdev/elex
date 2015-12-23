@@ -1,33 +1,35 @@
-import json
 import os
 import unittest
 
-from elex.api import utils
+from . import NetworkTestCase, API_MESSAGE
 
-class APNetworkTestCase(unittest.TestCase):
 
-    message = "We require that you export AP_API_KEY in your environment in order to test AP connectivity."
+class APNetworkTestCase(NetworkTestCase):
 
-    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), message)
-    def test_bad_date(self):
-        r = utils.api_request('/9999-99-99')
-        self.assertTrue('errorCode' in r)
-        self.assertTrue('errorMessage' in r)
-        self.assertEqual(r['errorCode'], 400)
-        self.assertEqual(r['errorMessage'], 'String was not recognized as a valid DateTime.')
-        self.assertFalse('races' in r)
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_bad_date_error_code(self):
+        self.assertEqual(self.api_request('/9999-99-99').status_code, 400)
 
-    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), message)
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_bad_date_error_message(self):
+        bad_date_response = self.api_request('/9999-99-99')
+        data = bad_date_response.json()
+        self.assertEqual(data['errorMessage'], 'String was not recognized as a valid DateTime.')
+
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_bad_date_fields(self):
+        bad_date_response = self.api_request('/9999-99-99')
+        data = bad_date_response.json()
+        keys = data.keys()
+        self.assertTrue('errorMessage' in keys and 'errorCode' in keys)
+
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
     def test_nonexistent_date(self):
-        r = utils.api_request('/1965-01-01')
-        self.assertTrue('races' in r)
-        self.assertEqual(len(r['races']), 0)
+        nonexistent_date_response = self.api_request('/1965-01-01')
+        data = nonexistent_date_response.json()
+        self.assertEqual(len(data['races']), 0)
 
-    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), message)
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
     def test_nonexistent_param(self):
-        r = utils.api_request('/', foo='bar')
-        self.assertTrue('errorCode' in r)
-        self.assertTrue('errorMessage' in r)
-        self.assertEqual(r['errorCode'], 400)
-        self.assertEqual(r['errorMessage'], 'Specified parameter(s) \'foo\' is invalid')
-        self.assertFalse('races' in r)
+        nonexistent_param_response = self.api_request('/', foo='bar')
+        self.assertEqual(nonexistent_param_response.status_code, 400)

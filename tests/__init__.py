@@ -1,7 +1,9 @@
-import json
 import unittest
 
-from elex.api import api
+from elex.api import api, utils
+from time import sleep
+
+API_MESSAGE = "We require that you export AP_API_KEY in your environment in order to test AP connectivity."
 
 
 class ElectionResultsTestCase(unittest.TestCase):
@@ -17,3 +19,10 @@ class ElectionResultsTestCase(unittest.TestCase):
         self.races = e.races
         self.reporting_units = e.reporting_units
         self.results = e.results
+
+
+class NetworkTestCase(unittest.TestCase):
+    def api_request(self, *args, **kwargs):
+        response = utils.api_request(*args, **kwargs)
+        sleep(10)
+        return response
