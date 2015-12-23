@@ -36,7 +36,7 @@ New York Times
 News
 ====
 
-* `NPR and The New York Times teamed up to make election reporting faster <http://www.poynter.org/news/mediawire/388642/npr-and-the-new-york-times-teamed-up-to-make-election-reporting-faster/>`_, Ben Mullins, Poynter
+* `NPR and The New York Times teamed up to make election reporting faster <http://www.poynter.org/news/mediawire/388642/npr-and-the-new-york-times-teamed-up-to-make-election-reporting-faster/>`_, Benjamin Mullin, Poynter
 * `Introducing Elex, A Tool To Make Election Coverage Better For Everyone <https://source.opennews.org/en-US/articles/introducing-elex-tool-make-election-coverage-bette/>`_, Jeremy Bowers and David Eads, Source
 
 Using the FTP system?
