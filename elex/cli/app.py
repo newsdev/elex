@@ -62,7 +62,10 @@ class ElexBaseController(CementBaseController):
         """
         self.app.log.info('Getting races for election {0}'
             .format(self.app.election.electiondate))
-        self.app.render(self.app.election.races)
+        data = self.app.election.races
+        if self.app.election._response:
+            self.app.log.debug('Elex API URL: {0}'.format(self.app.election._response.url))
+        self.app.render(data)
 
     @expose(help="Get reporting units")
     @require_ap_api_key
@@ -73,7 +76,10 @@ class ElexBaseController(CementBaseController):
         """
         self.app.log.info('Getting reporting units for election {0}'
             .format(self.app.election.electiondate))
-        self.app.render(self.app.election.reporting_units)
+        data = self.app.election.reporting_units
+        if self.app.election._response:
+            self.app.log.debug('Elex API URL: {0}'.format(self.app.election._response.url))
+        self.app.render(data)
 
     @expose(help="Get candidate reporting units (without results)")
     @require_ap_api_key
@@ -84,7 +90,10 @@ class ElexBaseController(CementBaseController):
         """
         self.app.log.info('Getting candidate reporting units for election {0}'
             .format(self.app.election.electiondate))
-        self.app.render(self.app.election.candidate_reporting_units)
+        data = self.app.election.candidate_reporting_units
+        if self.app.election._response:
+            self.app.log.debug('Elex API URL: {0}'.format(self.app.election._response.url))
+        self.app.render(data)
 
     @expose(help="Get candidates")
     @require_ap_api_key
@@ -95,7 +104,10 @@ class ElexBaseController(CementBaseController):
         """
         self.app.log.info('Getting candidates for election {0}'
             .format(self.app.election.electiondate))
-        self.app.render(self.app.election.candidates)
+        data = self.app.election.candidates
+        if self.app.election._response:
+            self.app.log.debug('Elex API URL: {0}'.format(self.app.election._response.url))
+        self.app.render(data)
 
     @expose(help="Get ballot positions (also known as ballot issues)")
     @require_ap_api_key
@@ -106,7 +118,10 @@ class ElexBaseController(CementBaseController):
         """
         self.app.log.info('Getting ballot positions for election {0}'
             .format(self.app.election.electiondate))
-        self.app.render(self.app.election.ballot_measures)
+        data = self.app.election.ballot_measures
+        if self.app.election._response:
+            self.app.log.debug('Elex API URL: {0}'.format(self.app.election._response.url))
+        self.app.render(data)
 
     @expose(help="Get results")
     @require_ap_api_key
@@ -117,7 +132,10 @@ class ElexBaseController(CementBaseController):
         """
         self.app.log.info('Getting results for election {0}'
             .format(self.app.election.electiondate))
-        self.app.render(self.app.election.results)
+        data = self.app.election.results
+        if self.app.election._response:
+            self.app.log.debug('Elex API URL: {0}'.format(self.app.election._response.url))
+        self.app.render(data)
 
     @expose(help="Get list of available elections")
     @require_ap_api_key
