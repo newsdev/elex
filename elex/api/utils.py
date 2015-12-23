@@ -77,10 +77,11 @@ def api_request(path, **params):
     if response.ok:
         write_recording(response.json())
 
+    # When response is 403, take emergency action and write to stderr
     if response.status_code == 403:
         messagedom = parseString(response.content)
         message = messagedom.getElementsByTagName('Message')[0].childNodes[0].data
-        print('ELEX ERROR: %s' % message, file=sys.stderr)
+        print('ELEX ERROR: %s (url: %s)' % (message, response.url), file=sys.stderr)
 
     return response
 
