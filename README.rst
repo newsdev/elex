@@ -17,9 +17,35 @@ Important links:
 * Repository: https://github.com/newsdev/elex/
 * Issues: https://github.com/newsdev/elex/issues
 * Roadmap: https://github.com/newsdev/elex/milestones
-* Demo implementation: https://github.com/nprapps/ap-election-loader
 
-Still using the AP's FTP system for results? Use the Los Angeles Times' `python-elections <https://github.com/datadesk/python-elections>`_ library.
+Elex projects and implementations
+=================================
+
+NPR
+---
+
+* `NPR loader <https://github.com/nprapps/ap-election-loader>`_: A simple reference data loader for PostgreSQL.
+
+New York Times
+--------------
+
+* `New York Times loader <https://github.com/newsdev/elex-loader>`_: A more sophisticated data loader for PostgreSQL.
+* `New York Times Deja Vu <https://github.com/newsdev/ap-deja-vu>`_: A webservice to replay JSON captured during an election.
+* `New York Times Elex Admin <https://github.com/newsdev/elex-admin>`_: An admin interface for Elex data loaded with the New York Times loader written in Flask.
+
+News
+====
+
+* `NPR and The New York Times teamed up to make election reporting faster <http://www.poynter.org/news/mediawire/388642/npr-and-the-new-york-times-teamed-up-to-make-election-reporting-faster/>`_, Ben Mullins, Poynter
+* `Introducing Elex, A Tool To Make Election Coverage Better For Everyone <https://source.opennews.org/en-US/articles/introducing-elex-tool-make-election-coverage-bette/>`_, Jeremy Bowers and David Eads, Source
+
+Using the FTP system?
+=====================
+
+Use the Los Angeles Times' `python-elections <https://github.com/datadesk/python-elections>`_ library.
+
+Status
+======
 
 .. image:: https://travis-ci.org/newsdev/elex.png
     :target: https://travis-ci.org/newsdev/elex
