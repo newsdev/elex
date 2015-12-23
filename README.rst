@@ -2,6 +2,26 @@
 ELEX
 ====
 
+.. image:: https://travis-ci.org/newsdev/elex.png
+    :target: https://travis-ci.org/newsdev/elex
+    :alt: Build status
+
+.. image:: https://img.shields.io/pypi/dw/elex.svg
+    :target: https://pypi.python.org/pypi/elex
+    :alt: PyPI downloads
+
+.. image:: https://img.shields.io/pypi/v/elex.svg
+    :target: https://pypi.python.org/pypi/elex
+    :alt: Version
+
+.. image:: https://img.shields.io/pypi/l/elex.svg
+    :target: https://github.com/newsdev/elex/blob/master/LICENSE
+    :alt: License
+
+.. image:: https://img.shields.io/pypi/pyversions/elex.svg
+    :target: https://pypi.python.org/pypi/elex
+    :alt: Support Python versions
+
 Get database-ready election results from the Associated Press Election API v2.0.
 
 Elex is designed to be fast, friendly, and largely agnostic to stack/language/database choice. Basic usage is
@@ -43,26 +63,3 @@ Using the FTP system?
 =====================
 
 Use the Los Angeles Times' `python-elections <https://github.com/datadesk/python-elections>`_ library.
-
-Status
-======
-
-.. image:: https://travis-ci.org/newsdev/elex.png
-    :target: https://travis-ci.org/newsdev/elex
-    :alt: Build status
-
-.. image:: https://img.shields.io/pypi/dw/elex.svg
-    :target: https://pypi.python.org/pypi/elex
-    :alt: PyPI downloads
-
-.. image:: https://img.shields.io/pypi/v/elex.svg
-    :target: https://pypi.python.org/pypi/elex
-    :alt: Version
-
-.. image:: https://img.shields.io/pypi/l/elex.svg
-    :target: https://github.com/newsdev/elex/blob/master/LICENSE
-    :alt: License
-
-.. image:: https://img.shields.io/pypi/pyversions/elex.svg
-    :target: https://pypi.python.org/pypi/elex
-    :alt: Support Python versions
