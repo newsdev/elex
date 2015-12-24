@@ -22,6 +22,8 @@ ELEX
     :target: https://pypi.python.org/pypi/elex
     :alt: Support Python versions
 
+*Elex was developed by The New York Times and NPR and not in concert with the Associated Press. Though we plan on using Elex for the 2016 cycle, there is no guarantee that this software will work for you. If you’re thinking about using Elex, check out the `license <https://github.com/newsdev/elex/blob/master/LICENSE>`_ and contact the authors.*
+
 Get database-ready election results from the Associated Press Election API v2.0.
 
 Elex is designed to be fast, friendly, and largely agnostic to stack/language/database choice. Basic usage is
