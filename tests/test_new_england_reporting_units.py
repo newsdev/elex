@@ -38,3 +38,15 @@ class TestCandidate(tests.ElectionResultsTestCase):
         maine_counties = [r for r in maine_results if r.level == 'county']
         count_maine_counties = len(maps.FIPS_TO_STATE['ME'].keys())
         self.assertEqual(len(maine_counties), count_maine_counties)
+
+    def test_maine_counties_have_statepostal(self):
+        maine_results = [r for r in self.reporting_units if r.raceid == '20978']
+        maine_counties = [r for r in maine_results if r.level == 'county']
+        for c in maine_counties:
+            self.assertEqual(c.statepostal, 'ME')
+
+    def test_maine_counties_have_statename(self):
+        maine_results = [r for r in self.reporting_units if r.raceid == '20978']
+        maine_counties = [r for r in maine_results if r.level == 'county']
+        for c in maine_counties:
+            self.assertEqual(c.statename, 'Maine')

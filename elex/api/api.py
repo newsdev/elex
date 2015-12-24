@@ -28,8 +28,8 @@ class APElection(utils.UnicodeMixin):
         Set state fields.
         """
         if len(self.reportingunits) > 0:
-            setattr(self, 'statepostal', self.reportingunits[-1].statepostal)
-            setattr(self, 'statename', maps.STATE_ABBR[self.statepostal])
+            setattr(self, 'statepostal', str(self.reportingunits[-1].statepostal))
+            setattr(self, 'statename', str(maps.STATE_ABBR[self.statepostal]))
 
     def set_reportingunits(self):
         """
@@ -406,6 +406,10 @@ class ReportingUnit(APElection):
         self.electiondate = kwargs.get('electiondate', None)
         self.statepostal = kwargs.get('statePostal', None)
         self.statename = kwargs.get('stateName', None)
+        if kwargs.get('statepostal', None):
+            self.statepostal = kwargs['statepostal']
+        if kwargs.get('statename', None):
+            self.statename = kwargs['statename']
         self.level = kwargs.get('level', None)
         self.reportingunitname = kwargs.get('reportingunitName', None)
         self.reportingunitid = kwargs.get('reportingunitID', None)
@@ -428,6 +432,7 @@ class ReportingUnit(APElection):
         self.national = kwargs.get('national', False)
         self.candidates = kwargs.get('candidates', [])
         self.votecount = kwargs.get('votecount', 0)
+
 
         self.set_level()
         self.pad_fipscode()
@@ -605,6 +610,7 @@ class Race(APElection):
                 cands = list([dict(c) for c in ru['candidates'].values()])
                 del ru['candidates']
                 ru['candidates'] = [c for c in cands]
+                ru['statename'] = str(maps.STATE_ABBR[ru['statepostal']])
                 r = ReportingUnit(**ru)
                 self.reportingunits.append(r)
 
