@@ -28,7 +28,7 @@ class APElection(utils.UnicodeMixin):
         Set state fields.
         """
         if len(self.reportingunits) > 0:
-            setattr(self, 'statepostal', self.reportingunits[0].statepostal)
+            setattr(self, 'statepostal', self.reportingunits[-1].statepostal)
             setattr(self, 'statename', maps.STATE_ABBR[self.statepostal])
 
     def set_reportingunits(self):
@@ -275,6 +275,7 @@ class CandidateReportingUnit(APElection):
     def __init__(self, **kwargs):
         self.id = None
         self.unique_id = None
+        self.electiondate = kwargs.get('electiondate', None)
         self.first = kwargs.get('first', None)
         self.last = kwargs.get('last', None)
         self.party = kwargs.get('party', None)
@@ -354,6 +355,7 @@ class CandidateReportingUnit(APElection):
             ('ballotorder', self.ballotorder),
             ('candidateid', self.candidateid),
             ('description', self.description),
+            ('electiondate', self.electiondate),
             ('fipscode', self.fipscode),
             ('first', self.first),
             ('incumbent', self.incumbent),
@@ -401,6 +403,7 @@ class ReportingUnit(APElection):
     level of reporting.
     """
     def __init__(self, **kwargs):
+        self.electiondate = kwargs.get('electiondate', None)
         self.statepostal = kwargs.get('statePostal', None)
         self.statename = kwargs.get('stateName', None)
         self.level = kwargs.get('level', None)
@@ -492,6 +495,7 @@ class ReportingUnit(APElection):
             ('reportingunitid', self.reportingunitid),
             ('reportingunitname', self.reportingunitname),
             ('description', self.description),
+            ('electiondate', self.electiondate),
             ('fipscode', self.fipscode),
             ('initialization_data', self.initialization_data),
             ('lastupdated', self.lastupdated),
@@ -525,6 +529,7 @@ class Race(APElection):
     within a certain election.
     """
     def __init__(self, **kwargs):
+        self.electiondate = kwargs.get('electiondate', None)
         self.statepostal = kwargs.get('statePostal', None)
         self.statename = kwargs.get('stateName', None)
         self.test = kwargs.get('test', False)
@@ -619,6 +624,7 @@ class Race(APElection):
             ('racetype', self.racetype),
             ('racetypeid', self.racetypeid),
             ('description', self.description),
+            ('electiondate', self.electiondate),
             ('initialization_data', self.initialization_data),
             ('lastupdated', self.lastupdated),
             ('national', self.national),
@@ -807,22 +813,25 @@ class Election(APElection):
             return payload
         return [Race(**r) for r in parsed_json['races']]
 
-    def get_units(self, raw_races):
+    def get_units(self, race_objs):
         """
         Parses out races, reporting_units,
         and candidate_reporting_units in a
-        single loop over the raw race JSON.
+        single loop over the race objects.
 
-        :param raw_races:
-            Raw race JSON.
+        :param race_objs:
+            A list of top-level Race objects.
         """
         races = []
         reporting_units = []
         candidate_reporting_units = []
-        for race in raw_races:
+        for race in race_objs:
+            race.electiondate = self.electiondate
             if not race.initialization_data:
                 for unit in race.reportingunits:
+                    unit.electiondate = self.electiondate
                     for candidate in unit.candidates:
+                        candidate.electiondate = self.electiondate
                         candidate_reporting_units.append(candidate)
                     del unit.candidates
                     reporting_units.append(unit)
@@ -831,6 +840,7 @@ class Election(APElection):
                 races.append(race)
             else:
                 for candidate in race.candidates:
+                    candidate.electiondate = self.electiondate
                     candidate_reporting_units.append(candidate)
                 del race.candidates
                 del race.reportingunits

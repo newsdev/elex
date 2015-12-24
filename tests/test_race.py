@@ -99,6 +99,14 @@ class TestRaceResults(tests.ElectionResultsTestCase):
         race = self.races[-1]
         self.assertEqual(race.racetypeid, 'G')
 
+    def test_existence_of_electiondate(self):
+        race = self.races[-1]
+        self.assertTrue(hasattr(race, 'electiondate'))
+
+    def test_correct_electiondate(self):
+        race = self.races[-1]
+        self.assertEqual('2015-11-03', race.electiondate)
+
 class TestRaceInitialization(tests.ElectionResultsTestCase):
     data_url = 'tests/data/20151103_national_initialization.json'
 
