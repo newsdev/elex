@@ -19,8 +19,6 @@ def require_date_argument(fn):
             except ValueError:
                 puts(colored.yellow('Whoa there, friend! There was an error:\n'))
                 puts('{0} could not be recognized as a date.\n'.format(colored.green(self.app.pargs.date[0])))
-        elif self.app.pargs.data_file:
-            self.app.election.electiondate = 'data file: {0}'.format(self.app.pargs.data_file)
             return fn(self)
         else:
             puts(colored.yellow('Please specify an election date (e.g. `elex {0} 2015-11-03`) or data file (e.g. `elex {0} --data-file path/to/file.json`). \n\nRun `elex` for help.\n'.format(name)))
