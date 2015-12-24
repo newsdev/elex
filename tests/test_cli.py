@@ -12,6 +12,7 @@ from elex.cli.app import ElexApp
 from six import with_metaclass
 
 DATA_FILE = 'tests/data/20151103_national.json'
+DATA_ELECTION_DATE = '2015-11-03'
 ELECTIONS_DATA_FILE = 'tests/data/00000000_elections.json'
 
 TEST_COMMANDS = [
@@ -119,7 +120,7 @@ class ElexCLICSVTestCase(with_metaclass(ElexCLICSVTestMeta, tests.ElectionResult
         fields, data = self._test_command(command='next-election', datafile=ELECTIONS_DATA_FILE, electiondate='2015-08-04')
         self.assertEqual(data[0]['testresults'], 'False')
 
-    def _test_command(self, command, datafile=DATA_FILE, electiondate=None):
+    def _test_command(self, command, datafile=DATA_FILE, electiondate=DATA_ELECTION_DATE):
         """
         Execute an `elex` sub-command; returns fieldnames and rows
         """
@@ -242,7 +243,7 @@ class ElexCLIJSONTestCase(with_metaclass(ElexCLIJSONTestMeta, tests.ElectionResu
         fields, data = self._test_command(command='next-election', datafile=ELECTIONS_DATA_FILE, electiondate='2015-08-04')
         self.assertEqual(data[0]['testresults'], False)
 
-    def _test_command(self, command, datafile=DATA_FILE, electiondate=None):
+    def _test_command(self, command, datafile=DATA_FILE, electiondate=DATA_ELECTION_DATE):
         """
         Execute an `elex` sub-command; returns fieldnames and rows
         """
@@ -251,8 +252,7 @@ class ElexCLIJSONTestCase(with_metaclass(ElexCLIJSONTestMeta, tests.ElectionResu
 
         argv = [command]
 
-        if electiondate is not None:
-            argv.append(electiondate)
+        argv.append(electiondate)
 
         argv = argv + ['--data-file', datafile, '-o', 'json']
 

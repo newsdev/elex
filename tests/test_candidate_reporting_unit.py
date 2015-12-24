@@ -50,6 +50,14 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
         cru = self.candidate_reporting_units[0]
         self.assertEqual(cru.__module__, 'elex.api.api')
 
+    def test_existence_of_electiondate(self):
+        cru = self.candidate_reporting_units[0]
+        self.assertTrue(hasattr(cru, 'electiondate'))
+
+    def test_correct_electiondate(self):
+        cru = self.candidate_reporting_units[0]
+        self.assertEqual('2015-11-03', cru.electiondate)
+
     def test_candidate_reporting_unit_get_units_construction_raceid(self):
         cru = self.candidate_reporting_units[(4*64)+1]
         self.assertEqual(cru.raceid, '18525')
@@ -194,7 +202,7 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
 
     def test_candidate_reporting_unit_serialization_order(self):
         cru = list(self.candidate_reporting_units[(4*64)+1].serialize())
-        self.assertEqual(cru, ['id','unique_id','raceid','racetype','racetypeid','ballotorder','candidateid','description','fipscode','first','incumbent','initialization_data','is_ballot_measure','last','lastupdated','level','national','officeid','officename','party','polid','polnum','precinctsreporting','precinctsreportingpct','precinctstotal','reportingunitid','reportingunitname','runoff','seatname','seatnum','statename','statepostal','test','uncontested','votecount','votepct','winner'])
+        self.assertEqual(cru, ['id','unique_id','raceid','racetype','racetypeid','ballotorder','candidateid','description','electiondate','fipscode','first','incumbent','initialization_data','is_ballot_measure','last','lastupdated','level','national','officeid','officename','party','polid','polnum','precinctsreporting','precinctsreportingpct','precinctstotal','reportingunitid','reportingunitname','runoff','seatname','seatnum','statename','statepostal','test','uncontested','votecount','votepct','winner'])
 
     def test_unique_ids(self):
         all_ids = list([b.id for b in self.candidate_reporting_units])
