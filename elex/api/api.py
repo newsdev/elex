@@ -88,6 +88,7 @@ class APElection(utils.UnicodeMixin):
             for k, v in self.__dict__.items():
                 candidate_dict[k] = v
 
+            candidate_dict['is_ballot_measure'] = False
             if hasattr(self, 'officeid') and getattr(self, 'officeid') == 'I':
                 candidate_dict['is_ballot_measure'] = True
 
