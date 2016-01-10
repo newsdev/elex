@@ -405,20 +405,45 @@ class ReportingUnit(APElection):
     """
     def __init__(self, **kwargs):
         self.electiondate = kwargs.get('electiondate', None)
+
         self.statepostal = kwargs.get('statePostal', None)
-        self.statename = kwargs.get('stateName', None)
         if kwargs.get('statepostal', None):
             self.statepostal = kwargs['statepostal']
+
+        self.statename = kwargs.get('stateName', None)
         if kwargs.get('statename', None):
             self.statename = kwargs['statename']
+
         self.level = kwargs.get('level', None)
+
         self.reportingunitname = kwargs.get('reportingunitName', None)
+        if kwargs.get('reportingunitname', None):
+            self.reportingunitname = kwargs['reportingunitname']
+
         self.reportingunitid = kwargs.get('reportingunitID', None)
+        if kwargs.get('reportingunitid', None):
+            self.reportingunitid = kwargs['reportingunitid']
+
         self.fipscode = kwargs.get('fipsCode', None)
+        if kwargs.get('fipscode', None):
+            self.fipscode = kwargs['fipscode']
+
         self.lastupdated = kwargs.get('lastUpdated', None)
+        if kwargs.get('lastupdated', None):
+            self.lastupdated = kwargs['lastupdated']
+
         self.precinctsreporting = kwargs.get('precinctsReporting', 0)
+        if kwargs.get('precinctsreporting', None):
+            self.precinctsreporting = kwargs['precinctsreporting']
+
         self.precinctstotal = kwargs.get('precinctsTotal', 0)
+        if kwargs.get('precinctstotal', None):
+            self.precinctstotal = kwargs['precinctstotal']
+
         self.precinctsreportingpct = kwargs.get('precinctsReportingPct', 0.0)
+        if kwargs.get('precinctsreportingpct', None):
+            self.precinctsreportingpct = kwargs['precinctsreportingpct']
+
         self.uncontested = kwargs.get('uncontested', False)
         self.test = kwargs.get('test', False)
         self.raceid = kwargs.get('raceid', None)
@@ -587,7 +612,7 @@ class Race(APElection):
                 if not results.get(ru.fipscode, None):
                     results[ru.fipscode] = dict(ru.__dict__)
                     results[ru.fipscode]['level'] = 'county'
-                    results[ru.fipscode]['reportingunitid'] = None
+                    results[ru.fipscode]['reportingunitid'] = "%s-%s" % (ru.statepostal, ru.fipscode)
                     results[ru.fipscode]['reportingunitname'] =  maps.FIPS_TO_STATE[ru.statepostal][ru.fipscode]
                     results[ru.fipscode]['candidates'] = OrderedDict()
 
@@ -596,7 +621,7 @@ class Race(APElection):
                         if not results[ru.fipscode]['candidates'].get(c.unique_id, None):
                             results[ru.fipscode]['candidates'][c.unique_id] = dict(c.__dict__)
                             results[ru.fipscode]['candidates'][c.unique_id]['level'] = 'county'
-                            results[ru.fipscode]['candidates'][c.unique_id]['reportingunitid'] = None
+                            results[ru.fipscode]['candidates'][c.unique_id]['reportingunitid'] = "%s-%s" % (ru.statepostal, ru.fipscode)
                             results[ru.fipscode]['candidates'][c.unique_id]['reportingunitname'] =  maps.FIPS_TO_STATE[ru.statepostal][ru.fipscode]
                         else:
                             results[ru.fipscode]['candidates'][c.unique_id]['votecount'] += c.votecount
@@ -612,7 +637,11 @@ class Race(APElection):
                 del ru['candidates']
                 ru['candidates'] = [c for c in cands]
                 ru['statename'] = str(maps.STATE_ABBR[ru['statepostal']])
+                # if ru['statepostal'] == "MA" and ru['raceid'] == "24547":
+                #     print ru
                 r = ReportingUnit(**ru)
+                # if r.statepostal == "MA" and r.raceid == "24547":
+                #     print r.__dict__
                 self.reportingunits.append(r)
 
     def set_id_field(self):
