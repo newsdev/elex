@@ -50,3 +50,13 @@ class TestCandidate(tests.ElectionResultsTestCase):
         maine_counties = [r for r in maine_results if r.level == 'county']
         for c in maine_counties:
             self.assertEqual(c.statename, 'Maine')
+
+    def test_main_counties_have_votecouts(self):
+        """
+        From ticket 0179.
+        Vote count is camelcased.
+        """
+        maine_results = [r for r in self.reporting_units if r.raceid == '20978']
+        maine_counties = [r for r in maine_results if r.level == 'county']
+        for c in maine_counties:
+            self.assertFalse(c.votecount == 0)
