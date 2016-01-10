@@ -280,12 +280,29 @@ class CandidateReportingUnit(APElection):
         self.first = kwargs.get('first', None)
         self.last = kwargs.get('last', None)
         self.party = kwargs.get('party', None)
+
         self.candidateid = kwargs.get('candidateID', None)
+        if kwargs.get('statename', None):
+            self.statename = kwargs['statename']
+
         self.polid = kwargs.get('polID', None)
+        if kwargs.get('polid', None):
+            self.polid = kwargs['polid']
+
         self.ballotorder = kwargs.get('ballotOrder', None)
+
         self.polnum = kwargs.get('polNum', None)
+        if kwargs.get('polnum', None):
+            self.polnum = kwargs['polnum']
+
         self.votecount = kwargs.get('voteCount', 0)
+        if kwargs.get('votecount', None):
+            self.votecount = kwargs['votecount']
+
         self.votepct = kwargs.get('votePct', 0.0)
+        if kwargs.get('votepct', None):
+            self.votepct = kwargs['votepct']
+
         self.winner = kwargs.get('winner', False) == 'X'
         self.runoff = kwargs.get('winner', False) == 'R'
         self.is_ballot_measure = kwargs.get('is_ballot_measure', None)
