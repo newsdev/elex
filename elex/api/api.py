@@ -637,11 +637,7 @@ class Race(APElection):
                 del ru['candidates']
                 ru['candidates'] = [c for c in cands]
                 ru['statename'] = str(maps.STATE_ABBR[ru['statepostal']])
-                # if ru['statepostal'] == "MA" and ru['raceid'] == "24547":
-                #     print ru
                 r = ReportingUnit(**ru)
-                # if r.statepostal == "MA" and r.raceid == "24547":
-                #     print r.__dict__
                 self.reportingunits.append(r)
 
     def set_id_field(self):
