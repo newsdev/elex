@@ -41,7 +41,7 @@ class TestRaceResults(tests.ElectionResultsTestCase):
 
     def test_race_object_inflation_module(self):
         race = self.race_objs[0]
-        self.assertEqual(race.__module__, 'elex.api.api')
+        self.assertEqual(race.__module__, 'elex.api.models')
 
     def test_race_attribute_construction_officeid(self):
         race = self.race_objs[-1]

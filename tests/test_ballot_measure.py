@@ -8,7 +8,7 @@ class TestBallotPosition(tests.ElectionResultsTestCase):
     def test_ballot_measure_inflation(self):
         bp = self.ballot_measures[0]
         self.assertEqual(type(bp).__name__, 'BallotMeasure')
-        self.assertEqual(bp.__module__, 'elex.api.api')
+        self.assertEqual(bp.__module__, 'elex.api.models')
 
     def test_ballot_measure_attributes(self):
         c = self.ballot_measures[0]

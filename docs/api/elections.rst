@@ -1,7 +1,7 @@
 ======================
-elex.api.api.Elections
+elex.api.Elections
 ======================
 
-.. autoclass:: elex.api.api.Elections
+.. autoclass:: elex.api.Elections
     :members:
     :undoc-members:

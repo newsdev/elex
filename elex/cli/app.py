@@ -5,7 +5,7 @@ from cement.ext.ext_logging import LoggingLogHandler
 from elex import __version__ as VERSION
 from elex.cli.hooks import add_election_hook
 from elex.cli.decorators import require_date_argument, require_ap_api_key
-from elex.api.api import Elections
+from elex.api import Elections
 
 LOG_FORMAT = '%(asctime)s (%(levelname)s) %(namespace)s (v{0}) : %(message)s'.format(VERSION)
 
