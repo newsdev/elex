@@ -1,9 +1,18 @@
 import unittest
 
-from elex.api import Election, utils
+from elex.api import Election, DelegateReport, utils
 from time import sleep
 
 API_MESSAGE = "We require that you export AP_API_KEY in your environment in order to test AP connectivity."
+
+
+class DelegateReportTestCase(unittest.TestCase):
+    delsuper_datafile = 'tests/data/20160118_delsuper.json'
+    delsum_datafile = 'tests/data/20160118_delsum.json'
+
+    def setUp(self, **kwargs):
+        d = DelegateReport(delsuper_datafile=self.delsuper_datafile, delsum_datafile=self.delsum_datafile)
+        self.delegate_reports = d.candidates
 
 
 class ElectionResultsTestCase(unittest.TestCase):

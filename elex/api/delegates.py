@@ -67,7 +67,9 @@ class DelegateReport(utils.UnicodeMixin):
 
     def __init__(self, **kwargs):
         self.candidates = {}
-        self.load_raw_data()
+        self.load_raw_data(
+            delsuper_datafile=kwargs.get('delsuper_datafile', None),
+            delsum_datafile=kwargs.get('delsum_datafile', None))
         self.parse_super()
         self.parse_sum()
         self.output_candidates()
@@ -115,18 +117,29 @@ class DelegateReport(utils.UnicodeMixin):
                     self.candidates[candidate['cId']][state['sId']]['party_total'] = int(party['dVotes'])
                     self.candidates[candidate['cId']][state['sId']]['state'] = state['sId']
                     self.candidates[candidate['cId']][state['sId']]['level'] = 'state'
-                    if state['sId'] == "US":
+                    if state['sId'] == 'US':
                         self.candidates[candidate['cId']][state['sId']]['level'] = 'nation'
                     self.candidates[candidate['cId']][state['sId']]['candidateid'] = candidate['cId']
                     self.candidates[candidate['cId']][state['sId']]['last'] = candidate['cName']
                     self.candidates[candidate['cId']][state['sId']]['delegates_count'] = int(candidate['dTot'])
 
-    def load_raw_data(self):
+    def load_raw_data(self, delsuper_datafile, delsum_datafile):
         """
         Gets underlying data lists we need for parsing.
         """
-        self.raw_sum_delegates = self.get_ap_report('2db35295d17f41328b21ae1f58572bc7', 'delSum')
-        self.raw_super_delegates = self.get_ap_report('6b3608587a78409698af0d3cd4748b30', 'delSuper')
+        if delsum_datafile:
+            self.raw_sum_delegates = self.get_ap_file(delsum_datafile, 'delSum')
+        else:
+            self.raw_sum_delegates = self.get_ap_report('2db35295d17f41328b21ae1f58572bc7', 'delSum')
+
+        if delsuper_datafile:
+            self.raw_super_delegates = self.get_ap_file(delsuper_datafile, 'delSuper')
+        else:
+            self.raw_super_delegates = self.get_ap_report('6b3608587a78409698af0d3cd4748b30', 'delSuper')
+
+    def get_ap_file(self, path, key):
+        with open(path, 'r') as readfile:
+            return dict(json.loads(readfile.read()))[key]['del']
 
     def get_ap_report(self, report_number, key, params={}):
         """
