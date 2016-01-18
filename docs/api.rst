@@ -9,15 +9,14 @@ To use the election loader manually from within your project:
 
 .. code:: python
 
-    from elex.api import api
+    from elex.api import Election
 
-    election = api.Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
+    election = Election(electiondate='2015-11-03', testresults=False, liveresults=True, is_test=False)
     races = election.races
 
 Now you can process or load ``races``.
 
-Models
-=========
+Models:
 
 .. toctree::
     api/election
@@ -29,8 +28,7 @@ Models
     api/baseobject
     api/elections
 
-Utilities
-=========
+Utilities:
 
 .. toctree::
     api/utils

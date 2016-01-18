@@ -1,7 +1,7 @@
 =========================
-elex.api.api.Candidate
+elex.api.Candidate
 =========================
 
-.. autoclass:: elex.api.api.Candidate
+.. autoclass:: elex.api.Candidate
     :members:
     :undoc-members:
