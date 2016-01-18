@@ -58,6 +58,8 @@ class CandidateDelegateReport(utils.UnicodeMixin):
 class DelegateReport(utils.UnicodeMixin):
     """
     Base class for a single load of AP delegate counts.
+    d = DelegateReport()
+    [z.__dict__ for z in d.candidates]
     """
     candidates = None
     raw_super_delegates = None
@@ -78,7 +80,10 @@ class DelegateReport(utils.UnicodeMixin):
         candidates = []
         for _, c in self.candidates.items():
             for __, cd in c.items():
-                candidates.append(CandidateDelegateReport(**cd))
+                try:
+                    candidates.append(CandidateDelegateReport(**cd))
+                except TypeError:
+                    pass
         self.candidates = list(candidates)
 
     def parse_sum(self):
