@@ -11,7 +11,7 @@ class TestCandidate(tests.ElectionResultsTestCase):
 
     def test_candidate_object_inflation_module(self):
         c = self.candidates[0]
-        self.assertEqual(c.__module__, 'elex.api.api')
+        self.assertEqual(c.__module__, 'elex.api.models')
 
     def test_candidate_attributes_first(self):
         c = self.candidates[0]

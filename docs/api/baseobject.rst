@@ -1,8 +1,8 @@
 ==========================
-elex.api.api.APElection
+elex.api.APElection
 ==========================
 
-.. autoclass:: elex.api.api.APElection
+.. autoclass:: elex.api.APElection
     :members:
     :undoc-members:
 

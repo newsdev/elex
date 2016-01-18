@@ -48,7 +48,7 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
 
     def test_candidate_reporting_unit_object_inflation_module(self):
         cru = self.candidate_reporting_units[0]
-        self.assertEqual(cru.__module__, 'elex.api.api')
+        self.assertEqual(cru.__module__, 'elex.api.models')
 
     def test_existence_of_electiondate(self):
         cru = self.candidate_reporting_units[0]
