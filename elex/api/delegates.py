@@ -80,8 +80,8 @@ class DelegateReport(utils.UnicodeMixin):
         into a single list of candidates at each reporting level.
         """
         candidates = []
-        for _, c in self.candidates.items():
-            for __, cd in c.items():
+        for _, c in list(self.candidates.items()):
+            for __, cd in list(c.items()):
                 try:
                     candidates.append(CandidateDelegateReport(**cd))
                 except TypeError:
@@ -92,9 +92,9 @@ class DelegateReport(utils.UnicodeMixin):
         """
         Parses the delsum JSON produced by the AP.
         """
-        for _, c in self.candidates.items():
-            for __, cd in c.items():
-                for party in self.raw_sum_delegates:
+        for _, c in list(self.candidates.items()):
+            for __, cd in list(c.items()):
+                for party in list(self.raw_sum_delegates):
                     if cd['party'] == party['pId']:
                         c['delegates_committed'] = party['dChosen']
                         c['delegates_uncommitted'] = party['dToBeChosen']
