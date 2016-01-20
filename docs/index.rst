@@ -24,5 +24,6 @@ Table of contents
     cli
     api
     recording
+    recipes
     contributing
     changelog
