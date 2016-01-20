@@ -12,6 +12,8 @@ from elex.cli.app import ElexApp
 from six import with_metaclass
 
 DATA_FILE = 'tests/data/20151103_national.json'
+DELSUM_DATA_FILE = 'tests/data/20160118_delsum.json'
+DELSUPER_DATA_FILE = 'tests/data/20160118_delsuper.json'
 DATA_ELECTION_DATE = '2015-11-03'
 ELECTIONS_DATA_FILE = 'tests/data/00000000_elections.json'
 
@@ -21,6 +23,7 @@ TEST_COMMANDS = [
     'reporting-units',
     'candidate-reporting-units',
     'results',
+    'delegates',
 ]
 
 
@@ -120,7 +123,7 @@ class ElexCLICSVTestCase(with_metaclass(ElexCLICSVTestMeta, tests.ElectionResult
         fields, data = self._test_command(command='next-election', datafile=ELECTIONS_DATA_FILE, electiondate='2015-08-04')
         self.assertEqual(data[0]['testresults'], 'False')
 
-    def _test_command(self, command, datafile=DATA_FILE, electiondate=DATA_ELECTION_DATE):
+    def _test_command(self, command, datafile=DATA_FILE, delsum_datafile=DELSUM_DATA_FILE, delsuper_datafile=DELSUPER_DATA_FILE, electiondate=DATA_ELECTION_DATE):
         """
         Execute an `elex` sub-command; returns fieldnames and rows
         """
@@ -133,6 +136,8 @@ class ElexCLICSVTestCase(with_metaclass(ElexCLICSVTestMeta, tests.ElectionResult
             argv.append(electiondate)
 
         argv = argv + ['--data-file', datafile]
+        argv = argv + ['--delegate-sum-file', delsum_datafile]
+        argv = argv + ['--delegate-super-file', delsuper_datafile]
 
         app = ElexApp(argv=argv)
 
