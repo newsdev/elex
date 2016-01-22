@@ -32,7 +32,7 @@ def require_ap_api_key(fn):
     """
     @wraps(fn)
     def decorated(self):
-        if not self.app.pargs.data_file and not os.environ.get("AP_API_KEY", None):
+        if not self.app.pargs.data_file and not (self.app.pargs.delegate_sum_file and self.app.pargs.delegate_super_file) and not os.environ.get("AP_API_KEY", None):
             puts(colored.yellow('Whoa there, friend! There was an error:\n'))
             puts('You have not exported {0} as an environment variable.\n'.format(colored.green("AP_API_KEY")))
         else:
