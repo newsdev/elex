@@ -108,9 +108,12 @@ class ElexCLITestMeta(type):
                 api_data = getattr(self, command.replace('-', '_'))
                 for i, row in enumerate(cli_data):
                     for k, v in api_data[i].serialize().items():
-                        if v is None:
-                            v = ''
-                        self.assertEqual(str(row[k]), str(v))
+                        # Coerce to all comparison values to strings to handle the
+                        # inconsistencies between API and json (which are both typed)
+                        # and CSV (which isn't typed).
+                        cli_value = '' if row[k] is None else str(row[k])
+                        api_value = '' if v is None else str(v)
+                        self.assertEqual(cli_value, api_value)
 
             return test
 
