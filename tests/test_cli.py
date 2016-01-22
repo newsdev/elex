@@ -108,7 +108,10 @@ class ElexCLITestMeta(type):
                 api_data = getattr(self, command.replace('-', '_'))
                 for i, row in enumerate(cli_data):
                     for k, v in api_data[i].serialize().items():
-                        self.assertEqual(row[k], v)
+                        if v is None:
+                            v = ''
+                        self.assertEqual(str(row[k]), str(v))
+
             return test
 
         for command in TEST_COMMANDS:
