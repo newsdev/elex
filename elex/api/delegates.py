@@ -142,10 +142,8 @@ class DelegateReport(utils.UnicodeMixin):
 
     def get_ap_file(self, path, key):
         with open(path, 'r') as readfile:
-            print(path)
-            print(readfile)
-            return {}
-            #return dict(json.loads(readfile.read()))[key]['del']
+            data = json.load(readfile)
+            return data[key]['del']
 
     def get_ap_report(self, key, params={}):
         """
