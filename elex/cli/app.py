@@ -6,6 +6,7 @@ from elex import __version__ as VERSION
 from elex.cli.hooks import add_election_hook
 from elex.cli.decorators import require_date_argument, require_ap_api_key
 from elex.api import Elections
+from elex.api import DelegateReport
 
 LOG_FORMAT = '%(asctime)s (%(levelname)s) %(namespace)s (v{0}) : %(message)s'.format(VERSION)
 
@@ -19,6 +20,11 @@ class ElexBaseController(CementBaseController):
         label = 'base'
         description = "Get and process AP elections data"
         arguments = [
+            (['date'], dict(
+                nargs='*',
+                action='store',
+                help='Election date (e.g. "2015-11-03"; most common date formats accepted).'
+            )),
             (['-t', '--test'], dict(
                 action='store_true',
                 help='Use testing API calls'
@@ -29,20 +35,23 @@ class ElexBaseController(CementBaseController):
             )),
             (['-d', '--data-file'], dict(
                 action='store',
-                help='Specify data file instead of making HTTP request'
+                help='Specify data file instead of making HTTP request when using election commands like `elex results` and `elex races`.'
+            )),
+            (['--delegate-sum-file'], dict(
+                action='store',
+                help='Specify delegate sum report file instead of making HTTP request when using `elex delegates`'
+            )),
+            (['--delegate-super-file'], dict(
+                action='store',
+                help='Specify delegate super report file instead of making HTTP request when using `elex delegates`'
             )),
             (['--format-json'], dict(
                 action='store_true',
-                help='Pretty print JSON (only when using -o json)'
+                help='Pretty print JSON when using `-o json`.'
             )),
             (['-v', '--version'], dict(
                 action='version',
                 version=BANNER
-            )),
-            (['date'], dict(
-                nargs='*',
-                action='store',
-                help='Election date (e.g. "2015-11-03"; most common date formats accepted).'
             )),
         ]
 
@@ -146,6 +155,20 @@ class ElexBaseController(CementBaseController):
         self.app.log.info('Getting election list')
         elections = Elections().get_elections(datafile=self.app.pargs.data_file)
         self.app.render(elections)
+
+    @expose(help="Get all delegate reports")
+    @require_ap_api_key
+    def delegates(self):
+        """
+        Provide all delegate reports
+        """
+        self.app.log.info('Getting delegate reports')
+        if self.app.pargs.delegate_super_file and self.app.pargs.delegate_sum_file:
+            report = DelegateReport(delsuper_datafile=self.app.pargs.delegate_super_file, delsum_datafile=self.app.pargs.delegate_sum_file)
+        else:
+            report = DelegateReport()
+
+        self.app.render(report.candidate_objects)
 
     @expose(help="Get the next election (if date is specified, will be relative to that date, otherwise will use today's date)")
     @require_ap_api_key

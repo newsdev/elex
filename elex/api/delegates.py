@@ -8,6 +8,7 @@ import os
 
 import requests
 
+from collections import OrderedDict
 from elex.api import utils
 
 
@@ -61,11 +62,10 @@ class DelegateReport(utils.UnicodeMixin):
     d = DelegateReport()
     [z.__dict__ for z in d.candidates]
     """
-    candidates = None
-    raw_super_delegates = None
-    raw_sum_delegates = None
 
     def __init__(self, **kwargs):
+        self.reports = None
+        self.candidate_objects = []
         self.candidates = {}
         self.load_raw_data(
             delsuper_datafile=kwargs.get('delsuper_datafile', None),
@@ -79,25 +79,28 @@ class DelegateReport(utils.UnicodeMixin):
         Transforms our multi-layered dict of candidates / states
         into a single list of candidates at each reporting level.
         """
-        candidates = []
-        for _, c in list(self.candidates.items()):
-            for __, cd in list(c.items()):
+        for c in self.candidates.values():
+            for cd in c.values():
                 try:
-                    candidates.append(CandidateDelegateReport(**cd))
+                    self.candidate_objects.append(CandidateDelegateReport(**cd))
                 except TypeError:
                     pass
-        self.candidates = list(candidates)
 
     def parse_sum(self):
         """
         Parses the delsum JSON produced by the AP.
         """
-        for _, c in list(self.candidates.items()):
-            for __, cd in list(c.items()):
-                for party in list(self.raw_sum_delegates):
-                    if cd['party'] == party['pId']:
-                        c['delegates_committed'] = party['dChosen']
-                        c['delegates_uncommitted'] = party['dToBeChosen']
+        for c in self.candidates.values():
+            c['delegates_committed'] = None
+            c['delegates_uncommitted'] = None
+            for cd in c.values():
+                for party in self.raw_sum_delegates:
+                    try:
+                        if cd['party'] and cd['party'] == party['pId']:
+                            c['delegates_committed'] = party['dChosen']
+                            c['delegates_uncommitted'] = party['dToBeChosen']
+                    except TypeError:
+                        pass
 
     def parse_super(self):
         """
@@ -130,25 +133,52 @@ class DelegateReport(utils.UnicodeMixin):
         if delsum_datafile:
             self.raw_sum_delegates = self.get_ap_file(delsum_datafile, 'delSum')
         else:
-            self.raw_sum_delegates = self.get_ap_report('2db35295d17f41328b21ae1f58572bc7', 'delSum')
+            self.raw_sum_delegates = self.get_ap_report('delSum')
 
         if delsuper_datafile:
             self.raw_super_delegates = self.get_ap_file(delsuper_datafile, 'delSuper')
         else:
-            self.raw_super_delegates = self.get_ap_report('6b3608587a78409698af0d3cd4748b30', 'delSuper')
+            self.raw_super_delegates = self.get_ap_report('delSuper')
 
     def get_ap_file(self, path, key):
         with open(path, 'r') as readfile:
-            return dict(json.loads(readfile.read()))[key]['del']
+            data = json.load(readfile)
+            return data[key]['del']
 
-    def get_ap_report(self, report_number, key, params={}):
+    def get_ap_report(self, key, params={}):
         """
         Given a report number and a key for indexing, returns a list
         of delegate counts by party. Makes a request from the AP
         using requests. Formats that request with env vars.
         """
         base_url = os.environ.get('AP_API_BASE_URL', 'http://api.ap.org/v2/reports')
-        params['apikey'] = os.environ.get('AP_API_KEY', None)
-        params['format'] = 'json'
-        r = requests.get(base_url + '/' + report_number, params=params)
-        return dict(json.loads(r.content))[key]['del']
+        params.update({
+            'apikey': os.environ.get('AP_API_KEY', None),
+            'format': 'json',
+        })
+        report_id = self.get_report_id(key)
+        if report_id:
+            r = requests.get('{0}/{1}'.format(base_url, report_id), params=params)
+            return r.json()[key]['del']
+
+        return None
+
+    def get_report_id(self, key, params={}):
+        """
+        Takes a delSuper or delSum as the argument and returns organization-specific report ID.
+        """
+        if not self.reports:
+            base_url = os.environ.get('AP_API_BASE_URL', 'http://api.ap.org/v2/reports')
+            params.update({
+                'apikey': os.environ.get('AP_API_KEY', None),
+                'format': 'json',
+            })
+            r = requests.get(base_url, params=params)
+            self.reports = r.json().get('reports')
+
+        for report in self.reports:
+            if (key == 'delSum' and report.get('title') == 'Delegates / delsum') or (key == 'delSuper' and report.get('title') == 'Delegates / delsuper'):
+                id = report.get('id').rsplit('/', 1)[-1]
+                return id
+
+        return None

@@ -12,7 +12,7 @@ class DelegateReportTestCase(unittest.TestCase):
 
     def setUp(self, **kwargs):
         d = DelegateReport(delsuper_datafile=self.delsuper_datafile, delsum_datafile=self.delsum_datafile)
-        self.delegate_reports = d.candidates
+        self.delegate_reports = d.candidate_objects
 
 
 class ElectionResultsTestCase(unittest.TestCase):

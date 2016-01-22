@@ -6,7 +6,7 @@ Command line interface
 
   commands:
 
-    ballot-positions
+    ballot-measures
       Get ballot positions (also known as ballot issues)
 
     candidate-reporting-units
@@ -14,6 +14,9 @@ Command line interface
 
     candidates
       Get candidates
+
+    delegates
+      Get all delegate reports
 
     elections
       Get list of available elections
@@ -42,6 +45,14 @@ Command line interface
     -t, --test            Use testing API calls
     -n, --not-live        Do not use live data API calls
     -d DATA_FILE, --data-file DATA_FILE
-                          Specify data file instead of making HTTP request
-    --format-json         Pretty print JSON (only when using -o json)
+                          Specify data file instead of making HTTP request when
+                          using election commands like `elex results` and `elex
+                          races`.
+    --delegate-sum-file DELEGATE_SUM_FILE
+                          Specify delegate sum report file instead of making
+                          HTTP request when using `elex delegates`
+    --delegate-super-file DELEGATE_SUPER_FILE
+                          Specify delegate super report file instead of making
+                          HTTP request when using `elex delegates`
+    --format-json         Pretty print JSON when using `-o json`.
     -v, --version         show program's version number and exit
