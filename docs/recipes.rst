@@ -28,3 +28,22 @@ Steps:
 * Pipe results to :code:`jq` for filtering
 * Pipe filtered results to :code:`gzip` to compress
 * Pipe gzipped results to :code:`aws s3 cp` to send to S3.
+
+Inspect with an ORM using Flask and Peewee
+===========================================
+
+This recipe uses the Flask web framework and the Peewee Python ORM to model, query and update data that :code:`elex` provides.
+
+Requirements:
+
+* `Elex loader <https://github.com/newsdev/elex-loader>`_, an NYT project that calls :code:`elex` to load data into a Postgres database with CSV and the Postgres :code:`COPY` command.
+* `Elex admin <https://github.com/newsdev/elex-admin>`_, an NYT project that is a simple, web-based admin for creating and editing data to override AP election results, including candidate names, race descriptions, and race calls.
+
+Steps:
+
+* Install :code:`elex-loader` using `these instructions <>`_.
+* Install :code:`elex-admin` using `these instructions <>`_.
+
+Extra steps:
+
+* Use the :code:`models.py` that come with :code:`elex-admin` to query data.
