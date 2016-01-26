@@ -41,8 +41,8 @@ Requirements:
 
 Steps:
 
-* Install :code:`elex-loader` using `these instructions <>`_.
-* Install :code:`elex-admin` using `these instructions <>`_.
+* Install :code:`elex-loader` using `these instructions <https://github.com/newsdev/elex-loader/blob/master/README.md>`_.
+* Install :code:`elex-admin` using `these instructions <https://github.com/newsdev/elex-admin/blob/master/README.md>`_.
 
 Extra steps:
 
