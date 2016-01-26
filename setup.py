@@ -32,7 +32,7 @@ setup(
     license="Apache License 2.0",
     keywords='election race candidate democracy news associated press',
     install_requires=reqs,
-    classifiers=['Development Status :: 3 - Alpha',
+    classifiers=['Development Status :: 5 - Production/Stable',
                  'Intended Audience :: Developers',
                  'Topic :: Software Development :: Libraries :: Python Modules',
                  'Programming Language :: Python',
