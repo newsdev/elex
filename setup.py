@@ -17,7 +17,7 @@ def read(filename):
 
 setup(
     name='elex',
-    version='0.2.0',
+    version='1.1.0b1',
     author='Jeremy Bowers, David Eads',
     author_email='jeremy.bowers@nytimes.com, deads@npr.org',
     url='https://github.com/newsdev/elex',
@@ -32,7 +32,7 @@ setup(
     license="Apache License 2.0",
     keywords='election race candidate democracy news associated press',
     install_requires=reqs,
-    classifiers=['Development Status :: 3 - Alpha',
+    classifiers=['Development Status :: 5 - Production/Stable',
                  'Intended Audience :: Developers',
                  'Topic :: Software Development :: Libraries :: Python Modules',
                  'Programming Language :: Python',
