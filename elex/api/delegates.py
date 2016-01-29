@@ -34,7 +34,7 @@ class CandidateDelegateReport(utils.UnicodeMixin):
         self.party_need = kwargs.get('party_need', None)
         self.party = kwargs.get('party', None)
         self.delegates_count = kwargs.get('delegates_count', None)
-        self.id = self.candidateid
+        self.id = "%s-%s" % (self.state, self.candidateid)
 
     def serialize(self):
         """
