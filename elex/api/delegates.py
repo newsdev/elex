@@ -22,7 +22,8 @@ class CandidateDelegateReport(utils.UnicodeMixin):
     'candidateid': u'11291',
     'party_need': 2382,
     'party': u'Dem',
-    'delegates_count': 0
+    'delegates_count': 0,
+    'id': u'SD-11291'
     """
     def __init__(self, **kwargs):
         self.level = kwargs.get('level', None)
