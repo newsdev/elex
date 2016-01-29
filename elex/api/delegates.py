@@ -51,7 +51,7 @@ class CandidateDelegateReport(utils.UnicodeMixin):
             ('party_need', self.party_need),
             ('party', self.party),
             ('delegates_count', self.delegates_count),
-            ('id', self.candidateid)
+            ('id', self.id)
         ))
 
     def __str__(self):
