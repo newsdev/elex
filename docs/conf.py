@@ -22,7 +22,7 @@ master_doc = 'index'
 
 # Metadata
 project = u'elex'
-copyright = u'2015, New York Times & NPR'
+copyright = u'2015-2016, New York Times & NPR'
 version = elex.__version__
 release = elex.__version__
 
