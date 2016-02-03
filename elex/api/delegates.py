@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-This module contains the primary :class:`DelegateLoad` class for handling a single load of AP delegate counts and methods necessary to obtain them.
+This module contains the primary :class:`DelegateLoad` class for handling a
+single load of AP delegate counts and methods necessary to obtain them.
 """
-
-import json
 import os
-
+import json
 import requests
-
-from collections import OrderedDict
 from elex.api import utils
+from collections import OrderedDict
 
 
 class CandidateDelegateReport(utils.UnicodeMixin):
@@ -57,6 +55,7 @@ class CandidateDelegateReport(utils.UnicodeMixin):
     def __str__(self):
         return "%s - %s" % (self.last, self.state)
 
+
 class DelegateReport(utils.UnicodeMixin):
     """
     Base class for a single load of AP delegate counts.
@@ -83,7 +82,9 @@ class DelegateReport(utils.UnicodeMixin):
         for c in self.candidates.values():
             for cd in c.values():
                 try:
-                    self.candidate_objects.append(CandidateDelegateReport(**cd))
+                    self.candidate_objects.append(
+                        CandidateDelegateReport(**cd)
+                    )
                 except TypeError:
                     pass
 
@@ -112,32 +113,44 @@ class DelegateReport(utils.UnicodeMixin):
                 for candidate in state['Cand']:
                     if not self.candidates.get(candidate['cId'], None):
                         self.candidates[candidate['cId']] = {}
-                    if not self.candidates[candidate['cId']].get(state['sId'], None):
+                    if not self.candidates[candidate['cId']].get(
+                        state['sId'],
+                        None
+                    ):
                         self.candidates[candidate['cId']][state['sId']] = {}
-
-                    self.candidates[candidate['cId']][state['sId']]['superdelegates_count'] = int(candidate['sdTot'])
-                    self.candidates[candidate['cId']][state['sId']]['party'] = party['pId']
-                    self.candidates[candidate['cId']][state['sId']]['party_need'] = int(party['dNeed'])
-                    self.candidates[candidate['cId']][state['sId']]['party_total'] = int(party['dVotes'])
-                    self.candidates[candidate['cId']][state['sId']]['state'] = state['sId']
-                    self.candidates[candidate['cId']][state['sId']]['level'] = 'state'
+                    d = {
+                        'superdelegates_count': int(candidate['sdTot']),
+                        'party': party['pId'],
+                        'party_need': int(party['dNeed']),
+                        'party_total': int(party['dVotes']),
+                        'state': state['sId'],
+                        'candidateid': candidate['cId'],
+                        'last': candidate['cName'],
+                        'delegates_count': int(candidate['dTot'])
+                    }
                     if state['sId'] == 'US':
-                        self.candidates[candidate['cId']][state['sId']]['level'] = 'nation'
-                    self.candidates[candidate['cId']][state['sId']]['candidateid'] = candidate['cId']
-                    self.candidates[candidate['cId']][state['sId']]['last'] = candidate['cName']
-                    self.candidates[candidate['cId']][state['sId']]['delegates_count'] = int(candidate['dTot'])
+                        d['level'] = 'nation'
+                    else:
+                        d['level'] = 'state'
+                    self.candidates[candidate['cId']][state['sId']].update(d)
 
     def load_raw_data(self, delsuper_datafile, delsum_datafile):
         """
         Gets underlying data lists we need for parsing.
         """
         if delsum_datafile:
-            self.raw_sum_delegates = self.get_ap_file(delsum_datafile, 'delSum')
+            self.raw_sum_delegates = self.get_ap_file(
+                delsum_datafile,
+                'delSum'
+            )
         else:
             self.raw_sum_delegates = self.get_ap_report('delSum')
 
         if delsuper_datafile:
-            self.raw_super_delegates = self.get_ap_file(delsuper_datafile, 'delSuper')
+            self.raw_super_delegates = self.get_ap_file(
+                delsuper_datafile,
+                'delSuper'
+            )
         else:
             self.raw_super_delegates = self.get_ap_report('delSuper')
 
@@ -152,24 +165,33 @@ class DelegateReport(utils.UnicodeMixin):
         of delegate counts by party. Makes a request from the AP
         using requests. Formats that request with env vars.
         """
-        base_url = os.environ.get('AP_API_BASE_URL', 'http://api.ap.org/v2/reports')
+        base_url = os.environ.get(
+            'AP_API_BASE_URL',
+            'http://api.ap.org/v2/reports'
+        )
         params.update({
             'apikey': os.environ.get('AP_API_KEY', None),
             'format': 'json',
         })
         report_id = self.get_report_id(key)
         if report_id:
-            r = requests.get('{0}/{1}'.format(base_url, report_id), params=params)
+            r = requests.get(
+                '{0}/{1}'.format(base_url, report_id),
+                params=params
+            )
             return r.json()[key]['del']
-
         return None
 
     def get_report_id(self, key, params={}):
         """
-        Takes a delSuper or delSum as the argument and returns organization-specific report ID.
+        Takes a delSuper or delSum as the argument and returns
+        organization-specific report ID.
         """
         if not self.reports:
-            base_url = os.environ.get('AP_API_BASE_URL', 'http://api.ap.org/v2/reports')
+            base_url = os.environ.get(
+                'AP_API_BASE_URL',
+                'http://api.ap.org/v2/reports'
+            )
             params.update({
                 'apikey': os.environ.get('AP_API_KEY', None),
                 'format': 'json',
@@ -178,7 +200,13 @@ class DelegateReport(utils.UnicodeMixin):
             self.reports = r.json().get('reports')
 
         for report in self.reports:
-            if (key == 'delSum' and report.get('title') == 'Delegates / delsum') or (key == 'delSuper' and report.get('title') == 'Delegates / delsuper'):
+            if (
+                key == 'delSum' and
+                report.get('title') == 'Delegates / delsum'
+            ) or (
+                key == 'delSuper' and
+                report.get('title') == 'Delegates / delsuper'
+            ):
                 id = report.get('id').rsplit('/', 1)[-1]
                 return id
 

@@ -1,11 +1,11 @@
 import os
 import unittest
-
 from elex.api import utils
 from . import API_MESSAGE
 
 AP_API_LIMIT = 11
-QUOTA_MESSAGE = 'You must set AP_RUN_QUOTA_TEST=1 in your environment to run the quota test.'
+QUOTA_MESSAGE = 'You must set AP_RUN_QUOTA_TEST=1 in your environment to \
+run the quota test.'
 
 
 class APQuotaTestCase(unittest.TestCase):
@@ -16,12 +16,18 @@ class APQuotaTestCase(unittest.TestCase):
             self.responses.append(utils.api_request('/'))
 
     @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
-    @unittest.skipUnless(os.environ.get('AP_RUN_QUOTA_TEST', None), QUOTA_MESSAGE)
+    @unittest.skipUnless(
+        os.environ.get('AP_RUN_QUOTA_TEST', None),
+        QUOTA_MESSAGE
+    )
     def test_quota_status_code(self):
         self.assertEqual(self.responses[-1].status_code, 403)
 
     @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
-    @unittest.skipUnless(os.environ.get('AP_RUN_QUOTA_TEST', None), QUOTA_MESSAGE)
+    @unittest.skipUnless(
+        os.environ.get('AP_RUN_QUOTA_TEST', None),
+        QUOTA_MESSAGE
+    )
     def test_only_one_quota_failures(self):
         num_quota_failures = 0
         for response in self.responses:

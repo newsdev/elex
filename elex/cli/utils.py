@@ -1,5 +1,6 @@
 from dateutil import parser as dateutil_parser
 
+
 def parse_date(datestring):
     """
     Parse many date formats into an AP friendly format.

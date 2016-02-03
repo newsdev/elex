@@ -1,5 +1,6 @@
 import tests
 
+
 class TestBallotPosition(tests.ElectionResultsTestCase):
 
     def test_number_of_ballot_measure_objects(self):
@@ -23,7 +24,13 @@ class TestBallotPosition(tests.ElectionResultsTestCase):
 
     def test_ballot_measure_serialization_order(self):
         c = list(self.ballot_measures[0].serialize())
-        self.assertEqual(c, ['id','unique_id','candidateid','ballotorder','description','last','polid','polnum','seatname'])
+        self.assertEqual(
+            c,
+            [
+                'id', 'unique_id', 'candidateid', 'ballotorder', 'description',
+                'last', 'polid', 'polnum', 'seatname'
+            ]
+        )
 
     def test_unique_ids(self):
         all_ids = list([b.id for b in self.ballot_measures])

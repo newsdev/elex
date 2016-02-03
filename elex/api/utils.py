@@ -1,19 +1,19 @@
 """
-Utility functions to record raw election results and handle low-level HTTP interaction with the
-Associated Press Election API.
+Utility functions to record raw election results and handle low-level HTTP
+interaction with the Associated Press Election API.
 """
 from __future__ import print_function
-import datetime
-import elex
-import json
 import os
-import requests
 import sys
 import six
+import elex
+import json
 import time
-
+import datetime
+import requests
 from pymongo import MongoClient
 from xml.dom.minidom import parseString
+
 
 class UnicodeMixin(object):
     """
@@ -27,7 +27,8 @@ class UnicodeMixin(object):
 
 def write_recording(payload):
     """
-    Record a timestamped version of an Associated Press Elections API data download.
+    Record a timestamped version of an Associated Press Elections API
+    data download.
 
     Presumes JSON at the moment.
     Would have to refactor if using XML or FTP.
@@ -40,13 +41,27 @@ def write_recording(payload):
     if recorder:
         timestamp = int(time.mktime(datetime.datetime.now().timetuple()))
         if recorder == u"mongodb":
-            MONGODB_CLIENT = MongoClient(os.environ.get('ELEX_RECORDING_MONGO_URL', 'mongodb://localhost:27017/'))
-            MONGODB_DATABASE = MONGODB_CLIENT[os.environ.get('ELEX_RECORDING_MONGO_DB', 'ap_elections_loader')]
+            MONGODB_CLIENT = MongoClient(
+                os.environ.get(
+                    'ELEX_RECORDING_MONGO_URL',
+                    'mongodb://localhost:27017/'
+                )
+            )
+            MONGODB_DATABASE = MONGODB_CLIENT[
+                os.environ.get(
+                    'ELEX_RECORDING_MONGO_DB',
+                    'ap_elections_loader'
+                )
+            ]
             collection = MONGODB_DATABASE.elex_recording
             collection.insert({"time": timestamp, "data": payload})
         elif recorder == u"flat":
             recorder_directory = os.environ.get('ELEX_RECORDING_DIR', '/tmp')
-            with open('%s/ap_elections_loader_recording-%s.json' % (recorder_directory, timestamp), 'w') as writefile:
+            json_path = '%s/ap_elections_loader_recording-%s.json' % (
+                recorder_directory,
+                timestamp
+            )
+            with open(json_path, 'w') as writefile:
                 writefile.write(json.dumps(payload))
 
 
@@ -80,8 +95,10 @@ def api_request(path, **params):
 
     # When response is 403, take emergency action and write to stderr
     if response.status_code == 403:
-        messagedom = parseString(response.content)
-        message = messagedom.getElementsByTagName('Message')[0].childNodes[0].data
-        print('ELEX ERROR: %s (url: %s)' % (message, response.url), file=sys.stderr)
-
+        dom = parseString(response.content)
+        message = dom.getElementsByTagName('Message')[0].childNodes[0].data
+        print(
+            'ELEX ERROR: %s (url: %s)' % (message, response.url),
+            file=sys.stderr
+        )
     return response

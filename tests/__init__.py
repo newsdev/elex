@@ -3,7 +3,8 @@ import unittest
 from elex.api import Election, DelegateReport, utils
 from time import sleep
 
-API_MESSAGE = "We require that you export AP_API_KEY in your environment in order to test AP connectivity."
+API_MESSAGE = "We require that you export AP_API_KEY in your environment in \
+order to test AP connectivity."
 
 
 class DelegateReportTestCase(unittest.TestCase):
@@ -11,7 +12,10 @@ class DelegateReportTestCase(unittest.TestCase):
     delsum_datafile = 'tests/data/20160118_delsum.json'
 
     def setUp(self, **kwargs):
-        d = DelegateReport(delsuper_datafile=self.delsuper_datafile, delsum_datafile=self.delsum_datafile)
+        d = DelegateReport(
+            delsuper_datafile=self.delsuper_datafile,
+            delsum_datafile=self.delsum_datafile
+        )
         self.delegate_reports = d.candidate_objects
 
 
@@ -19,7 +23,13 @@ class ElectionResultsTestCase(unittest.TestCase):
     data_url = 'tests/data/20151103_national.json'
 
     def setUp(self, **kwargs):
-        e = Election(electiondate='2015-11-03', datafile=self.data_url, testresults=False, liveresults=True, is_test=False)
+        e = Election(
+            electiondate='2015-11-03',
+            datafile=self.data_url,
+            testresults=False,
+            liveresults=True,
+            is_test=False
+        )
         self.raw_races = e.get_raw_races()
         self.race_objs = e.get_race_objects(self.raw_races)
         self.ballot_measures = e.ballot_measures
