@@ -1,17 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-This module contains the primary :class:`Election` class, as well as model classes :class:`Candidate`, :class:`BallotMeasure`, :class:`CandidateReportingUnit`, :class:`ReportingUnit`, :class:`Race` model classes, and :class:`APElection` which provides utility methods common to all AP API access.
-
-"""
-
-import datetime
 import json
-
-from dateutil import parser as dateutil_parser
-from collections import OrderedDict
-
+import datetime
 from elex.api import maps
 from elex.api import utils
+from collections import OrderedDict
+from dateutil import parser as dateutil_parser
 
 PCT_PRECISION = 6
 
@@ -19,17 +12,16 @@ PCT_PRECISION = 6
 class APElection(utils.UnicodeMixin):
     """
     Base class for most objects.
-    Handy container for methods for first level
-    transformation of data and AP connections.
-    """
 
+    Includes handy methods for transformation of data and AP connections
+    """
     def set_state_fields_from_reportingunits(self):
         """
         Set state fields.
         """
         if len(self.reportingunits) > 0:
-            setattr(self, 'statepostal', str(self.reportingunits[-1].statepostal))
-            setattr(self, 'statename', str(maps.STATE_ABBR[self.statepostal]))
+            self.statepostal = str(self.reportingunits[-1].statepostal)
+            self.statename = str(maps.STATE_ABBR[self.statepostal])
 
     def set_reportingunits(self):
         """
@@ -92,8 +84,9 @@ class APElection(utils.UnicodeMixin):
             if hasattr(self, 'officeid') and getattr(self, 'officeid') == 'I':
                 candidate_dict['is_ballot_measure'] = True
 
-            if hasattr(self, 'statepostal') and getattr(self, 'statepostal') is not None:
-                candidate_dict['statename'] = maps.STATE_ABBR[getattr(self, 'statepostal')]
+            if getattr(self, 'statepostal', None) is not None:
+                statename = maps.STATE_ABBR[self.statepostal]
+                candidate_dict['statename'] = statename
 
             obj = CandidateReportingUnit(**candidate_dict)
             candidate_objs.append(obj)
@@ -102,10 +95,10 @@ class APElection(utils.UnicodeMixin):
 
     def serialize(self):
         """
-        Serialize the object. Should be implemented in all classes that inherit from
-        :class:`APElection`.
+        Serialize the object. Should be implemented in all classes that
+        inherit from :class:`APElection`.
 
-        Should return an `OrderedDict <https://docs.python.org/2/library/collections.html#ordereddict-objects>`_.
+        Should return an OrderedDict.
         """
         raise NotImplementedError
 
@@ -193,8 +186,9 @@ class BallotMeasure(APElection):
     """
     Canonical representation of a ballot measure.
 
-    Ballot measures are similar to :class:`Candidate`s, but represent a position on a ballot such as
-    "In favor of" or "Against" for ballot measures such as a referendum.
+    Ballot measures are similar to :class:`Candidate`s, but represent a
+    position on a ballot such as "In favor of" or "Against" for ballot
+    measures such as a referendum.
     """
     def __init__(self, **kwargs):
         """
@@ -267,10 +261,11 @@ class BallotMeasure(APElection):
         """
         self.id = self.unique_id
 
+
 class CandidateReportingUnit(APElection):
     """
     Canonical reporesentation of an
-    AP candidate. Note: A candidate can 
+    AP candidate. Note: A candidate can
     be a person OR a ballot measure.
     """
     def __init__(self, **kwargs):
@@ -340,7 +335,11 @@ class CandidateReportingUnit(APElection):
         """
         Set id to `<raceid>-<uniqueid>-<reportingunitid>`.
         """
-        self.id = "%s-%s-%s" % (self.raceid, self.unique_id, self.reportingunitid)
+        self.id = "%s-%s-%s" % (
+            self.raceid,
+            self.unique_id,
+            self.reportingunitid
+        )
 
     def set_unique_id(self):
         """
@@ -478,7 +477,6 @@ class ReportingUnit(APElection):
         self.candidates = kwargs.get('candidates', [])
         self.votecount = kwargs.get('votecount', 0)
 
-
         self.set_level()
         self.pad_fipscode()
         self.set_reportingunitids()
@@ -488,9 +486,18 @@ class ReportingUnit(APElection):
         self.set_id_field()
 
     def __str__(self):
+        template = "%s %s (%s %% reporting)"
         if self.reportingunitname:
-            return "%s %s (%s %% reporting)" % (self.statepostal, self.reportingunitname, self.precinctsreportingpct)
-        return "%s %s (%s %% reporting)" % (self.statepostal, self.level, self.precinctsreportingpct)
+            return template % (
+                self.statepostal,
+                self.reportingunitname,
+                self.precinctsreportingpct
+            )
+        return template % (
+            self.statepostal,
+            self.level,
+            self.precinctsreportingpct
+        )
 
     def pad_fipscode(self):
         if self.fipscode:
@@ -500,7 +507,7 @@ class ReportingUnit(APElection):
         """
         New England states report at the township level.
         Every other state reports at the county level.
-        So, change the level from 'subunit' to the 
+        So, change the level from 'subunit' to the
         actual level name, either 'state' or 'township'.
         """
         if self.statepostal in maps.FIPS_TO_STATE.keys():
@@ -614,42 +621,56 @@ class Race(APElection):
         rolls up vote counts and precinct counts / pcts from each
         township under that county.
         """
-
         if self.statepostal in maps.FIPS_TO_STATE.keys():
             results = OrderedDict()
-            for ru in [r for r in self.reportingunits if r.level == 'township']:
-
+            for ru in [
+                r for r in self.reportingunits if r.level == 'township'
+            ]:
                 # This should loop over reporting units.
                 # It should create a new reporting unit for each county.
                 # It should store all the keys/values for the reporting unit.
-                # It should create a list called candidates in that new reporting unit.
-                # That list should be filled with candidate reporting unit objects.
-                # Those candidate reporting unit objects should sum the townships.
+                # It should create list called candidates in new reporting unit
+                # That list should be filled with candidate reporting units.
+                # Those candidate reporting unit objects should sum townships.
                 # The reporting unit should also sum the townships.
                 # Also it should be fast.
-
                 if not results.get(ru.fipscode, None):
                     results[ru.fipscode] = dict(ru.__dict__)
                     results[ru.fipscode]['level'] = 'county'
-                    results[ru.fipscode]['reportingunitid'] = "%s-%s" % (ru.statepostal, ru.fipscode)
-                    results[ru.fipscode]['reportingunitname'] =  maps.FIPS_TO_STATE[ru.statepostal][ru.fipscode]
+                    results[ru.fipscode]['reportingunitid'] = "%s-%s" % (
+                        ru.statepostal,
+                        ru.fipscode
+                    )
+                    ru_name = maps.FIPS_TO_STATE[ru.statepostal][ru.fipscode]
+                    results[ru.fipscode]['reportingunitname'] = ru_name
                     results[ru.fipscode]['candidates'] = OrderedDict()
-
                 else:
                     for c in ru.candidates:
-                        if not results[ru.fipscode]['candidates'].get(c.unique_id, None):
-                            results[ru.fipscode]['candidates'][c.unique_id] = dict(c.__dict__)
-                            results[ru.fipscode]['candidates'][c.unique_id]['level'] = 'county'
-                            results[ru.fipscode]['candidates'][c.unique_id]['reportingunitid'] = "%s-%s" % (ru.statepostal, ru.fipscode)
-                            results[ru.fipscode]['candidates'][c.unique_id]['reportingunitname'] =  maps.FIPS_TO_STATE[ru.statepostal][ru.fipscode]
+                        if not results[ru.fipscode]['candidates'].get(
+                            c.unique_id,
+                            None
+                        ):
+                            d = dict(c.__dict__)
+                            d['level'] = 'county'
+                            d['reportingunitid'] = "%s-%s" % (
+                                ru.statepostal,
+                                ru.fipscode
+                            )
+                            fips_dict = maps.FIPS_TO_STATE[ru.statepostal]
+                            d['reportingunitname'] = fips_dict[ru.fipscode]
+                            results[ru.fipscode]['candidates'][c.unique_id] = d
                         else:
-                            results[ru.fipscode]['candidates'][c.unique_id]['votecount'] += c.votecount
-                            results[ru.fipscode]['candidates'][c.unique_id]['precinctstotal'] += c.precinctstotal
-                            results[ru.fipscode]['candidates'][c.unique_id]['precinctsreporting'] += c.precinctsreporting
+                            d = results[ru.fipscode]['candidates'][c.unique_id]
+                            d['votecount'] += c.votecount
+                            d['precinctstotal'] += c.precinctstotal
+                            d['precinctsreporting'] += c.precinctsreporting
                             try:
-                                results[ru.fipscode]['candidates'][c.unique_id]['precinctsreportingpct'] = float(results[ru.fipscode]['candidates'][c.unique_id]['precinctsreporting']) / float(results[ru.fipscode]['candidates'][c.unique_id]['precinctstotal'])
+                                d['precinctsreportingpct'] = (
+                                    d['precinctsreporting'] /
+                                    float(d['precinctstotal'])
+                                )
                             except ZeroDivisionError:
-                                results[ru.fipscode]['candidates'][c.unique_id]['precinctsreportingpct'] = 0.0
+                                d['precinctsreportingpct'] = 0.0
 
             for ru in results.values():
                 cands = list([dict(c) for c in ru['candidates'].values()])
@@ -713,7 +734,7 @@ class Elections():
                 elections = list(json.load(f).get('elections'))
 
         # Developer API expects to give lowercase kwargs to an Election
-        # object, but initializing from the API / file will have camelCase 
+        # object, but initializing from the API / file will have camelCase
         # kwargs instead. So, for just this object, lowercase the kwargs.
         payload = []
         for e in elections:
@@ -724,7 +745,6 @@ class Elections():
 
         return payload
 
-
     def get_next_election(self, datafile=None, electiondate=None):
         """
         Get next election. By default, will be relative to the current date.
@@ -732,7 +752,8 @@ class Elections():
         :param datafile:
             If datafile is specified, use instead of making an API call.
         :param electiondate:
-            If electiondate is specified, gets the next election after the specified date.
+            If electiondate is specified, gets the next election
+            after the specified date.
         """
         if not electiondate:
             today = datetime.datetime.now()
@@ -817,27 +838,29 @@ class Election(APElection):
             if c.is_ballot_measure:
                 if not unique_ballot_measures.get(c.candidateid, None):
                     unique_ballot_measures[c.candidateid] = BallotMeasure(
-                                                                last=c.last,
-                                                                candidateid=c.candidateid,
-                                                                polid=c.polid,
-                                                                ballotorder=c.ballotorder,
-                                                                polnum=c.polnum,
-                                                                seatname=c.seatname,
-                                                                description=c.description)
+                        last=c.last,
+                        candidateid=c.candidateid,
+                        polid=c.polid,
+                        ballotorder=c.ballotorder,
+                        polnum=c.polnum,
+                        seatname=c.seatname,
+                        description=c.description
+                    )
             else:
                 if not unique_candidates.get(c.candidateid, None):
                     unique_candidates[c.candidateid] = Candidate(
-                                                                first=c.first,
-                                                                last=c.last,
-                                                                candidateid=c.candidateid,
-                                                                polid=c.polid,
-                                                                ballotorder=c.ballotorder,
-                                                                polnum=c.polnum,
-                                                                party=c.party)
+                        first=c.first,
+                        last=c.last,
+                        candidateid=c.candidateid,
+                        polid=c.polid,
+                        ballotorder=c.ballotorder,
+                        polnum=c.polnum,
+                        party=c.party
+                    )
 
         candidates = [v for v in unique_candidates.values()]
         ballot_measures = [v for v in unique_ballot_measures.values()]
-        return candidates, ballot_measures 
+        return candidates, ballot_measures
 
     def get_raw_races(self, **params):
         """
@@ -845,11 +868,12 @@ class Election(APElection):
         Accepts an AP formatting date string, e.g., YYYY-MM-DD.
         Accepts any number of URL params as kwargs.
 
-        If datafile passed to constructor, the file will be used instead of making an HTTP request.
+        If datafile passed to constructor, the file will be used instead of
+        making an HTTP request.
 
         :param **params:
-            A dict of additional parameters to pass to API. Ignored if `datafile` was passed to the
-            constructor.
+            A dict of additional parameters to pass to API.
+            Ignored if `datafile` was passed to the constructor.
         """
         if self.datafile:
             with open(self.datafile, 'r') as readfile:
@@ -935,7 +959,9 @@ class Election(APElection):
             apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
-        races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
+        races, reporting_units, candidate_reporting_units = self.get_units(
+            race_objs
+        )
         return races
 
     @property
@@ -951,7 +977,9 @@ class Election(APElection):
             apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
-        races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
+        races, reporting_units, candidate_reporting_units = self.get_units(
+            race_objs
+        )
         return reporting_units
 
     @property
@@ -967,7 +995,9 @@ class Election(APElection):
             apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
-        races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
+        races, reporting_units, candidate_reporting_units = self.get_units(
+            race_objs
+        )
         return candidate_reporting_units
 
     @property
@@ -983,7 +1013,9 @@ class Election(APElection):
             apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
-        races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
+        races, reporting_units, candidate_reporting_units = self.get_units(
+            race_objs
+        )
         return candidate_reporting_units
 
     @property
@@ -999,8 +1031,12 @@ class Election(APElection):
             apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
-        races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
-        candidates, ballot_measures = self.get_uniques(candidate_reporting_units)
+        races, reporting_units, candidate_reporting_units = self.get_units(
+            race_objs
+        )
+        candidates, ballot_measures = self.get_uniques(
+            candidate_reporting_units
+        )
         return candidates
 
     @property
@@ -1016,6 +1052,10 @@ class Election(APElection):
             apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
-        races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
-        candidates, ballot_measures = self.get_uniques(candidate_reporting_units)
+        races, reporting_units, candidate_reporting_units = self.get_units(
+            race_objs
+        )
+        candidates, ballot_measures = self.get_uniques(
+            candidate_reporting_units
+        )
         return ballot_measures

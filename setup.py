@@ -21,24 +21,25 @@ setup(
     author='Jeremy Bowers, David Eads',
     author_email='jeremy.bowers@nytimes.com, deads@npr.org',
     url='https://github.com/newsdev/elex',
-    description='Python client for parsing the Associated Press\'s elections API.',
+    description='Client for parsing the Associated Press\'s elections API',
     long_description=read('README.rst'),
-    packages=['elex', 'elex.cli', 'elex.api', 'tests'],
+    packages=('elex', 'elex.cli', 'elex.api', 'tests'),
     entry_points={
-        'console_scripts': [
+        'console_scripts': (
             'elex = elex.cli:main',
-        ],
+        ),
     },
     license="Apache License 2.0",
     keywords='election race candidate democracy news associated press',
     install_requires=reqs,
-    classifiers=['Development Status :: 5 - Production/Stable',
-                 'Intended Audience :: Developers',
-                 'Topic :: Software Development :: Libraries :: Python Modules',
-                 'Programming Language :: Python',
-                 'Programming Language :: Python :: 2',
-                 'Programming Language :: Python :: 2.7',
-                 'Programming Language :: Python :: 3',
-                 'Programming Language :: Python :: 3.5',
-                 ]
+    classifiers=(
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+    )
 )
