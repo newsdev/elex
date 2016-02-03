@@ -1,3 +1,13 @@
+1.1.0 - Feb. 2, 2016
+--------------------
+
+Documentation and dependency fixes.
+
+* Elex can now be run in the same virtualenv as `csvkit <http://csvkit.readthedocs.org/>`_ (#206).
+* Links and copyright notice in documentation updated.
+* Added section about virtualenvs to install guide, courtesy of Ryan Pitts.
+* Add better tests for AP request quota (#203).
+
 1.0.0 - Jan. 25, 2016
 ---------------------
 
