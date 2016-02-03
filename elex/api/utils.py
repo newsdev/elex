@@ -9,6 +9,7 @@ import json
 import os
 import requests
 import sys
+import six
 import time
 
 from pymongo import MongoClient
@@ -21,7 +22,7 @@ class UnicodeMixin(object):
     if sys.version_info > (3, 0):
         __str__ = lambda x: x.__unicode__()
     else:
-        __str__ = lambda x: unicode(x).encode('utf-8')
+        __str__ = lambda x: six.text_type(x).encode('utf-8')
 
 
 def write_recording(payload):
@@ -84,4 +85,3 @@ def api_request(path, **params):
         print('ELEX ERROR: %s (url: %s)' % (message, response.url), file=sys.stderr)
 
     return response
-
