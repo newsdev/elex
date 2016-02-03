@@ -14,7 +14,10 @@ class APNetworkTestCase(NetworkTestCase):
     def test_bad_date_error_message(self):
         bad_date_response = self.api_request('/9999-99-99')
         data = bad_date_response.json()
-        self.assertEqual(data['errorMessage'], 'String was not recognized as a valid DateTime.')
+        self.assertEqual(
+            data['errorMessage'],
+            'String was not recognized as a valid DateTime.'
+        )
 
     @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
     def test_bad_date_fields(self):

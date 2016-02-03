@@ -11,5 +11,7 @@ install:
 script:
   - pyflakes elex
   - pep8 elex
+  - pyflakes tests
+  - pep8 tests
   - python -m nose2.__main__ -v
 sudo: false
