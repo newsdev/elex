@@ -23,6 +23,8 @@ On Windows machines, use ``setx`` instead
 
     setx AP_API_KEY=<MY_AP_API_KEY>
 
+.. note:: ``Setx`` sets a permanent user level environment variable. To set a machine level variable use ``\m`` option
+
 Optional requirements
 =====================
 
