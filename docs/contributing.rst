@@ -30,7 +30,8 @@ Install Elex development environment
   pip install Sphinx==1.3.1
   pip install nose2==0.5.0
   pip install tox==2.3.1
-  pip install pyflakes>=1.0.0
+  pip install pyflakes
+  pip install pep8
 
 Now you can run the following commands when you want to activate your enviroment and
 cd to the source directory.
