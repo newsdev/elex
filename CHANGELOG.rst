@@ -1,4 +1,4 @@
-1.1.0 - Feb. 2, 2016
+1.1.0, 1.1.1 - Feb. 2, 2016
 --------------------
 
 Documentation and dependency fixes.
