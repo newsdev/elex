@@ -23,7 +23,10 @@ class CandidateDelegateReport(utils.UnicodeMixin):
     'party_need': 2382,
     'party': u'Dem',
     'delegates_count': 0,
-    'id': u'SD-11291'
+    'id': u'SD-11291',
+    'd1': -1,
+    'd7': 8,
+    'd30': 10
     """
     def __init__(self, **kwargs):
         self.level = kwargs.get('level', None)
@@ -36,6 +39,9 @@ class CandidateDelegateReport(utils.UnicodeMixin):
         self.party = kwargs.get('party', None)
         self.delegates_count = kwargs.get('delegates_count', None)
         self.id = "%s-%s" % (self.state, self.candidateid)
+        self.d1 = int(kwargs.get('d1', None))
+        self.d7 = int(kwargs.get('d7', None))
+        self.d30 = int(kwargs.get('d30', None))
 
     def serialize(self):
         """
@@ -51,7 +57,10 @@ class CandidateDelegateReport(utils.UnicodeMixin):
             ('party_need', self.party_need),
             ('party', self.party),
             ('delegates_count', self.delegates_count),
-            ('id', self.id)
+            ('id', self.id),
+            ('d1', self.d1),
+            ('d7', self.d7),
+            ('d30', self.d30)
         ))
 
     def __str__(self):
@@ -92,10 +101,21 @@ class DelegateReport(utils.UnicodeMixin):
         Parses the delsum JSON produced by the AP.
         """
         for c in self.candidates.values():
+
             c['delegates_committed'] = None
             c['delegates_uncommitted'] = None
             for cd in c.values():
                 for party in self.raw_sum_delegates:
+
+                    for candidate in party['Cand']:
+                        try:
+                            if cd['candidateid'] and cd['candidateid'] == candidate['cId']:
+                                cd['d1'] = candidate['d1']
+                                cd['d7'] = candidate['d7']
+                                cd['d30'] = candidate['d30']
+                        except TypeError:
+                            pass
+
                     try:
                         if cd['party'] and cd['party'] == party['pId']:
                             c['delegates_committed'] = party['dChosen']
