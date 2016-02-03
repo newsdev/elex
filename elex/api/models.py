@@ -769,6 +769,8 @@ class Election(APElection):
         self.testresults = kwargs.get('testresults', False)
         self.liveresults = kwargs.get('liveresults', False)
         self.electiondate = kwargs.get('electiondate', None)
+        self.national = kwargs.get('national', True)
+        self.api_key = kwargs.get('api_key', None)
 
         self.parsed_json = kwargs.get('parsed_json', None)
         self.next_request = kwargs.get('next_request', None)
@@ -864,13 +866,16 @@ class Election(APElection):
         :param parsed_json:
             Dict of parsed JSON.
         """
-        if parsed_json['races'][0].get('candidates', None):
-            payload = []
-            for r in parsed_json['races']:
-                r['initialization_data'] = True
-                payload.append(Race(**r))
-            return payload
-        return [Race(**r) for r in parsed_json['races']]
+        if len(parsed_json['races']) > 0:
+            if parsed_json['races'][0].get('candidates', None):
+                payload = []
+                for r in parsed_json['races']:
+                    r['initialization_data'] = True
+                    payload.append(Race(**r))
+                return payload
+            return [Race(**r) for r in parsed_json['races']]
+        else:
+            return []
 
     def get_units(self, race_objs):
         """
@@ -925,7 +930,9 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
-            test=self.testresults
+            test=self.testresults,
+            national=self.national,
+            apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
         races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
@@ -939,7 +946,9 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=False,
             level="ru",
-            test=self.testresults
+            test=self.testresults,
+            national=self.national,
+            apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
         races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
@@ -953,7 +962,9 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
-            test=self.testresults
+            test=self.testresults,
+            national=self.national,
+            apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
         races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
@@ -967,7 +978,9 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=False,
             level="ru",
-            test=self.testresults
+            test=self.testresults,
+            national=self.national,
+            apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
         races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
@@ -981,7 +994,9 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
-            test=self.testresults
+            test=self.testresults,
+            national=self.national,
+            apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
         races, reporting_units, candidate_reporting_units = self.get_units(race_objs)
@@ -996,7 +1011,9 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
-            test=self.testresults
+            test=self.testresults,
+            national=self.national,
+            apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
         races, reporting_units, candidate_reporting_units = self.get_units(race_objs)

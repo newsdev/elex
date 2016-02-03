@@ -62,7 +62,7 @@ def api_request(path, **params):
     * Returns a response object.
 
     :param **params:
-        Extra parameters to pass to `requests`.
+        Extra parameters to pass to `requests`. For example, `apiKey="<YOUR API KEY>`, your AP API key, or `national=True`, for national-only results.
     """
     if not params.get('apiKey', None):
         if elex.API_KEY != '':

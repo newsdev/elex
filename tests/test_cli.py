@@ -124,7 +124,7 @@ class ElexCLICSVTestCase(with_metaclass(ElexCLICSVTestMeta, tests.ElectionResult
 
     def test_csv_delegate_fields(self):
         fields, data = self._test_command(command='delegates')
-        self.assertEqual(fields, ['level', 'party_total','superdelegates_count', 'last', 'state', 'candidateid', 'party_need','party', 'delegates_count', 'id'])
+        self.assertEqual(fields, ['level', 'party_total','superdelegates_count', 'last', 'state', 'candidateid', 'party_need','party', 'delegates_count', 'id', 'd1', 'd7', 'd30'])
 
     def test_csv_delegate_state_count(self):
         fields, data = self._test_command(command='delegates')
@@ -258,7 +258,7 @@ class ElexCLIJSONTestCase(with_metaclass(ElexCLIJSONTestMeta, tests.ElectionResu
 
     def test_json_delegate_fields(self):
         fields, data = self._test_command(command='delegates')
-        self.assertEqual(fields, ['level', 'party_total','superdelegates_count', 'last', 'state', 'candidateid', 'party_need','party', 'delegates_count', 'id'])
+        self.assertEqual(fields, ['level', 'party_total','superdelegates_count', 'last', 'state', 'candidateid', 'party_need','party', 'delegates_count', 'id', 'd1', 'd7', 'd30'])
 
     def test_json_delegate_state_count(self):
         fields, data = self._test_command(command='delegates')
