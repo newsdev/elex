@@ -17,6 +17,12 @@ Set your AP API key:
 
     export AP_API_KEY=<MY_AP_API_KEY>
 
+On Windows machines, use ``setx`` instead
+
+.. code:: bat
+
+    setx AP_API_KEY=<MY_AP_API_KEY>
+
 Optional requirements
 =====================
 
