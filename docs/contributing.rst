@@ -7,7 +7,7 @@ We welcome contributions of all sizes. You got this!
 Find a task
 ===========
 
-1. Check out the `issue tracker <https://github.com/newsdev/elex/issues>`_ and pick out a task or create a new issue 
+1. Check out the `issue tracker <https://github.com/newsdev/elex/issues>`_ and pick out a task or create a new issue
 
 2. Leave a comment on the ticket so that others know you're working on it.
 
@@ -30,6 +30,7 @@ Install Elex development environment
   pip install Sphinx==1.3.1
   pip install nose2==0.5.0
   pip install tox==2.3.1
+  pip install pyflakes>=1.0.0
 
 Now you can run the following commands when you want to activate your enviroment and
 cd to the source directory.
