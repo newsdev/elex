@@ -24,7 +24,7 @@ class TestDelegateReports(tests.DelegateReportTestCase):
             'd30'
         ]
         self.assertEqual(
-            self.delegate_reports[0].serialize().keys(),
+            list(self.delegate_reports[0].serialize().keys()),
             asserted_fields
         )
 
