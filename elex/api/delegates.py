@@ -110,10 +110,11 @@ class DelegateReport(utils.UnicodeMixin):
 
                     for candidate in party['Cand']:
                         try:
-                            if cd['candidateid'] and cd['candidateid'] == candidate['cId']:
-                                cd['d1'] = candidate['d1']
-                                cd['d7'] = candidate['d7']
-                                cd['d30'] = candidate['d30']
+                            if cd['candidateid']: 
+                                if cd['candidateid'] == candidate['cId']):
+                                    cd['d1'] = candidate['d1']
+                                    cd['d7'] = candidate['d7']
+                                    cd['d30'] = candidate['d30']
                         except TypeError:
                             pass
 
