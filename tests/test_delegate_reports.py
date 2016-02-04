@@ -8,8 +8,25 @@ except NameError:
 class TestDelegateReports(tests.DelegateReportTestCase):
 
     def test_serialization(self):
-        asserted_fields = ['level','party_total','superdelegates_count','last','state','candidateid','party_need','party','delegates_count','id','d1','d7','d30']
-        self.assertEqual(self.delegate_reports[0].serialize().keys(), asserted_fields)
+        asserted_fields = [
+            'level',
+            'party_total',
+            'superdelegates_count',
+            'last',
+            'state',
+            'candidateid',
+            'party_need',
+            'party',
+            'delegates_count',
+            'id',
+            'd1',
+            'd7',
+            'd30'
+        ]
+        self.assertEqual(
+            self.delegate_reports[0].serialize().keys(),
+            asserted_fields
+        )
 
     def test_number_of_national_level_results(self):
         number_of_candidates = list(
