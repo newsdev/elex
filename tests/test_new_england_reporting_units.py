@@ -75,7 +75,22 @@ class TestCandidate(tests.ElectionResultsTestCase):
         for c in maine_counties:
             self.assertEqual(c.statename, 'Maine')
 
-    def test_main_counties_have_votecouts(self):
+    def test_maine_county_votecounts_are_correct(self):
+        """
+        From ticket 220.
+        """
+        maine_results = [
+            r for r in self.results if r.raceid == '20978'
+        ]
+        county_results = [r for r in maine_results if r.level == 'county']
+        cumberland_results = [r for r in county_results if r.fipscode == '23005']
+
+        self.assertNotEqual(
+            cumberland_results[0].votecount,
+            cumberland_results[1].votecount
+        )
+
+    def test_maine_counties_have_votecouts(self):
         """
         From ticket 0179.
         Vote count is camelcased.
