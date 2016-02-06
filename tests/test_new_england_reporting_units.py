@@ -82,9 +82,12 @@ class TestCandidate(tests.ElectionResultsTestCase):
         maine_results = [
             r for r in self.results if r.raceid == '20978'
         ]
-        county_results = [r for r in maine_results if r.level == 'county']
-        cumberland_results = [r for r in county_results if r.fipscode == '23005']
-
+        county_results = [
+            r for r in maine_results if r.level == 'county'
+        ]
+        cumberland_results = [
+            r for r in county_results if r.fipscode == '23005'
+        ]
         self.assertNotEqual(
             cumberland_results[0].votepct,
             cumberland_results[1].votepct
@@ -97,9 +100,12 @@ class TestCandidate(tests.ElectionResultsTestCase):
         maine_results = [
             r for r in self.results if r.raceid == '20978'
         ]
-        county_results = [r for r in maine_results if r.level == 'county']
-        cumberland_results = [r for r in county_results if r.fipscode == '23005']
-
+        county_results = [
+            r for r in maine_results if r.level == 'county'
+        ]
+        cumberland_results = [
+            r for r in county_results if r.fipscode == '23005'
+        ]
         self.assertNotEqual(
             cumberland_results[0].votecount,
             cumberland_results[1].votecount
