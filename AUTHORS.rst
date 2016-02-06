@@ -8,3 +8,6 @@ These individuals have contributed code, tests, documentation, and troubleshooti
 * Wilson Andrews
 * Eric Buth
 * Juan Elosua
+* Ben Welsh
+* Tom Giratikanon
+* Ryan Pitts
