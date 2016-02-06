@@ -75,6 +75,21 @@ class TestCandidate(tests.ElectionResultsTestCase):
         for c in maine_counties:
             self.assertEqual(c.statename, 'Maine')
 
+    def test_maine_county_votepcts_are_correct(self):
+        """
+        From ticket 220.
+        """
+        maine_results = [
+            r for r in self.results if r.raceid == '20978'
+        ]
+        county_results = [r for r in maine_results if r.level == 'county']
+        cumberland_results = [r for r in county_results if r.fipscode == '23005']
+
+        self.assertNotEqual(
+            cumberland_results[0].votepct,
+            cumberland_results[1].votepct
+        )
+
     def test_maine_county_votecounts_are_correct(self):
         """
         From ticket 220.
