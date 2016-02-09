@@ -57,6 +57,7 @@ Elex projects and implementations
 **Experimental**
 
 * `node-elex-admin <https://github.com/eads/node-elex-admin>`_: Incomplete node-based admin interface.
+* `elex-webVideoTextCrawler <https://github.com/OpenNewsLabs/elex-webVideoTextCrawler>`_:  Convert Elex data into HTML5 text track for live video streaming.
 
 News
 ====
