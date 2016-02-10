@@ -1,0 +1,50 @@
+# #########################################################################
+# This bash script adds tab-completion to the Elex CLI
+#
+# Testing it out without installing
+# =================================
+#
+# To test out the completion without "installing" this, just run this file
+# directly, like so:
+#
+#     source ~/path/to/elex_bash_completion
+#
+# After you do that, tab completion will immediately be made available in your
+# current Bash shell. But it won't be available next time you log in.
+#
+# Installing
+# ==========
+#
+# To install this, point to this file from your .bash_profile, like so:
+#
+#     source ~/path/to/django_bash_completion
+#
+# Do the same in your .bashrc if .bashrc doesn't invoke .bash_profile.
+#
+# Settings will take effect the next time you log in.
+#
+# Uninstalling
+# ============
+#
+# To uninstall, just remove the line from your .bash_profile and .bashrc.
+
+_elex_complete()
+{
+    local cur prev opts
+
+    COMPREPLY=()
+    cur=${COMP_WORDS[COMP_CWORD]}
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+    commands="ballot_measures candidates candidate_reporting_units default delegates elections next_election races reporting_units results"
+    opts="--data-file --delegate-sum-file --delegate-super-file --format-json --not-live --test --version"
+    
+    if [ $COMP_CWORD -eq 1 ]; then
+        COMPREPLY=( $(compgen -W "${commands}" -- $cur) )
+    elif [[ ${cur} == -* ]]; then
+        COMPREPLY=( $(compgen -W "${opts}" -- $cur) )
+    fi
+
+    return 0
+
+} &&
+complete -F _elex_complete elex
