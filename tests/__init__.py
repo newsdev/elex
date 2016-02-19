@@ -40,6 +40,7 @@ class ElectionResultsTestCase(unittest.TestCase):
         self.reporting_units = e.reporting_units
         self.results = e.results
 
+
 class ElectionDistrictResultsTestCase(unittest.TestCase):
     data_url = 'tests/data/20160201_district_results.json'
 
@@ -62,9 +63,9 @@ class ElectionDistrictResultsTestCase(unittest.TestCase):
         self.reporting_units = e.reporting_units
         self.results = e.results
 
+
 class NetworkTestCase(unittest.TestCase):
     def api_request(self, *args, **kwargs):
         response = utils.api_request(*args, **kwargs)
         sleep(10)
         return response
-
