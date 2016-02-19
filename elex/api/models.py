@@ -797,7 +797,7 @@ class Election(APElection):
         self.parsed_json = kwargs.get('parsed_json', None)
         self.next_request = kwargs.get('next_request', None)
         self.datafile = kwargs.get('datafile', None)
-        self.resultslevel = kwargs.get('resultslevel', None)
+        self.resultslevel = kwargs.get('resultslevel', 'ru')
 
         self.set_id_field()
 
