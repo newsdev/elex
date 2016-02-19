@@ -55,4 +55,5 @@ Command line interface
                           Specify delegate super report file instead of making
                           HTTP request when using `elex delegates`
     --format-json         Pretty print JSON when using `-o json`.
+    --results-level       Specify reporting level when using `elex results`, such as 'district' or 'state'
     -v, --version         show program's version number and exit

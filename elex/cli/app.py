@@ -56,6 +56,11 @@ HTTP request when using `elex delegates`'
                 action='version',
                 version=BANNER
             )),
+            (['--results-level'], dict(
+                action='store',
+                help='Specify reporting level for results',
+                default='ru'
+            )),
         ]
 
     @expose(hide=True)

@@ -15,6 +15,7 @@ DATA_ELECTION_DATE = '2015-11-03'
 DELSUM_DATA_FILE = 'tests/data/20160118_delsum.json'
 DELSUPER_DATA_FILE = 'tests/data/20160118_delsuper.json'
 ELECTIONS_DATA_FILE = 'tests/data/00000000_elections.json'
+DISTRICT_DATA_FILE = 'tests/data/20160201_district_results.json'
 
 TEST_COMMANDS = [
     'races',
@@ -188,13 +189,22 @@ class ElexCLICSVTestCase(
         )
         self.assertEqual(58, len(number_of_states))
 
+    def test_csv_results_resultslevel(self):
+        fields, data = self._test_command(
+            command='results',
+            datafile=DISTRICT_DATA_FILE,
+            resultslevel='district'
+        )
+        self.assertEqual(data[17]['reportingunitname'], 'District 1')
+
     def _test_command(
         self,
         command,
         datafile=DATA_FILE,
         delsum_datafile=DELSUM_DATA_FILE,
         delsuper_datafile=DELSUPER_DATA_FILE,
-        electiondate=DATA_ELECTION_DATE
+        electiondate=DATA_ELECTION_DATE,
+        resultslevel=None
     ):
         """
         Execute an `elex` sub-command; returns fieldnames and rows
@@ -210,6 +220,7 @@ class ElexCLICSVTestCase(
         argv = argv + ['--data-file', datafile]
         argv = argv + ['--delegate-sum-file', delsum_datafile]
         argv = argv + ['--delegate-super-file', delsuper_datafile]
+        argv = argv + ['--results-level', resultslevel]
 
         app = ElexApp(argv=argv)
 
@@ -387,13 +398,22 @@ class ElexCLIJSONTestCase(
         )
         self.assertEqual(58, len(number_of_states))
 
+    def test_json_results_resultslevel(self):
+        fields, data = self._test_command(
+            command='results',
+            datafile=DISTRICT_DATA_FILE,
+            resultslevel='district'
+        )
+        self.assertEqual(data[17]['reportingunitname'], 'District 1')
+
     def _test_command(
         self,
         command,
         datafile=DATA_FILE,
         delsum_datafile=DELSUM_DATA_FILE,
         delsuper_datafile=DELSUPER_DATA_FILE,
-        electiondate=DATA_ELECTION_DATE
+        electiondate=DATA_ELECTION_DATE,
+        resultslevel=None
     ):
         """
         Execute an `elex` sub-command; returns fieldnames and rows
@@ -408,6 +428,7 @@ class ElexCLIJSONTestCase(
         argv = argv + ['--data-file', datafile, '-o', 'json']
         argv = argv + ['--delegate-sum-file', delsum_datafile]
         argv = argv + ['--delegate-super-file', delsuper_datafile]
+        argv = argv + ['--results-level', resultslevel]
 
         app = ElexApp(argv=argv)
 

@@ -8,6 +8,7 @@ def add_election_hook(app):
     app.election = Election(
         testresults=app.pargs.test,
         liveresults=not app.pargs.not_live,
+        resultslevel=app.pargs.results_level,
         is_test=False
     )
     if app.pargs.data_file:

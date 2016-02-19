@@ -797,6 +797,7 @@ class Election(APElection):
         self.parsed_json = kwargs.get('parsed_json', None)
         self.next_request = kwargs.get('next_request', None)
         self.datafile = kwargs.get('datafile', None)
+        self.resultslevel = kwargs.get('resultslevel', 'ru')
 
         self.set_id_field()
 
@@ -1008,7 +1009,7 @@ class Election(APElection):
         """
         raw_races = self.get_raw_races(
             omitResults=False,
-            level="ru",
+            level=self.resultslevel,
             test=self.testresults,
             national=self.national,
             apiKey=self.api_key
