@@ -616,7 +616,7 @@ class Race(APElection):
         self.uncontested = kwargs.get('uncontested', False)
         self.lastupdated = kwargs.get('lastUpdated', None)
         self.initialization_data = kwargs.get('initialization_data', False)
-        self.national = kwargs.get('national', False)
+        self.national = kwargs.get('national', True)
         self.candidates = kwargs.get('candidates', [])
         self.reportingunits = kwargs.get('reportingUnits', [])
 
@@ -821,7 +821,7 @@ class Election(APElection):
         self.testresults = kwargs.get('testresults', False)
         self.liveresults = kwargs.get('liveresults', False)
         self.electiondate = kwargs.get('electiondate', None)
-        self.national = kwargs.get('national', False)
+        self.national = kwargs.get('national', None)
         self.api_key = kwargs.get('api_key', None)
 
         self.parsed_json = kwargs.get('parsed_json', None)

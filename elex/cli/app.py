@@ -67,10 +67,10 @@ HTTP request when using `elex delegates`'
 Sets the vote, delegate, and reporting precinct counts to zero.',
                 default=False
             )),
-            (['--national-only'], dict(
-                action='store_true',
-                help='Limit results to national-level results only.',
-                default=False
+            (['--local-only'], dict(
+                action='store_false',
+                help='Limit results to local-level results only.',
+                default=True
             )),
         ]
 
