@@ -64,7 +64,13 @@ class APElection(utils.UnicodeMixin):
         """
         if not self.reportingunitid:
             if self.level == "state":
-                setattr(self, 'reportingunitid', "1")
+                setattr(self, 'reportingunitid', 'state-1')
+        else:
+            """
+            Fixes #226 reportingunitids recycled across levels.
+            """
+            setattr(self, 'reportingunitid', '%s-%s' % (
+                self.level, self.reportingunitid))
 
     def set_candidates(self):
         """
