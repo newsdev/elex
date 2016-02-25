@@ -70,7 +70,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             (['--local-only'], dict(
                 action='store_false',
                 help='Limit results to local-level results only.',
-                default=True
+                default=None
             )),
         ]
 
