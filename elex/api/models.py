@@ -623,63 +623,80 @@ class Race(APElection):
         township under that county.
         """
         if self.statepostal in maps.FIPS_TO_STATE.keys():
-            results = OrderedDict()
+            rts = OrderedDict()
             for ru in [
                 r for r in self.reportingunits if r.level == 'township'
             ]:
-                # This should loop over reporting units.
-                # It should create a new reporting unit for each county.
-                # It should store all the keys/values for the reporting unit.
-                # It should create list called candidates in new reporting unit
-                # That list should be filled with candidate reporting units.
-                # Those candidate reporting unit objects should sum townships.
-                # The reporting unit should also sum the townships.
-                # Also it should be fast.
-                if not results.get(ru.fipscode, None):
-                    results[ru.fipscode] = dict(ru.__dict__)
-                    results[ru.fipscode]['level'] = 'county'
-                    results[ru.fipscode]['reportingunitid'] = "%s-%s" % (
-                        ru.statepostal,
-                        ru.fipscode
-                    )
-                    ru_name = maps.FIPS_TO_STATE[ru.statepostal][ru.fipscode]
-                    results[ru.fipscode]['reportingunitname'] = ru_name
-                    results[ru.fipscode]['candidates'] = OrderedDict()
-                else:
-                    for c in ru.candidates:
-                        if not results[ru.fipscode]['candidates'].get(
-                            c.unique_id,
-                            None
-                        ):
-                            d = dict(c.__dict__)
-                            d['level'] = 'county'
-                            d['reportingunitid'] = "%s-%s" % (
-                                ru.statepostal,
-                                ru.fipscode
-                            )
-                            fips_dict = maps.FIPS_TO_STATE[ru.statepostal]
-                            d['reportingunitname'] = fips_dict[ru.fipscode]
-                            results[ru.fipscode]['candidates'][c.unique_id] = d
-                        else:
-                            d = results[ru.fipscode]['candidates'][c.unique_id]
-                            d['votecount'] += c.votecount
-                            d['precinctstotal'] += c.precinctstotal
-                            d['precinctsreporting'] += c.precinctsreporting
-                            try:
-                                d['precinctsreportingpct'] = (
-                                    d['precinctsreporting'] /
-                                    float(d['precinctstotal'])
+                """
+                This should loop over reporting units.
+                It should create a new reporting unit for each county.
+                It should store all the keys/values for the reporting unit.
+                It should create list called candidates in new reporting
+                unit. That list should be filled with candidate reporting
+                units. Those candidate reporting unit objects should sum
+                townships. The reporting unit should also sum the townships.
+                Also it should be fast.
+                """
+                try:
+                    if not rts.get(ru.fipscode, None):
+                        rts[ru.fipscode] = dict(ru.__dict__)
+                        rts[ru.fipscode]['level'] = 'county'
+                        rts[ru.fipscode]['reportingunitid'] = "%s-%s" % (
+                            ru.statepostal,
+                            ru.fipscode
+                        )
+                        name = maps.FIPS_TO_STATE[ru.statepostal][ru.fipscode]
+                        rts[ru.fipscode]['reportingunitname'] = name
+                        rts[ru.fipscode]['candidates'] = OrderedDict()
+                    else:
+                        for c in ru.candidates:
+                            if not rts[ru.fipscode]['candidates'].get(
+                                c.unique_id,
+                                None
+                            ):
+                                d = dict(c.__dict__)
+                                d['level'] = 'county'
+                                d['reportingunitid'] = "%s-%s" % (
+                                    ru.statepostal,
+                                    ru.fipscode
                                 )
-                            except ZeroDivisionError:
-                                d['precinctsreportingpct'] = 0.0
+                                fips_dict = maps.FIPS_TO_STATE[ru.statepostal]
+                                d['reportingunitname'] = fips_dict[ru.fipscode]
+                                rts[ru.fipscode]['candidates'][c.unique_id] = d
+                            else:
+                                d = rts[ru.fipscode]['candidates'][c.unique_id]
+                                d['votecount'] += c.votecount
+                                d['precinctstotal'] += c.precinctstotal
+                                d['precinctsreporting'] += c.precinctsreporting
+                                try:
+                                    d['precinctsreportingpct'] = (
+                                        d['precinctsreporting'] /
+                                        float(d['precinctstotal'])
+                                    )
+                                except ZeroDivisionError:
+                                    d['precinctsreportingpct'] = 0.0
+                except KeyError:
+                    """
+                    An advisory on 2016-02-25 indicates that Maine will not be
+                    reporting at the township level. Hence, the existing maps
+                    will not allow for a county-level rollup. Issue #228.
+                    """
+                    pass
 
-            for ru in results.values():
-                cands = list([dict(c) for c in ru['candidates'].values()])
-                del ru['candidates']
-                ru['candidates'] = [c for c in cands]
-                ru['statename'] = str(maps.STATE_ABBR[ru['statepostal']])
-                r = ReportingUnit(**ru)
-                self.reportingunits.append(r)
+            try:
+                for ru in rts.values():
+                    cands = list([dict(c) for c in ru['candidates'].values()])
+                    del ru['candidates']
+                    ru['candidates'] = [c for c in cands]
+                    ru['statename'] = str(maps.STATE_ABBR[ru['statepostal']])
+                    r = ReportingUnit(**ru)
+                    self.reportingunits.append(r)
+            except AttributeError:
+                """
+                Sometimes, the dict is empty because we have no townships to
+                roll up into counties. Issue #228.
+                """
+                pass
 
     def set_id_field(self):
         """

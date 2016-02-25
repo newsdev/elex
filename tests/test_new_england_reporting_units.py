@@ -2,7 +2,41 @@ from elex.api import maps
 import tests
 
 
-class TestCandidate(tests.ElectionResultsTestCase):
+class TestMaineEdgeCaseReportingUnits(tests.ElectionResultsTestCase):
+    """
+    Should get two reporting units from this Maine file: One is the
+    state level, the other is a level 'subunit' which is actually
+    the state level data as well. #228.
+    """
+    data_url = 'tests/data/20160305_me_no_townships.json'
+    NE_STATES = maps.FIPS_TO_STATE.keys()
+
+    def test_number_of_reporting_units(self):
+        maine_results = [
+            r for r in self.reporting_units if r.raceid == '20852'
+        ]
+        self.assertEqual(len(maine_results), 2)
+
+    def test_one_state_level_unit(self):
+        maine_results = [
+            r for r in self.reporting_units if r.raceid == '20852'
+        ]
+        maine_state_level_units = [
+            r for r in maine_results if r.level == 'state'
+        ]
+        self.assertEqual(len(maine_state_level_units), 1)
+
+    def test_one_subunit(self):
+        maine_results = [
+            r for r in self.reporting_units if r.raceid == '20852'
+        ]
+        maine_subunits = [
+            r for r in maine_results if r.level == 'state'
+        ]
+        self.assertEqual(len(maine_subunits), 1)
+
+
+class TestNewEnglandReportingUnits(tests.ElectionResultsTestCase):
     data_url = 'tests/data/20121106_me_fl_senate.json'
     NE_STATES = maps.FIPS_TO_STATE.keys()
 
