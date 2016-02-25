@@ -216,7 +216,7 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
             cru,
             [
                 'id', 'unique_id', 'raceid', 'racetype', 'racetypeid',
-                'ballotorder', 'candidateid', 'description', 'electiondate',
+                'ballotorder', 'candidateid', 'description', 'delegatecount', 'electiondate',
                 'fipscode', 'first', 'incumbent', 'initialization_data',
                 'is_ballot_measure', 'last', 'lastupdated', 'level',
                 'national', 'officeid', 'officename', 'party', 'polid',
