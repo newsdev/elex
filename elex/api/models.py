@@ -301,6 +301,10 @@ class CandidateReportingUnit(APElection):
         if kwargs.get('votepct', None):
             self.votepct = kwargs['votepct']
 
+        self.delegatecount = kwargs.get('delegateCount', 0)
+        if kwargs.get('delegatecount', None):
+            self.delegatecount = kwargs['delegatecount']
+
         self.winner = kwargs.get('winner', False) == 'X'
         self.runoff = kwargs.get('winner', False) == 'R'
         self.is_ballot_measure = kwargs.get('is_ballot_measure', None)
@@ -352,7 +356,7 @@ class CandidateReportingUnit(APElection):
         candidates have them; everyone else gets '0'.
         The unique key, then, is the NAME of the ID
         we're using and then the ID itself.
-        Verified this is globally unique with Tracy.
+        Verified this is globally unique with Tracy Lewis.
         """
         if not self.is_ballot_measure:
             if self.polid:
@@ -375,6 +379,7 @@ class CandidateReportingUnit(APElection):
             ('ballotorder', self.ballotorder),
             ('candidateid', self.candidateid),
             ('description', self.description),
+            ('delegatecount', self.delegatecount),
             ('electiondate', self.electiondate),
             ('fipscode', self.fipscode),
             ('first', self.first),
