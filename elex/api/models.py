@@ -821,7 +821,7 @@ class Election(APElection):
         self.testresults = kwargs.get('testresults', False)
         self.liveresults = kwargs.get('liveresults', False)
         self.electiondate = kwargs.get('electiondate', None)
-        self.national = kwargs.get('national', True)
+        self.national = kwargs.get('national', False)
         self.api_key = kwargs.get('api_key', None)
 
         self.parsed_json = kwargs.get('parsed_json', None)
