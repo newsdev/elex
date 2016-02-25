@@ -61,6 +61,12 @@ HTTP request when using `elex delegates`'
                 help='Specify reporting level for results',
                 default='ru'
             )),
+            (['--set-zero-counts'], dict(
+                action='store_true',
+                help='Override results with zeros; omits the winner indicator.\
+Sets the vote, delegate, and reporting precinct counts to zero.',
+                default=False
+            )),
         ]
 
     @expose(hide=True)

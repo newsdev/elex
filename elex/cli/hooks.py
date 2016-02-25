@@ -9,6 +9,7 @@ def add_election_hook(app):
         testresults=app.pargs.test,
         liveresults=not app.pargs.not_live,
         resultslevel=app.pargs.results_level,
+        setzerocounts=app.pargs.set_zero_counts,
         is_test=False
     )
     if app.pargs.data_file:
