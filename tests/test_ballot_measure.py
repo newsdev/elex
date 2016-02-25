@@ -15,20 +15,28 @@ class TestBallotPosition(tests.ElectionResultsTestCase):
         c = self.ballot_measures[0]
         self.assertEqual(c.last, "Yes")
         self.assertFalse(hasattr(c, 'first'))
-        self.assertEqual(c.unique_id, "12480")
+        self.assertEqual(c.unique_id, "%s-12480" % c.electiondate)
 
     def test_ballot_measure_serialization_keys(self):
         c = self.ballot_measures[0].serialize()
         self.assertEqual(c['last'], "Yes")
-        self.assertEqual(c['unique_id'], "12480")
+        self.assertEqual(c['unique_id'], "%s-12480" % c['electiondate'])
 
     def test_ballot_measure_serialization_order(self):
         c = list(self.ballot_measures[0].serialize())
         self.assertEqual(
             c,
             [
-                'id', 'unique_id', 'candidateid', 'ballotorder', 'description',
-                'last', 'polid', 'polnum', 'seatname'
+                'id',
+                'unique_id',
+                'candidateid',
+                'ballotorder',
+                'description',
+                'electiondate',
+                'last',
+                'polid',
+                'polnum',
+                'seatname'
             ]
         )
 

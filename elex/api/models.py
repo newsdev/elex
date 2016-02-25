@@ -217,6 +217,7 @@ class BallotMeasure(APElection):
         self.ballotorder = kwargs.get('ballotorder', None)
         self.candidateid = kwargs.get('candidateid', None)
         self.description = kwargs.get('description', None)
+        self.electiondate = kwargs.get('electiondate', None)
         self.last = kwargs.get('last', None)
         self.polid = kwargs.get('polid', None)
         self.polnum = kwargs.get('polnum', None)
@@ -236,6 +237,7 @@ class BallotMeasure(APElection):
             ('candidateid', self.candidateid),
             ('ballotorder', self.ballotorder),
             ('description', self.description),
+            ('electiondate', self.electiondate),
             ('last', self.last),
             ('polid', self.polid),
             ('polnum', self.polnum),
@@ -254,7 +256,7 @@ class BallotMeasure(APElection):
         we're using and then the ID itself.
         Verified this is globally unique with Tracy.
         """
-        self.unique_id = self.candidateid
+        self.unique_id = "%s-%s" % (self.electiondate, self.candidateid)
 
     def set_id_field(self):
         """
@@ -864,7 +866,8 @@ class Election(APElection):
                         ballotorder=c.ballotorder,
                         polnum=c.polnum,
                         seatname=c.seatname,
-                        description=c.description
+                        description=c.description,
+                        electiondate=self.electiondate
                     )
             else:
                 if not unique_candidates.get(c.candidateid, None):

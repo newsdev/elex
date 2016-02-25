@@ -152,7 +152,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             )
         self.app.render(data)
 
-    @expose(help="Get ballot positions (also known as ballot issues)")
+    @expose(help="Get ballot measures")
     @require_ap_api_key
     @require_date_argument
     def ballot_measures(self):
@@ -160,7 +160,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         Initialize reporting units
         """
         self.app.log.info(
-            'Getting ballot positions for election {0}'.format(
+            'Getting ballot measures for election {0}'.format(
                 self.app.election.electiondate
             )
         )
