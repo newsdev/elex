@@ -186,9 +186,9 @@ class DelegateReport(utils.UnicodeMixin):
         of delegate counts by party. Makes a request from the AP
         using requests. Formats that request with env vars.
         """
-        base_url = os.environ.get(
+        base_url = "%s/reports" % os.environ.get(
             'AP_API_BASE_URL',
-            'http://api.ap.org/v2/reports'
+            'http://api.ap.org/v2'
         )
         params.update({
             'apikey': os.environ.get('AP_API_KEY', None),
