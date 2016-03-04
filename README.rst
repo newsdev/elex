@@ -22,8 +22,6 @@ ELEX
     :target: https://pypi.python.org/pypi/elex
     :alt: Support Python versions
 
-Elex was developed by The New York Times and NPR and not in concert with the Associated Press. Though we plan on using Elex for the 2016 cycle, there is no guarantee that this software will work for you. If you're thinking about using Elex, check out the `license <https://github.com/newsdev/elex/blob/master/LICENSE>`_ and contact the authors.
-
 Get database-ready election results from the Associated Press Election API v2.0.
 
 Elex is designed to be fast, friendly, and largely agnostic to stack/language/database choice. Basic usage is
@@ -31,14 +29,22 @@ as simple as:
 
 .. code:: bash
 
-    elex results 2015-11-21 > results.csv
+    elex results 2016-03-01 > results.csv
 
-Important links:
+Important links
+----------------
 
 * Documentation: http://elex.readthedocs.org/
 * Repository: https://github.com/newsdev/elex/
 * Issues: https://github.com/newsdev/elex/issues
 * Roadmap: https://github.com/newsdev/elex/milestones
+
+
+Disclaimer
+-----------
+
+Elex was developed by The New York Times and NPR and not in concert with the Associated Press. Though we plan on using Elex for the 2016 cycle, there is no guarantee that this software will work for you. If you're thinking about using Elex, check out the `license <https://github.com/newsdev/elex/blob/master/LICENSE>`_ and contact the authors.
+
 
 Elex projects and implementations
 =================================
@@ -50,9 +56,9 @@ Elex projects and implementations
 
 **New York Times**
 
-* `New York Times loader <https://github.com/newsdev/elex-loader>`_: A more sophisticated data loader for PostgreSQL.
-* `New York Times Deja Vu <https://github.com/newsdev/ap-deja-vu>`_: A webservice to replay JSON captured during an election.
-* `New York Times Elex Admin <https://github.com/newsdev/elex-admin>`_: An admin interface for Elex data loaded with the New York Times loader written in Flask.
+* `New York Times Elex loader <https://github.com/newsdev/elex-loader>`_: A more sophisticated data loader for PostgreSQL.
+* `New York Times AP Deja Vu <https://github.com/newsdev/ap-deja-vu>`_: A webservice to replay JSON captured during an election.
+* `New York Times Elex admin <https://github.com/newsdev/elex-admin>`_: An admin interface for Elex data loaded with the New York Times loader written in Flask.
 
 **Experimental**
 
@@ -69,3 +75,5 @@ Using the FTP system?
 =====================
 
 Use the Los Angeles Times' `python-elections <https://github.com/datadesk/python-elections>`_ library.
+
+The New York Times has `a sample implementation <https://github.com/newsdev/elex-ftp-loader>`_ that demonstrates how you might integrate the FTP loader with your Elex-based system.
