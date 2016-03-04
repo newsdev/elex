@@ -209,9 +209,9 @@ class DelegateReport(utils.UnicodeMixin):
         organization-specific report ID.
         """
         if not self.reports:
-            base_url = os.environ.get(
+            base_url = "%s/reports" % os.environ.get(
                 'AP_API_BASE_URL',
-                'http://api.ap.org/v2/reports'
+                'http://api.ap.org/v2'
             )
             params.update({
                 'apikey': os.environ.get('AP_API_KEY', None),
