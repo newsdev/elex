@@ -15,12 +15,9 @@ class TestMassRollupBug(tests.ElectionResultsTestCase):
         According to bug #236, we should be 1 county short.
         """
         mass_results = [
-            r for r in self.results if r.raceid == '24547'
+            r for r in self.results if
+            r.raceid == '24547' and
+            r.level == 'county' and
+            r.last == 'Trump'
         ]
-        mass_county_results = [
-            r for r in mass_results if r.level == 'county'
-        ]
-        mass_counties = [
-            r for r in mass_county_results if r.last == 'Trump'
-        ]
-        self.assertEqual(len(mass_counties), len(maps.FIPS_TO_STATE['MA']))
+        self.assertEqual(len(mass_results), len(maps.FIPS_TO_STATE['MA']))
