@@ -54,6 +54,12 @@ Command line interface
     --delegate-super-file DELEGATE_SUPER_FILE
                           Specify delegate super report file instead of making
                           HTTP request when using `elex delegates`
+    --local-only          Limit results to local-level results only, ignoring
+                          national races like President, House/Senate and
+                          Governor
     --format-json         Pretty print JSON when using `-o json`.
-    --results-level       Specify reporting level when using `elex results`, such as 'district' or 'state'
-    -v, --version         show program's version number and exit
+    --results-level       Specify reporting level when using `elex results`, 
+                          such as `district` or `state`
+    --set-zero-counts     Override results with zeros; omits the winner
+                          indicator.
+    -v, --version         Show program's version number and exit

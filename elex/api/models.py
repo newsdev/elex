@@ -474,6 +474,7 @@ class ReportingUnit(APElection):
 
         self.precinctsreportingpct = kwargs.get('precinctsReportingPct', 0.0)\
             * 0.01
+
         if kwargs.get('precinctsreportingpct', None):
             self.precinctsreportingpct = kwargs['precinctsreportingpct']
 
@@ -617,7 +618,7 @@ class Race(APElection):
         self.uncontested = kwargs.get('uncontested', False)
         self.lastupdated = kwargs.get('lastUpdated', None)
         self.initialization_data = kwargs.get('initialization_data', False)
-        self.national = kwargs.get('national', False)
+        self.national = kwargs.get('national', True)
         self.candidates = kwargs.get('candidates', [])
         self.reportingunits = kwargs.get('reportingUnits', [])
 
@@ -662,33 +663,33 @@ class Race(APElection):
                         name = maps.FIPS_TO_STATE[ru.statepostal][ru.fipscode]
                         rts[ru.fipscode]['reportingunitname'] = name
                         rts[ru.fipscode]['candidates'] = OrderedDict()
-                    else:
-                        for c in ru.candidates:
-                            if not rts[ru.fipscode]['candidates'].get(
-                                c.unique_id,
-                                None
-                            ):
-                                d = dict(c.__dict__)
-                                d['level'] = 'county'
-                                d['reportingunitid'] = "%s-%s" % (
-                                    ru.statepostal,
-                                    ru.fipscode
-                                )
-                                fips_dict = maps.FIPS_TO_STATE[ru.statepostal]
-                                d['reportingunitname'] = fips_dict[ru.fipscode]
-                                rts[ru.fipscode]['candidates'][c.unique_id] = d
-                            else:
-                                d = rts[ru.fipscode]['candidates'][c.unique_id]
-                                d['votecount'] += c.votecount
-                                d['precinctstotal'] += c.precinctstotal
-                                d['precinctsreporting'] += c.precinctsreporting
-                                try:
-                                    d['precinctsreportingpct'] = (
-                                        d['precinctsreporting'] /
-                                        float(d['precinctstotal'])
-                                    ) * 0.01
-                                except ZeroDivisionError:
-                                    d['precinctsreportingpct'] = 0.0
+
+                    for c in ru.candidates:
+                        if not rts[ru.fipscode]['candidates'].get(
+                            c.unique_id,
+                            None
+                        ):
+                            d = dict(c.__dict__)
+                            d['level'] = 'county'
+                            d['reportingunitid'] = "%s-%s" % (
+                                ru.statepostal,
+                                ru.fipscode
+                            )
+                            fips_dict = maps.FIPS_TO_STATE[ru.statepostal]
+                            d['reportingunitname'] = fips_dict[ru.fipscode]
+                            rts[ru.fipscode]['candidates'][c.unique_id] = d
+                        else:
+                            d = rts[ru.fipscode]['candidates'][c.unique_id]
+                            d['votecount'] += c.votecount
+                            d['precinctstotal'] += c.precinctstotal
+                            d['precinctsreporting'] += c.precinctsreporting
+                            try:
+                                d['precinctsreportingpct'] = (
+                                    d['precinctsreporting'] /
+                                    float(d['precinctstotal'])
+                                ) * 0.01
+                            except ZeroDivisionError:
+                                d['precinctsreportingpct'] = 0.0
                 except KeyError:
                     """
                     An advisory on 2016-02-25 indicates that Maine will not be
@@ -822,7 +823,7 @@ class Election(APElection):
         self.testresults = kwargs.get('testresults', False)
         self.liveresults = kwargs.get('liveresults', False)
         self.electiondate = kwargs.get('electiondate', None)
-        self.national = kwargs.get('national', False)
+        self.national = kwargs.get('national', None)
         self.api_key = kwargs.get('api_key', None)
 
         self.parsed_json = kwargs.get('parsed_json', None)

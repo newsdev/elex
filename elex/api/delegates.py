@@ -37,9 +37,9 @@ class CandidateDelegateReport(utils.UnicodeMixin):
         self.party = kwargs.get('party', None)
         self.delegates_count = kwargs.get('delegates_count', None)
         self.id = "%s-%s" % (self.state, self.candidateid)
-        self.d1 = int(kwargs.get('d1', None))
-        self.d7 = int(kwargs.get('d7', None))
-        self.d30 = int(kwargs.get('d30', None))
+        self.d1 = int(kwargs.get('d1', None).replace(',', ''))
+        self.d7 = int(kwargs.get('d7', None).replace(',', ''))
+        self.d30 = int(kwargs.get('d30', None).replace(',', ''))
 
     def serialize(self):
         """
@@ -186,9 +186,9 @@ class DelegateReport(utils.UnicodeMixin):
         of delegate counts by party. Makes a request from the AP
         using requests. Formats that request with env vars.
         """
-        base_url = os.environ.get(
+        base_url = "%s/reports" % os.environ.get(
             'AP_API_BASE_URL',
-            'http://api.ap.org/v2/reports'
+            'http://api.ap.org/v2'
         )
         params.update({
             'apikey': os.environ.get('AP_API_KEY', None),
@@ -209,9 +209,9 @@ class DelegateReport(utils.UnicodeMixin):
         organization-specific report ID.
         """
         if not self.reports:
-            base_url = os.environ.get(
+            base_url = "%s/reports" % os.environ.get(
                 'AP_API_BASE_URL',
-                'http://api.ap.org/v2/reports'
+                'http://api.ap.org/v2'
             )
             params.update({
                 'apikey': os.environ.get('AP_API_KEY', None),

@@ -1,3 +1,16 @@
+1.2.0 - Feb. 25, 2016
+----------------------
+Many bugfixes and some new fields / id schemes that might break implementations that rely on stable field names / orders.
+
+* Fixes an issue with requests defaulting to national-only (#229, #230).
+* Solves an issue with 3/5 and 3/6 Maine results not including townships (#228).
+* Supports a :code:`set-zero-counts` argument to the CLI to return zeroed-out data (#227).
+* Includes a :code:`delegatecount` field on :code:`CandidateReportingUnit` to store data from district-level results (#225).
+* Supports a :code:`results-level` argument to the CLI to return district-level data. (#223)
+* Solves an issue with :code:`reportingunitid` not being unique acrosss different result levels (#226).
+* Adds an :code:`electiondate` field on :code:`BallotMeasure` to guarantee uniqueness (#210).
+* Makes a composite id for :code:`BallotMeasure` that includes :code:`electiondate` (#210).
+
 1.1.0 - Feb. 2, 2016
 --------------------
 
