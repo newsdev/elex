@@ -685,9 +685,9 @@ class Race(APElection):
                             d['precinctsreporting'] += c.precinctsreporting
                             try:
                                 d['precinctsreportingpct'] = (
-                                    d['precinctsreporting'] /
+                                    float(d['precinctsreporting']) /
                                     float(d['precinctstotal'])
-                                ) * 0.01
+                                )
                             except ZeroDivisionError:
                                 d['precinctsreportingpct'] = 0.0
                 except KeyError:
