@@ -1,6 +1,7 @@
 from elex.api import maps
 import tests
 
+
 class TestPrecinctsReportingPctFloat(tests.ElectionResultsTestCase):
     data_url = 'tests/data/20160301_super_tuesday.json'
 
@@ -8,9 +9,13 @@ class TestPrecinctsReportingPctFloat(tests.ElectionResultsTestCase):
         results = [r for r in self.results]
         for r in results:
             percent = float(r.precinctsreporting) / float(r.precinctstotal)
-            self.assertEqual("%.4f" % r.precinctsreportingpct, "%.4f" % percent)
+            self.assertEqual(
+                "%.4f" % r.precinctsreportingpct,
+                "%.4f" % percent
+            )
             self.assertLessEqual(r.precinctsreportingpct, 1.00)
             self.assertGreaterEqual(r.precinctsreportingpct, 0.00)
+
 
 class TestMassRollupBug(tests.ElectionResultsTestCase):
     """
