@@ -228,7 +228,7 @@ class ElexCLICSVTestCase(
         app.log.set_level('FATAL')
         app.run()
 
-        lines = sys.stdout.getvalue().split('\r')
+        lines = sys.stdout.getvalue().split('\n')
         reader = csv.DictReader(lines)
 
         sys.stdout.close()

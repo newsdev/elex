@@ -21,7 +21,7 @@ class CSVOutputHandler(output.CementOutputHandler):
         try:
             # Properly terminate lines for Windows and Excel.
             # See: https://github.com/newsdev/elex/issues/232
-            writer = csv.writer(sys.stdout, lineterminator='\r')
+            writer = csv.writer(sys.stdout, lineterminator='\n')
             for i, row in enumerate(data):
                 if i == 0:
                     writer.writerow(row.serialize().keys())
