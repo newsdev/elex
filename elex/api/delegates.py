@@ -5,10 +5,22 @@ single load of AP delegate counts and methods necessary to obtain them.
 """
 import os
 import json
+import percache
 import requests
 from elex.api import utils
 from collections import OrderedDict
 
+cache = percache.Cache('/tmp/elex-cache', livesync=True)
+
+
+@cache
+def _get_reports(params={}):
+    resp = utils.api_request('/reports', **params)
+    if resp.ok:
+        return resp.json().get('reports')
+    else:
+        cache.clear()
+        return []
 
 class CandidateDelegateReport(utils.UnicodeMixin):
     """
@@ -186,21 +198,11 @@ class DelegateReport(utils.UnicodeMixin):
         of delegate counts by party. Makes a request from the AP
         using requests. Formats that request with env vars.
         """
-        base_url = "%s/reports" % os.environ.get(
-            'AP_API_BASE_URL',
-            'http://api.ap.org/v2'
-        )
-        params.update({
-            'apikey': os.environ.get('AP_API_KEY', None),
-            'format': 'json',
-        })
         report_id = self.get_report_id(key)
         if report_id:
-            r = requests.get(
-                '{0}/{1}'.format(base_url, report_id),
-                params=params
-            )
+            r = utils.api_request('/reports/{0}'.format(report_id), **params)
             return r.json()[key]['del']
+
         return None
 
     def get_report_id(self, key, params={}):
@@ -208,19 +210,9 @@ class DelegateReport(utils.UnicodeMixin):
         Takes a delSuper or delSum as the argument and returns
         organization-specific report ID.
         """
-        if not self.reports:
-            base_url = "%s/reports" % os.environ.get(
-                'AP_API_BASE_URL',
-                'http://api.ap.org/v2'
-            )
-            params.update({
-                'apikey': os.environ.get('AP_API_KEY', None),
-                'format': 'json',
-            })
-            r = requests.get(base_url, params=params)
-            self.reports = r.json().get('reports')
+        reports = _get_reports(params)
 
-        for report in self.reports:
+        for report in reports:
             if (
                 key == 'delSum' and
                 report.get('title') == 'Delegates / delsum'
