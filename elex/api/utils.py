@@ -104,10 +104,3 @@ def api_request(path, **params):
             file=sys.stderr
         )
     return response
-
-
-def clear_delegate_cache():
-    """
-    Delete the delegate cache file
-    """
-    os.remove(elex.DELEGATE_REPORT_ID_CACHE_FILE)

@@ -26,6 +26,13 @@ def _get_reports(params={}):
         return []
 
 
+def clear_delegate_cache():
+    """
+    Delete the delegate cache file
+    """
+    cache.clear()
+
+
 class CandidateDelegateReport(utils.UnicodeMixin):
     """
     'level': 'state',

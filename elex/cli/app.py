@@ -1,6 +1,6 @@
 from elex.api import Elections
 from elex.api import DelegateReport
-from elex.api.utils import clear_delegate_cache
+from elex.api.delegates import clear_delegate_cache
 from elex import DELEGATE_REPORT_ID_CACHE_FILE
 from elex import __version__ as VERSION
 from cement.core.foundation import CementApp
