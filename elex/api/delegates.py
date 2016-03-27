@@ -3,15 +3,12 @@
 This module contains the primary :class:`DelegateLoad` class for handling a
 single load of AP delegate counts and methods necessary to obtain them.
 """
-import os
 import json
 import percache
-import tempfile
 
+from elex import DELEGATE_REPORT_ID_CACHE_FILE
 from elex.api import utils
 from collections import OrderedDict
-
-DELEGATE_REPORT_ID_CACHE_FILE = os.path.join(tempfile.gettempdir(), 'elex-cache2')
 
 cache = percache.Cache(DELEGATE_REPORT_ID_CACHE_FILE, livesync=True)
 
