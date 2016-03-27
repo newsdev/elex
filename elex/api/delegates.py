@@ -6,21 +6,28 @@ single load of AP delegate counts and methods necessary to obtain them.
 import os
 import json
 import percache
-import requests
+import tempfile
+
 from elex.api import utils
 from collections import OrderedDict
 
-cache = percache.Cache('/tmp/elex-cache', livesync=True)
+DELEGATE_REPORT_ID_CACHE_FILE = os.path.join(tempfile.gettempdir(), 'elex-cache2')
+
+cache = percache.Cache(DELEGATE_REPORT_ID_CACHE_FILE, livesync=True)
 
 
 @cache
 def _get_reports(params={}):
+    """
+    Use percache to dump a report response to disk
+    """
     resp = utils.api_request('/reports', **params)
     if resp.ok:
         return resp.json().get('reports')
     else:
         cache.clear()
         return []
+
 
 class CandidateDelegateReport(utils.UnicodeMixin):
     """
@@ -198,19 +205,19 @@ class DelegateReport(utils.UnicodeMixin):
         of delegate counts by party. Makes a request from the AP
         using requests. Formats that request with env vars.
         """
-        report_id = self.get_report_id(key)
+        reports = _get_reports(params=params)
+        report_id = self.get_report_id(reports, key)
         if report_id:
             r = utils.api_request('/reports/{0}'.format(report_id), **params)
             return r.json()[key]['del']
 
         return None
 
-    def get_report_id(self, key, params={}):
+    def get_report_id(self, reports, key):
         """
         Takes a delSuper or delSum as the argument and returns
         organization-specific report ID.
         """
-        reports = _get_reports(params)
 
         for report in reports:
             if (
