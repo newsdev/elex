@@ -23,6 +23,7 @@ Table of contents
     tutorial
     cli
     api
+    configuration
     recording
     recipes
     contributing
