@@ -11,7 +11,7 @@ install:
 # command to run tests
 script:
   - pyflakes elex
-  - pep8 elex
+  - pep8 --max-line-length=120 elex
   - pyflakes tests
   - pep8 tests
   - python -m nose2.__main__ -v
