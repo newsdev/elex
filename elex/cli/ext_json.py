@@ -1,5 +1,6 @@
 import json
 import sys
+import time
 from bson import json_util
 from cement.core import handler, output
 
@@ -25,7 +26,16 @@ class ElexJSONOutputHandler(output.CementOutputHandler):
                 kwargs['sort_keys'] = True
                 kwargs['indent'] = 4
 
-            json_data = [row.serialize() for row in data]
+            if self.app.pargs.with_timestamp:
+                now = time.time()
+                json_data = []
+                for obj in data:
+                    row = obj.serialize()
+                    row['timestamp'] = str(int(now))
+                    json_data.append(row)
+            else:
+                json_data = [row.serialize() for row in data]
+
             json.dump(
                 json_data,
                 sys.stdout,

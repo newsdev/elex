@@ -1,5 +1,6 @@
 import csv
 import sys
+import time
 from cement.core import handler, output
 
 
@@ -18,14 +19,19 @@ class CSVOutputHandler(output.CementOutputHandler):
         if len(data) == 0:
             return
 
+        now = time.time()
+
         try:
             # Properly terminate lines for Windows and Excel.
             # See: https://github.com/newsdev/elex/issues/232
             writer = csv.writer(sys.stdout, lineterminator='\n')
-            for i, row in enumerate(data):
+            for i, obj in enumerate(data):
+                row = obj.serialize()
+                if self.app.pargs.with_timestamp:
+                    row['timestamp'] = str(int(now))
                 if i == 0:
-                    writer.writerow(row.serialize().keys())
-                writer.writerow(row.serialize().values())
+                    writer.writerow(row.keys())
+                writer.writerow(row.values())
         except IOError:
             # Handle pipes that could close before output is done.
             # See: http://stackoverflow.com/questions/15793886/

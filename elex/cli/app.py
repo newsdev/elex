@@ -72,6 +72,11 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 help='Limit results to local-level results only.',
                 default=None
             )),
+            (['--with-timestamp'], dict(
+                action='store_true',
+                help='Add timestamp column corresponding to runtime.',
+                default=False
+            )),
         ]
 
     @expose(hide=True)
