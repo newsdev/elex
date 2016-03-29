@@ -18,10 +18,7 @@ def require_date_argument(fn):
                 )
                 return fn(self)
             except ValueError:
-                puts(
-                    colored.yellow('Whoa there, friend! There was an error:\n')
-                )
-                text = '{0} could not be recognized as a date.\n'
+                text = 'ERROR: {0} could not be recognized as a date.\n'
                 puts(text.format(colored.green(self.app.pargs.date[0])))
 
                 # Should exit status 1 so we can script against it.
@@ -50,8 +47,7 @@ def require_ap_api_key(fn):
             self.app.pargs.delegate_sum_file and
             self.app.pargs.delegate_super_file
         ) and not os.environ.get("AP_API_KEY", None):
-            puts(colored.yellow('Whoa there, friend! There was an error:\n'))
-            text = 'You have not exported {0} as an environment variable.\n'
+            text = 'ERROR: You have not exported {0} as an environment variable.\n'
             puts(text.format(colored.green("AP_API_KEY")))
 
             # Should exit status 1 so we can script against it.
