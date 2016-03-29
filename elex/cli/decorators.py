@@ -47,7 +47,8 @@ def require_ap_api_key(fn):
             self.app.pargs.delegate_sum_file and
             self.app.pargs.delegate_super_file
         ) and not os.environ.get("AP_API_KEY", None):
-            text = 'ERROR: You have not exported {0} as an environment variable.\n'
+            text = 'ERROR: You have not exported {0} as an environment \
+variable.\n'
             puts(text.format(colored.green("AP_API_KEY")))
 
             # Should exit status 1 so we can script against it.

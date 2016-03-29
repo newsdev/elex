@@ -68,7 +68,8 @@ class ElexCLICSVTestMeta(type):
             Generate test to ensure timestamp field is set
             """
             def test(self):
-                cli_fields, cli_data = self._test_command(command=command, with_timestamp=True)
+                cli_fields, cli_data = self._test_command(command=command,
+                                                          with_timestamp=True)
                 self.assertEqual(cli_fields[-1], 'timestamp')
 
             return test
@@ -78,7 +79,8 @@ class ElexCLICSVTestMeta(type):
             Generate test to ensure timestamp field is set
             """
             def test(self):
-                cli_fields, cli_data = self._test_command(command=command, with_timestamp=True)
+                cli_fields, cli_data = self._test_command(command=command,
+                                                          with_timestamp=True)
                 for row in cli_data:
                     self.assertTrue(row['timestamp'].isnumeric())
 
@@ -314,7 +316,8 @@ class ElexCLIJSONTestMeta(type):
             Generate test to ensure timestamp field is set
             """
             def test(self):
-                cli_fields, cli_data = self._test_command(command=command, with_timestamp=True)
+                cli_fields, cli_data = self._test_command(command=command,
+                                                          with_timestamp=True)
                 self.assertEqual(cli_fields[-1], 'timestamp')
 
             return test
@@ -324,7 +327,8 @@ class ElexCLIJSONTestMeta(type):
             Generate test to ensure timestamp data is an integer
             """
             def test(self):
-                cli_fields, cli_data = self._test_command(command=command, with_timestamp=True)
+                cli_fields, cli_data = self._test_command(command=command,
+                                                          with_timestamp=True)
                 for row in cli_data:
                     self.assertTrue(isinstance(row['timestamp'], int))
 
