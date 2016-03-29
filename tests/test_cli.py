@@ -73,6 +73,17 @@ class ElexCLICSVTestMeta(type):
 
             return test
 
+        def gen_timestamp_data_test(command):
+            """
+            Generate test to ensure timestamp field is set
+            """
+            def test(self):
+                cli_fields, cli_data = self._test_command(command=command, with_timestamp=True)
+                for row in cli_data:
+                    self.assertTrue(row['timestamp'].isnumeric())
+
+            return test
+
         for command in TEST_COMMANDS:
             fields_test_name = 'test_csv_{0}_fields'.format(
                 command.replace('-', '_')
@@ -89,10 +100,15 @@ class ElexCLICSVTestMeta(type):
             )
             dict[data_test_name] = gen_data_test(command)
 
-            timestamp_data_test_name = 'test_csv_{0}_data_timestamp'.format(
+            timestamp_test_name = 'test_csv_{0}_timestamp'.format(
                 command.replace('-', '_')
             )
-            dict[timestamp_data_test_name] = gen_timestamp_test(command)
+            dict[timestamp_test_name] = gen_timestamp_test(command)
+
+            timestamp_data_test_name = 'test_csv_{0}_timestamp_data'.format(
+                command.replace('-', '_')
+            )
+            dict[timestamp_data_test_name] = gen_timestamp_data_test(command)
 
         return type.__new__(mcs, name, bases, dict)
 
@@ -303,6 +319,17 @@ class ElexCLIJSONTestMeta(type):
 
             return test
 
+        def gen_timestamp_data_test(command):
+            """
+            Generate test to ensure timestamp data is an integer
+            """
+            def test(self):
+                cli_fields, cli_data = self._test_command(command=command, with_timestamp=True)
+                for row in cli_data:
+                    self.assertTrue(isinstance(row['timestamp'], int))
+
+            return test
+
         for command in TEST_COMMANDS:
             fields_test_name = 'test_json_{0}_fields'.format(
                 command.replace('-', '_')
@@ -323,6 +350,11 @@ class ElexCLIJSONTestMeta(type):
                 command.replace('-', '_')
             )
             dict[timestamp_data_test_name] = gen_timestamp_test(command)
+
+            timestamp_data_test_name = 'test_json_{0}_timestamp_data'.format(
+                command.replace('-', '_')
+            )
+            dict[timestamp_data_test_name] = gen_timestamp_data_test(command)
 
         return type.__new__(mcs, name, bases, dict)
 

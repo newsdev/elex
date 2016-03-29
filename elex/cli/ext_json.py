@@ -31,7 +31,7 @@ class ElexJSONOutputHandler(output.CementOutputHandler):
                 json_data = []
                 for obj in data:
                     row = obj.serialize()
-                    row['timestamp'] = str(int(now))
+                    row['timestamp'] = int(now)
                     json_data.append(row)
             else:
                 json_data = [row.serialize() for row in data]
