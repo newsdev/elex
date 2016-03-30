@@ -1,6 +1,7 @@
 from elex.api import maps
 import tests
 
+
 class TestPrecinctsReportingPctFloat(tests.ElectionResultsTestCase):
     data_url = 'tests/data/20160301_super_tuesday.json'
 
