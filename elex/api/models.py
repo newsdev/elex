@@ -472,7 +472,9 @@ class ReportingUnit(APElection):
         if kwargs.get('precinctstotal', None):
             self.precinctstotal = kwargs['precinctstotal']
 
-        self.precinctsreportingpct = kwargs.get('precinctsReportingPct', 0.0)
+        self.precinctsreportingpct = kwargs.get('precinctsReportingPct', 0.0)\
+            * 0.01
+
         if kwargs.get('precinctsreportingpct', None):
             self.precinctsreportingpct = kwargs['precinctsreportingpct']
 
@@ -684,7 +686,7 @@ class Race(APElection):
                             d['precinctsreporting'] += c.precinctsreporting
                             try:
                                 d['precinctsreportingpct'] = (
-                                    d['precinctsreporting'] /
+                                    float(d['precinctsreporting']) /
                                     float(d['precinctstotal'])
                                 )
                             except ZeroDivisionError:
