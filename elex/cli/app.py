@@ -223,6 +223,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 delsum_datafile=self.app.pargs.delegate_sum_file
             )
         else:
+            self.app.log.debug(
+                'Elex delegate cache location: {0}'.format(DELEGATE_REPORT_ID_CACHE_FILE)
+            )
             report = DelegateReport()
 
         self.app.render(report.candidate_objects)
