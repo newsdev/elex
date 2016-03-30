@@ -105,14 +105,12 @@ class ElexCLICSVTestMeta(type):
             timestamp_test_name = 'test_csv_{0}_timestamp'.format(
                 command.replace('-', '_')
             )
-            dict[timestamp_test_name] = gen_timestamp_test(command,
-                                                           with_timestamp=True)
+            dict[timestamp_test_name] = gen_timestamp_test(command)
 
             timestamp_data_test_name = 'test_csv_{0}_timestamp_data'.format(
                 command.replace('-', '_')
             )
-            dict[timestamp_data_test_name] = gen_timestamp_data_test(command,
-                                                                     with_timestamp=True)
+            dict[timestamp_data_test_name] = gen_timestamp_data_test(command)
 
         return type.__new__(mcs, name, bases, dict)
 
@@ -261,7 +259,7 @@ class ElexCLICSVTestCase(
         argv = argv + ['--results-level', resultslevel]
 
         if with_timestamp:
-            argv.append('--with-timestamp')
+            argv = argv + ['--with-timestamp']
 
         app = ElexApp(argv=argv)
 
@@ -508,7 +506,7 @@ class ElexCLIJSONTestCase(
         argv = argv + ['--results-level', resultslevel]
 
         if with_timestamp:
-            argv.append('--with-timestamp')
+            argv = argv + ['--with-timestamp']
 
         app = ElexApp(argv=argv)
 
