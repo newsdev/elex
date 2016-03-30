@@ -3,6 +3,14 @@ import tests
 
 class TestRaceResults(tests.ElectionResultsTestCase):
 
+    def test_race_is_ballot_measure(self):
+        crus = [r.raceid for r in self.candidate_reporting_units
+                if r.is_ballot_measure]
+        ballot_measure_races = [r for r in self.races
+                                if r.raceid in crus]
+        for r in ballot_measure_races:
+            self.assertEqual(r.is_ballot_measure, True)
+
     def test_number_of_raw_races(self):
         self.assertEqual(len(self.raw_races['races']), 5)
 
