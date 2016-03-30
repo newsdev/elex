@@ -82,7 +82,10 @@ class ElexCLICSVTestMeta(type):
                 cli_fields, cli_data = self._test_command(command=command,
                                                           with_timestamp=True)
                 for row in cli_data:
-                    self.assertTrue(row['timestamp'].isnumeric())
+                    try:
+                        self.assertTrue(unicode(row['timestamp']).isnumeric())
+                    except NameError:
+                        self.assertTrue(str(row['timestamp']).isnumeric())
 
             return test
 
@@ -330,7 +333,10 @@ class ElexCLIJSONTestMeta(type):
                 cli_fields, cli_data = self._test_command(command=command,
                                                           with_timestamp=True)
                 for row in cli_data:
-                    self.assertTrue(isinstance(row['timestamp'], int))
+                    try:
+                        self.assertTrue(unicode(row['timestamp']).isnumeric())
+                    except NameError:
+                        self.assertTrue(str(row['timestamp']).isnumeric())
 
             return test
 
