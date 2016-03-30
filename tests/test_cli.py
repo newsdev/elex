@@ -105,12 +105,14 @@ class ElexCLICSVTestMeta(type):
             timestamp_test_name = 'test_csv_{0}_timestamp'.format(
                 command.replace('-', '_')
             )
-            dict[timestamp_test_name] = gen_timestamp_test(command)
+            dict[timestamp_test_name] = gen_timestamp_test(command,
+                                                           with_timestamp=True)
 
             timestamp_data_test_name = 'test_csv_{0}_timestamp_data'.format(
                 command.replace('-', '_')
             )
-            dict[timestamp_data_test_name] = gen_timestamp_data_test(command)
+            dict[timestamp_data_test_name] = gen_timestamp_data_test(command,
+                                                                     with_timestamp=True)
 
         return type.__new__(mcs, name, bases, dict)
 
