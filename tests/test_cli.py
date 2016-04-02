@@ -89,6 +89,18 @@ class ElexCLICSVTestMeta(type):
 
             return test
 
+        def gen_batch_name_data_test(command):
+            """
+            Generate test to ensure timestamp field is set
+            """
+            def test(self):
+                cli_fields, cli_data = self._test_command(command=command,
+                                                          batch_name='batch-01')
+                for row in cli_data:
+                    self.assertEqual(row['batchname'], 'batch-01')
+
+            return test
+
         for command in TEST_COMMANDS:
             fields_test_name = 'test_csv_{0}_fields'.format(
                 command.replace('-', '_')
@@ -114,6 +126,11 @@ class ElexCLICSVTestMeta(type):
                 command.replace('-', '_')
             )
             dict[timestamp_data_test_name] = gen_timestamp_data_test(command)
+
+            batch_name_data_test_name = 'test_csv_{0}_batch_name_data'.format(
+                command.replace('-', '_')
+            )
+            dict[batch_name_data_test_name] = gen_batch_name_data_test(command)
 
         return type.__new__(mcs, name, bases, dict)
 
@@ -243,7 +260,8 @@ class ElexCLICSVTestCase(
         delsuper_datafile=DELSUPER_DATA_FILE,
         electiondate=DATA_ELECTION_DATE,
         resultslevel=None,
-        with_timestamp=False
+        with_timestamp=False,
+        batch_name=False
     ):
         """
         Execute an `elex` sub-command; returns fieldnames and rows
@@ -263,6 +281,9 @@ class ElexCLICSVTestCase(
 
         if with_timestamp:
             argv = argv + ['--with-timestamp']
+
+        if batch_name:
+            argv = argv + ['--batch-name', batch_name]
 
         app = ElexApp(argv=argv)
 
@@ -340,6 +361,18 @@ class ElexCLIJSONTestMeta(type):
 
             return test
 
+        def gen_batch_name_data_test(command):
+            """
+            Generate test to ensure timestamp field is set
+            """
+            def test(self):
+                cli_fields, cli_data = self._test_command(command=command,
+                                                          batch_name='batch-01')
+                for row in cli_data:
+                    self.assertEqual(row['batchname'], 'batch-01')
+
+            return test
+
         for command in TEST_COMMANDS:
             fields_test_name = 'test_json_{0}_fields'.format(
                 command.replace('-', '_')
@@ -365,6 +398,11 @@ class ElexCLIJSONTestMeta(type):
                 command.replace('-', '_')
             )
             dict[timestamp_data_test_name] = gen_timestamp_data_test(command)
+
+            batch_name_data_test_name = 'test_csv_{0}_batch_name_data'.format(
+                command.replace('-', '_')
+            )
+            dict[batch_name_data_test_name] = gen_batch_name_data_test(command)
 
         return type.__new__(mcs, name, bases, dict)
 
@@ -494,7 +532,8 @@ class ElexCLIJSONTestCase(
         delsuper_datafile=DELSUPER_DATA_FILE,
         electiondate=DATA_ELECTION_DATE,
         resultslevel=None,
-        with_timestamp=False
+        with_timestamp=False,
+        batch_name=False
     ):
         """
         Execute an `elex` sub-command; returns fieldnames and rows
@@ -513,6 +552,9 @@ class ElexCLIJSONTestCase(
 
         if with_timestamp:
             argv = argv + ['--with-timestamp']
+
+        if batch_name:
+            argv = argv + ['--batch-name', batch_name]
 
         app = ElexApp(argv=argv)
 
