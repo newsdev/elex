@@ -1,5 +1,7 @@
 from elex.api import Elections
 from elex.api import DelegateReport
+from elex.api.delegates import clear_delegate_cache
+from elex import DELEGATE_REPORT_ID_CACHE_FILE
 from elex import __version__ as VERSION
 from cement.core.foundation import CementApp
 from elex.cli.hooks import add_election_hook
@@ -221,6 +223,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 delsum_datafile=self.app.pargs.delegate_sum_file
             )
         else:
+            self.app.log.debug(
+                'Elex delegate cache location: {0}'.format(DELEGATE_REPORT_ID_CACHE_FILE)
+            )
             report = DelegateReport()
 
         self.app.render(report.candidate_objects)
@@ -242,6 +247,11 @@ relative to that date, otherwise will use today's date)")
             electiondate=electiondate
         )
         self.app.render(election)
+
+    @expose(help="Clear the delegate report ID cache.")
+    def clear_delegate_cache(self):
+        self.app.log.info('Deleting delegate report ID cache ({0})'.format(DELEGATE_REPORT_ID_CACHE_FILE))
+        clear_delegate_cache()
 
 
 class ElexApp(CementApp):

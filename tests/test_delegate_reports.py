@@ -1,4 +1,9 @@
+import os
+import unittest
 import tests
+
+from . import API_MESSAGE
+
 try:
     set
 except NameError:
@@ -57,3 +62,14 @@ class TestDelegateReports(tests.DelegateReportTestCase):
             len(number_of_national_results),
             len(number_of_state_us_results)
         )
+
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_delegate_report_id_cache(self):
+        from elex.api.delegates import cache, _get_reports
+        _get_reports()
+        self.assertEqual(cache.stats()[0], 1)
+
+    def test_delegate_report_id_cache_clear(self):
+        from elex.api.delegates import cache, clear_delegate_cache
+        clear_delegate_cache()
+        self.assertEqual(cache.stats()[0], 0)

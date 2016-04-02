@@ -759,7 +759,7 @@ class Elections():
             If datafile is specified, use instead of making an API call.
         """
         if not datafile:
-            elections = list(utils.api_request('/').json().get('elections'))
+            elections = list(utils.api_request('/elections').json().get('elections'))
         else:
             with open(datafile) as f:
                 elections = list(json.load(f).get('elections'))
@@ -856,7 +856,7 @@ class Election(APElection):
         :param **params:
             A dict of optional parameters to be included in API request.
         """
-        self._response = utils.api_request(path, **params)
+        self._response = utils.api_request('/elections/{0}'.format(path), **params)
         return self._response.json()
 
     def get_uniques(self, candidate_reporting_units):

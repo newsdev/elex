@@ -4,62 +4,64 @@ Command line interface
 
 ::
 
-  commands:
+    commands:
 
-    ballot-measures
-      Get ballot positions (also known as ballot issues)
+      ballot-measures
+        Get ballot measures
 
-    candidate-reporting-units
-      Get candidate reporting units (without results)
+      candidate-reporting-units
+        Get candidate reporting units (without results)
 
-    candidates
-      Get candidates
+      candidates
+        Get candidates
 
-    delegates
-      Get all delegate reports
+      clear-delegate-cache
+        Clear the delegate report ID cache.
 
-    elections
-      Get list of available elections
+      delegates
+        Get all delegate reports
 
-    next-election
-      Get the next election (if date is specified, will be relative to that date, otherwise will use today's date)
+      elections
+        Get list of available elections
 
-    races
-      Get races
+      next-election
+        Get the next election (if date is specified, will be relative to that date, otherwise will use today's date)
 
-    reporting-units
-      Get reporting units
+      races
+        Get races
 
-    results
-      Get results
+      reporting-units
+        Get reporting units
 
-  positional arguments:
-    date                  Election date (e.g. "2015-11-03"; most common date
-                          formats accepted).
+      results
+        Get results
 
-  optional arguments:
-    -h, --help            show this help message and exit
-    --debug               toggle debug output
-    --quiet               suppress all output
-    -o {json,csv}         output format (default: csv)
-    -t, --test            Use testing API calls
-    -n, --not-live        Do not use live data API calls
-    -d DATA_FILE, --data-file DATA_FILE
-                          Specify data file instead of making HTTP request when
-                          using election commands like `elex results` and `elex
-                          races`.
-    --delegate-sum-file DELEGATE_SUM_FILE
-                          Specify delegate sum report file instead of making
-                          HTTP request when using `elex delegates`
-    --delegate-super-file DELEGATE_SUPER_FILE
-                          Specify delegate super report file instead of making
-                          HTTP request when using `elex delegates`
-    --local-only          Limit results to local-level results only, ignoring
-                          national races like President, House/Senate and
-                          Governor
-    --format-json         Pretty print JSON when using `-o json`.
-    --results-level       Specify reporting level when using `elex results`, 
-                          such as `district` or `state`
-    --set-zero-counts     Override results with zeros; omits the winner
-                          indicator.
-    -v, --version         Show program's version number and exit
+    positional arguments:
+      date                  Election date (e.g. "2015-11-03"; most common date
+                            formats accepted).
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      --debug               toggle debug output
+      --quiet               suppress all output
+      -o {json,csv}         output format (default: csv)
+      -t, --test            Use testing API calls
+      -n, --not-live        Do not use live data API calls
+      -d DATA_FILE, --data-file DATA_FILE
+                            Specify data file instead of making HTTP request when
+                            using election commands like `elex results` and `elex
+                            races`.
+      --delegate-sum-file DELEGATE_SUM_FILE
+                            Specify delegate sum report file instead of making
+                            HTTP request when using `elex delegates`
+      --delegate-super-file DELEGATE_SUPER_FILE
+                            Specify delegate super report file instead of making
+                            HTTP request when using `elex delegates`
+      --format-json         Pretty print JSON when using `-o json`.
+      -v, --version         show program's version number and exit
+      --results-level RESULTS_LEVEL
+                            Specify reporting level for results
+      --set-zero-counts     Override results with zeros; omits the winner
+                            indicator.Sets the vote, delegate, and reporting
+                            precinct counts to zero.
+      --local-only          Limit results to local-level results only.
