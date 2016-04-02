@@ -44,7 +44,7 @@ Command line interface
       -h, --help            show this help message and exit
       --debug               toggle debug output
       --quiet               suppress all output
-      -o {json,csv}         output format (default: csv)
+      -o {csv,json}         output format (default: csv)
       -t, --test            Use testing API calls
       -n, --not-live        Do not use live data API calls
       -d DATA_FILE, --data-file DATA_FILE
@@ -65,3 +65,8 @@ Command line interface
                             indicator.Sets the vote, delegate, and reporting
                             precinct counts to zero.
       --local-only          Limit results to local-level results only.
+      --with-timestamp      Append a `timestamp` column to each row of data output
+                            with current system timestamp.
+      --batch-name BATCH_NAME
+                            Specify a value for a `batchname` column to append to
+                            each row.

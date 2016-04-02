@@ -63,19 +63,74 @@ class ElexCLICSVTestMeta(type):
                         self.assertEqual(row[k], str(v))
             return test
 
+        def gen_timestamp_test(command):
+            """
+            Generate test to ensure timestamp field is set
+            """
+            def test(self):
+                cli_fields, cli_data = self._test_command(command=command,
+                                                          with_timestamp=True)
+                self.assertEqual(cli_fields[-1], 'timestamp')
+
+            return test
+
+        def gen_timestamp_data_test(command):
+            """
+            Generate test to ensure timestamp field is set
+            """
+            def test(self):
+                cli_fields, cli_data = self._test_command(command=command,
+                                                          with_timestamp=True)
+                for row in cli_data:
+                    try:
+                        self.assertTrue(unicode(row['timestamp']).isnumeric())
+                    except NameError:
+                        self.assertTrue(str(row['timestamp']).isnumeric())
+
+            return test
+
+        def gen_batch_name_data_test(command):
+            """
+            Generate test to ensure timestamp field is set
+            """
+            def test(self):
+                cli_fields, cli_data = self._test_command(command=command,
+                                                          batch_name='batch-01')
+                for row in cli_data:
+                    self.assertEqual(row['batchname'], 'batch-01')
+
+            return test
+
         for command in TEST_COMMANDS:
             fields_test_name = 'test_csv_{0}_fields'.format(
                 command.replace('-', '_')
             )
             dict[fields_test_name] = gen_fields_test(command)
+
             length_test_name = 'test_csv_{0}_length'.format(
                 command.replace('-', '_')
             )
             dict[length_test_name] = gen_length_test(command)
+
             data_test_name = 'test_csv_{0}_data'.format(
                 command.replace('-', '_')
             )
             dict[data_test_name] = gen_data_test(command)
+
+            timestamp_test_name = 'test_csv_{0}_timestamp'.format(
+                command.replace('-', '_')
+            )
+            dict[timestamp_test_name] = gen_timestamp_test(command)
+
+            timestamp_data_test_name = 'test_csv_{0}_timestamp_data'.format(
+                command.replace('-', '_')
+            )
+            dict[timestamp_data_test_name] = gen_timestamp_data_test(command)
+
+            batch_name_data_test_name = 'test_csv_{0}_batch_name_data'.format(
+                command.replace('-', '_')
+            )
+            dict[batch_name_data_test_name] = gen_batch_name_data_test(command)
 
         return type.__new__(mcs, name, bases, dict)
 
@@ -204,7 +259,9 @@ class ElexCLICSVTestCase(
         delsum_datafile=DELSUM_DATA_FILE,
         delsuper_datafile=DELSUPER_DATA_FILE,
         electiondate=DATA_ELECTION_DATE,
-        resultslevel=None
+        resultslevel=None,
+        with_timestamp=False,
+        batch_name=False
     ):
         """
         Execute an `elex` sub-command; returns fieldnames and rows
@@ -221,6 +278,12 @@ class ElexCLICSVTestCase(
         argv = argv + ['--delegate-sum-file', delsum_datafile]
         argv = argv + ['--delegate-super-file', delsuper_datafile]
         argv = argv + ['--results-level', resultslevel]
+
+        if with_timestamp:
+            argv = argv + ['--with-timestamp']
+
+        if batch_name:
+            argv = argv + ['--batch-name', batch_name]
 
         app = ElexApp(argv=argv)
 
@@ -272,19 +335,74 @@ class ElexCLIJSONTestMeta(type):
                         self.assertEqual(row[k], v)
             return test
 
+        def gen_timestamp_test(command):
+            """
+            Generate test to ensure timestamp field is set
+            """
+            def test(self):
+                cli_fields, cli_data = self._test_command(command=command,
+                                                          with_timestamp=True)
+                self.assertEqual(cli_fields[-1], 'timestamp')
+
+            return test
+
+        def gen_timestamp_data_test(command):
+            """
+            Generate test to ensure timestamp data is an integer
+            """
+            def test(self):
+                cli_fields, cli_data = self._test_command(command=command,
+                                                          with_timestamp=True)
+                for row in cli_data:
+                    try:
+                        self.assertTrue(unicode(row['timestamp']).isnumeric())
+                    except NameError:
+                        self.assertTrue(str(row['timestamp']).isnumeric())
+
+            return test
+
+        def gen_batch_name_data_test(command):
+            """
+            Generate test to ensure timestamp field is set
+            """
+            def test(self):
+                cli_fields, cli_data = self._test_command(command=command,
+                                                          batch_name='batch-01')
+                for row in cli_data:
+                    self.assertEqual(row['batchname'], 'batch-01')
+
+            return test
+
         for command in TEST_COMMANDS:
             fields_test_name = 'test_json_{0}_fields'.format(
                 command.replace('-', '_')
             )
             dict[fields_test_name] = gen_fields_test(command)
+
             length_test_name = 'test_json_{0}_length'.format(
                 command.replace('-', '_')
             )
             dict[length_test_name] = gen_length_test(command)
+
             data_test_name = 'test_json_{0}_data'.format(
                 command.replace('-', '_')
             )
             dict[data_test_name] = gen_data_test(command)
+
+            timestamp_data_test_name = 'test_json_{0}_data_timestamp'.format(
+                command.replace('-', '_')
+            )
+            dict[timestamp_data_test_name] = gen_timestamp_test(command)
+
+            timestamp_data_test_name = 'test_json_{0}_timestamp_data'.format(
+                command.replace('-', '_')
+            )
+            dict[timestamp_data_test_name] = gen_timestamp_data_test(command)
+
+            batch_name_data_test_name = 'test_csv_{0}_batch_name_data'.format(
+                command.replace('-', '_')
+            )
+            dict[batch_name_data_test_name] = gen_batch_name_data_test(command)
 
         return type.__new__(mcs, name, bases, dict)
 
@@ -413,7 +531,9 @@ class ElexCLIJSONTestCase(
         delsum_datafile=DELSUM_DATA_FILE,
         delsuper_datafile=DELSUPER_DATA_FILE,
         electiondate=DATA_ELECTION_DATE,
-        resultslevel=None
+        resultslevel=None,
+        with_timestamp=False,
+        batch_name=False
     ):
         """
         Execute an `elex` sub-command; returns fieldnames and rows
@@ -429,6 +549,12 @@ class ElexCLIJSONTestCase(
         argv = argv + ['--delegate-sum-file', delsum_datafile]
         argv = argv + ['--delegate-super-file', delsuper_datafile]
         argv = argv + ['--results-level', resultslevel]
+
+        if with_timestamp:
+            argv = argv + ['--with-timestamp']
+
+        if batch_name:
+            argv = argv + ['--batch-name', batch_name]
 
         app = ElexApp(argv=argv)
 
