@@ -3,11 +3,34 @@
 This module contains the primary :class:`DelegateLoad` class for handling a
 single load of AP delegate counts and methods necessary to obtain them.
 """
-import os
 import json
-import requests
+import percache
+
+from elex import DELEGATE_REPORT_ID_CACHE_FILE
 from elex.api import utils
 from collections import OrderedDict
+
+cache = percache.Cache(DELEGATE_REPORT_ID_CACHE_FILE, livesync=True)
+
+
+@cache
+def _get_reports(params={}):
+    """
+    Use percache to dump a report response to disk
+    """
+    resp = utils.api_request('/reports', **params)
+    if resp.ok:
+        return resp.json().get('reports')
+    else:
+        cache.clear()
+        return []
+
+
+def clear_delegate_cache():
+    """
+    Delete the delegate cache file
+    """
+    cache.clear()
 
 
 class CandidateDelegateReport(utils.UnicodeMixin):
@@ -186,41 +209,21 @@ class DelegateReport(utils.UnicodeMixin):
         of delegate counts by party. Makes a request from the AP
         using requests. Formats that request with env vars.
         """
-        base_url = "%s/reports" % os.environ.get(
-            'AP_API_BASE_URL',
-            'http://api.ap.org/v2'
-        )
-        params.update({
-            'apikey': os.environ.get('AP_API_KEY', None),
-            'format': 'json',
-        })
-        report_id = self.get_report_id(key)
+        reports = _get_reports(params=params)
+        report_id = self.get_report_id(reports, key)
         if report_id:
-            r = requests.get(
-                '{0}/{1}'.format(base_url, report_id),
-                params=params
-            )
+            r = utils.api_request('/reports/{0}'.format(report_id), **params)
             return r.json()[key]['del']
+
         return None
 
-    def get_report_id(self, key, params={}):
+    def get_report_id(self, reports, key):
         """
         Takes a delSuper or delSum as the argument and returns
         organization-specific report ID.
         """
-        if not self.reports:
-            base_url = "%s/reports" % os.environ.get(
-                'AP_API_BASE_URL',
-                'http://api.ap.org/v2'
-            )
-            params.update({
-                'apikey': os.environ.get('AP_API_KEY', None),
-                'format': 'json',
-            })
-            r = requests.get(base_url, params=params)
-            self.reports = r.json().get('reports')
 
-        for report in self.reports:
+        for report in reports:
             if (
                 key == 'delSum' and
                 report.get('title') == 'Delegates / delsum'
