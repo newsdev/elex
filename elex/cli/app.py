@@ -74,9 +74,12 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             )),
             (['--with-timestamp'], dict(
                 action='store_true',
-                help='Append a timestamp column with current system time to data \
-output.',
-                default=False
+                help='Append a `timestamp` column to each row of data output with current\
+                      system timestamp.',
+            )),
+            (['--batch-name'], dict(
+                action='store',
+                help='Specify a value for a `batchid` column that to append to each row.',
             )),
         ]
 

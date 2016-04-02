@@ -19,7 +19,8 @@ class CSVOutputHandler(output.CementOutputHandler):
         if len(data) == 0:
             return
 
-        now = time.time()
+        if self.app.pargs.with_timestamp:
+            now = time.time()
 
         try:
             # Properly terminate lines for Windows and Excel.
@@ -29,6 +30,8 @@ class CSVOutputHandler(output.CementOutputHandler):
                 row = obj.serialize()
                 if self.app.pargs.with_timestamp:
                     row['timestamp'] = str(int(now))
+                if self.app.pargs.batch_name:
+                    row['batchname'] = self.app.pargs.batch_name
                 if i == 0:
                     writer.writerow(row.keys())
                 writer.writerow(row.values())

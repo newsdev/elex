@@ -28,13 +28,15 @@ class ElexJSONOutputHandler(output.CementOutputHandler):
 
             if self.app.pargs.with_timestamp:
                 now = time.time()
-                json_data = []
-                for obj in data:
-                    row = obj.serialize()
-                    row['timestamp'] = int(now)
-                    json_data.append(row)
-            else:
-                json_data = [row.serialize() for row in data]
+
+            json_data = []
+            for obj in data:
+                row = obj.serialize()
+                if self.app.pargs.with_timestamp:
+                    row['timestamp'] = str(int(now))
+                if self.app.pargs.batch_name:
+                    row['batchname'] = self.app.pargs.batch_name
+                json_data.append(row)
 
             json.dump(
                 json_data,
