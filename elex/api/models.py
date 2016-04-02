@@ -421,7 +421,7 @@ class CandidateReportingUnit(APElection):
         ))
 
     def __str__(self):
-        if self.is_ballot_position:
+        if self.is_ballot_measure:
             payload = "%s" % self.party
         else:
             payload = "%s %s (%s)" % (self.first, self.last, self.party)
@@ -472,7 +472,9 @@ class ReportingUnit(APElection):
         if kwargs.get('precinctstotal', None):
             self.precinctstotal = kwargs['precinctstotal']
 
-        self.precinctsreportingpct = kwargs.get('precinctsReportingPct', 0.0)
+        self.precinctsreportingpct = kwargs.get('precinctsReportingPct', 0.0)\
+            * 0.01
+
         if kwargs.get('precinctsreportingpct', None):
             self.precinctsreportingpct = kwargs['precinctsreportingpct']
 
@@ -619,6 +621,7 @@ class Race(APElection):
         self.national = kwargs.get('national', True)
         self.candidates = kwargs.get('candidates', [])
         self.reportingunits = kwargs.get('reportingUnits', [])
+        self.is_ballot_measure = False
 
         self.set_id_field()
 
@@ -683,7 +686,7 @@ class Race(APElection):
                             d['precinctsreporting'] += c.precinctsreporting
                             try:
                                 d['precinctsreportingpct'] = (
-                                    d['precinctsreporting'] /
+                                    float(d['precinctsreporting']) /
                                     float(d['precinctstotal'])
                                 )
                             except ZeroDivisionError:
@@ -729,6 +732,7 @@ class Race(APElection):
             ('description', self.description),
             ('electiondate', self.electiondate),
             ('initialization_data', self.initialization_data),
+            ('is_ballot_measure', self.is_ballot_measure),
             ('lastupdated', self.lastupdated),
             ('national', self.national),
             ('officeid', self.officeid),
@@ -953,6 +957,8 @@ class Election(APElection):
                 for unit in race.reportingunits:
                     unit.electiondate = self.electiondate
                     for candidate in unit.candidates:
+                        if candidate.is_ballot_measure:
+                            race.is_ballot_measure = True
                         candidate.electiondate = self.electiondate
                         candidate_reporting_units.append(candidate)
                     del unit.candidates
@@ -962,6 +968,8 @@ class Election(APElection):
                 races.append(race)
             else:
                 for candidate in race.candidates:
+                    if candidate.is_ballot_measure:
+                        race.is_ballot_measure = True
                     candidate.electiondate = self.electiondate
                     candidate_reporting_units.append(candidate)
                 del race.candidates
