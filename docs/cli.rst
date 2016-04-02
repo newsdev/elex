@@ -62,5 +62,7 @@ optional arguments:
                         indicator.Sets the vote, delegate, and reporting
                         precinct counts to zero.
   --local-only          Limit results to local-level results only.
-  --with-timestamp      Append a timestamp column with current system time to
-                        data output.
+  --with-timestamp      Append a `timestamp` column to each row of data output
+                        with current system timestamp.
+  --batch-name BATCH_NAME
+                        Specify a value for a `batchid` column that to append
