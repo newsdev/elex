@@ -916,6 +916,7 @@ class Election(APElection):
         if self.datafile:
             with open(self.datafile, 'r') as readfile:
                 payload = dict(json.loads(readfile.read()))
+                self.electiondate = payload.get('electionDate')
         else:
             payload = self.get('/%s' % self.electiondate, **params)
 
