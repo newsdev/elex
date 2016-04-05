@@ -29,7 +29,7 @@ def require_date_argument(fn):
             return fn(self)
         else:
             text = 'Please specify an election date (e.g. `elex {0} 2015-11-\
-03\`) or data file (e.g. `elex {0} --data-file path/to/file.json`). \n\nRun \
+03`) or data file (e.g. `elex {0} --data-file path/to/file.json`). \n\nRun \
 `elex` for help.\n'
             puts(colored.yellow(text.format(name)))
 
