@@ -11,7 +11,9 @@ def require_date_argument(fn):
     @wraps(fn)
     def decorated(self):
         name = fn.__name__.replace('_', '-')
-        if len(self.app.pargs.date) and self.app.pargs.date[0]:
+        if self.app.pargs.data_file:
+            return fn(self)
+        elif len(self.app.pargs.date) and self.app.pargs.date[0]:
             try:
                 self.app.election.electiondate = parse_date(
                     self.app.pargs.date[0]

@@ -99,12 +99,12 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         """
         Initialize races
         """
+        data = self.app.election.races
         self.app.log.info(
             'Getting races for election {0}'.format(
                 self.app.election.electiondate
             )
         )
-        data = self.app.election.races
         if self.app.election._response:
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
@@ -118,12 +118,12 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         """
         Initialize reporting units
         """
+        data = self.app.election.reporting_units
         self.app.log.info(
             'Getting reporting units for election {0}'.format(
                 self.app.election.electiondate
             )
         )
-        data = self.app.election.reporting_units
         if self.app.election._response:
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
@@ -137,12 +137,12 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         """
         Initialize reporting units
         """
+        data = self.app.election.candidate_reporting_units
         self.app.log.info(
             'Getting candidate reporting units for election {0}'.format(
                 self.app.election.electiondate
             )
         )
-        data = self.app.election.candidate_reporting_units
         if self.app.election._response:
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
@@ -156,12 +156,12 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         """
         Initialize reporting units
         """
+        data = self.app.election.candidates
         self.app.log.info(
             'Getting candidates for election {0}'.format(
                 self.app.election.electiondate
             )
         )
-        data = self.app.election.candidates
         if self.app.election._response:
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
@@ -175,12 +175,12 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         """
         Initialize reporting units
         """
+        data = self.app.election.ballot_measures
         self.app.log.info(
             'Getting ballot measures for election {0}'.format(
                 self.app.election.electiondate
             )
         )
-        data = self.app.election.ballot_measures
         if self.app.election._response:
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
@@ -194,10 +194,10 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         """
         Initialize reporting units
         """
+        data = self.app.election.results
         self.app.log.info('Getting results for election {0}'.format(
             self.app.election.electiondate
         ))
-        data = self.app.election.results
         if self.app.election._response:
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
