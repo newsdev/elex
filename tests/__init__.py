@@ -24,7 +24,6 @@ class ElectionResultsTestCase(unittest.TestCase):
 
     def setUp(self, **kwargs):
         e = Election(
-            electiondate='2015-11-03',
             datafile=self.data_url,
             testresults=False,
             liveresults=True,
