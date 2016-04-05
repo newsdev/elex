@@ -30,6 +30,7 @@ class ElectionResultsTestCase(unittest.TestCase):
             liveresults=True,
             is_test=False
         )
+        self.election = e
         self.resultslevel = e.resultslevel
         self.raw_races = e.get_raw_races()
         self.race_objs = e.get_race_objects(self.raw_races)
