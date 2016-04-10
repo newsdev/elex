@@ -12,7 +12,6 @@ import time
 import datetime
 import requests
 from pymongo import MongoClient
-from xml.dom.minidom import parseString
 
 
 class UnicodeMixin(object):
@@ -92,15 +91,6 @@ def api_request(path, **params):
 
     params['format'] = 'json'
     response = requests.get(elex.BASE_URL + path, params=params)
-    if response.ok:
-        write_recording(response.json())
-
-    # When response is 403, take emergency action and write to stderr
-    if response.status_code == 403:
-        dom = parseString(response.content)
-        message = dom.getElementsByTagName('Message')[0].childNodes[0].data
-        print(
-            'ELEX ERROR: %s (url: %s)' % (message, response.url),
-            file=sys.stderr
-        )
+    response.raise_for_status()
+    write_recording(response.json())
     return response

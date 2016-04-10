@@ -1,7 +1,7 @@
 import os
 from functools import wraps
 from elex.cli.utils import parse_date
-from clint.textui import puts, colored
+from requests.exceptions import HTTPError
 
 
 def require_date_argument(fn):
@@ -20,20 +20,15 @@ def require_date_argument(fn):
                 )
                 return fn(self)
             except ValueError:
-                text = 'ERROR: {0} could not be recognized as a date.\n'
-                puts(text.format(colored.green(self.app.pargs.date[0])))
-
-                # Should exit status 1 so we can script against it.
+                text = '{0} could not be recognized as a date.'
+                self.app.log.error(text.format(self.app.pargs.date[0]))
                 self.app.close(1)
 
             return fn(self)
         else:
-            text = 'Please specify an election date (e.g. `elex {0} 2015-11-\
-03`) or data file (e.g. `elex {0} --data-file path/to/file.json`). \n\nRun \
-`elex` for help.\n'
-            puts(colored.yellow(text.format(name)))
-
-            # Should exit status 1 so we can script against it.
+            text = 'No election date (e.g. `elex {0} 2015-11-\
+03`) or data file (e.g. `elex {0} --data-file path/to/file.json`) specified.'
+            self.app.log.error(text.format(name))
             self.app.close(1)
 
     return decorated
@@ -49,12 +44,25 @@ def require_ap_api_key(fn):
             self.app.pargs.delegate_sum_file and
             self.app.pargs.delegate_super_file
         ) and not os.environ.get("AP_API_KEY", None):
-            text = 'ERROR: You have not exported {0} as an environment \
-variable.\n'
-            puts(text.format(colored.green("AP_API_KEY")))
+            text = 'AP_API_KEY environment variable is not set.'
+            self.app.log.error(text)
 
             # Should exit status 1 so we can script against it.
             self.app.close(1)
         else:
-            return fn(self)
+            try:
+                return fn(self)
+            except HTTPError as e:
+                if e.response.status_code == 400:
+                    message = e.response.json().get('errorMessage')
+                elif e.response.status_code == 401:
+                    payload = e.response.json()
+                    message = payload['fault']['faultstring']
+                    detail = payload['fault']['detail']['errorcode']
+                    message = '{0} ({1})'.format(message, detail)
+                else:
+                    message = e.response.reason
+                self.app.log.error('HTTP Error {0} - {1}.'.format(e.response.status_code, e.response.reason))
+                self.app.log.debug('HTTP Error {0} ({1}'.format(e.response.status_code, e.response.url))
+                self.app.close(1)
     return decorated
