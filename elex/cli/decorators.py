@@ -40,29 +40,24 @@ def require_ap_api_key(fn):
     """
     @wraps(fn)
     def decorated(self):
-        if not self.app.pargs.data_file and not (
-            self.app.pargs.delegate_sum_file and
-            self.app.pargs.delegate_super_file
-        ) and not os.environ.get("AP_API_KEY", None):
+        try:
+            return fn(self)
+        except HTTPError as e:
+            if e.response.status_code == 400:
+                message = e.response.json().get('errorMessage')
+            elif e.response.status_code == 401:
+                payload = e.response.json()
+                message = payload['fault']['faultstring']
+                detail = payload['fault']['detail']['errorcode']
+                message = '{0} ({1})'.format(message, detail)
+            else:
+                message = e.response.reason
+            self.app.log.error('HTTP Error {0} - {1}.'.format(e.response.status_code, e.response.reason))
+            self.app.log.debug('HTTP Error {0} ({1}'.format(e.response.status_code, e.response.url))
+            self.app.close(1)
+        except KeyError as e:
             text = 'AP_API_KEY environment variable is not set.'
             self.app.log.error(text)
-
-            # Should exit status 1 so we can script against it.
             self.app.close(1)
-        else:
-            try:
-                return fn(self)
-            except HTTPError as e:
-                if e.response.status_code == 400:
-                    message = e.response.json().get('errorMessage')
-                elif e.response.status_code == 401:
-                    payload = e.response.json()
-                    message = payload['fault']['faultstring']
-                    detail = payload['fault']['detail']['errorcode']
-                    message = '{0} ({1})'.format(message, detail)
-                else:
-                    message = e.response.reason
-                self.app.log.error('HTTP Error {0} - {1}.'.format(e.response.status_code, e.response.reason))
-                self.app.log.debug('HTTP Error {0} ({1}'.format(e.response.status_code, e.response.url))
-                self.app.close(1)
+
     return decorated
