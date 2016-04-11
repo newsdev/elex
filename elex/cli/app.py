@@ -255,6 +255,10 @@ relative to that date, otherwise will use today's date)")
             datafile=self.app.pargs.data_file,
             electiondate=electiondate
         )
+        if election is None:
+            self.app.log.error('No next election')
+            self.app.close(1)
+
         self.app.render(election)
 
     @expose(help="Clear the delegate report ID cache.")
