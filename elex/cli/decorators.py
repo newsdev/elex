@@ -1,4 +1,3 @@
-import os
 from functools import wraps
 from elex.cli.utils import parse_date
 from requests.exceptions import HTTPError
