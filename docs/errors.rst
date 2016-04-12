@@ -50,6 +50,18 @@ This happens when the elex client cannot connect to the API. Make sure the
 ``AP_API_BASE_URL`` environment variable is correct and that you have network
 connectivity.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+HTTP Error 401 - Forbidden
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: bash
+
+    2016-04-12 14:37:37,470 (ERROR) elex (v2.0.0) : HTTP Error 401 - Forbidden (Invalid API key.)
+
+These errors represent an authentication error. Typically, this is a problem with
+your AP API key. Make sure the ``AP_API_KEY`` environment variable is set correctly.
+If the problem persists, contact AP customer support.
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 HTTP Error 403 - Over Quota Limit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

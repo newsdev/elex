@@ -1,6 +1,7 @@
 from functools import wraps
 from elex.cli.utils import parse_date
 from requests.exceptions import ConnectionError, HTTPError
+from xml.dom.minidom import parseString
 
 
 def require_date_argument(fn):
@@ -45,13 +46,12 @@ def require_ap_api_key(fn):
             if e.response.status_code == 400:
                 message = e.response.json().get('errorMessage')
             elif e.response.status_code == 401:
-                payload = e.response.json()
-                message = payload['fault']['faultstring']
-                detail = payload['fault']['detail']['errorcode']
-                message = '{0} ({1})'.format(message, detail)
+                dom = parseString(e.response.content)
+                error_msg = dom.getElementsByTagName('Message')[0].childNodes[0].data
+                message = '{0} ({1})'.format(e.response.reason, error_msg)
             else:
                 message = e.response.reason
-            self.app.log.error('HTTP Error {0} - {1}.'.format(e.response.status_code, e.response.reason))
+            self.app.log.error('HTTP Error {0} - {1}'.format(e.response.status_code, message))
             self.app.log.debug('HTTP Error {0} ({1})'.format(e.response.status_code, e.response.url))
             self.app.close(1)
         except KeyError as e:
