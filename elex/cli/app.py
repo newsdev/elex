@@ -196,7 +196,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
         Notes:
 
-        This command can be used to quickly create schemas. 
+        This command can be used to quickly create schemas.
 
         .. code:: bash
 
