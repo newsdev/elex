@@ -22,6 +22,7 @@ Table of contents
     install
     tutorial
     cli
+    errors
     recording
     recipes
     api
