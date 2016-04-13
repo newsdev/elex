@@ -4,6 +4,107 @@ Recipes
 
 Useful Elex patterns. :doc:`Contribute your own <contributing>`.
 
+Get test data
+=============
+
+.. code:: bash
+
+    elex results -t 2016-03-15
+
+Get data from existing data file
+================================
+
+.. code:: bash
+
+    elex results -d /path/to/file.json
+
+Get results at a specific level
+===============================
+
+Get only state level results:
+
+.. code:: bash
+
+    elex results 03-15-16 --results-level state
+
+.. csv-table::
+
+    id,unique_id,raceid,racetype,racetypeid,ballotorder,candidateid,description,delegatecount,electiondate,fipscode,first,incumbent,initialization_data,is_ballot_measure,last,lastupdated,level,national,officeid,officename,party,polid,polnum,precinctsreporting,precinctsreportingpct,precinctstotal,reportingunitid,reportingunitname,runoff,seatname,seatnum,statename,statepostal,test,uncontested,votecount,votepct,winner
+    10673-polid-8639-state-1,polid-8639,10673,Primary,R,13,20428,,0,2016-03-15,,Donald,False,False,False,Trump,2016-03-16T21:05:09Z,state,True,P,President,GOP,8639,14574,5810,1.0,5810,state-1,,False,,,Florida,FL,False,False,1077221,0.457383,True
+    10673-polid-53044-state-1,polid-53044,10673,Primary,R,11,20425,,0,2016-03-15,,Marco,False,False,False,Rubio,2016-03-16T21:05:09Z,state,True,P,President,GOP,53044,12082,5810,1.0,5810,state-1,,False,,,Florida,FL,False,False,636653,0.27032,False
+
+
+To cut down on load and bandwidth use and speed up loading when you are
+repeatedly loading results, specify only the level(s) you need to display.
+
+
+Add timestamp or batch name column to any data command
+======================================================
+
+You can add a timestamp column to track results (or any other
+data output by elex) with the ``--with-timestamp`` flag).
+
+.. code:: bash
+
+    elex elections --with-timestamp
+
+.. csv-table::
+
+    id,electiondate,liveresults,testresults,timestamp
+    2012-03-13,2012-03-13,True,False,1460438301
+    2012-11-06,2012-11-06,True,False,1460438301
+    ...
+
+
+If you prefer, you can set a batch name. This is useful when
+executing multiple commands that need a single grouping column.
+
+.. code:: bash
+
+    elex elections --batch-name batch-031
+
+.. csv-table::
+
+    id,electiondate,liveresults,testresults,timestamp
+    2016-02-23,2016-02-23,True,False,batch-031
+    2016-02-27,2016-02-27,True,False,batch-031
+    ...
+
+
+Get only local data
+===================
+
+Get only local races:
+
+.. code:: bash
+
+    elex races 03-15-16 --local-only
+
+..csv-table::
+
+    id,raceid,racetype,racetypeid,description,electiondate,initialization_data,is_ballot_measure,lastupdated,national,officeid,officename,party,seatname,seatnum,statename,statepostal,test,uncontested
+    14897,14897,Primary,R,,2016-03-15,True,False,2016-03-18T12:29:42Z,True,0,State's Attorney,GOP,Cook County,,,IL,False,True
+    15329,15329,Primary,D,,2016-03-15,True,False,2016-03-18T12:29:42Z,True,0,Recorder of Deeds,Dem,Cook County,,,IL,False,True
+
+Get only local results:
+
+.. code:: bash
+
+    elex races 03-15-16 --local-only
+
+Get AP zero count data
+======================
+
+.. code:: bash
+
+    elex results 03-15-16 --set-zero-counts
+
+.. csv-table::
+
+    id,unique_id,raceid,racetype,racetypeid,ballotorder,candidateid,description,delegatecount,electiondate,fipscode,first,incumbent,initialization_data,is_ballot_measure,last,lastupdated,level,national,officeid,officename,party,polid,polnum,precinctsreporting,precinctsreportingpct,precinctstotal,reportingunitid,reportingunitname,runoff,seatname,seatnum,statename,statepostal,test,uncontested,votecount,votepct,winner
+    10673-polid-8639-state-1,polid-8639,10673,Primary,R,13,20428,,0,2016-03-15,,Donald,False,False,False,Trump,2016-03-16T21:05:09Z,state,True,P,President,GOP,8639,14574,0,0.0,5810,state-1,,False,,,Florida,FL,False,False,0,0.0,False
+    10673-polid-53044-state-1,polid-53044,10673,Primary,R,11,20425,,0,2016-03-15,,Marco,False,False,False,Rubio,2016-03-16T21:05:09Z,state,True,P,President,GOP,53044,12082,0,0.0,5810,state-1,,False,,,Florida,FL,False,False,0,0.0,False
+
 Filter with jq and upload to S3
 ===============================
 

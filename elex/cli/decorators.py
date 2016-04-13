@@ -1,7 +1,8 @@
 from elex.cli.utils import parse_date
 from elex.exceptions import APAPIKeyException
 from functools import wraps
-from requests.exceptions import HTTPError
+from requests.exceptions import ConnectionError, HTTPError
+from xml.dom.minidom import parseString
 
 
 def require_date_argument(fn):
@@ -46,18 +47,21 @@ def require_ap_api_key(fn):
             if e.response.status_code == 400:
                 message = e.response.json().get('errorMessage')
             elif e.response.status_code == 401:
-                payload = e.response.json()
-                message = payload['fault']['faultstring']
-                detail = payload['fault']['detail']['errorcode']
-                message = '{0} ({1})'.format(message, detail)
+                dom = parseString(e.response.content)
+                error_msg = dom.getElementsByTagName('Message')[0].childNodes[0].data
+                message = '{0} ({1})'.format(e.response.reason, error_msg)
             else:
                 message = e.response.reason
-            self.app.log.error('HTTP Error {0} - {1}.'.format(e.response.status_code, e.response.reason))
-            self.app.log.debug('HTTP Error {0} ({1}'.format(e.response.status_code, e.response.url))
+            self.app.log.error('HTTP Error {0} - {1}'.format(e.response.status_code, message))
+            self.app.log.debug('HTTP Error {0} ({1})'.format(e.response.status_code, e.response.url))
             self.app.close(1)
         except APAPIKeyException as e:
             text = 'APAPIKeyError: AP_API_KEY environment variable is not set.'
             self.app.log.error(text)
             self.app.close(1)
+        except ConnectionError as e:
+            real_exception = e.args[0]
+            self.app.log.error('Connection error ({0})'.format(real_exception.reason))
+            self.app.log.debug('Connection error accessing {0}'.format(e.request.url))
 
     return decorated
