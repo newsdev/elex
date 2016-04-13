@@ -2,6 +2,10 @@
 Command line interface
 ======================
 
+------------------
+Commands and flags
+------------------
+
 ::
 
     commands:
@@ -70,3 +74,11 @@ Command line interface
       --batch-name BATCH_NAME
                             Specify a value for a `batchname` column to append to
                             each row.
+
+
+-----------------
+Command reference
+-----------------
+
+.. autoclass:: elex.cli.app.ElexBaseController
+    :members:

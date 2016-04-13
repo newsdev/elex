@@ -87,9 +87,6 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
     @expose(hide=True)
     def default(self):
-        """
-        Print help
-        """
         self.app.args.print_help()
 
     @expose(help="Get races")
@@ -97,7 +94,24 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
     @require_date_argument
     def races(self):
         """
-        Initialize races
+        ``elex races <electiondate>``
+
+        Returns race data for a given election date.
+
+        Command:
+
+        .. code:: bash
+
+            elex races 2016-03-26
+
+        Example output:
+
+        .. csv-table::
+
+            id,raceid,racetype,racetypeid,description,electiondate,initialization_data,is_ballot_measure,lastupdated,national,officeid,officename,party,seatname,seatnum,statename,statepostal,test,uncontested
+            2919,2919,Caucus,E,,2016-03-26,True,False,2016-03-27T03:03:54Z,True,P,President,Dem,,,,AK,False,False
+            12975,12975,Caucus,E,,2016-03-26,True,False,2016-03-29T17:17:41Z,True,P,President,Dem,,,,HI,False,False
+            ...
         """
         data = self.app.election.races
         self.app.log.info(
@@ -116,7 +130,28 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
     @require_date_argument
     def reporting_units(self):
         """
-        Initialize reporting units
+        ``elex reporting-units <electiondate>``
+
+        Returns reporting unit data for a given election date.
+
+        Reporting units represent geographic aggregation of voting data at the
+        national, state, county, and district level.
+
+        Command:
+
+        .. code:: bash
+
+            elex reporting-units 2016-03-26
+
+        Example output:
+
+        .. csv-table::
+
+            id,reportingunitid,reportingunitname,description,electiondate,fipscode,initialization_data,lastupdated,level,national,officeid,officename,precinctsreporting,precinctsreportingpct,precinctstotal,raceid,racetype,racetypeid,seatname,seatnum,statename,statepostal,test,uncontested,votecount
+            state-1,state-1,,,2016-03-26,,False,2016-03-27T03:03:54Z,state,True,P,President,40,1.0,40,2919,Caucus,E,,,Alaska,AK,False,False,539
+            county-2003,county-2003,State House District 1,,2016-03-26,,False,2016-03-27T03:03:54Z,county,True,P,President,1,1.0,1,2919,Caucus,E,,,,AK,False,False,12
+            county-2004,county-2004,State House District 2,,2016-03-26,,False,2016-03-27T03:03:54Z,county,True,P,President,1,1.0,1,2919,Caucus,E,,,,AK,False,False,6
+            ...
         """
         data = self.app.election.reporting_units
         self.app.log.info(
@@ -135,7 +170,51 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
     @require_date_argument
     def candidate_reporting_units(self):
         """
-        Initialize reporting units
+        ``elex candidate-reporting-units <electiondate>``
+
+        Returns candidate reporting unit data for a given election date.
+
+        A candidate reporting unit is a container for the results of a voting
+        in a specific reporting unit. This command is a close cousin of
+        `elex results <electiondate>`.
+
+        This command does not return results.
+
+        Command:
+
+        .. code:: bash
+
+            elex candidate-reporting-units 2016-03-26
+
+        Example output:
+
+        .. csv-table::
+
+            id,unique_id,raceid,racetype,racetypeid,ballotorder,candidateid,description,delegatecount,electiondate,fipscode,first,incumbent,initialization_data,is_ballot_measure,last,lastupdated,level,national,officeid,officename,party,polid,polnum,precinctsreporting,precinctsreportingpct,precinctstotal,reportingunitid,reportingunitname,runoff,seatname,seatnum,statename,statepostal,test,uncontested,votecount,votepct,winner
+            2919-polid-1445-None,polid-1445,2919,Caucus,E,2,6527,,0,2016-03-26,,Bernie,False,True,False,Sanders,2016-03-27T03:03:54Z,,True,P,President,Dem,1445,4262,0,0.0,0,,,False,,,Alaska,AK,False,False,0,0.0,False
+            2919-polid-1746-None,polid-1746,2919,Caucus,E,1,6526,,0,2016-03-26,,Hillary,False,True,False,Clinton,2016-03-27T03:03:54Z,,True,P,President,Dem,1746,4261,0,0.0,0,,,False,,,Alaska,AK,False,False,0,0.0,False
+
+        Notes:
+
+        This command can be used to quickly create schemas.
+
+        .. code:: bash
+
+            pip install csvkit
+            elex candidate-reporting-units 03-26-16 | csvsql -i mysql
+
+        Will output:
+
+        .. code:: sql
+
+            CREATE TABLE stdin (
+                id VARCHAR(23) NOT NULL,
+                unique_id VARCHAR(12) NOT NULL,
+                raceid INTEGER NOT NULL,
+                racetype VARCHAR(6) NOT NULL,
+                racetypeid VARCHAR(1) NOT NULL,
+                ...
+            );
         """
         data = self.app.election.candidate_reporting_units
         self.app.log.info(
@@ -154,7 +233,24 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
     @require_date_argument
     def candidates(self):
         """
-        Initialize reporting units
+        ``elex candidates <electiondate>``
+
+        Returns candidate data for a given election date.
+
+        Command:
+
+        .. code:: bash
+
+            elex candidates 2016-03-26
+
+        Example output:
+
+        .. csv-table::
+
+            id,unique_id,candidateid,ballotorder,first,last,party,polid,polnum
+            polid-1445,polid-1445,6527,2,Bernie,Sanders,Dem,1445,4262
+            polid-1746,polid-1746,6526,1,Hillary,Clinton,Dem,1746,4261
+            ...
         """
         data = self.app.election.candidates
         self.app.log.info(
@@ -173,7 +269,24 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
     @require_date_argument
     def ballot_measures(self):
         """
-        Initialize reporting units
+        ``elex ballot-measures <electiondate>``
+
+        Returns ballot measure data for a given election date.
+
+        Command:
+
+        .. code:: bash
+
+            elex ballot-measures 2016-03-15
+
+        Example output:
+
+        .. csv-table::
+
+            id,unique_id,candidateid,ballotorder,description,electiondate,last,polid,polnum,seatname
+            2016-03-15-43697,2016-03-15-43697,43697,1,,2016-03-15,For,,37229,Public Improvement Bonds
+            2016-03-15-43698,2016-03-15-43698,43698,2,,2016-03-15,Against,,37230,Public Improvement Bonds
+            ...
         """
         data = self.app.election.ballot_measures
         self.app.log.info(
@@ -192,7 +305,28 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
     @require_date_argument
     def results(self):
         """
-        Initialize reporting units
+        ``elex results <electiondate>``
+
+        Returns result data.
+
+        Each row in the output represents a fully flattened and
+        denormalized version of a result for specific candidate in
+        a specific race.
+
+        Command:
+
+        .. code:: bash
+
+            elex results 2016-03-01
+
+        Example output:
+
+        .. csv-table::
+
+            id,unique_id,raceid,racetype,racetypeid,ballotorder,candidateid,description,delegatecount,electiondate,fipscode,first,incumbent,initialization_data,is_ballot_measure,last,lastupdated,level,national,officeid,officename,party,polid,polnum,precinctsreporting,precinctsreportingpct,precinctstotal,reportingunitid,reportingunitname,runoff,seatname,seatnum,statename,statepostal,test,uncontested,votecount,votepct,winner
+            3021-polid-61815-state-1,polid-61815,3021,Caucus,S,2,6528,,0,2016-03-01,,Ted,False,False,False,Cruz,2016-03-02T17:05:46Z,state,True,P,President,GOP,61815,4263,72,1.0,72,state-1,,False,,,Alaska,AK,False,False,7973,0.363566,True
+            3021-polid-8639-state-1,polid-8639,3021,Caucus,S,5,6548,,0,2016-03-01,,Donald,False,False,False,Trump,2016-03-02T17:05:46Z,state,True,P,President,GOP,8639,4273,72,1.0,72,state-1,,False,,,Alaska,AK,False,False,7346,0.334975,False
+            ...
         """
         data = self.app.election.results
         self.app.log.info('Getting results for election {0}'.format(
@@ -208,7 +342,23 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
     @require_ap_api_key
     def elections(self):
         """
-        Initialize reporting units
+        ``elex elections``
+
+        Returns all elections known to the API.
+
+        Command:
+
+        .. code:: bash
+
+            elex elections
+
+        Example output:
+
+        .. csv-table::
+
+            2016-02-09,2016-02-09,True,False
+            2016-02-16,2016-02-16,True,False
+            ...
         """
         self.app.log.info('Getting election list')
         elections = Elections().get_elections(
@@ -220,7 +370,29 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
     @require_ap_api_key
     def delegates(self):
         """
-        Provide all delegate reports
+        ``elex delegates``
+
+        Returns delegate report data.
+
+        Command:
+
+        .. code:: bash
+
+            elex delegates
+
+        Example output:
+
+        .. csv-table::
+
+            level,party_total,superdelegates_count,last,state,candidateid,party_need,party,delegates_count,id,d1,d7,d30
+            state,2472,0,Bush,MN,1239,1237,GOP,0,MN-1239,0,0,0
+            state,2472,0,Bush,OR,1239,1237,GOP,0,OR-1239,0,0,0
+
+        Notes:
+
+        Your organization's report IDs are cached to cut down on API calls. If they change, you must
+        run `elex clear-delegate-cache` to reset.
+
         """
         self.app.log.info('Getting delegate reports')
         if (
@@ -244,7 +416,31 @@ relative to that date, otherwise will use today's date)")
     @require_ap_api_key
     def next_election(self):
         """
-        Initialize reporting units
+        ``elex next-election <date-after>``
+
+        Returns data about the next election with an optional date
+        to start searching.
+
+        Command:
+
+        .. code:: bash
+
+            elex next-election
+
+        Example output:
+
+        .. csv-table::
+
+            id,electiondate,liveresults,testresults
+            2016-04-19,2016-04-19,False,True
+
+        You can also specify the date to find the next election after, e.g.:
+
+        .. code:: bash
+
+            elex next-election 2016-04-15
+
+        This will find the first election after April 15, 2016.
         """
         self.app.log.info('Getting next election')
         if len(self.app.pargs.date):
@@ -263,6 +459,23 @@ relative to that date, otherwise will use today's date)")
 
     @expose(help="Clear the delegate report ID cache.")
     def clear_delegate_cache(self):
+        """
+        ``elex clear-delegates-cache``
+
+        Delete the cache of delegate report IDs.
+
+        Command:
+
+        .. code:: bash
+
+            elex clear-delegates-cache
+
+        Logging output:
+
+        .. code:: bash
+
+            2016-04-12 01:04:13,645 (INFO) elex (v2.0.0) : Deleting delegate report ID cache (/var/folders/z2/qlshs7cn51d_bctxsfd86qj80000gn/T/elex-cache)
+        """
         self.app.log.info('Deleting delegate report ID cache ({0})'.format(DELEGATE_REPORT_ID_CACHE_FILE))
         clear_delegate_cache()
 

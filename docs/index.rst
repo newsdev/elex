@@ -22,9 +22,10 @@ Table of contents
     install
     tutorial
     cli
-    api
+    errors
     configuration
     recording
     recipes
+    reference
     contributing
     changelog
