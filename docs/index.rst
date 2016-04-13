@@ -23,9 +23,9 @@ Table of contents
     tutorial
     cli
     errors
+    configuration
     recording
     recipes
-    api
     reference
     contributing
     changelog
