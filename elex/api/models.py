@@ -155,7 +155,6 @@ class Candidate(APElection):
         """
         return OrderedDict((
             ('id', self.id),
-            ('unique_id', self.unique_id),
             ('candidateid', self.candidateid),
             ('ballotorder', self.ballotorder),
             ('first', self.first),
@@ -239,7 +238,6 @@ class BallotMeasure(APElection):
         """
         return OrderedDict((
             ('id', self.id),
-            ('unique_id', self.unique_id),
             ('candidateid', self.candidateid),
             ('ballotorder', self.ballotorder),
             ('description', self.description),
@@ -380,7 +378,6 @@ class CandidateReportingUnit(APElection):
         """
         return OrderedDict((
             ('id', self.id),
-            ('unique_id', self.unique_id),
             ('raceid', self.raceid),
             ('racetype', self.racetype),
             ('racetypeid', self.racetypeid),

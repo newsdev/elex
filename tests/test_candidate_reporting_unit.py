@@ -216,7 +216,6 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
             cru,
             [
                 'id',
-                'unique_id',
                 'raceid',
                 'racetype',
                 'racetypeid',
