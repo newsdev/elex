@@ -11,6 +11,7 @@ import json
 import time
 import datetime
 import requests
+from elex.exceptions import APAPIKeyException
 from pymongo import MongoClient
 
 
@@ -87,7 +88,7 @@ def api_request(path, **params):
             params['apiKey'] = None
 
     if not params['apiKey']:
-        raise KeyError('Oops! You have not exported an AP_API_KEY variable.')
+        raise APAPIKeyException()
 
     params['format'] = 'json'
     response = requests.get(elex.BASE_URL + path, params=params)

@@ -1,5 +1,6 @@
-from functools import wraps
 from elex.cli.utils import parse_date
+from elex.exceptions import APAPIKeyException
+from functools import wraps
 from requests.exceptions import HTTPError
 
 
@@ -54,7 +55,7 @@ def require_ap_api_key(fn):
             self.app.log.error('HTTP Error {0} - {1}.'.format(e.response.status_code, e.response.reason))
             self.app.log.debug('HTTP Error {0} ({1}'.format(e.response.status_code, e.response.url))
             self.app.close(1)
-        except KeyError as e:
+        except APAPIKeyException as e:
             text = 'AP_API_KEY environment variable is not set.'
             self.app.log.error(text)
             self.app.close(1)
