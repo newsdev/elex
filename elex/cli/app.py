@@ -190,9 +190,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
         .. csv-table::
 
-            id,unique_id,raceid,racetype,racetypeid,ballotorder,candidateid,description,delegatecount,electiondate,fipscode,first,incumbent,initialization_data,is_ballot_measure,last,lastupdated,level,national,officeid,officename,party,polid,polnum,precinctsreporting,precinctsreportingpct,precinctstotal,reportingunitid,reportingunitname,runoff,seatname,seatnum,statename,statepostal,test,uncontested,votecount,votepct,winner
-            2919-polid-1445-None,polid-1445,2919,Caucus,E,2,6527,,0,2016-03-26,,Bernie,False,True,False,Sanders,2016-03-27T03:03:54Z,,True,P,President,Dem,1445,4262,0,0.0,0,,,False,,,Alaska,AK,False,False,0,0.0,False
-            2919-polid-1746-None,polid-1746,2919,Caucus,E,1,6526,,0,2016-03-26,,Hillary,False,True,False,Clinton,2016-03-27T03:03:54Z,,True,P,President,Dem,1746,4261,0,0.0,0,,,False,,,Alaska,AK,False,False,0,0.0,False
+            id,raceid,racetype,racetypeid,ballotorder,candidateid,description,delegatecount,electiondate,fipscode,first,incumbent,initialization_data,is_ballot_measure,last,lastupdated,level,national,officeid,officename,party,polid,polnum,precinctsreporting,precinctsreportingpct,precinctstotal,reportingunitid,reportingunitname,runoff,seatname,seatnum,statename,statepostal,test,uncontested,votecount,votepct,winner
+            2919-polid-1445-None,2919,Caucus,E,2,6527,,0,2016-03-26,,Bernie,False,True,False,Sanders,2016-03-27T03:03:54Z,,True,P,President,Dem,1445,4262,0,0.0,0,,,False,,,Alaska,AK,False,False,0,0.0,False
+            2919-polid-1746-None,2919,Caucus,E,1,6526,,0,2016-03-26,,Hillary,False,True,False,Clinton,2016-03-27T03:03:54Z,,True,P,President,Dem,1746,4261,0,0.0,0,,,False,,,Alaska,AK,False,False,0,0.0,False
 
         Notes:
 
@@ -209,7 +209,6 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
             CREATE TABLE stdin (
                 id VARCHAR(23) NOT NULL,
-                unique_id VARCHAR(12) NOT NULL,
                 raceid INTEGER NOT NULL,
                 racetype VARCHAR(6) NOT NULL,
                 racetypeid VARCHAR(1) NOT NULL,
@@ -247,9 +246,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
         .. csv-table::
 
-            id,unique_id,candidateid,ballotorder,first,last,party,polid,polnum
-            polid-1445,polid-1445,6527,2,Bernie,Sanders,Dem,1445,4262
-            polid-1746,polid-1746,6526,1,Hillary,Clinton,Dem,1746,4261
+            id,candidateid,ballotorder,first,last,party,polid,polnum
+            polid-1445,6527,2,Bernie,Sanders,Dem,1445,4262
+            polid-1746,6526,1,Hillary,Clinton,Dem,1746,4261
             ...
         """
         data = self.app.election.candidates
@@ -283,9 +282,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
         .. csv-table::
 
-            id,unique_id,candidateid,ballotorder,description,electiondate,last,polid,polnum,seatname
-            2016-03-15-43697,2016-03-15-43697,43697,1,,2016-03-15,For,,37229,Public Improvement Bonds
-            2016-03-15-43698,2016-03-15-43698,43698,2,,2016-03-15,Against,,37230,Public Improvement Bonds
+            id,candidateid,ballotorder,description,electiondate,last,polid,polnum,seatname
+            2016-03-15-43697,43697,1,,2016-03-15,For,,37229,Public Improvement Bonds
+            2016-03-15-43698,43698,2,,2016-03-15,Against,,37230,Public Improvement Bonds
             ...
         """
         data = self.app.election.ballot_measures
@@ -324,8 +323,8 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         .. csv-table::
 
             id,unique_id,raceid,racetype,racetypeid,ballotorder,candidateid,description,delegatecount,electiondate,fipscode,first,incumbent,initialization_data,is_ballot_measure,last,lastupdated,level,national,officeid,officename,party,polid,polnum,precinctsreporting,precinctsreportingpct,precinctstotal,reportingunitid,reportingunitname,runoff,seatname,seatnum,statename,statepostal,test,uncontested,votecount,votepct,winner
-            3021-polid-61815-state-1,polid-61815,3021,Caucus,S,2,6528,,0,2016-03-01,,Ted,False,False,False,Cruz,2016-03-02T17:05:46Z,state,True,P,President,GOP,61815,4263,72,1.0,72,state-1,,False,,,Alaska,AK,False,False,7973,0.363566,True
-            3021-polid-8639-state-1,polid-8639,3021,Caucus,S,5,6548,,0,2016-03-01,,Donald,False,False,False,Trump,2016-03-02T17:05:46Z,state,True,P,President,GOP,8639,4273,72,1.0,72,state-1,,False,,,Alaska,AK,False,False,7346,0.334975,False
+            3021-polid-61815-state-1,3021,Caucus,S,2,6528,,0,2016-03-01,,Ted,False,False,False,Cruz,2016-03-02T17:05:46Z,state,True,P,President,GOP,61815,4263,72,1.0,72,state-1,,False,,,Alaska,AK,False,False,7973,0.363566,True
+            3021-polid-8639-state-1,3021,Caucus,S,5,6548,,0,2016-03-01,,Donald,False,False,False,Trump,2016-03-02T17:05:46Z,state,True,P,President,GOP,8639,4273,72,1.0,72,state-1,,False,,,Alaska,AK,False,False,7346,0.334975,False
             ...
         """
         data = self.app.election.results
