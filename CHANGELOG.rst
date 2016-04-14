@@ -1,3 +1,17 @@
+2.0.0 - April XX, 2016
+----------------------
+
+Remove redundant data fields, breaking data model fixes, organizational report ID caching. 
+
+The 2.x release is named for `Ethel Payne <https://en.wikipedia.org/wiki/Ethel_L._Payne>`_, the "First Lady of the Black Press", whose `natural curiosity <http://beta.wpcf.org/oralhistory/payn.html>`_ led her to become a groundbreaking journalist.
+
+* Precincts reporting percent now expressed in normal form (#204). Prior to the 2.0 release, precincts reporting percent was expressed as a number between 0 and 100 while vote percent while percent of votes received was expressed as a number between 0 and 1. Now **all percents in the data are expressed as a number between 0 and 1** and should be multiplied by 100 to display the human-readable percentage.
+* Remove ``unique_id`` field (#256). The unique_id has been superseded by the ID field in all cases and was redundant. The 2.0 release removes this field, and all Elex users should adjust their data models and schemas accordingly.
+* Cache delegate report IDs (#234). Getting delegate reports previously required three API calls which each counted against the API quota limit. Now, on first request, the report IDs are cached until the ``elex clear-delegate-cache`` command is run. With the introduction of "free" report access in AP API v2.1, getting delegate reports do not count at all against the request quota except the first ``elex delegates`` is run or after running ``elex clear-delegate-cache``.
+* Refactor error handling when interacting with the API (#240). All error handling logic has been moved to command line library and out of the Python API. All errors encountered when using Elex as a Python library are raised and must be handled by the developer. The command line library catches common/well-known errors and provides useful feedback.
+
+
+
 1.2.0 - Feb. 25, 2016
 ----------------------
 Many bugfixes and some new fields / id schemes that might break implementations that rely on stable field names / orders.
@@ -24,7 +38,7 @@ Documentation and dependency fixes.
 1.0.0 - Jan. 25, 2016
 ---------------------
 
-The 1.0.x release is named for `Martha Ellis Gellhorn <https://en.wikipedia.org/wiki/Martha_Gellhorn>`_, one of the greatest war correspondents of the 20th century.
+The 1.x release is named for `Martha Ellis Gellhorn <https://en.wikipedia.org/wiki/Martha_Gellhorn>`_, one of the greatest war correspondents of the 20th century.
 
 * Delegate counts (#138, #194). Delegate counts can be accessed with :code:`elex delegates`.
 * Rename :code:`elex.api.api` to :code:`elex.api.models` and allow model objects to be imported with statements like :code:`from elex.api import Election` (#146). Python modules directly calling Elex will need to update their import statements accordingly.
