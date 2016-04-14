@@ -1,7 +1,3 @@
-====
-ELEX
-====
-
 .. image:: https://travis-ci.org/newsdev/elex.png
     :target: https://travis-ci.org/newsdev/elex
     :alt: Build status
