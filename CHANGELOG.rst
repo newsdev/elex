@@ -15,6 +15,7 @@ The 2.x release is named for `Ethel Payne <https://en.wikipedia.org/wiki/Ethel_L
 * Election date is automatically determined when using the ``--data-file`` flag. This means no date argument is required when specifying a data file. (#161)
 * Removed dependency on Clint output library (#63).
 * Improve documentation (#251).
+* Abandon previous caching and daemon efforts (#122, #137). Caching will be a feature of Elex 2.1.
 
 **Important note about exit codes**:
 
