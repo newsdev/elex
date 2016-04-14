@@ -1,15 +1,24 @@
-2.0.0 - April XX, 2016
+2.0.0 - April 14, 2016
 ----------------------
 
-Remove redundant data fields, breaking data model fixes, organizational report ID caching. 
+Remove redundant data fields, introduce breaking data model fixes, organizational report ID caching, and command line cleanup.
 
 The 2.x release is named for `Ethel Payne <https://en.wikipedia.org/wiki/Ethel_L._Payne>`_, the "First Lady of the Black Press", whose `natural curiosity <http://beta.wpcf.org/oralhistory/payn.html>`_ led her to become a groundbreaking journalist.
 
 * Precincts reporting percent now expressed in normal form (#204). Prior to the 2.0 release, precincts reporting percent was expressed as a number between 0 and 100 while vote percent while percent of votes received was expressed as a number between 0 and 1. Now **all percents in the data are expressed as a number between 0 and 1** and should be multiplied by 100 to display the human-readable percentage.
 * Remove ``unique_id`` field (#256). The unique_id has been superseded by the ID field in all cases and was redundant. The 2.0 release removes this field, and all Elex users should adjust their data models and schemas accordingly.
+* Race data now includes an ``is_ballot_measure`` column for consistency (#238).
 * Cache delegate report IDs (#234). Getting delegate reports previously required three API calls which each counted against the API quota limit. Now, on first request, the report IDs are cached until the ``elex clear-delegate-cache`` command is run. With the introduction of "free" report access in AP API v2.1, getting delegate reports do not count at all against the request quota except the first ``elex delegates`` is run or after running ``elex clear-delegate-cache``.
-* Refactor error handling when interacting with the API (#240). All error handling logic has been moved to command line library and out of the Python API. All errors encountered when using Elex as a Python library are raised and must be handled by the developer. The command line library catches common/well-known errors and provides useful feedback.
+* Refactor error handling when interacting with the API (#239, #240, #249). All error handling logic has been moved to command line library and out of the Python API. All errors encountered when using Elex as a Python library are raised and must be handled by the developer. The command line library catches common/well-known errors and provides useful feedback.
+* Add ``--with-timestamp`` and ``--batch-name`` flags to add a timestamp based or arbitrary grouping column to any results (#212).
+* ``elex next-election`` now returns an error when there is no valid next election (#160).
+* Election date is automatically determined when using the ``--data-file`` flag. This means no date argument is required when specifying a data file. (#161)
+* Removed dependency on Clint output library (#63).
+* Improve documentation (#251).
 
+**Important note about exit codes**:
+
+Elex will be implementing a caching layer in version 2.1 that uses conditional GET requests to decide whether or not to get fresh data. The command line tool will return exit code 64 when getting data from the cache, the normal 0 exit code on a successful full request, and exit code 1 for all errors. If you have code that depends on reading the Elex exit code, ensure that you are checking for exit code 1 and 1 only when trapping for errors.
 
 
 1.2.0 - Feb. 25, 2016
