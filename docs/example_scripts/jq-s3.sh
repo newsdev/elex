@@ -4,7 +4,7 @@
 ELEX_S3_URL='mybucket.tld/output/path.json'
 
 # Get results and upload to S3
-elex results 2012-11-06 -o json \
+elex results 2012-11-06 --results-level state -o json \
 | jq -c '[
             .[] |
             select(.level == "state" ) |
