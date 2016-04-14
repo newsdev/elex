@@ -27,12 +27,19 @@ the ``--debug`` flag is specified.
 Exit codes
 ----------
 
+If the ``elex`` command is successful, it closes with exit code 0.
+
 In the command line interface, common errors are caught, logged, and the
-`elex` command exits with exit code 1.
+``elex`` command exits with exit code 1.
 
-If the `elex` command is successful, it closes with exit code 0.
+Unknown / unexpected errors will continue to raise the normal Python exceptions with
+a full stacktrace. When this happens, the ``elex`` command exits with exit code 1.
 
-Unknown / unexpected errors will continue to raise the normal Python exceptions.
+**Important note about future compatibility**: Elex `v2.1 <https://github.com/newsdev/elex/issues?q=is%3Aopen+is%3Aissue+milestone%3A2.1>`_
+will integrate a results caching mechanism. When results are returned from the cache and not from the API,
+the ``elex`` command will exit with exit code 64. To ensure future compatibility, **only check for exit code 1
+when trapping errors** from your scripts.
+
 
 -------------
 Common errors
