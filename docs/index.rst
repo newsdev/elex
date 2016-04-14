@@ -13,7 +13,7 @@ Features
 * Simple election recording (to MongoDB).
 * Comprehensive tests.
 * Extensive documentation.
-* Fast (performance is a work in progress; contributions are welcome).
+* Fast and correct.
 
 Table of contents
 =================
