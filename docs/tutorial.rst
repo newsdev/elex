@@ -41,7 +41,7 @@ Perhaps you'd like to use Python objects in your application. This is how you wo
 
 .. code:: python
 
-    from elex.parser import api
+    from elex import api
 
     # Setup and call the AP API.
     e = api.Election(electiondate='2015-11-03', datafile=None, testresults=False, liveresults=True, is_test=False)
