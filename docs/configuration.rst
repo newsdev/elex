@@ -8,7 +8,7 @@ The following environment variables may be set:
 
     export API_VERSION='v2'
     export BASE_URL='http://api.ap.org/v2'
-    export API_KEY='<<YOURAPIKEY>>'
+    export AP_API_KEY='<<YOURAPIKEY>>'
     export ELEX_DELEGATE_REPORT_ID_CACHE_FILE='/tmp/elex-cache'
     export ELEX_RECORDING='flat'
     export ELEX_RECORDING_DIR='/tmp/elex-recording'
