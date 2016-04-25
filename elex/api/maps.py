@@ -59,7 +59,7 @@ FIPS_TO_STATE = {
         '33017': 'STRAFFORD',
         '33019': 'SULLIVAN'
     },
-    'RH': {
+    'RI': {
         '44001': 'BRISTOL',
         '44003': 'KENT',
         '44005': 'NEWPORT',
