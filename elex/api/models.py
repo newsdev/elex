@@ -663,31 +663,40 @@ class Race(APElection):
                         rts[ru.fipscode]['candidates'] = OrderedDict()
 
                     for c in ru.candidates:
-                        if not rts[ru.fipscode]['candidates'].get(
-                            c.unique_id,
-                            None
-                        ):
-                            d = dict(c.__dict__)
-                            d['level'] = 'county'
-                            d['reportingunitid'] = "%s-%s" % (
-                                ru.statepostal,
-                                ru.fipscode
-                            )
-                            fips_dict = maps.FIPS_TO_STATE[ru.statepostal]
-                            d['reportingunitname'] = fips_dict[ru.fipscode]
-                            rts[ru.fipscode]['candidates'][c.unique_id] = d
-                        else:
-                            d = rts[ru.fipscode]['candidates'][c.unique_id]
-                            d['votecount'] += c.votecount
-                            d['precinctstotal'] += c.precinctstotal
-                            d['precinctsreporting'] += c.precinctsreporting
-                            try:
-                                d['precinctsreportingpct'] = (
-                                    d['precinctsreporting'] /
-                                    float(d['precinctstotal'])
+                        """
+                        Catches an error in RI results where there are mail
+                        ballots for congressional districts listed as townships
+                        that should not be rolled up.
+                        """
+                        if not len([
+                            r for r in rts[ru.fipscode]['candidates']
+                            if isinstance(r, CandidateReportingUnit)
+                        ]) > 0:
+                            if not rts[ru.fipscode]['candidates'].get(
+                                c.unique_id,
+                                None
+                            ):
+                                d = dict(c.__dict__)
+                                d['level'] = 'county'
+                                d['reportingunitid'] = "%s-%s" % (
+                                    ru.statepostal,
+                                    ru.fipscode
                                 )
-                            except ZeroDivisionError:
-                                d['precinctsreportingpct'] = 0.0
+                                fips_dict = maps.FIPS_TO_STATE[ru.statepostal]
+                                d['reportingunitname'] = fips_dict[ru.fipscode]
+                                rts[ru.fipscode]['candidates'][c.unique_id] = d
+                            else:
+                                d = rts[ru.fipscode]['candidates'][c.unique_id]
+                                d['votecount'] += c.votecount
+                                d['precinctstotal'] += c.precinctstotal
+                                d['precinctsreporting'] += c.precinctsreporting
+                                try:
+                                    d['precinctsreportingpct'] = (
+                                        float(d['precinctsreporting']) /
+                                        float(d['precinctstotal'])
+                                    )
+                                except ZeroDivisionError:
+                                    d['precinctsreportingpct'] = 0.0
                 except KeyError:
                     """
                     An advisory on 2016-02-25 indicates that Maine will not be
