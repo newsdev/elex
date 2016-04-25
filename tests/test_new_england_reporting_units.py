@@ -2,6 +2,40 @@ from elex.api import maps
 import tests
 
 
+class TestRhodeIslandEdgeCageReportingUnits(tests.ElectionResultsTestCase):
+    """
+    Mail ballots listed as townships. Breaks rollups for RI.
+    """
+    data_url = 'tests/data/20160426-ri_mail_ballots.json'
+
+    def test_existence_of_mail_ballots(self):
+        ri_results = [
+            r for r in self.reporting_units if
+            r.statepostal == "RI"
+        ]
+        mail_ballots = []
+        for z in ri_results:
+            try:
+                if "C.D." in z.reportingunitname:
+                    mail_ballots.append(z)
+            except TypeError:
+                pass
+        self.assertTrue(len(mail_ballots) > 0)
+
+    def test_mail_ballots_are_townships(self):
+        ri_results = [
+            r for r in self.reporting_units if
+            r.statepostal == "RI"
+        ]
+        for z in ri_results:
+            try:
+                if "C.D." in z.reportingunitname:
+                    self.assertTrue(z.level, "Township")
+
+            except TypeError:
+                pass
+
+
 class TestMaineEdgeCaseReportingUnits(tests.ElectionResultsTestCase):
     """
     Should get two reporting units from this Maine file: One is the
