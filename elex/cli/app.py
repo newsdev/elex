@@ -446,28 +446,6 @@ relative to that date, otherwise will use today's date)")
 
         self.app.render(election)
 
-    @expose(help="Clear the delegate report ID cache.")
-    def clear_delegate_cache(self):
-        """
-        ``elex clear-delegates-cache``
-
-        Delete the cache of delegate report IDs.
-
-        Command:
-
-        .. code:: bash
-
-            elex clear-delegates-cache
-
-        Logging output:
-
-        .. code:: bash
-
-            2016-04-12 01:04:13,645 (INFO) elex (v2.0.0) : Deleting delegate report ID cache (/var/folders/z2/qlshs7cn51d_bctxsfd86qj80000gn/T/elex-cache)
-        """
-        self.app.log.info('Deleting delegate report ID cache ({0})'.format(DELEGATE_REPORT_ID_CACHE_FILE))
-        clear_delegate_cache()
-
 
 class ElexApp(CementApp):
     class Meta:
