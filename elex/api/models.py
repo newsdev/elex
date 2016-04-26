@@ -683,6 +683,10 @@ class Race(APElection):
                         r.fipscode == c
                     ])
 
+                    """
+                    THIS IS SUSPECT !!!!
+                    """
+
                     reporting_units = [
                         r for
                         r in self.reportingunits if
@@ -692,6 +696,10 @@ class Race(APElection):
                     ]
 
                     for r in reporting_units:
+
+                        """
+                        THIS IS SUSPECT !!!!
+                        """
 
                         # Set up candidates for each county.
                         for cru in r.candidates:
