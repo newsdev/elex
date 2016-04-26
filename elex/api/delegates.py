@@ -4,36 +4,20 @@ This module contains the primary :class:`DelegateLoad` class for handling a
 single load of AP delegate counts and methods necessary to obtain them.
 """
 import json
-import percache
 
-from elex import DELEGATE_REPORT_ID_CACHE_FILE
 from elex.api import utils
 from collections import OrderedDict
 
-CACHE_MAX_AGE = 30  # Max age of cache
 
-cache = percache.Cache(DELEGATE_REPORT_ID_CACHE_FILE, livesync=True)
-
-
-@cache
 def _get_reports(params={}):
     """
-    Use percache to dump a report response to disk
+    Get reports
     """
-    cache.clear(maxage=CACHE_MAX_AGE)
     resp = utils.api_request('/reports', **params)
     if resp.ok:
         return resp.json().get('reports')
     else:
-        cache.clear()
         return []
-
-
-def clear_delegate_cache():
-    """
-    Delete the delegate cache file
-    """
-    cache.clear()
 
 
 class CandidateDelegateReport(utils.UnicodeMixin):

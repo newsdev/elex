@@ -1,7 +1,5 @@
 from elex.api import Elections
 from elex.api import DelegateReport
-from elex.api.delegates import clear_delegate_cache
-from elex import DELEGATE_REPORT_ID_CACHE_FILE
 from elex import __version__ as VERSION
 from cement.core.foundation import CementApp
 from elex.cli.hooks import add_election_hook
@@ -387,11 +385,6 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             state,2472,0,Bush,MN,1239,1237,GOP,0,MN-1239,0,0,0
             state,2472,0,Bush,OR,1239,1237,GOP,0,OR-1239,0,0,0
 
-        Notes:
-
-        Your organization's report IDs are cached to cut down on API calls. If they change, you must
-        run `elex clear-delegate-cache` to reset.
-
         """
         self.app.log.info('Getting delegate reports')
         if (
@@ -403,9 +396,6 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 delsum_datafile=self.app.pargs.delegate_sum_file
             )
         else:
-            self.app.log.debug(
-                'Elex delegate cache location: {0}'.format(DELEGATE_REPORT_ID_CACHE_FILE)
-            )
             report = DelegateReport()
 
         self.app.render(report.candidate_objects)
