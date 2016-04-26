@@ -1,7 +1,5 @@
 from elex.api import Elections
 from elex.api import DelegateReport
-from elex.api.delegates import clear_delegate_cache
-from elex import DELEGATE_REPORT_ID_CACHE_FILE
 from elex import __version__ as VERSION
 from cement.core.foundation import CementApp
 from elex.cli.hooks import add_election_hook
@@ -387,11 +385,6 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             state,2472,0,Bush,MN,1239,1237,GOP,0,MN-1239,0,0,0
             state,2472,0,Bush,OR,1239,1237,GOP,0,OR-1239,0,0,0
 
-        Notes:
-
-        Your organization's report IDs are cached to cut down on API calls. If they change, you must
-        run `elex clear-delegate-cache` to reset.
-
         """
         self.app.log.info('Getting delegate reports')
         if (
@@ -403,9 +396,6 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 delsum_datafile=self.app.pargs.delegate_sum_file
             )
         else:
-            self.app.log.debug(
-                'Elex delegate cache location: {0}'.format(DELEGATE_REPORT_ID_CACHE_FILE)
-            )
             report = DelegateReport()
 
         self.app.render(report.candidate_objects)
@@ -455,28 +445,6 @@ relative to that date, otherwise will use today's date)")
             self.app.close(1)
 
         self.app.render(election)
-
-    @expose(help="Clear the delegate report ID cache.")
-    def clear_delegate_cache(self):
-        """
-        ``elex clear-delegates-cache``
-
-        Delete the cache of delegate report IDs.
-
-        Command:
-
-        .. code:: bash
-
-            elex clear-delegates-cache
-
-        Logging output:
-
-        .. code:: bash
-
-            2016-04-12 01:04:13,645 (INFO) elex (v2.0.0) : Deleting delegate report ID cache (/var/folders/z2/qlshs7cn51d_bctxsfd86qj80000gn/T/elex-cache)
-        """
-        self.app.log.info('Deleting delegate report ID cache ({0})'.format(DELEGATE_REPORT_ID_CACHE_FILE))
-        clear_delegate_cache()
 
 
 class ElexApp(CementApp):

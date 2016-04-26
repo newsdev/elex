@@ -1,3 +1,11 @@
+2.0.1 - 2.0.4 - April 26, 2016
+------------------------------
+
+* Fixes for AP API v2.1.
+* Fix for missing Rhode Island mail-in ballot (#263).
+* Fix for township to county rollups in New England (#264).
+* Delegate report cache has been removed; the feature could have negative consequences and will be better addressed by a full caching system.
+
 2.0.0 - April 14, 2016
 ----------------------
 
