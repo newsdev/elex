@@ -41,7 +41,7 @@ class TestConnecticutRollups(tests.ElectionResultsTestCase):
                 r.statepostal == "CT" and
                 r.level == "township" and
                 r.fipscode == county.fipscode
-            ])t
+            ])
             for race in races:
                 townships = [
                     r.precinctstotal for r in self.reporting_units if

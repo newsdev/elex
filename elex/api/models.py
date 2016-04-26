@@ -6,11 +6,6 @@ from elex.api import utils
 from collections import OrderedDict
 from dateutil import parser as dateutil_parser
 
-try:
-    set
-except NameError:
-    from sets import Set as set
-
 PCT_PRECISION = 6
 
 
