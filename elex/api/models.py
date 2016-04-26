@@ -679,9 +679,9 @@ class Race(APElection):
                     ])
 
                     # Set up candidates for each county.
-                    for cru in r.candidates:
+                    for cru in self.reportingunits:
                         if not counties[c]['candidates'].get(
-                            cru.unique_id,
+                            cru.id,
                             None
                         ):
                             d = dict(cru.__dict__)
@@ -692,10 +692,10 @@ class Race(APElection):
                             )
                             fips_dict = maps.FIPS_TO_STATE[self.statepostal]
                             d['reportingunitname'] = fips_dict[c]
-                            counties[c]['candidates'][cru.unique_id] = d
+                            counties[c]['candidates'][cru.id] = d
 
                         else:
-                            d = counties[c]['candidates'][cru.unique_id]
+                            d = counties[c]['candidates'][cru.id]
                             d['votecount'] += cru.votecount
                             d['precinctstotal'] += cru.precinctstotal
                             d['precinctsreporting'] += cru.precinctsreporting
