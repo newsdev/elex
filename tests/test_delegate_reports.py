@@ -2,6 +2,7 @@ import os
 import unittest
 import tests
 
+from time import sleep
 from . import API_MESSAGE
 
 try:
@@ -68,6 +69,15 @@ class TestDelegateReports(tests.DelegateReportTestCase):
         from elex.api.delegates import cache, _get_reports
         _get_reports()
         self.assertEqual(cache.stats()[0], 1)
+
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_delegate_report_id_cache_maxage(self):
+        from elex.api import delegates
+        delegates.CACHE_MAX_AGE = 5
+        delegates._get_reports()
+        sleep(delegates.CACHE_MAX_AGE + 1)
+        delegates.cache.clear(maxage=delegates.CACHE_MAX_AGE)
+        self.assertEqual(delegates.cache.stats()[0], 0)
 
     def test_delegate_report_id_cache_clear(self):
         from elex.api.delegates import cache, clear_delegate_cache

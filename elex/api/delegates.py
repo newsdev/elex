@@ -10,6 +10,8 @@ from elex import DELEGATE_REPORT_ID_CACHE_FILE
 from elex.api import utils
 from collections import OrderedDict
 
+CACHE_MAX_AGE = 30  # Max age of cache
+
 cache = percache.Cache(DELEGATE_REPORT_ID_CACHE_FILE, livesync=True)
 
 
@@ -18,6 +20,7 @@ def _get_reports(params={}):
     """
     Use percache to dump a report response to disk
     """
+    cache.clear(maxage=CACHE_MAX_AGE)
     resp = utils.api_request('/reports', **params)
     if resp.ok:
         return resp.json().get('reports')
