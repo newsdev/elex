@@ -670,6 +670,12 @@ class Race(APElection):
                         "Mail Ballots C.D." not in r.reportingunitname and
                         r.fipscode == c
                     ])
+
+
+                    pcts_tot = float(counties[c]['precinctstotal'])
+                    pcts_rep = float(counties[c]['precinctsreporting'])
+                    counties[c]['precinctsreportingpct'] = pcts_rep / pcts_tot
+
                     counties[c]['votecount'] = sum([
                         r.votecount for
                         r in self.reportingunits if
@@ -681,7 +687,7 @@ class Race(APElection):
                     # Set up candidates for each county.
                     for cru in r.candidates:
                         if not counties[c]['candidates'].get(
-                            cru.unique_id,
+                            cru.id,
                             None
                         ):
                             d = dict(cru.__dict__)
@@ -692,10 +698,10 @@ class Race(APElection):
                             )
                             fips_dict = maps.FIPS_TO_STATE[self.statepostal]
                             d['reportingunitname'] = fips_dict[c]
-                            counties[c]['candidates'][cru.unique_id] = d
+                            counties[c]['candidates'][cru.id] = d
 
                         else:
-                            d = counties[c]['candidates'][cru.unique_id]
+                            d = counties[c]['candidates'][cru.id]
                             d['votecount'] += cru.votecount
                             d['precinctstotal'] += cru.precinctstotal
                             d['precinctsreporting'] += cru.precinctsreporting

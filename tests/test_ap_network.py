@@ -18,30 +18,7 @@ class APNetworkTestCase(NetworkTestCase):
         response = error.exception.response
         if response.status_code == 403:
             self.skipTest('over quota limit')
-        self.assertEqual(response.status_code, 400)
-
-    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
-    def test_bad_date_error_message(self):
-        with self.assertRaises(HTTPError) as error:
-            self.api_request('/elections/9999-99-99')
-        response = error.exception.response
-        if response.status_code == 403:
-            self.skipTest('over quota limit')
-        data = response.json()
-        self.assertEqual(
-            data['errorMessage'],
-            'String was not recognized as a valid DateTime.'
-        )
-
-    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
-    def test_bad_date_fields(self):
-        with self.assertRaises(HTTPError) as error:
-            self.api_request('/elections/9999-99-99')
-        response = error.exception.response
-        if response.status_code == 403:
-            self.skipTest('over quota limit')
-        keys = response.json().keys()
-        self.assertTrue('errorMessage' in keys and 'errorCode' in keys)
+        self.assertEqual(response.status_code, 404)
 
     @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
     def test_nonexistent_date(self):
