@@ -678,7 +678,7 @@ class Race(APElection):
                         r.fipscode == c
                     ])
 
-                    # Set up candidates for each county.
+                    # Set up candidates for each county
                     for cru in self.reportingunits:
                         if not counties[c]['candidates'].get(
                             cru.id,
