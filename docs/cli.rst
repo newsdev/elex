@@ -19,9 +19,6 @@ Commands and flags
       candidates
         Get candidates
 
-      clear-delegate-cache
-        Clear the delegate report ID cache.
-
       delegates
         Get all delegate reports
 
