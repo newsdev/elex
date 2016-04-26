@@ -671,7 +671,6 @@ class Race(APElection):
                         r.fipscode == c
                     ])
 
-
                     pcts_tot = float(counties[c]['precinctstotal'])
                     pcts_rep = float(counties[c]['precinctsreporting'])
                     counties[c]['precinctsreportingpct'] = pcts_rep / pcts_tot
