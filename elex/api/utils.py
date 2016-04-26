@@ -10,7 +10,6 @@ import elex
 import json
 import time
 import datetime
-import requests
 from elex.exceptions import APAPIKeyException
 from pymongo import MongoClient
 
@@ -91,7 +90,16 @@ def api_request(path, **params):
         raise APAPIKeyException()
 
     params['format'] = 'json'
-    response = requests.get(elex.BASE_URL + path, params=params)
+
+    params = sorted(params.items())  # Sort for consistent caching
+
+    url = '{0}{1}'.format(elex.BASE_URL, path)
+
+    response = elex.api.session.get(url, params=params)
     response.raise_for_status()
+
+    foo = response.json()
+
     write_recording(response.json())
+
     return response
