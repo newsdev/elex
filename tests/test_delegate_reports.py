@@ -1,9 +1,4 @@
-import os
-import unittest
 import tests
-
-from time import sleep
-from . import API_MESSAGE
 
 try:
     set
