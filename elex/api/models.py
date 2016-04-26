@@ -684,12 +684,12 @@ class Race(APElection):
                     ])
 
                     reporting_units = [
-                            r for
-                            r in self.reportingunits if
-                            r.level == 'township' and
-                            "Mail Ballots C.D." not in r.reportingunitname and
-                            r.fipscode == c
-                        ]
+                        r for
+                        r in self.reportingunits if
+                        r.level == 'township' and
+                        "Mail Ballots C.D." not in r.reportingunitname and
+                        r.fipscode == c
+                    ]
 
                     for r in reporting_units:
 
