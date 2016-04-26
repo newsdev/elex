@@ -683,36 +683,46 @@ class Race(APElection):
                         r.fipscode == c
                     ])
 
-                    # Set up candidates for each county.
-                    for cru in r.candidates:
-                        if not counties[c]['candidates'].get(
-                            cru.id,
-                            None
-                        ):
-                            d = dict(cru.__dict__)
-                            d['level'] = 'county'
-                            d['reportingunitid'] = "%s-%s" % (
-                                self.statepostal,
-                                c
-                            )
-                            fips_dict = maps.FIPS_TO_STATE[self.statepostal]
-                            d['reportingunitname'] = fips_dict[c]
-                            counties[c]['candidates'][cru.id] = d
+                    reporting_units = [
+                            r for
+                            r in self.reportingunits if
+                            r.level == 'township' and
+                            "Mail Ballots C.D." not in r.reportingunitname and
+                            r.fipscode == c
+                        ]
 
-                        else:
-                            d = counties[c]['candidates'][cru.id]
-                            d['votecount'] += cru.votecount
-                            d['precinctstotal'] += cru.precinctstotal
-                            d['precinctsreporting'] += cru.precinctsreporting
+                    for r in reporting_units:
 
-                            try:
-                                d['precinctsreportingpct'] = (
-                                    float(d['precinctsreporting']) /
-                                    float(d['precinctstotal'])
+                        # Set up candidates for each county.
+                        for cru in r.candidates:
+                            if not counties[c]['candidates'].get(
+                                cru.id,
+                                None
+                            ):
+                                d = dict(cru.__dict__)
+                                d['level'] = 'county'
+                                d['reportingunitid'] = "%s-%s" % (
+                                    self.statepostal,
+                                    c
                                 )
+                                fips_dict = maps.FIPS_TO_STATE[self.statepostal]
+                                d['reportingunitname'] = fips_dict[c]
+                                counties[c]['candidates'][cru.id] = d
 
-                            except ZeroDivisionError:
-                                d['precinctsreportingpct'] = 0.0
+                            else:
+                                d = counties[c]['candidates'][cru.id]
+                                d['votecount'] += cru.votecount
+                                d['precinctstotal'] += cru.precinctstotal
+                                d['precinctsreporting'] += cru.precinctsreporting
+
+                                try:
+                                    d['precinctsreportingpct'] = (
+                                        float(d['precinctsreporting']) /
+                                        float(d['precinctstotal'])
+                                    )
+
+                                except ZeroDivisionError:
+                                    d['precinctsreportingpct'] = 0.0
 
                 except IndexError:
                     """
