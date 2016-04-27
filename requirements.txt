@@ -1,3 +1,4 @@
+-e git+https://github.com/ionrock/cachecontrol.git@4746b906ae9b2e7ada8e732688cb9571a33a3fa5#egg=CacheControl
 cement==2.6.2
 percache==0.3.0
 pymongo==2.8

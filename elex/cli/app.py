@@ -334,9 +334,8 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 'Elex API URL: {0}'.format(self.app.election._response.url)
             )
             self.app.log.debug(
-                'elex from cache: {0}'.format(self.app.election._response.from_cache)
+                'Cache hit: {0}'.format(self.app.election._response.from_cache)
             )
-            #import ipdb; ipdb.set_trace();
         self.app.render(data)
 
     @expose(help="Get list of available elections")

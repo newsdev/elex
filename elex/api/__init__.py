@@ -1,6 +1,4 @@
 import requests
-from cachecontrol import CacheControl
-from cachecontrol.caches import FileCache
 from .models import (
     APElection,
     Candidate,
@@ -15,10 +13,6 @@ from .delegates import (
     CandidateDelegateReport,
     DelegateReport
 )
-
-session = CacheControl(requests.session(),
-                       cache=FileCache('.ecache'))
-
 __all__ = [
     'APElection',
     'BallotMeasure',
