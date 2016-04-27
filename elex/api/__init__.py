@@ -1,4 +1,3 @@
-import requests
 from .models import (
     APElection,
     Candidate,
