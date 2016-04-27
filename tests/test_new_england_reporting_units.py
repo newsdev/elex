@@ -1,5 +1,93 @@
+try:
+    set
+except NameError:
+    from sets import Set as set
+
 from elex.api import maps
 import tests
+
+
+class TestConnecticutRollups(tests.ElectionResultsTestCase):
+    """
+    Connecticut townships not rolling up properly.
+    """
+
+    data_url = 'tests/data/20160426_ct_rollups.json'
+
+    def test_ct_has_candidates(self):
+        self.assertNotEqual(len(self.candidate_reporting_units), 0)
+
+    def test_ct_has_all_counties(self):
+        ct_counties = set()
+        raw_counties = [
+            r for r in self.reporting_units if
+            r.statepostal == "CT" and
+            r.level == "county"
+        ]
+        for c in raw_counties:
+            ct_counties.add(c.reportingunitname)
+
+        ct_mapped_counties = set(maps.FIPS_TO_STATE['CT'].keys())
+
+        self.assertEqual(len(ct_counties), len(ct_mapped_counties))
+
+    def test_ct_counties_match_townships(self):
+        ct_counties = [
+            r for r in self.reporting_units if
+            r.statepostal == "CT" and
+            r.level == "county"
+        ]
+
+        for county in ct_counties:
+            races = set([
+                r.raceid for r in self.reporting_units if
+                r.statepostal == "CT" and
+                r.level == "township" and
+                r.fipscode == county.fipscode
+            ])
+            for race in races:
+                townships = [
+                    r.precinctstotal for r in self.reporting_units if
+                    r.statepostal == "CT" and
+                    r.level == "township" and
+                    r.fipscode == county.fipscode and
+                    r.raceid == race
+                ]
+                self.assertEqual(county.precinctstotal, sum(townships))
+
+
+class TestRhodeIslandEdgeCageReportingUnits(tests.ElectionResultsTestCase):
+    """
+    Mail ballots listed as townships. Breaks rollups for RI.
+    """
+    data_url = 'tests/data/20160426-ri_mail_ballots.json'
+
+    def test_existence_of_mail_ballots(self):
+        ri_results = [
+            r for r in self.reporting_units if
+            r.statepostal == "RI"
+        ]
+        mail_ballots = []
+        for z in ri_results:
+            try:
+                if "C.D." in z.reportingunitname:
+                    mail_ballots.append(z)
+            except TypeError:
+                pass
+        self.assertTrue(len(mail_ballots) > 0)
+
+    def test_mail_ballots_are_townships(self):
+        ri_results = [
+            r for r in self.reporting_units if
+            r.statepostal == "RI"
+        ]
+        for z in ri_results:
+            try:
+                if "C.D." in z.reportingunitname:
+                    self.assertTrue(z.level, "Township")
+
+            except TypeError:
+                pass
 
 
 class TestMaineEdgeCaseReportingUnits(tests.ElectionResultsTestCase):
