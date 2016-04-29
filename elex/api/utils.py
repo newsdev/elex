@@ -3,11 +3,13 @@ Utility functions to record raw election results and handle low-level HTTP
 interaction with the Associated Press Election API.
 """
 from __future__ import print_function
+import csv
 import os
 import sys
 import six
 import elex
 import json
+import tempfile
 import time
 import datetime
 from elex import cache
@@ -96,9 +98,21 @@ def api_request(path, **params):
 
     url = '{0}{1}'.format(elex.BASE_URL, path)
 
-    response = cache.get(url, params=params)
-    response.raise_for_status()
+    timing_dir = os.path.join(tempfile.gettempdir(), 'cache-tests')
+    try:
+        os.makedirs(timing_dir)
+    except OSError:
+        pass
+    timing_file = os.path.join(timing_dir, 'cache-tests.csv')
 
+    start = time.time()
+    response = cache.get(url, params=params)
+    end = time.time()
+    with open(timing_file, 'a') as f:
+        writer = csv.writer(f)
+        writer.writerow([start, response.url, response.from_cache, end - start])
+
+    response.raise_for_status()
     write_recording(response.json())
 
     return response
