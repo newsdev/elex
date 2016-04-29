@@ -23,16 +23,10 @@ BASE_URL
 
 Use a different base url for API requests. Helpful if running a mirror or archive of raw AP data like `Elex Deja Vu <https://github.com/newsdev/ap-deja-vu>`_.
 
-API_KEY
-=======
+AP_API_KEY
+==========
 
 Your API key. Must be set.
-
-
-ELEX_DELEGATE_REPORT_ID_CACHE_FILE
-==================================
-
-To cut down on requests for a rarely changing ID, Elex caches this ID in a file stored in a temporary directory. You can override the default temporary directory (which is found in an OS-agnostic way with the Python tempfile library) by specifying this environment variable. You shouldn't need to set this in most cases.
 
 ELEX_RECORDING, ELEX_RECORDING_DIR
 ==================================
