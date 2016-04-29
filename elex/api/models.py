@@ -1,12 +1,20 @@
 # -*- coding: utf-8 -*-
-import json
-import datetime
-from elex.api import maps
-from elex.api import utils
+
 from collections import OrderedDict
+import datetime
+import json
+import multiprocessing
+
 from dateutil import parser as dateutil_parser
 
+from elex.api import maps
+from elex.api import utils
+
+
 PCT_PRECISION = 6
+
+def mp_process_race(race_dict):
+    return Race(**race_dict)
 
 
 class APElection(utils.UnicodeMixin):
@@ -962,6 +970,7 @@ class Election(APElection):
         :param parsed_json:
             Dict of parsed JSON.
         """
+
         if len(parsed_json['races']) > 0:
             if parsed_json['races'][0].get('candidates', None):
                 payload = []
@@ -969,7 +978,17 @@ class Election(APElection):
                     r['initialization_data'] = True
                     payload.append(Race(**r))
                 return payload
-            return [Race(**r) for r in parsed_json['races']]
+
+            """
+            If this isn't initialization data, process the results
+            in a thread pool.
+            """
+            pool = multiprocessing.Pool(multiprocessing.cpu_count())
+            results = pool.map(mp_process_race, parsed_json['races'])
+            pool.close()
+            pool.join()
+            return results
+
         else:
             return []
 
