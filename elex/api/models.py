@@ -655,34 +655,6 @@ class Race(APElection):
                         c
                     )
 
-                    # Declaratively sum the precincts / votes for this county.
-                    counties[c]['precinctstotal'] = sum([
-                        r.precinctstotal for
-                        r in self.reportingunits if
-                        r.level == 'township' and
-                        "Mail Ballots C.D." not in r.reportingunitname and
-                        r.fipscode == c
-                    ])
-                    counties[c]['precinctsreporting'] = sum([
-                        r.precinctsreporting for
-                        r in self.reportingunits if
-                        r.level == 'township' and
-                        "Mail Ballots C.D." not in r.reportingunitname and
-                        r.fipscode == c
-                    ])
-
-                    pcts_tot = float(counties[c]['precinctstotal'])
-                    pcts_rep = float(counties[c]['precinctsreporting'])
-                    counties[c]['precinctsreportingpct'] = pcts_rep / pcts_tot
-
-                    counties[c]['votecount'] = sum([
-                        r.votecount for
-                        r in self.reportingunits if
-                        r.level == 'township' and
-                        "Mail Ballots C.D." not in r.reportingunitname and
-                        r.fipscode == c
-                    ])
-
                     reporting_units = [
                         r for
                         r in self.reportingunits if
@@ -690,6 +662,38 @@ class Race(APElection):
                         "Mail Ballots C.D." not in r.reportingunitname and
                         r.fipscode == c
                     ]
+
+                    # Declaratively sum the precincts / votes for this county.
+                    counties[c]['precinctstotal'] = sum([
+                        r.precinctstotal for
+                        r in reporting_units if
+                        r.level == 'township' and
+                        "Mail Ballots C.D." not in r.reportingunitname and
+                        r.fipscode == c
+                    ])
+                    counties[c]['precinctsreporting'] = sum([
+                        r.precinctsreporting for
+                        r in reporting_units if
+                        r.level == 'township' and
+                        "Mail Ballots C.D." not in r.reportingunitname and
+                        r.fipscode == c
+                    ])
+
+                    pcts_tot = float(counties[c]['precinctstotal'])
+                    pcts_rep = float(counties[c]['precinctsreporting'])
+
+                    try:
+                        counties[c]['precinctsreportingpct'] = pcts_rep / pcts_tot
+                    except ZeroDivisionError:
+                        counties[c]['precinctsreportingpct'] = 0.0
+
+                    counties[c]['votecount'] = sum([
+                        int(r.votecount or 0) for
+                        r in reporting_units if
+                        r.level == 'township' and
+                        "Mail Ballots C.D." not in r.reportingunitname and
+                        r.fipscode == c
+                    ])
 
                     for r in reporting_units:
 
