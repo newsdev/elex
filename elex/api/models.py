@@ -13,6 +13,7 @@ from elex.api import utils
 
 PCT_PRECISION = 6
 
+
 def mp_process_race(race_dict):
     return Race(**race_dict)
 
