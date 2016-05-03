@@ -1,3 +1,4 @@
+from elex import CACHE_DIRECTORY
 from elex.cli.utils import parse_date
 from elex.exceptions import APAPIKeyException
 from functools import wraps
@@ -41,6 +42,7 @@ def require_ap_api_key(fn):
     """
     @wraps(fn)
     def decorated(self):
+        self.app.log.debug('Cache directory: {0}'.format(CACHE_DIRECTORY))
         try:
             return fn(self)
         except HTTPError as e:

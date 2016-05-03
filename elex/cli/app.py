@@ -126,6 +126,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
             )
+            self.app.log.debug(
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
+            )
         self.app.render(data)
 
     @expose(help="Get reporting units")
@@ -165,6 +168,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         if self.app.election._response:
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
+            )
+            self.app.log.debug(
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
             )
         self.app.render(data)
 
@@ -228,6 +234,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
             )
+            self.app.log.debug(
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
+            )
         self.app.render(data)
 
     @expose(help="Get candidates")
@@ -264,6 +273,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
             )
+            self.app.log.debug(
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
+            )
         self.app.render(data)
 
     @expose(help="Get ballot measures")
@@ -299,6 +311,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         if self.app.election._response:
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
+            )
+            self.app.log.debug(
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
             )
         self.app.render(data)
 
@@ -339,7 +354,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 'Elex API URL: {0}'.format(self.app.election._response.url)
             )
             self.app.log.debug(
-                'Cache hit: {0}'.format(self.app.election._response.from_cache)
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
             )
         self.app.render(data)
 
