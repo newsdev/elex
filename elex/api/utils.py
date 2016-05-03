@@ -98,17 +98,19 @@ def api_request(path, **params):
 
     url = '{0}{1}'.format(elex.BASE_URL, path)
 
-    timing_dir = os.path.join(tempfile.gettempdir(), 'cache-tests')
+    timing_dir = os.path.join(tempfile.gettempdir(), 'elex-cache-tests')
     try:
         os.makedirs(timing_dir)
     except OSError:
         pass
-    timing_file = os.path.join(timing_dir, 'cache-tests.csv')
+
+    filename = 'test{0}.csv'.format(path.replace('/', '-'))
+    timing_filepath = os.path.join(timing_dir, filename)
 
     start = time.time()
     response = cache.get(url, params=params)
     end = time.time()
-    with open(timing_file, 'a') as f:
+    with open(timing_filepath, 'a') as f:
         writer = csv.writer(f)
         writer.writerow([start, response.url, response.from_cache, end - start])
 
