@@ -112,7 +112,10 @@ def api_request(path, **params):
     end = time.time()
     with open(timing_filepath, 'a') as f:
         writer = csv.writer(f)
-        writer.writerow([start, response.url, response.from_cache, end - start])
+        etag = response.headers.get('etag', 'NO ETAG')
+        row = [start, response.from_cache, end - start, etag]
+        print(row)
+        writer.writerow(row)
 
     response.raise_for_status()
     write_recording(response.json())

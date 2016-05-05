@@ -2,7 +2,7 @@ from elex.api import Elections
 from elex.api import DelegateReport
 from elex import __version__ as VERSION
 from cement.core.foundation import CementApp
-from elex.cli.hooks import add_election_hook
+from elex.cli.hooks import add_election_hook, cachecontrol_logging_hook
 from cement.ext.ext_logging import LoggingLogHandler
 from cement.core.controller import CementBaseController, expose
 from elex.cli.decorators import require_date_argument, require_ap_api_key
@@ -475,6 +475,7 @@ class ElexApp(CementApp):
         label = 'elex'
         base_controller = ElexBaseController
         hooks = [
+            ('post_setup', cachecontrol_logging_hook),
             ('post_argument_parsing', add_election_hook),
         ]
         extensions = [
