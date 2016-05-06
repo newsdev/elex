@@ -1,17 +1,11 @@
-from elex.api import Elections
-from elex.api import DelegateReport
-from elex import __version__ as VERSION
-from cement.core.foundation import CementApp
-from elex.cli.hooks import add_election_hook, cachecontrol_logging_hook
-from cement.ext.ext_logging import LoggingLogHandler
 from cement.core.controller import CementBaseController, expose
+from cement.core.foundation import CementApp
+from cement.ext.ext_logging import LoggingLogHandler
+from elex.api import DelegateReport
+from elex.api import Elections
+from elex.cli.constants import BANNER, LOG_FORMAT
 from elex.cli.decorators import require_date_argument, require_ap_api_key
-
-LOG_FORMAT = '%(asctime)s (%(levelname)s) %(namespace)s (v{0}) : \
-%(message)s'.format(VERSION)
-BANNER = """
-NYT AP Elections version {0}
-""".format(VERSION)
+from elex.cli.hooks import add_election_hook, cachecontrol_logging_hook
 
 
 class ElexBaseController(CementBaseController):

@@ -1,8 +1,6 @@
 import logging
 from elex.api import Election
-
-CACHECONTROL_LOG_FORMAT = '%(asctime)s (%(levelname)s) %(name)s : %(message)s'
-
+from elex.cli.constants import LOG_FORMAT
 
 def add_election_hook(app):
     """
@@ -31,9 +29,9 @@ def cachecontrol_logging_hook(app):
     """
     Reroute cachecontrol logger to use cement log handlers.
     """
-    cachecontrol_logger = logging.getLogger('cachecontrol.controller')
-    formatter = logging.Formatter(CACHECONTROL_LOG_FORMAT)
+    from cachecontrol.controller import logger
+    formatter = logging.Formatter(LOG_FORMAT)
     for handler in app.log.backend.handlers:
         handler.setFormatter(formatter)
-        cachecontrol_logger.addHandler(handler)
-    cachecontrol_logger.setLevel(logging.DEBUG)
+        logger.addHandler(handler)
+    logger.setLevel(logging.DEBUG)
