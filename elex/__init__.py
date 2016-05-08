@@ -5,6 +5,7 @@ import tempfile
 
 from cachecontrol import CacheControl
 from cachecontrol.caches import FileCache
+from elex.cachecontrol_heuristics import EtagOnlyCache
 
 __version__ = pkg_resources.get_distribution('elex').version
 API_VERSION = os.environ.get('AP_API_VERSION', 'v2')
@@ -15,4 +16,5 @@ CACHE_DIRECTORY = os.path.join(tempfile.gettempdir(), 'elex-cache')
 session = requests.session()
 session.headers.update({'Accept-Encoding': 'gzip'})
 cache = CacheControl(session,
-                     cache=FileCache(CACHE_DIRECTORY))
+                     cache=FileCache(CACHE_DIRECTORY),
+                     heuristic=EtagOnlyCache())
