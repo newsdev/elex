@@ -3,11 +3,10 @@ from cachecontrol.heuristics import BaseHeuristic
 
 class EtagOnlyCache(BaseHeuristic):
     """
-    Cache the response by providing an expires 1 day in the
-    future.
+    Strip max-age cache-control header if it exists alongside etag.
     """
     def update_headers(self, response):
-        return {
-            'cache-control': 'public',
-            'etag': response.headers.get('etag'),
-        }
+        headers = {}
+        if 'max-age' in response.headers.get('cache-control') and response.headers.get('etag'):
+            headers['cache-control'] = 'public'
+        return headers
