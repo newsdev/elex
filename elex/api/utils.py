@@ -107,14 +107,24 @@ def api_request(path, **params):
     filename = 'test{0}.csv'.format(path.replace('/', '-'))
     timing_filepath = os.path.join(timing_dir, filename)
 
+    write_headers = False
+    if not os.path.isfile(timing_filepath):
+        write_headers = True
+
     start = time.time()
     response = cache.get(url, params=params)
     end = time.time()
     with open(timing_filepath, 'a') as f:
         writer = csv.writer(f)
-        etag = response.headers.get('etag', 'NO ETAG')
-        row = [start, response.from_cache, end - start, etag]
-        print(row)
+        if write_headers:
+            writer.writerow(['start', 'from_cache', 'timing', 'etag', 'warning', 'cache_control', 'if_none_match', 'last_modified'])
+
+        etag = response.headers.get('etag', 'no etag')
+        warning = response.headers.get('Warning', 'no warning')
+        cache_control = response.headers.get('cache-control', 'no cache-control')
+        if_none_match = response.request.headers.get('If-None-Match', '')
+        last_modified = response.headers.get('last-modified', 'no last-modified')
+        row = [start, response.from_cache, end - start, etag, warning, cache_control, if_none_match, last_modified]
         writer.writerow(row)
 
     response.raise_for_status()
