@@ -7,6 +7,8 @@ class EtagOnlyCache(BaseHeuristic):
     """
     def update_headers(self, response):
         headers = {}
-        if 'max-age' in response.headers.get('cache-control') and response.headers.get('etag'):
+        max_age = 'max-age' in response.headers.get('cache-control', '')
+        etag = response.headers.get('etag', None)
+        if max_age and etag:
             headers['cache-control'] = 'public'
         return headers
