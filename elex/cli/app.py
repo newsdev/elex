@@ -123,6 +123,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
             )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
+
         self.app.render(data)
 
     @expose(help="Get reporting units")
@@ -166,6 +169,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
             )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
+
         self.app.render(data)
 
     @expose(help="Get candidate reporting units (without results)")
@@ -231,6 +237,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
             )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
+
         self.app.render(data)
 
     @expose(help="Get candidates")
@@ -270,6 +279,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
             )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
+
         self.app.render(data)
 
     @expose(help="Get ballot measures")
@@ -309,6 +321,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
             )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
+
         self.app.render(data)
 
     @expose(help="Get results")
@@ -350,6 +365,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
             )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
+
         self.app.render(data)
 
     @expose(help="Get list of available elections")
