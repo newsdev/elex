@@ -984,8 +984,8 @@ class Election(APElection):
             If this isn't initialization data, process the results
             in a thread pool.
             """
-            pool = multiprocessing.Pool(multiprocessing.cpu_count())
-            results = pool.map(mp_process_race, parsed_json['races'])
+            pool = multiprocessing.Pool(2)
+            results = pool.map(mp_process_race, list(parsed_json['races']))
             pool.close()
             pool.join()
             return results
