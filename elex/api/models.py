@@ -4,6 +4,7 @@ from collections import OrderedDict
 import datetime
 import json
 import multiprocessing
+from multiprocessing.pool import ThreadPool
 
 from dateutil import parser as dateutil_parser
 
@@ -984,7 +985,7 @@ class Election(APElection):
             If this isn't initialization data, process the results
             in a thread pool.
             """
-            pool = multiprocessing.Pool(2)
+            pool = ThreadPool(4)
             results = pool.map(mp_process_race, list(parsed_json['races']))
             pool.close()
             pool.join()
