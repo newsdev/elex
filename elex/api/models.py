@@ -3,7 +3,6 @@
 from collections import OrderedDict
 import datetime
 import json
-import multiprocessing
 from multiprocessing.pool import ThreadPool
 
 from dateutil import parser as dateutil_parser
