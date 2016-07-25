@@ -867,6 +867,8 @@ class Election(APElection):
         self.resultslevel = kwargs.get('resultslevel', 'ru')
         self.setzerocounts = kwargs.get('setzerocounts', False)
 
+        self.raceids = kwargs.get('raceids', [])
+
         self.set_id_field()
 
         self._response = None
@@ -960,16 +962,23 @@ class Election(APElection):
         Get parsed race objects.
 
         :param parsed_json:
-            Dict of parsed JSON.
+            Dict of parsed AP election JSON.
         """
         if len(parsed_json['races']) > 0:
             if parsed_json['races'][0].get('candidates', None):
                 payload = []
                 for r in parsed_json['races']:
-                    r['initialization_data'] = True
-                    payload.append(Race(**r))
+                    if len(self.raceids) > 0 and r['raceID'] in self.raceids:
+                        r['initialization_data'] = True
+                        payload.append(Race(**r))
+                    else:
+                        r['initialization_data'] = True
+                        payload.append(Race(**r))
                 return payload
-            return [Race(**r) for r in parsed_json['races']]
+            if len(self.raceids) > 0:
+                return [Race(**r) for r in parsed_json['races'] if r['raceID'] in self.raceids]
+            else:
+                return [Race(**r) for r in parsed_json['races']]
         else:
             return []
 

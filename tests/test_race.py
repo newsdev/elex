@@ -1,7 +1,16 @@
 import tests
 
 
+class TestRaceIdParsing(tests.ElectionResultsParseIdsTestCase):
+
+    def test_raceid_parsing(self):
+        self.assertEqual(len(self.races), 1)
+
+
 class TestRaceResults(tests.ElectionResultsTestCase):
+
+    def test_raceid_parsing(self):
+        self.assertEqual(len(self.races), 5)
 
     def test_race_is_ballot_measure(self):
         crus = [r.raceid for r in self.candidate_reporting_units

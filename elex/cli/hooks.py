@@ -11,7 +11,8 @@ def add_election_hook(app):
         liveresults=not app.pargs.not_live,
         resultslevel=app.pargs.results_level,
         setzerocounts=app.pargs.set_zero_counts,
-        is_test=False
+        is_test=False,
+        raceids=[]
     )
 
     if app.pargs.data_file:
@@ -22,3 +23,6 @@ def add_election_hook(app):
 
     if app.pargs.local_only:
         app.election.national = False
+
+    if app.pargs.raceids:
+        app.election.raceids = [x.strip() for x in app.pargs.raceids.split(',')]
