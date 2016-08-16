@@ -38,21 +38,21 @@ class TestMassRollupBug(tests.ElectionResultsTestCase):
         self.assertEqual(len(mass_results), len(maps.FIPS_TO_STATE['MA']))
 
 
-# class TestElectionDateSuperTuesday(tests.ElectionResultsTestCase):
-#     """
-#     When using data files, election date should be automatically inferred.
-#     """
-#     data_url = 'tests/data/20160301_super_tuesday.json'
+class TestElectionDateSuperTuesday(tests.ElectionResultsTestCase):
+    """
+    When using data files, election date should be automatically inferred.
+    """
+    data_url = 'tests/data/20160301_super_tuesday.json'
 
-#     def test_supertuesday_electiondate(self):
-#         self.assertEqual(self.election.electiondate, '2016-03-01')
+    def test_supertuesday_electiondate(self):
+        self.assertEqual(self.election.electiondate, '2016-03-01')
 
 
-# class TestElectionDate2015(tests.ElectionResultsTestCase):
-#     """
-#     When using data files, election date should be automatically inferred.
-#     """
-#     data_url = 'tests/data/20151103_national.json'
+class TestElectionDate2015(tests.ElectionResultsTestCase):
+    """
+    When using data files, election date should be automatically inferred.
+    """
+    data_url = 'tests/data/20151103_national.json'
 
-#     def test_2015_electiondate(self):
-#         self.assertEqual(self.election.electiondate, '2015-11-03')
+    def test_2015_electiondate(self):
+        self.assertEqual(self.election.electiondate, '2015-11-03')
