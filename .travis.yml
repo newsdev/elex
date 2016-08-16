@@ -10,6 +10,7 @@ install:
   - travis_retry pip install -e git+https://github.com/peteut/nose2-cprof.git#egg=nose2cprof
 # command to run tests
 script:
+  - ulimit -s 1082768
   - pyflakes elex
   - pep8 elex
   - pyflakes tests
