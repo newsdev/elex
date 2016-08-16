@@ -7,7 +7,7 @@ import os
 import sys
 import six
 import elex
-import json
+import ujson as json
 import time
 import datetime
 import requests

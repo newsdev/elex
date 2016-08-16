@@ -119,7 +119,7 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
         self.assertEqual(cru.incumbent, False)
 
     def test_candidate_reporting_unit_count(self):
-        self.assertEqual(len(self.reporting_units), 192)
+        self.assertEqual(len(self.candidate_reporting_units), 505)
 
     def test_candidate_reporting_unit_sums_raceid(self):
         candidate_reporting_units = self.candidate_reporting_units[0:2]

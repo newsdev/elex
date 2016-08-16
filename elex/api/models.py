@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import json
+import ujson as json
 import datetime
 from elex.api import maps
 from elex.api import utils
@@ -32,16 +32,15 @@ class APElection(utils.UnicodeMixin):
         """
         reportingunits_obj = []
         for r in self.reportingunits:
-            reportingunit_dict = dict(r)
 
             # Don't obliterate good data with possibly empty fields.
             SKIP_FIELDS = ['candidates', 'statepostal', 'statename']
 
             for k, v in self.__dict__.items():
                 if k not in SKIP_FIELDS:
-                    reportingunit_dict[k] = v
+                    r[k] = v
 
-            obj = ReportingUnit(**reportingunit_dict)
+            obj = ReportingUnit(**r)
 
             reportingunits_obj.append(obj)
         setattr(self, 'reportingunits', reportingunits_obj)
@@ -81,21 +80,20 @@ class APElection(utils.UnicodeMixin):
         """
         candidate_objs = []
         for c in self.candidates:
-            candidate_dict = dict(c)
 
             for k, v in self.__dict__.items():
                 if k != 'votecount':
-                    candidate_dict[k] = v
+                    c[k] = v
 
-            candidate_dict['is_ballot_measure'] = False
+            c['is_ballot_measure'] = False
             if hasattr(self, 'officeid') and getattr(self, 'officeid') == 'I':
-                candidate_dict['is_ballot_measure'] = True
+                c['is_ballot_measure'] = True
 
             if getattr(self, 'statepostal', None) is not None:
                 statename = maps.STATE_ABBR[self.statepostal]
-                candidate_dict['statename'] = statename
+                c['statename'] = statename
 
-            obj = CandidateReportingUnit(**candidate_dict)
+            obj = CandidateReportingUnit(**c)
             candidate_objs.append(obj)
 
         self.candidates = candidate_objs
@@ -733,9 +731,7 @@ class Race(APElection):
 
             try:
                 for ru in counties.values():
-                    cands = list([dict(c) for c in ru['candidates'].values()])
-                    del ru['candidates']
-                    ru['candidates'] = cands
+                    ru['candidates'] = ru['candidates'].values()
                     ru['statename'] = str(maps.STATE_ABBR[ru['statepostal']])
                     r = ReportingUnit(**ru)
                     self.reportingunits.append(r)
@@ -950,12 +946,12 @@ class Election(APElection):
         """
         if self.datafile:
             with open(self.datafile, 'r') as readfile:
-                payload = dict(json.loads(readfile.read()))
+                payload = json.loads(readfile.read())
                 self.electiondate = payload.get('electionDate')
+                return payload
         else:
             payload = self.get('/%s' % self.electiondate, **params)
-
-        return payload
+            return payload
 
     def get_race_objects(self, parsed_json):
         """
