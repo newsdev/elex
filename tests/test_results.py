@@ -1,4 +1,7 @@
-from sets import Set
+try:
+    set
+except NameError:
+    from sets import Set as set
 
 from elex.api import maps
 import tests
