@@ -71,5 +71,5 @@ class TestGeneralElectionEdgeCases(tests.ElectionResultsTestCase):
 
     def test_general_stateids(self):
         state_results = [r.reportingunitid for r in self.reporting_units if r.level == 'state']
-        unique_state_results = list(Set(state_results))
+        unique_state_results = list(set(state_results))
         self.assertEqual(len(state_results), len(unique_state_results))
