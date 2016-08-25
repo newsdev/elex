@@ -1,3 +1,5 @@
+from sets import Set
+
 from elex.api import maps
 import tests
 
@@ -56,3 +58,15 @@ class TestElectionDate2015(tests.ElectionResultsTestCase):
 
     def test_2015_electiondate(self):
         self.assertEqual(self.election.electiondate, '2015-11-03')
+
+
+class TestGeneralElectionEdgeCases(tests.ElectionResultsTestCase):
+    """
+    When using data files, election date should be automatically inferred.
+    """
+    data_url = 'tests/data/20121106_national.json'
+
+    def test_general_stateids(self):
+        state_results = [r.reportingunitid for r in self.reporting_units if r.level == 'state']
+        unique_state_results = list(Set(state_results))
+        self.assertEqual(len(state_results), len(unique_state_results))
