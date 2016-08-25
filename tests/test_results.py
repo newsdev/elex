@@ -62,7 +62,7 @@ class TestElectionDate2015(tests.ElectionResultsTestCase):
 
 class TestGeneralElectionEdgeCases(tests.ElectionResultsTestCase):
     """
-    When using data files, election date should be automatically inferred.
+    There should be 51 unique state reportingunit ids, not 1.
     """
     data_url = 'tests/data/20121106_national.json'
 

@@ -63,7 +63,9 @@ class APElection(utils.UnicodeMixin):
         """
         if not self.reportingunitid:
             if self.level == "state":
-                setattr(self, 'reportingunitid', 'state-1')
+                # Adds the statepostal to make these reportinunitids unique even for
+                # national elections. See #0278.
+                setattr(self, 'reportingunitid', 'state-%s-1' % self.statepostal)
         else:
             """
             Fixes #226 reportingunitids recycled across levels.
