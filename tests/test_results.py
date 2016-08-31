@@ -73,3 +73,11 @@ class TestGeneralElectionEdgeCases(tests.ElectionResultsTestCase):
         state_results = [r.reportingunitid for r in self.reporting_units if r.level == 'state']
         unique_state_results = list(set(state_results))
         self.assertEqual(len(state_results), len(unique_state_results))
+
+    def test_electwon(self):
+        arbitrary_cru = [r for r in self.reporting_units if r.officeid == 'P' and r.level == 'state'][0]
+        self.assertTrue(hasattr(arbitrary_cru, 'electwon'))
+
+    def test_electtotal(self):
+        arbitrary_cru = [r for r in self.reporting_units if r.officeid == 'P' and r.level == 'state'][0]
+        self.assertTrue(hasattr(arbitrary_cru, 'electtotal'))
