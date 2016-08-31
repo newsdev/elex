@@ -31,6 +31,7 @@ class APElection(utils.UnicodeMixin):
         serialize them into objects.
         """
         reportingunits_obj = []
+
         for r in self.reportingunits:
 
             # Don't obliterate good data with possibly empty fields.
@@ -337,6 +338,8 @@ class CandidateReportingUnit(APElection):
         self.initialization_data = kwargs.get('initialization_data', None)
         self.national = kwargs.get('national', False)
         self.incumbent = kwargs.get('incumbent', False)
+        self.electtotal = kwargs.get('electtotal', 0)
+        self.electwon = kwargs.get('electWon', 0)
 
         self.set_polid()
         self.set_unique_id()
@@ -386,6 +389,8 @@ class CandidateReportingUnit(APElection):
             ('description', self.description),
             ('delegatecount', self.delegatecount),
             ('electiondate', self.electiondate),
+            ('electtotal', self.electtotal),
+            ('electwon', self.electwon),
             ('fipscode', self.fipscode),
             ('first', self.first),
             ('incumbent', self.incumbent),
@@ -489,6 +494,7 @@ class ReportingUnit(APElection):
         self.national = kwargs.get('national', False)
         self.candidates = kwargs.get('candidates', [])
         self.votecount = kwargs.get('votecount', 0)
+        self.electtotal = kwargs.get('electTotal', 0)
 
         self.set_level()
         self.pad_fipscode()
@@ -566,6 +572,7 @@ class ReportingUnit(APElection):
             ('reportingunitname', self.reportingunitname),
             ('description', self.description),
             ('electiondate', self.electiondate),
+            ('electtotal', self.electtotal),
             ('fipscode', self.fipscode),
             ('initialization_data', self.initialization_data),
             ('lastupdated', self.lastupdated),
