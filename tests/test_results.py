@@ -21,14 +21,8 @@ class TestPrecinctsReportingPctFloat(tests.ElectionResultsTestCase):
             self.assertLessEqual(r.precinctsreportingpct, 1.00)
             self.assertGreaterEqual(r.precinctsreportingpct, 0.00)
 
-
-class TestMassRollupBug(tests.ElectionResultsTestCase):
-    """
-    Adding up all of the level "township" should equal
-    the totals for "county" but that's not true for
-    Nantucket county, MA and the townships in fips 25019.
-    """
-    data_url = 'tests/data/20160301_super_tuesday.json'
+    def test_supertuesday_electiondate(self):
+        self.assertEqual(self.election.electiondate, '2016-03-01')
 
     def test_number_of_counties(self):
         """
@@ -43,28 +37,8 @@ class TestMassRollupBug(tests.ElectionResultsTestCase):
         self.assertEqual(len(mass_results), len(maps.FIPS_TO_STATE['MA']))
 
 
-class TestElectionDateSuperTuesday(tests.ElectionResultsTestCase):
-    """
-    When using data files, election date should be automatically inferred.
-    """
-    data_url = 'tests/data/20160301_super_tuesday.json'
-
-    def test_supertuesday_electiondate(self):
-        self.assertEqual(self.election.electiondate, '2016-03-01')
-
-
-class TestElectionDate2015(tests.ElectionResultsTestCase):
-    """
-    When using data files, election date should be automatically inferred.
-    """
-    data_url = 'tests/data/20151103_national.json'
-
-    def test_2015_electiondate(self):
-        self.assertEqual(self.election.electiondate, '2015-11-03')
-
-
 class TestGeneralElectionEdgeCases(tests.ElectionResultsTestCase):
-    data_url = 'tests/data/20121106_national.json'
+    data_url = 'tests/data/20121106_ak_prez.json'
 
     """
     There should be 51 unique state reportingunit ids, not 1.
@@ -80,9 +54,6 @@ class TestGeneralElectionEdgeCases(tests.ElectionResultsTestCase):
     def test_electwon_exists_cru(self):
         r = [r for r in self.results if r.officeid == 'P' and r.level == 'state'][0]
         self.assertTrue(hasattr(r, 'electwon'))
-
-    def test_electtotal_exists_cru(self):
-        r = [r for r in self.results if r.officeid == 'P' and r.level == 'state'][0]
         self.assertTrue(hasattr(r, 'electtotal'))
 
     def test_electtotal_exists_ru(self):
@@ -92,11 +63,10 @@ class TestGeneralElectionEdgeCases(tests.ElectionResultsTestCase):
     """
     Romney won all 3 of AK's electoral votes in 2012.
     """
-
     def test_electwon_is_set(self):
-        r = [r for r in self.results if r.officeid == 'P' and r.level == 'state' and r.last == 'Romney' and r.statepostal == 'AK']
-        self.assertEqual(r[0].electwon, 3)
+        r = [r for r in self.results if r.officeid == 'P' and r.level == 'state' and r.last == 'Romney' and r.statepostal == 'AK'][0]
+        self.assertEqual(r.electwon, 3)
 
     def test_electtotal_is_set(self):
-        r = [r for r in self.results if r.officeid == 'P' and r.level == 'state' and r.last == 'Romney' and r.statepostal == 'AK']
-        self.assertEqual(r[0].electtotal, 3)
+        r = [r for r in self.results if r.officeid == 'P' and r.level == 'state' and r.last == 'Romney' and r.statepostal == 'AK'][0]
+        self.assertEqual(r.electtotal, 3)
