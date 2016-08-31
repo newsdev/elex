@@ -224,6 +224,8 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
                 'description',
                 'delegatecount',
                 'electiondate',
+                'electtotal',
+                'electwon',
                 'fipscode',
                 'first',
                 'incumbent',
