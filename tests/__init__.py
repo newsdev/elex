@@ -3,8 +3,7 @@ import unittest
 from elex.api import Election, DelegateReport, utils
 from time import sleep
 
-API_MESSAGE = "We require that you export AP_API_KEY in your environment in \
-order to test AP connectivity."
+API_MESSAGE = "We require that you export AP_API_KEY in your environment in order to test AP connectivity."
 
 
 class DelegateReportTestCase(unittest.TestCase):
