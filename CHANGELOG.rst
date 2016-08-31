@@ -1,3 +1,7 @@
+2.1.0 - August 31, 2016
+-------------------------
+* Breaking change: Adds :code:`electwon` and :code:`electtotal` to :code:`CandidateReportingUnit` and :code:`electtotal` to :code:`ReportingUnit` to represent total electoral votes and number of electoral votes won. As these fields were not in previous releases, we've bumped to 2.1.x to indicate a breaking change to the schema.
+
 2.0.10 - 2.0.11 - August 25, 2016
 ----------------------------------
 * Fixes a bug that makes :code:`reportingunitid` not-unique for national races, e.g., president. (#278)
