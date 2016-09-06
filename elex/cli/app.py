@@ -55,6 +55,11 @@ HTTP request when using `elex delegates`'
                 help='Specify reporting level for results',
                 default='ru'
             )),
+            (['--raceids'], dict(
+                action='store',
+                help='Specify raceids to parse',
+                default=[]
+            )),
             (['--set-zero-counts'], dict(
                 action='store_true',
                 help='Override results with zeros; omits the winner indicator.\

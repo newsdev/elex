@@ -3,13 +3,11 @@ Utility functions to record raw election results and handle low-level HTTP
 interaction with the Associated Press Election API.
 """
 from __future__ import print_function
-import csv
 import os
 import sys
 import six
 import elex
-import json
-import tempfile
+import ujson as json
 import time
 import datetime
 from elex import cache
@@ -98,36 +96,9 @@ def api_request(path, **params):
 
     url = '{0}{1}'.format(elex.BASE_URL, path)
 
-    timing_dir = os.path.join(tempfile.gettempdir(), 'elex-cache-tests')
-    try:
-        os.makedirs(timing_dir)
-    except OSError:
-        pass
-
-    filename = 'test{0}.csv'.format(path.replace('/', '-'))
-    timing_filepath = os.path.join(timing_dir, filename)
-
-    write_headers = False
-    if not os.path.isfile(timing_filepath):
-        write_headers = True
-
-    start = time.time()
     response = cache.get(url, params=params)
-    end = time.time()
-    with open(timing_filepath, 'a') as f:
-        writer = csv.writer(f)
-        if write_headers:
-            writer.writerow(['start', 'from_cache', 'timing', 'etag', 'sid', 'last_modified'])
-
-        etag = response.headers.get('etag', 'no etag')
-        warning = response.headers.get('Warning', 'no warning')
-        sid = response.headers.get('x-apigee-Sid', '')
-        last_modified = response.headers.get('last-modified', 'no last-modified')
-        duration = end - start
-        row = [start, response.from_cache, duration, etag, sid, last_modified]
-        writer.writerow(row)
-
     response.raise_for_status()
+
     write_recording(response.json())
 
     return response

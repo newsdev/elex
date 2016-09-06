@@ -1,3 +1,24 @@
+2.1.0 - August 31, 2016
+-------------------------
+* Breaking change: Adds :code:`electwon` and :code:`electtotal` to :code:`CandidateReportingUnit` and :code:`electtotal` to :code:`ReportingUnit` to represent total electoral votes and number of electoral votes won. As these fields were not in previous releases, we've bumped to 2.1.x to indicate a breaking change to the schema.
+
+2.0.10 - 2.0.11 - August 25, 2016
+----------------------------------
+* Fixes a bug that makes :code:`reportingunitid` not-unique for national races, e.g., president. (#278)
+
+
+2.0.9 - August 16, 2016
+------------------------
+* A variety of transparent speedups. (#277)
+
+2.0.8 - July 25, 2016
+----------------------
+* Adds a :code:`raceids` feature. :code:`elex races 2016-03-15 --raceids 10675,14897` still downloads the full JSON file but only parses the races passed in the :code:`raceids` argument. Particularly effective when used with the :code:`local-only` flag to grab a subset of non-national races, e.g., every NY state race.
+
+2.0.5 - 2.0.6 - June 6, 2016
+---------------------
+* Fixes a small bug in the ME reporting for the upcoming 6-14 primary.
+
 2.0.1 - 2.0.4 - April 26, 2016
 ------------------------------
 

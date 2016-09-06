@@ -1,21 +1,12 @@
 # -*- coding: utf-8 -*-
-
-from collections import OrderedDict
+import ujson as json
 import datetime
-import json
-import multiprocessing
-
-from dateutil import parser as dateutil_parser
-
 from elex.api import maps
 from elex.api import utils
-
+from collections import OrderedDict
+from dateutil import parser as dateutil_parser
 
 PCT_PRECISION = 6
-
-
-def mp_process_race(race_dict):
-    return Race(**race_dict)
 
 
 class APElection(utils.UnicodeMixin):
@@ -40,17 +31,17 @@ class APElection(utils.UnicodeMixin):
         serialize them into objects.
         """
         reportingunits_obj = []
+
         for r in self.reportingunits:
-            reportingunit_dict = dict(r)
 
             # Don't obliterate good data with possibly empty fields.
             SKIP_FIELDS = ['candidates', 'statepostal', 'statename']
 
             for k, v in self.__dict__.items():
                 if k not in SKIP_FIELDS:
-                    reportingunit_dict[k] = v
+                    r[k] = v
 
-            obj = ReportingUnit(**reportingunit_dict)
+            obj = ReportingUnit(**r)
 
             reportingunits_obj.append(obj)
         setattr(self, 'reportingunits', reportingunits_obj)
@@ -73,7 +64,9 @@ class APElection(utils.UnicodeMixin):
         """
         if not self.reportingunitid:
             if self.level == "state":
-                setattr(self, 'reportingunitid', 'state-1')
+                # Adds the statepostal to make these reportinunitids unique even for
+                # national elections. See #0278.
+                setattr(self, 'reportingunitid', 'state-%s-1' % self.statepostal)
         else:
             """
             Fixes #226 reportingunitids recycled across levels.
@@ -90,21 +83,20 @@ class APElection(utils.UnicodeMixin):
         """
         candidate_objs = []
         for c in self.candidates:
-            candidate_dict = dict(c)
 
             for k, v in self.__dict__.items():
                 if k != 'votecount':
-                    candidate_dict[k] = v
+                    c[k] = v
 
-            candidate_dict['is_ballot_measure'] = False
+            c['is_ballot_measure'] = False
             if hasattr(self, 'officeid') and getattr(self, 'officeid') == 'I':
-                candidate_dict['is_ballot_measure'] = True
+                c['is_ballot_measure'] = True
 
             if getattr(self, 'statepostal', None) is not None:
                 statename = maps.STATE_ABBR[self.statepostal]
-                candidate_dict['statename'] = statename
+                c['statename'] = statename
 
-            obj = CandidateReportingUnit(**candidate_dict)
+            obj = CandidateReportingUnit(**c)
             candidate_objs.append(obj)
 
         self.candidates = candidate_objs
@@ -346,6 +338,8 @@ class CandidateReportingUnit(APElection):
         self.initialization_data = kwargs.get('initialization_data', None)
         self.national = kwargs.get('national', False)
         self.incumbent = kwargs.get('incumbent', False)
+        self.electtotal = kwargs.get('electtotal', 0)
+        self.electwon = kwargs.get('electWon', 0)
 
         self.set_polid()
         self.set_unique_id()
@@ -395,6 +389,8 @@ class CandidateReportingUnit(APElection):
             ('description', self.description),
             ('delegatecount', self.delegatecount),
             ('electiondate', self.electiondate),
+            ('electtotal', self.electtotal),
+            ('electwon', self.electwon),
             ('fipscode', self.fipscode),
             ('first', self.first),
             ('incumbent', self.incumbent),
@@ -498,6 +494,7 @@ class ReportingUnit(APElection):
         self.national = kwargs.get('national', False)
         self.candidates = kwargs.get('candidates', [])
         self.votecount = kwargs.get('votecount', 0)
+        self.electtotal = kwargs.get('electTotal', 0)
 
         self.set_level()
         self.pad_fipscode()
@@ -575,6 +572,7 @@ class ReportingUnit(APElection):
             ('reportingunitname', self.reportingunitname),
             ('description', self.description),
             ('electiondate', self.electiondate),
+            ('electtotal', self.electtotal),
             ('fipscode', self.fipscode),
             ('initialization_data', self.initialization_data),
             ('lastupdated', self.lastupdated),
@@ -742,9 +740,7 @@ class Race(APElection):
 
             try:
                 for ru in counties.values():
-                    cands = list([dict(c) for c in ru['candidates'].values()])
-                    del ru['candidates']
-                    ru['candidates'] = cands
+                    ru['candidates'] = ru['candidates'].values()
                     ru['statename'] = str(maps.STATE_ABBR[ru['statepostal']])
                     r = ReportingUnit(**ru)
                     self.reportingunits.append(r)
@@ -876,6 +872,8 @@ class Election(APElection):
         self.resultslevel = kwargs.get('resultslevel', 'ru')
         self.setzerocounts = kwargs.get('setzerocounts', False)
 
+        self.raceids = kwargs.get('raceids', [])
+
         self.set_id_field()
 
         self._response = None
@@ -902,8 +900,6 @@ class Election(APElection):
         :param **params:
             A dict of optional parameters to be included in API request.
         """
-        if path.startswith('/'):
-            path = path[1:]
         self._response = utils.api_request('/elections/{0}'.format(path), **params)
         return self._response.json()
 
@@ -959,39 +955,35 @@ class Election(APElection):
         """
         if self.datafile:
             with open(self.datafile, 'r') as readfile:
-                payload = dict(json.loads(readfile.read()))
+                payload = json.loads(readfile.read())
                 self.electiondate = payload.get('electionDate')
+                return payload
         else:
             payload = self.get('/%s' % self.electiondate, **params)
-
-        return payload
+            return payload
 
     def get_race_objects(self, parsed_json):
         """
         Get parsed race objects.
 
         :param parsed_json:
-            Dict of parsed JSON.
+            Dict of parsed AP election JSON.
         """
-
         if len(parsed_json['races']) > 0:
             if parsed_json['races'][0].get('candidates', None):
                 payload = []
                 for r in parsed_json['races']:
-                    r['initialization_data'] = True
-                    payload.append(Race(**r))
+                    if len(self.raceids) > 0 and r['raceID'] in self.raceids:
+                        r['initialization_data'] = True
+                        payload.append(Race(**r))
+                    else:
+                        r['initialization_data'] = True
+                        payload.append(Race(**r))
                 return payload
-
-            """
-            If this isn't initialization data, process the results
-            in a thread pool.
-            """
-            pool = multiprocessing.Pool(multiprocessing.cpu_count())
-            results = pool.map(mp_process_race, parsed_json['races'])
-            pool.close()
-            pool.join()
-            return results
-
+            if len(self.raceids) > 0:
+                return [Race(**r) for r in parsed_json['races'] if r['raceID'] in self.raceids]
+            else:
+                return [Race(**r) for r in parsed_json['races']]
         else:
             return []
 

@@ -1,3 +1,4 @@
+sudo: true
 language: python
 python:
   - "2.7"
@@ -15,4 +16,3 @@ script:
   - pyflakes tests
   - pep8 tests
   - python -m nose2.__main__ -v
-sudo: false
