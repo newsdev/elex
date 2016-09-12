@@ -7,7 +7,6 @@ Commands and flags
 ------------------
 
 ::
-
     commands:
 
       ballot-measures
@@ -45,7 +44,7 @@ Commands and flags
       -h, --help            show this help message and exit
       --debug               toggle debug output
       --quiet               suppress all output
-      -o {csv,json}         output format (default: csv)
+      -o {json,csv}         output format (default: csv)
       -t, --test            Use testing API calls
       -n, --not-live        Do not use live data API calls
       -d DATA_FILE, --data-file DATA_FILE
@@ -62,9 +61,11 @@ Commands and flags
       -v, --version         show program's version number and exit
       --results-level RESULTS_LEVEL
                             Specify reporting level for results
+      --raceids RACEIDS     Specify raceids to parse
       --set-zero-counts     Override results with zeros; omits the winner
                             indicator.Sets the vote, delegate, and reporting
                             precinct counts to zero.
+      --national-only       Limit results to national-level results only.
       --local-only          Limit results to local-level results only.
       --with-timestamp      Append a `timestamp` column to each row of data output
                             with current system timestamp.

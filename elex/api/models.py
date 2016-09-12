@@ -622,7 +622,7 @@ class Race(APElection):
         self.uncontested = kwargs.get('uncontested', False)
         self.lastupdated = kwargs.get('lastUpdated', None)
         self.initialization_data = kwargs.get('initialization_data', False)
-        self.national = kwargs.get('national', True)
+        self.national = kwargs.get('national', False)
         self.candidates = kwargs.get('candidates', [])
         self.reportingunits = kwargs.get('reportingUnits', [])
         self.is_ballot_measure = False
