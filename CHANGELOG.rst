@@ -1,3 +1,10 @@
+2.2.0 - September 24, 2016
+--------------------------
+
+* Add reponse caching (#121, #250)
+* Enable gzip on http requests (#273)
+* Updated pinned requirements (#279)
+
 2.1.1 - September 12, 2016
 ---------------------------
 Fixes a bug related to national / local flags on races. Running :code:`--local-only` would show all races as :code:`national=true` due to a Elex defaulting :code:`national` to :code:`true` but the AP drops the :code:`national` flag in the API results when the URL specifies :code:`national=false`.
