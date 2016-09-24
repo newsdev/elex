@@ -1,3 +1,7 @@
+2.1.1 - September 12, 2016
+---------------------------
+Fixes a bug related to national / local flags on races. Running :code:`--local-only` would show all races as :code:`national=true` due to a Elex defaulting :code:`national` to :code:`true` but the AP drops the :code:`national` flag in the API results when the URL specifies :code:`national=false`.
+
 2.1.0 - August 31, 2016
 -------------------------
 * Breaking change: Adds :code:`electwon` and :code:`electtotal` to :code:`CandidateReportingUnit` and :code:`electtotal` to :code:`ReportingUnit` to represent total electoral votes and number of electoral votes won. As these fields were not in previous releases, we've bumped to 2.1.x to indicate a breaking change to the schema.
