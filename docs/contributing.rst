@@ -27,7 +27,7 @@ Install Elex development environment
 
 .. code:: bash
 
-  pip install -r requirements/dev.txt
+  pip install -r requirements-dev.txt
 
 Now you can run the following commands when you want to activate your enviroment and
 cd to the source directory.
