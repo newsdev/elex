@@ -14,13 +14,13 @@ from .delegates import (
 )
 __all__ = [
     'APElection',
-    'Candidate',
     'BallotMeasure',
-    'CandidateReportingUnit',
-    'ReportingUnit',
-    'Race',
-    'Elections',
-    'Election',
+    'Candidate',
     'CandidateDelegateReport',
-    'DelegateReport'
+    'CandidateReportingUnit',
+    'DelegateReport',
+    'Election',
+    'Elections',
+    'Race',
+    'ReportingUnit',
 ]

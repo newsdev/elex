@@ -1,17 +1,11 @@
-from elex.api import Elections
-from elex.api import DelegateReport
-from elex import __version__ as VERSION
-from cement.core.foundation import CementApp
-from elex.cli.hooks import add_election_hook
-from cement.ext.ext_logging import LoggingLogHandler
 from cement.core.controller import CementBaseController, expose
+from cement.core.foundation import CementApp
+from cement.ext.ext_logging import LoggingLogHandler
+from elex.api import DelegateReport
+from elex.api import Elections
+from elex.cli.constants import BANNER, LOG_FORMAT
 from elex.cli.decorators import require_date_argument, require_ap_api_key
-
-LOG_FORMAT = '%(asctime)s (%(levelname)s) %(namespace)s (v{0}) : \
-%(message)s'.format(VERSION)
-BANNER = """
-NYT AP Elections version {0}
-""".format(VERSION)
+from elex.cli.hooks import add_election_hook, cachecontrol_logging_hook
 
 
 class ElexBaseController(CementBaseController):
@@ -131,6 +125,12 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
             )
+            self.app.log.debug(
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
+            )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
+
         self.app.render(data)
 
     @expose(help="Get reporting units")
@@ -171,6 +171,12 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
             )
+            self.app.log.debug(
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
+            )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
+
         self.app.render(data)
 
     @expose(help="Get candidate reporting units (without results)")
@@ -233,6 +239,12 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
             )
+            self.app.log.debug(
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
+            )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
+
         self.app.render(data)
 
     @expose(help="Get candidates")
@@ -269,6 +281,12 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
             )
+            self.app.log.debug(
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
+            )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
+
         self.app.render(data)
 
     @expose(help="Get ballot measures")
@@ -305,6 +323,12 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
             )
+            self.app.log.debug(
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
+            )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
+
         self.app.render(data)
 
     @expose(help="Get results")
@@ -343,6 +367,12 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             self.app.log.debug(
                 'Elex API URL: {0}'.format(self.app.election._response.url)
             )
+            self.app.log.debug(
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
+            )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
+
         self.app.render(data)
 
     @expose(help="Get list of available elections")
@@ -462,6 +492,7 @@ class ElexApp(CementApp):
         label = 'elex'
         base_controller = ElexBaseController
         hooks = [
+            ('post_setup', cachecontrol_logging_hook),
             ('post_argument_parsing', add_election_hook),
         ]
         extensions = [

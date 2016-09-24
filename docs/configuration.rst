@@ -9,9 +9,9 @@ The following environment variables may be set:
     export API_VERSION='v2'
     export BASE_URL='http://api.ap.org/v2'
     export AP_API_KEY='<<YOURAPIKEY>>'
-    export ELEX_DELEGATE_REPORT_ID_CACHE_FILE='/tmp/elex-cache'
     export ELEX_RECORDING='flat'
     export ELEX_RECORDING_DIR='/tmp/elex-recording'
+    export ELEX_CACHE_DIRECTORY='/tmp/elex-cache'
 
 API_VERSION
 ===========
@@ -27,6 +27,11 @@ AP_API_KEY
 ==========
 
 Your API key. Must be set.
+
+ELEX_CACHE_DIRECTORY
+====================
+
+Path to the Elex cache directory. If not set, defaults to ``<tempdir>/elex-cache`` where ``<tempdir>`` is whatever Python's ``tempfile.gettempdir()`` returns.
 
 ELEX_RECORDING, ELEX_RECORDING_DIR
 ==================================
