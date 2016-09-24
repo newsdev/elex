@@ -81,7 +81,7 @@ Submit a pull request on Github.
 Testing performance
 ===================
 
-To get detailed information about performance, run the tests with the ==profile flag:
+To get detailed information about performance, run the tests with the --profile flag:
 
 .. code:: bash
 
