@@ -6,7 +6,7 @@ from elex.api import Elections
 from elex.cli.constants import BANNER, LOG_FORMAT
 from elex.cli.decorators import require_date_argument, require_ap_api_key
 from elex.cli.hooks import add_election_hook, cachecontrol_logging_hook
-
+from shutil import rmtree
 
 class ElexBaseController(CementBaseController):
     class Meta:
@@ -485,6 +485,33 @@ relative to that date, otherwise will use today's date)")
             self.app.close(1)
 
         self.app.render(election)
+
+    @expose(help="Clear the elex response cache.")
+    def clear_cache(self):
+        """
+        ``elex clear-cache``
+
+        Returns data about the next election with an optional date
+        to start searching.
+
+        Command:
+
+        .. code:: bash
+
+            elex clear-cache
+
+        Example output:
+
+        """
+        from elex import cache
+        adapter = cache.get_adapter('http://')
+        self.app.log.info('Clearing cache ({0})'.format(adapter.cache.directory))
+        try:
+            rmtree(adapter.cache.directory)
+        except OSError:
+            self.app.log.info('No cache entries found.')
+        else:
+            self.app.log.info('Cache cleared.')
 
 
 class ElexApp(CementApp):
