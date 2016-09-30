@@ -1,6 +1,7 @@
 import os
 import unittest
 
+from elex.cli.app import ElexApp
 from requests.exceptions import HTTPError
 from time import sleep
 from . import NetworkTestCase, API_MESSAGE
@@ -37,7 +38,6 @@ class APNetworkTestCase(NetworkTestCase):
 
 
 class ElexNetworkCacheTestCase(NetworkTestCase):
-
     @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
     def test_elex_cache_miss(self):
         from elex import cache
@@ -55,3 +55,18 @@ class ElexNetworkCacheTestCase(NetworkTestCase):
         self.api_request('/elections/2016-02-01')
         cached_response = self.api_request('/elections/2016-02-01')
         self.assertEqual(cached_response.from_cache, True)
+
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_elex_cache_clear_command_after_caching(self):
+        self.api_request('/elections/2016-02-01')
+        app = ElexApp(argv=['clear-cache'])
+        app.setup()
+        app.run()
+        self.assertEqual(app.exit_code, 0)
+
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_elex_cache_clear_command_no_cache(self):
+        app = ElexApp(argv=['clear-cache'])
+        app.setup()
+        app.run()
+        self.assertEqual(app.exit_code, 64)

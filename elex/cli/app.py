@@ -486,7 +486,7 @@ relative to that date, otherwise will use today's date)")
 
         self.app.render(election)
 
-    @expose(help="Clear the elex response cache.")
+    @expose(help="Clear the elex response cache")
     def clear_cache(self):
         """
         ``elex clear-cache``
@@ -502,6 +502,11 @@ relative to that date, otherwise will use today's date)")
 
         Example output:
 
+        .. code:: bash
+
+            2016-09-30 00:22:56,992 (INFO) cement:app:elex : Clearing cache (/var/folders/z2/plxshs7c43lm_bctxn/Y/elex-cache)
+            2016-09-30 00:22:56,993 (INFO) cement:app:elex : Cache cleared.
+
         """
         from elex import cache
         adapter = cache.get_adapter('http://')
@@ -510,6 +515,7 @@ relative to that date, otherwise will use today's date)")
             rmtree(adapter.cache.directory)
         except OSError:
             self.app.log.info('No cache entries found.')
+            self.app.close(64)
         else:
             self.app.log.info('Cache cleared.')
 

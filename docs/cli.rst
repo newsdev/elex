@@ -19,6 +19,9 @@ Commands and flags
       candidates
         Get candidates
 
+      clear-cache
+        Clear the elex response cache
+
       delegates
         Get all delegate reports
 
