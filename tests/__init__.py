@@ -63,6 +63,10 @@ class ElectionResultsTestCase(unittest.TestCase):
         self.results = e.results
 
 
+class ElectionPreResultsTestCase(ElectionResultsTestCase):
+    data_url = 'tests/data/20161100_national_pre_results.json'
+
+
 class ElectionDistrictResultsTestCase(unittest.TestCase):
     data_url = 'tests/data/20160201_district_results.json'
 

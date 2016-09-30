@@ -86,7 +86,7 @@ class APElection(utils.UnicodeMixin):
 
             for k, v in self.__dict__.items():
                 if k != 'votecount':
-                    c[k] = v
+                    c.setdefault(k, v)
 
             c['is_ballot_measure'] = False
             if hasattr(self, 'officeid') and getattr(self, 'officeid') == 'I':
