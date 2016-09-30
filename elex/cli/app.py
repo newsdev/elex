@@ -8,6 +8,7 @@ from elex.cli.decorators import require_date_argument, require_ap_api_key
 from elex.cli.hooks import add_election_hook, cachecontrol_logging_hook
 from shutil import rmtree
 
+
 class ElexBaseController(CementBaseController):
     class Meta:
         label = 'base'
