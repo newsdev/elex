@@ -784,7 +784,7 @@ class Race(APElection):
             ('uncontested', self.uncontested)
         ))
 
-    def __str__(self):
+    def __unicode__(self):
         return "%s %s" % (self.racetype, self.officename)
 
 
