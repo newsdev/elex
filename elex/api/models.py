@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import ujson as json
 import datetime
 from elex.api import maps
@@ -429,7 +430,7 @@ class CandidateReportingUnit(APElection):
             payload = "%s %s (%s)" % (self.first, self.last, self.party)
         if self.winner:
             payload += ' (w)'
-        return payload
+        return "{}".format(payload)
 
 
 class ReportingUnit(APElection):
@@ -879,7 +880,7 @@ class Election(APElection):
         self._response = None
 
     def __unicode__(self):
-        return self.electiondate
+        return "{}".format(self.electiondate)
 
     def set_id_field(self):
         """
