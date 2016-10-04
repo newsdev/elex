@@ -25,7 +25,7 @@ class UnicodeMixin(object):
         __str__ = lambda x: six.text_type(x).encode('utf-8')
 
     def __repr__(self):
-        return self.__str__()
+        return '<{}: {}>'.format(self.__class__.__name__, self.__str__())
 
 
 def write_recording(payload):
