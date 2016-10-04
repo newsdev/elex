@@ -422,7 +422,7 @@ class CandidateReportingUnit(APElection):
             ('winner', self.winner),
         ))
 
-    def __str__(self):
+    def __unicode__(self):
         if self.is_ballot_measure:
             payload = "%s" % self.party
         else:
@@ -504,7 +504,7 @@ class ReportingUnit(APElection):
         self.set_candidate_votepct()
         self.set_id_field()
 
-    def __str__(self):
+    def __unicode__(self):
         template = "%s %s (%s %% reporting)"
         if self.reportingunitname:
             return template % (
@@ -878,7 +878,7 @@ class Election(APElection):
 
         self._response = None
 
-    def __str__(self):
+    def __unicode__(self):
         return self.electiondate
 
     def set_id_field(self):
