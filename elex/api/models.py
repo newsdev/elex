@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import ujson as json
 import datetime
 from elex.api import maps
@@ -422,14 +423,14 @@ class CandidateReportingUnit(APElection):
             ('winner', self.winner),
         ))
 
-    def __str__(self):
+    def __unicode__(self):
         if self.is_ballot_measure:
             payload = "%s" % self.party
         else:
             payload = "%s %s (%s)" % (self.first, self.last, self.party)
         if self.winner:
             payload += ' (w)'
-        return payload
+        return "{}".format(payload)
 
 
 class ReportingUnit(APElection):
@@ -504,7 +505,7 @@ class ReportingUnit(APElection):
         self.set_candidate_votepct()
         self.set_id_field()
 
-    def __str__(self):
+    def __unicode__(self):
         template = "%s %s (%s %% reporting)"
         if self.reportingunitname:
             return template % (
@@ -784,7 +785,7 @@ class Race(APElection):
             ('uncontested', self.uncontested)
         ))
 
-    def __str__(self):
+    def __unicode__(self):
         return "%s %s" % (self.racetype, self.officename)
 
 
@@ -878,8 +879,8 @@ class Election(APElection):
 
         self._response = None
 
-    def __str__(self):
-        return self.electiondate
+    def __unicode__(self):
+        return "{}".format(self.electiondate)
 
     def set_id_field(self):
         """
