@@ -786,7 +786,10 @@ class Race(APElection):
         ))
 
     def __unicode__(self):
-        return "%s %s" % (self.racetype, self.officename)
+        if self.racetype:
+            return "%s %s" % (self.racetype, self.officename)
+        except:
+            return "%s" % self.officename
 
 
 class Elections():
