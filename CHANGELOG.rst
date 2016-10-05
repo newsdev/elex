@@ -1,3 +1,8 @@
+2.3.0 - October 5, 2016
+------------------------
+* Fix :code:`__str__` methods (#292)
+* Fix bug related to parties in initialization data (#293, #286)
+
 2.2.0 - September 24, 2016
 --------------------------
 
