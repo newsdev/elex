@@ -131,7 +131,7 @@ class BaseTrendReport(utils.UnicodeMixin):
 
             self._parse_trend('Won', trend_list)
         """
-        return next(d for d in trend_list if d.has_key(key))[key]
+        return next(d for d in trend_list if key in d)[key]
 
     def __unicode__(self):
         return self.office_code
