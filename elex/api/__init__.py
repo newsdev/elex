@@ -12,6 +12,13 @@ from .delegates import (
     CandidateDelegateReport,
     DelegateReport
 )
+from .trends import (
+    BaseTrendReport,
+    USGovernorTrendReport,
+    USSenateTrendReport,
+    USHouseTrendReport
+
+)
 __all__ = [
     'APElection',
     'BallotMeasure',
@@ -23,4 +30,8 @@ __all__ = [
     'Elections',
     'Race',
     'ReportingUnit',
+    'BaseTrendReport',
+    'USGovernorTrendReport',
+    'USSenateTrendReport',
+    'USHouseTrendReport',
 ]
