@@ -9,3 +9,4 @@ AP election data.
     reference/api
     reference/cli
     reference/exceptions
+    reference/ap
