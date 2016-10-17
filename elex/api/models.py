@@ -164,6 +164,7 @@ class Candidate(APElection):
             ('party', self.party),
             ('polid', self.polid),
             ('polnum', self.polnum),
+            ('unique_id', self.unique_id)
         ))
 
     def set_unique_id(self):
@@ -418,6 +419,7 @@ class CandidateReportingUnit(APElection):
             ('statepostal', self.statepostal),
             ('test', self.test),
             ('uncontested', self.uncontested),
+            ('unique_id', self.unique_id),
             ('votecount', self.votecount),
             ('votepct', round(self.votepct, PCT_PRECISION)),
             ('winner', self.winner),
