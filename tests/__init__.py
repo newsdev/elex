@@ -18,6 +18,10 @@ class DelegateReportTestCase(unittest.TestCase):
         self.delegate_reports = d.candidate_objects
 
 
+class TrendReportTestCase(unittest.TestCase):
+    pass
+
+
 class ElectionResultsParseIdsTestCase(unittest.TestCase):
     data_url = 'tests/data/20151103_national.json'
 

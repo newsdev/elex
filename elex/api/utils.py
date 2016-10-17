@@ -105,3 +105,14 @@ def api_request(path, **params):
     write_recording(response.json())
 
     return response
+
+
+def get_reports(params={}):
+    """
+    Get data from `reports` endpoints.
+    """
+    resp = api_request('/reports', **params)
+    if resp.ok:
+        return resp.json().get('reports')
+    else:
+        return []
