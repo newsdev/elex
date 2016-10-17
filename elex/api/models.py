@@ -709,7 +709,7 @@ class Race(APElection):
 
                         # Set up candidates for each county.
                         for cru in r.candidates:
-                            if not counties[c]['candidates'].get(cru.unique_id, None):
+                            if not counties[c]['candidates'].get(cru.candidate_unique_id, None):
                                 d = dict(cru.__dict__)
                                 d['level'] = 'county'
                                 d['reportingunitid'] = "%s-%s" % (
@@ -718,10 +718,10 @@ class Race(APElection):
                                 )
                                 fips_dict = maps.FIPS_TO_STATE[self.statepostal]
                                 d['reportingunitname'] = fips_dict[c]
-                                counties[c]['candidates'][cru.unique_id] = d
+                                counties[c]['candidates'][cru.candidate_unique_id] = d
 
                             else:
-                                d = counties[c]['candidates'][cru.unique_id]
+                                d = counties[c]['candidates'][cru.candidate_unique_id]
                                 d['votecount'] += cru.votecount
                                 d['precinctstotal'] += cru.precinctstotal
                                 d['precinctsreporting'] += cru.precinctsreporting
