@@ -84,7 +84,7 @@ class TestCandidate(tests.ElectionResultsTestCase):
             c,
             [
                 'id', 'candidateid', 'ballotorder', 'first',
-                'last', 'party', 'polid', 'polnum'
+                'last', 'party', 'polid', 'polnum', 'unique_id'
             ]
         )
 

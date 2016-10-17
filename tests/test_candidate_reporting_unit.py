@@ -252,6 +252,7 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
                 'statepostal',
                 'test',
                 'uncontested',
+                'candidate_unique_id',
                 'votecount',
                 'votepct',
                 'winner'
