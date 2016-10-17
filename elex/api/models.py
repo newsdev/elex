@@ -280,7 +280,7 @@ class CandidateReportingUnit(APElection):
     """
     def __init__(self, **kwargs):
         self.id = None
-        self.unique_id = None
+        self.candidate_unique_id = None
         self.electiondate = kwargs.get('electiondate', None)
         self.first = kwargs.get('first', None)
         self.last = kwargs.get('last', None)
@@ -353,7 +353,7 @@ class CandidateReportingUnit(APElection):
         """
         self.id = "%s-%s-%s" % (
             self.raceid,
-            self.unique_id,
+            self.candidate_unique_id,
             self.reportingunitid
         )
 
@@ -371,11 +371,11 @@ class CandidateReportingUnit(APElection):
         """
         if not self.is_ballot_measure:
             if self.polid:
-                self.unique_id = 'polid-{0}'.format(self.polid)
+                self.candidate_unique_id = 'polid-{0}'.format(self.polid)
             else:
-                self.unique_id = 'polnum-{0}'.format(self.polnum)
+                self.candidate_unique_id = 'polnum-{0}'.format(self.polnum)
         else:
-            self.unique_id = self.candidateid
+            self.candidate_unique_id = self.candidateid
 
     def serialize(self):
         """
@@ -419,7 +419,7 @@ class CandidateReportingUnit(APElection):
             ('statepostal', self.statepostal),
             ('test', self.test),
             ('uncontested', self.uncontested),
-            ('unique_id', self.unique_id),
+            ('candidate_unique_id', self.candidate_unique_id),
             ('votecount', self.votecount),
             ('votepct', round(self.votepct, PCT_PRECISION)),
             ('winner', self.winner),
