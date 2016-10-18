@@ -1,17 +1,15 @@
 import tests
-from elex.api import USGovernorTrendReport, USSenateTrendReport, USHouseTrendReport
 
 
 class TestDelegateReports(tests.TrendReportTestCase):
+    """
+    @TODO Not very sufficient tests
+    """
 
-    def test_us_governor(self):
-        tr = USGovernorTrendReport()
-        [o.serialize() for o in tr.parties]
+    def test_us_governor_net_winners(self):
+        trend = self.governor_trends.parties[0]
+        self.assertEqual(trend.net_winners, '-2')
 
-    def test_us_senate(self):
-        tr = USSenateTrendReport()
-        [o.serialize() for o in tr.parties]
-
-    def test_us_house(self):
-        tr = USHouseTrendReport()
-        [o.serialize() for o in tr.parties]
+    def test_us_governor_gop_won(self):
+        trend = self.governor_trends.parties[1]
+        self.assertEqual(trend.won, '4')

@@ -1,6 +1,6 @@
 import unittest
 
-from elex.api import Election, DelegateReport, utils
+from elex.api import *
 from time import sleep
 
 API_MESSAGE = "We require that you export AP_API_KEY in your environment in order to test AP connectivity."
@@ -19,7 +19,14 @@ class DelegateReportTestCase(unittest.TestCase):
 
 
 class TrendReportTestCase(unittest.TestCase):
-    pass
+    governor_file = 'tests/data/20160818_gov_trends.json'
+    house_file = 'tests/data/20160818_house_trends.json'
+    senate_file = 'tests/data/20160818_senate_trends.json'
+
+    def setUp(self, **kwargs):
+        self.governor_trends = USGovernorTrendReport(self.governor_file)
+        self.house_trends = USHouseTrendReport(self.house_file)
+        self.senate_trends = USSenateTrendReport(self.senate_file)
 
 
 class ElectionResultsParseIdsTestCase(unittest.TestCase):
