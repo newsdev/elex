@@ -520,6 +520,38 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         report = USSenateTrendReport(self.app.pargs.trend_file)
         self.app.render(report.parties)
 
+    def next_election(self):
+        """
+        ``elex next-election <date-after>``
+        Returns data about the next election with an optional date
+        to start searching.
+        Command:
+        .. code:: bash
+            elex next-election
+        Example output:
+        .. csv-table::
+            id,electiondate,liveresults,testresults
+            2016-04-19,2016-04-19,False,True
+        You can also specify the date to find the next election after, e.g.:
+        .. code:: bash
+            elex next-election 2016-04-15
+        This will find the first election after April 15, 2016.
+        """
+        self.app.log.info('Getting next election')
+        if len(self.app.pargs.date):
+            electiondate = self.app.pargs.date[0]
+        else:
+            electiondate = None
+        election = Elections().get_next_election(
+            datafile=self.app.pargs.data_file,
+            electiondate=electiondate
+        )
+        if election is None:
+            self.app.log.error('No next election')
+            self.app.close(1)
+
+        self.app.render(election)
+
     @expose(help="Clear the elex response cache")
     def clear_cache(self):
         """
