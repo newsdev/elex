@@ -554,7 +554,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             Dem,U.S. Senate,23,23,30,53,51,0,+2,0
         """
         self.app.log.info('Getting US Senate trend report')
-        report = USSenateTrendReport()
+        report = USSenateTrendReport(self.app.pargs.trend_file)
         self.app.render(report.parties)
 
     @expose(help="Clear the elex response cache")
