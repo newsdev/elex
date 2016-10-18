@@ -3,6 +3,9 @@
 Balance of power "trend" reports that summarize by party the national count of governors, senators and House members.
 """
 from __future__ import unicode_literals
+
+import ujson as json
+
 from elex.api import utils
 from collections import OrderedDict
 
@@ -53,18 +56,29 @@ class BaseTrendReport(utils.UnicodeMixin):
     office_code = None
     api_report_id = 'Trend / g / US'
 
-    def __init__(self):
+    def __init__(self, trend_file=None):
         if not self.office_code or not self.api_report_id:
             raise NotImplementedError
-        self.load_raw_data(self.office_code)
+        self.load_raw_data(self.office_code, trend_file)
         self.parties = []
         self.output_parties()
 
-    def load_raw_data(self, office_code):
+    def load_raw_data(self, office_code, trend_file=None):
         """
         Gets underlying data lists we need for parsing.
         """
-        self.raw_data = self.get_ap_report(office_code)
+        if trend_file:
+            self.raw_data = self.get_ap_file(trend_file)
+        else:
+            self.raw_data = self.get_ap_report(office_code)
+
+    def get_ap_file(self, path):
+        """
+        Get raw data file.
+        """
+        with open(path, 'r') as readfile:
+            data = json.load(readfile)
+            return data['trendtable']
 
     def get_ap_report(self, key, params={}):
         """

@@ -42,6 +42,11 @@ request when using `elex delegates`'
                 help='Specify delegate super report file instead of making \
 HTTP request when using `elex delegates`'
             )),
+            (['--trend-file'], dict(
+                action='store',
+                help='Specify trend file instead of making HTTP request when \
+when using `elex [gov/house/senate]-trends`'
+            )),
             (['--format-json'], dict(
                 action='store_true',
                 help='Pretty print JSON when using `-o json`.'
