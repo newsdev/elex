@@ -1,8 +1,7 @@
 from cement.core.controller import CementBaseController, expose
 from cement.core.foundation import CementApp
 from cement.ext.ext_logging import LoggingLogHandler
-from elex.api import DelegateReport
-from elex.api import Elections
+from elex.api import *
 from elex.cli.constants import BANNER, LOG_FORMAT
 from elex.cli.decorators import require_date_argument, require_ap_api_key
 from elex.cli.hooks import add_election_hook, cachecontrol_logging_hook
@@ -441,51 +440,117 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
         self.app.render(report.candidate_objects)
 
-    @expose(help="Get the next election (if date is specified, will be \
-relative to that date, otherwise will use today's date)")
+    @expose(help="Get all delegate reports")
     @require_ap_api_key
-    def next_election(self):
+    def delegates(self):
         """
-        ``elex next-election <date-after>``
+        ``elex delegates``
 
-        Returns data about the next election with an optional date
-        to start searching.
+        Returns delegate report data.
 
         Command:
 
         .. code:: bash
 
-            elex next-election
+            elex delegates
 
         Example output:
 
         .. csv-table::
 
-            id,electiondate,liveresults,testresults
-            2016-04-19,2016-04-19,False,True
+            level,party_total,superdelegates_count,last,state,candidateid,party_need,party,delegates_count,id,d1,d7,d30
+            state,2472,0,Bush,MN,1239,1237,GOP,0,MN-1239,0,0,0
+            state,2472,0,Bush,OR,1239,1237,GOP,0,OR-1239,0,0,0
 
-        You can also specify the date to find the next election after, e.g.:
+        """
+        self.app.log.info('Getting delegate reports')
+        if (
+            self.app.pargs.delegate_super_file and
+            self.app.pargs.delegate_sum_file
+        ):
+            report = DelegateReport(
+                delsuper_datafile=self.app.pargs.delegate_super_file,
+                delsum_datafile=self.app.pargs.delegate_sum_file
+            )
+        else:
+            report = DelegateReport()
+
+        self.app.render(report.candidate_objects)
+
+    @expose(help="Get governor trend report")
+    @require_ap_api_key
+    def gov_trend_report(self):
+        """
+        ``elex gov-trend-report``
+
+        Governor balance of power/trend report.
+
+        Command:
 
         .. code:: bash
 
-            elex next-election 2016-04-15
+            elex gov-trend-report
 
-        This will find the first election after April 15, 2016.
+        Example output:
+
+        .. csv-table::
+
+            party,office,won,leading,holdovers,winning_trend,current,insufficient_vote,net_winners,net_leaders
+            Dem,Governor,7,7,12,19,20,0,-1,0
         """
-        self.app.log.info('Getting next election')
-        if len(self.app.pargs.date):
-            electiondate = self.app.pargs.date[0]
-        else:
-            electiondate = None
-        election = Elections().get_next_election(
-            datafile=self.app.pargs.data_file,
-            electiondate=electiondate
-        )
-        if election is None:
-            self.app.log.error('No next election')
-            self.app.close(1)
+        self.app.log.info('Getting governor trend report')
+        report = USGovernorTrendReport()
+        self.app.render(report.parties)
 
-        self.app.render(election)
+    @expose(help="Get US House trend report")
+    @require_ap_api_key
+    def house_trend_report(self):
+        """
+        ``elex house-trend-report``
+
+        House balance of power/trend report.
+
+        Command:
+
+        .. code:: bash
+
+            elex house-trend-report
+
+        Example output:
+
+        .. csv-table::
+
+            party,office,won,leading,holdovers,winning_trend,current,insufficient_vote,net_winners,net_leaders
+            Dem,U.S. House,201,201,0,201,193,0,+8,0
+        """
+        self.app.log.info('Getting US House trend report')
+        report = USHouseTrendReport()
+        self.app.render(report.parties)
+
+    @expose(help="Get US Senate trend report")
+    @require_ap_api_key
+    def senate_trend_report(self):
+        """
+        ``elex senate-trend-report``
+
+        Senate balance of power/trend report.
+
+        Command:
+
+        .. code:: bash
+
+            elex senate-trend-report
+
+        Example output:
+
+        .. csv-table::
+
+            party,office,won,leading,holdovers,winning_trend,current,insufficient_vote,net_winners,net_leaders
+            Dem,U.S. Senate,23,23,30,53,51,0,+2,0
+        """
+        self.app.log.info('Getting US Senate trend report')
+        report = USSenateTrendReport()
+        self.app.render(report.parties)
 
     @expose(help="Clear the elex response cache")
     def clear_cache(self):
