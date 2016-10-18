@@ -484,9 +484,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
     @expose(help="Get governor trend report")
     @require_ap_api_key
-    def gov_trend_report(self):
+    def governor_trends(self):
         """
-        ``elex gov-trend-report``
+        ``elex governor-trends``
 
         Governor balance of power/trend report.
 
@@ -494,7 +494,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
         .. code:: bash
 
-            elex gov-trend-report
+            elex governor-trends
 
         Example output:
 
@@ -504,14 +504,14 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             Dem,Governor,7,7,12,19,20,0,-1,0
         """
         self.app.log.info('Getting governor trend report')
-        report = USGovernorTrendReport()
+        report = USGovernorTrendReport(self.app.pargs.trend_file)
         self.app.render(report.parties)
 
     @expose(help="Get US House trend report")
     @require_ap_api_key
-    def house_trend_report(self):
+    def house_trends(self):
         """
-        ``elex house-trend-report``
+        ``elex house-trends``
 
         House balance of power/trend report.
 
@@ -519,7 +519,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
         .. code:: bash
 
-            elex house-trend-report
+            elex house-trends
 
         Example output:
 
@@ -529,14 +529,14 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             Dem,U.S. House,201,201,0,201,193,0,+8,0
         """
         self.app.log.info('Getting US House trend report')
-        report = USHouseTrendReport()
+        report = USHouseTrendReport(self.app.pargs.trend_file)
         self.app.render(report.parties)
 
     @expose(help="Get US Senate trend report")
     @require_ap_api_key
-    def senate_trend_report(self):
+    def senate_trends(self):
         """
-        ``elex senate-trend-report``
+        ``elex senate-trends``
 
         Senate balance of power/trend report.
 
@@ -544,7 +544,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
         .. code:: bash
 
-            elex senate-trend-report
+            elex senate-trends
 
         Example output:
 
