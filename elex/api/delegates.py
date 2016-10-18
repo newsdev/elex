@@ -175,6 +175,9 @@ class DelegateReport(utils.UnicodeMixin):
             self.raw_super_delegates = self.get_ap_report('delSuper')
 
     def get_ap_file(self, path, key):
+        """
+        Get raw data file.
+        """
         with open(path, 'r') as readfile:
             data = json.load(readfile)
             return data[key]['del']
