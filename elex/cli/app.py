@@ -520,6 +520,9 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         report = USSenateTrendReport(self.app.pargs.trend_file)
         self.app.render(report.parties)
 
+    @expose(help="Get the next election (if date is specified, will be \
+relative to that date, otherwise will use today's date)")
+    @require_ap_api_key
     def next_election(self):
         """
         ``elex next-election <date-after>``
