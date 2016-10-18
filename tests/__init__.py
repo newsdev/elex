@@ -1,6 +1,6 @@
 import unittest
 
-from elex.api import *
+from elex.api import Election, DelegateReport, USGovernorTrendReport, USHouseTrendReport, USSenateTrendReport, utils
 from time import sleep
 
 API_MESSAGE = "We require that you export AP_API_KEY in your environment in order to test AP connectivity."

@@ -1,7 +1,7 @@
 from cement.core.controller import CementBaseController, expose
 from cement.core.foundation import CementApp
 from cement.ext.ext_logging import LoggingLogHandler
-from elex.api import *
+from elex.api import Elections, DelegateReport, USGovernorTrendReport, USHouseTrendReport, USSenateTrendReport
 from elex.cli.constants import BANNER, LOG_FORMAT
 from elex.cli.decorators import require_date_argument, require_ap_api_key
 from elex.cli.hooks import add_election_hook, cachecontrol_logging_hook
@@ -407,43 +407,6 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             datafile=self.app.pargs.data_file
         )
         self.app.render(elections)
-
-    @expose(help="Get all delegate reports")
-    @require_ap_api_key
-    def delegates(self):
-        """
-        ``elex delegates``
-
-        Returns delegate report data.
-
-        Command:
-
-        .. code:: bash
-
-            elex delegates
-
-        Example output:
-
-        .. csv-table::
-
-            level,party_total,superdelegates_count,last,state,candidateid,party_need,party,delegates_count,id,d1,d7,d30
-            state,2472,0,Bush,MN,1239,1237,GOP,0,MN-1239,0,0,0
-            state,2472,0,Bush,OR,1239,1237,GOP,0,OR-1239,0,0,0
-
-        """
-        self.app.log.info('Getting delegate reports')
-        if (
-            self.app.pargs.delegate_super_file and
-            self.app.pargs.delegate_sum_file
-        ):
-            report = DelegateReport(
-                delsuper_datafile=self.app.pargs.delegate_super_file,
-                delsum_datafile=self.app.pargs.delegate_sum_file
-            )
-        else:
-            report = DelegateReport()
-
-        self.app.render(report.candidate_objects)
 
     @expose(help="Get all delegate reports")
     @require_ap_api_key
