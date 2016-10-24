@@ -57,16 +57,26 @@ class ElexNetworkCacheTestCase(NetworkTestCase):
         self.assertEqual(cached_response.from_cache, True)
 
     @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_elex_cache_hit_exit_code(self):
+        uncached_app = ElexApp(argv=['results', '2016-02-01', '--quiet'])
+        uncached_app.setup()
+        uncached_app.run()
+        cached_app = ElexApp(argv=['results', '2016-02-01', '--quiet'])
+        cached_app.setup()
+        cached_app.run()
+        self.assertEqual(cached_app.exit_code, 64)
+
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
     def test_elex_cache_clear_command_after_caching(self):
         self.api_request('/elections/2016-02-01')
-        app = ElexApp(argv=['clear-cache'])
+        app = ElexApp(argv=['clear-cache', '--quiet'])
         app.setup()
         app.run()
         self.assertEqual(app.exit_code, 0)
 
     @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
     def test_elex_cache_clear_command_no_cache(self):
-        app = ElexApp(argv=['clear-cache'])
+        app = ElexApp(argv=['clear-cache', '--quiet'])
         app.setup()
         app.run()
-        self.assertEqual(app.exit_code, 64)
+        self.assertEqual(app.exit_code, 65)

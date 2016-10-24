@@ -122,16 +122,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 self.app.election.electiondate
             )
         )
-        if self.app.election._response:
-            self.app.log.debug(
-                'Elex API URL: {0}'.format(self.app.election._response.url)
-            )
-            self.app.log.debug(
-                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
-            )
-            if self.app.election._response.from_cache:
-                self.app.exit_code = 64
-
+        self._process_cache()
         self.app.render(data)
 
     @expose(help="Get reporting units")
@@ -168,16 +159,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 self.app.election.electiondate
             )
         )
-        if self.app.election._response:
-            self.app.log.debug(
-                'Elex API URL: {0}'.format(self.app.election._response.url)
-            )
-            self.app.log.debug(
-                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
-            )
-            if self.app.election._response.from_cache:
-                self.app.exit_code = 64
-
+        self._process_cache()
         self.app.render(data)
 
     @expose(help="Get candidate reporting units (without results)")
@@ -236,16 +218,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 self.app.election.electiondate
             )
         )
-        if self.app.election._response:
-            self.app.log.debug(
-                'Elex API URL: {0}'.format(self.app.election._response.url)
-            )
-            self.app.log.debug(
-                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
-            )
-            if self.app.election._response.from_cache:
-                self.app.exit_code = 64
-
+        self._process_cache()
         self.app.render(data)
 
     @expose(help="Get candidates")
@@ -278,16 +251,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 self.app.election.electiondate
             )
         )
-        if self.app.election._response:
-            self.app.log.debug(
-                'Elex API URL: {0}'.format(self.app.election._response.url)
-            )
-            self.app.log.debug(
-                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
-            )
-            if self.app.election._response.from_cache:
-                self.app.exit_code = 64
-
+        self._process_cache()
         self.app.render(data)
 
     @expose(help="Get ballot measures")
@@ -315,21 +279,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             ...
         """
         data = self.app.election.ballot_measures
-        self.app.log.info(
-            'Getting ballot measures for election {0}'.format(
-                self.app.election.electiondate
-            )
-        )
-        if self.app.election._response:
-            self.app.log.debug(
-                'Elex API URL: {0}'.format(self.app.election._response.url)
-            )
-            self.app.log.debug(
-                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
-            )
-            if self.app.election._response.from_cache:
-                self.app.exit_code = 64
-
+        self._process_cache()
         self.app.render(data)
 
     @expose(help="Get results")
@@ -364,16 +314,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         self.app.log.info('Getting results for election {0}'.format(
             self.app.election.electiondate
         ))
-        if self.app.election._response:
-            self.app.log.debug(
-                'Elex API URL: {0}'.format(self.app.election._response.url)
-            )
-            self.app.log.debug(
-                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
-            )
-            if self.app.election._response.from_cache:
-                self.app.exit_code = 64
-
+        self._process_cache()
         self.app.render(data)
 
     @expose(help="Get list of available elections")
@@ -508,6 +449,7 @@ relative to that date, otherwise will use today's date)")
             2016-09-30 00:22:56,992 (INFO) cement:app:elex : Clearing cache (/var/folders/z2/plxshs7c43lm_bctxn/Y/elex-cache)
             2016-09-30 00:22:56,993 (INFO) cement:app:elex : Cache cleared.
 
+        If no cache entries exist, elex will close with exit code 65.
         """
         from elex import cache
         adapter = cache.get_adapter('http://')
@@ -516,15 +458,30 @@ relative to that date, otherwise will use today's date)")
             rmtree(adapter.cache.directory)
         except OSError:
             self.app.log.info('No cache entries found.')
-            self.app.close(64)
+            self.app.exit_code = 65
         else:
             self.app.log.info('Cache cleared.')
+
+    def _process_cache(self):
+        """
+        Handles logging and exit code for cached responses.
+        """
+        if self.app.election._response:
+            self.app.log.debug(
+                'Elex API URL: {0}'.format(self.app.election._response.url)
+            )
+            self.app.log.debug(
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
+            )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
 
 
 class ElexApp(CementApp):
     class Meta:
         label = 'elex'
         base_controller = ElexBaseController
+        exit_on_close = True
         hooks = [
             ('post_setup', cachecontrol_logging_hook),
             ('post_argument_parsing', add_election_hook),
