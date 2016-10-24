@@ -28,6 +28,12 @@ Commands and flags
       elections
         Get list of available elections
 
+      governor-trends
+        Get governor trend report
+
+      house-trends
+        Get US House trend report
+
       next-election
         Get the next election (if date is specified, will be relative to that date, otherwise will use today's date)
 
@@ -39,6 +45,9 @@ Commands and flags
 
       results
         Get results
+
+      senate-trends
+        Get US Senate trend report
 
     positional arguments:
       date                  Election date (e.g. "2015-11-03"; most common date
@@ -61,6 +70,9 @@ Commands and flags
       --delegate-super-file DELEGATE_SUPER_FILE
                             Specify delegate super report file instead of making
                             HTTP request when using `elex delegates`
+      --trend-file TREND_FILE
+                            Specify trend file instead of making HTTP request when
+                            when using `elex [gov/house/senate]-trends`
       --format-json         Pretty print JSON when using `-o json`.
       -v, --version         show program's version number and exit
       --results-level RESULTS_LEVEL
@@ -76,7 +88,6 @@ Commands and flags
       --batch-name BATCH_NAME
                             Specify a value for a `batchname` column to append to
                             each row.
-
 
 -----------------
 Command reference

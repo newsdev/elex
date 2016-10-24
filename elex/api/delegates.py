@@ -9,17 +9,6 @@ from elex.api import utils
 from collections import OrderedDict
 
 
-def _get_reports(params={}):
-    """
-    Get reports
-    """
-    resp = utils.api_request('/reports', **params)
-    if resp.ok:
-        return resp.json().get('reports')
-    else:
-        return []
-
-
 class CandidateDelegateReport(utils.UnicodeMixin):
     """
     'level': 'state',
@@ -71,7 +60,7 @@ class CandidateDelegateReport(utils.UnicodeMixin):
             ('d30', self.d30)
         ))
 
-    def __str__(self):
+    def __unicode__(self):
         return "%s - %s" % (self.last, self.state)
 
 
@@ -186,6 +175,9 @@ class DelegateReport(utils.UnicodeMixin):
             self.raw_super_delegates = self.get_ap_report('delSuper')
 
     def get_ap_file(self, path, key):
+        """
+        Get raw data file.
+        """
         with open(path, 'r') as readfile:
             data = json.load(readfile)
             return data[key]['del']
@@ -196,7 +188,7 @@ class DelegateReport(utils.UnicodeMixin):
         of delegate counts by party. Makes a request from the AP
         using requests. Formats that request with env vars.
         """
-        reports = _get_reports(params=params)
+        reports = utils.get_reports(params=params)
         report_id = self.get_report_id(reports, key)
         if report_id:
             r = utils.api_request('/reports/{0}'.format(report_id), **params)
