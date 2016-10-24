@@ -25,6 +25,7 @@ Table of contents
     errors
     configuration
     recording
+    caching
     recipes
     reference
     contributing
