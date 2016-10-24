@@ -525,6 +525,7 @@ class ElexApp(CementApp):
     class Meta:
         label = 'elex'
         base_controller = ElexBaseController
+        exit_on_close = True
         hooks = [
             ('post_setup', cachecontrol_logging_hook),
             ('post_argument_parsing', add_election_hook),
