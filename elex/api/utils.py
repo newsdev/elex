@@ -97,7 +97,7 @@ def api_request(path, **params):
 
     params = sorted(params.items())  # Sort for consistent caching
 
-    url = '{0}{1}'.format(elex.BASE_URL, path)
+    url = '{0}{1}'.format(elex.BASE_URL, path.replace('//', '/'))
 
     response = cache.get(url, params=params)
     response.raise_for_status()
