@@ -1,3 +1,11 @@
+2.4.0 - October 23, 2016
+------------------------
+
+* Add version number back to log output (#294)
+* Restore exit code 64 for cached responses (#302) and document caching (#301)
+* Fix csvkit compatibility (#206)
+* Add trend reports (#299)
+
 2.3.0 - October 5, 2016
 ------------------------
 * Fix :code:`__str__` methods (#292)

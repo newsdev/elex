@@ -56,7 +56,7 @@ class TestConnecticutRollups(tests.ElectionResultsTestCase):
                 self.assertEqual(county.precinctstotal, sum(townships))
 
 
-class TestRhodeIslandEdgeCageReportingUnits(tests.ElectionResultsTestCase):
+class TestRhodeIslandEdgeCaseReportingUnits(tests.ElectionResultsTestCase):
     """
     Mail ballots listed as townships. Breaks rollups for RI.
     """

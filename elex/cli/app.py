@@ -1,8 +1,7 @@
 from cement.core.controller import CementBaseController, expose
 from cement.core.foundation import CementApp
 from cement.ext.ext_logging import LoggingLogHandler
-from elex.api import DelegateReport
-from elex.api import Elections
+from elex.api import Elections, DelegateReport, USGovernorTrendReport, USHouseTrendReport, USSenateTrendReport
 from elex.cli.constants import BANNER, LOG_FORMAT
 from elex.cli.decorators import require_date_argument, require_ap_api_key
 from elex.cli.hooks import add_election_hook, cachecontrol_logging_hook
@@ -42,6 +41,11 @@ request when using `elex delegates`'
                 action='store',
                 help='Specify delegate super report file instead of making \
 HTTP request when using `elex delegates`'
+            )),
+            (['--trend-file'], dict(
+                action='store',
+                help='Specify trend file instead of making HTTP request when \
+when using `elex [gov/house/senate]-trends`'
             )),
             (['--format-json'], dict(
                 action='store_true',
@@ -122,16 +126,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 self.app.election.electiondate
             )
         )
-        if self.app.election._response:
-            self.app.log.debug(
-                'Elex API URL: {0}'.format(self.app.election._response.url)
-            )
-            self.app.log.debug(
-                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
-            )
-            if self.app.election._response.from_cache:
-                self.app.exit_code = 64
-
+        self._process_cache()
         self.app.render(data)
 
     @expose(help="Get reporting units")
@@ -168,16 +163,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 self.app.election.electiondate
             )
         )
-        if self.app.election._response:
-            self.app.log.debug(
-                'Elex API URL: {0}'.format(self.app.election._response.url)
-            )
-            self.app.log.debug(
-                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
-            )
-            if self.app.election._response.from_cache:
-                self.app.exit_code = 64
-
+        self._process_cache()
         self.app.render(data)
 
     @expose(help="Get candidate reporting units (without results)")
@@ -236,16 +222,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 self.app.election.electiondate
             )
         )
-        if self.app.election._response:
-            self.app.log.debug(
-                'Elex API URL: {0}'.format(self.app.election._response.url)
-            )
-            self.app.log.debug(
-                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
-            )
-            if self.app.election._response.from_cache:
-                self.app.exit_code = 64
-
+        self._process_cache()
         self.app.render(data)
 
     @expose(help="Get candidates")
@@ -278,16 +255,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 self.app.election.electiondate
             )
         )
-        if self.app.election._response:
-            self.app.log.debug(
-                'Elex API URL: {0}'.format(self.app.election._response.url)
-            )
-            self.app.log.debug(
-                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
-            )
-            if self.app.election._response.from_cache:
-                self.app.exit_code = 64
-
+        self._process_cache()
         self.app.render(data)
 
     @expose(help="Get ballot measures")
@@ -315,21 +283,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             ...
         """
         data = self.app.election.ballot_measures
-        self.app.log.info(
-            'Getting ballot measures for election {0}'.format(
-                self.app.election.electiondate
-            )
-        )
-        if self.app.election._response:
-            self.app.log.debug(
-                'Elex API URL: {0}'.format(self.app.election._response.url)
-            )
-            self.app.log.debug(
-                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
-            )
-            if self.app.election._response.from_cache:
-                self.app.exit_code = 64
-
+        self._process_cache()
         self.app.render(data)
 
     @expose(help="Get results")
@@ -364,16 +318,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         self.app.log.info('Getting results for election {0}'.format(
             self.app.election.electiondate
         ))
-        if self.app.election._response:
-            self.app.log.debug(
-                'Elex API URL: {0}'.format(self.app.election._response.url)
-            )
-            self.app.log.debug(
-                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
-            )
-            if self.app.election._response.from_cache:
-                self.app.exit_code = 64
-
+        self._process_cache()
         self.app.render(data)
 
     @expose(help="Get list of available elections")
@@ -441,35 +386,99 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
         self.app.render(report.candidate_objects)
 
+    @expose(help="Get governor trend report")
+    @require_ap_api_key
+    def governor_trends(self):
+        """
+        ``elex governor-trends``
+
+        Governor balance of power/trend report.
+
+        Command:
+
+        .. code:: bash
+
+            elex governor-trends
+
+        Example output:
+
+        .. csv-table::
+
+            party,office,won,leading,holdovers,winning_trend,current,insufficient_vote,net_winners,net_leaders
+            Dem,Governor,7,7,12,19,20,0,-1,0
+        """
+        self.app.log.info('Getting governor trend report')
+        report = USGovernorTrendReport(self.app.pargs.trend_file)
+        self.app.render(report.parties)
+
+    @expose(help="Get US House trend report")
+    @require_ap_api_key
+    def house_trends(self):
+        """
+        ``elex house-trends``
+
+        House balance of power/trend report.
+
+        Command:
+
+        .. code:: bash
+
+            elex house-trends
+
+        Example output:
+
+        .. csv-table::
+
+            party,office,won,leading,holdovers,winning_trend,current,insufficient_vote,net_winners,net_leaders
+            Dem,U.S. House,201,201,0,201,193,0,+8,0
+        """
+        self.app.log.info('Getting US House trend report')
+        report = USHouseTrendReport(self.app.pargs.trend_file)
+        self.app.render(report.parties)
+
+    @expose(help="Get US Senate trend report")
+    @require_ap_api_key
+    def senate_trends(self):
+        """
+        ``elex senate-trends``
+
+        Senate balance of power/trend report.
+
+        Command:
+
+        .. code:: bash
+
+            elex senate-trends
+
+        Example output:
+
+        .. csv-table::
+
+            party,office,won,leading,holdovers,winning_trend,current,insufficient_vote,net_winners,net_leaders
+            Dem,U.S. Senate,23,23,30,53,51,0,+2,0
+        """
+        self.app.log.info('Getting US Senate trend report')
+        report = USSenateTrendReport(self.app.pargs.trend_file)
+        self.app.render(report.parties)
+
     @expose(help="Get the next election (if date is specified, will be \
 relative to that date, otherwise will use today's date)")
     @require_ap_api_key
     def next_election(self):
         """
         ``elex next-election <date-after>``
-
         Returns data about the next election with an optional date
         to start searching.
-
         Command:
-
         .. code:: bash
-
             elex next-election
-
         Example output:
-
         .. csv-table::
-
             id,electiondate,liveresults,testresults
             2016-04-19,2016-04-19,False,True
-
         You can also specify the date to find the next election after, e.g.:
-
         .. code:: bash
-
             elex next-election 2016-04-15
-
         This will find the first election after April 15, 2016.
         """
         self.app.log.info('Getting next election')
@@ -508,6 +517,7 @@ relative to that date, otherwise will use today's date)")
             2016-09-30 00:22:56,992 (INFO) cement:app:elex : Clearing cache (/var/folders/z2/plxshs7c43lm_bctxn/Y/elex-cache)
             2016-09-30 00:22:56,993 (INFO) cement:app:elex : Cache cleared.
 
+        If no cache entries exist, elex will close with exit code 65.
         """
         from elex import cache
         adapter = cache.get_adapter('http://')
@@ -516,15 +526,30 @@ relative to that date, otherwise will use today's date)")
             rmtree(adapter.cache.directory)
         except OSError:
             self.app.log.info('No cache entries found.')
-            self.app.close(64)
+            self.app.exit_code = 65
         else:
             self.app.log.info('Cache cleared.')
+
+    def _process_cache(self):
+        """
+        Handles logging and exit code for cached responses.
+        """
+        if self.app.election._response:
+            self.app.log.debug(
+                'Elex API URL: {0}'.format(self.app.election._response.url)
+            )
+            self.app.log.debug(
+                'ELAPI cache hit: {0}'.format(self.app.election._response.from_cache)
+            )
+            if self.app.election._response.from_cache:
+                self.app.exit_code = 64
 
 
 class ElexApp(CementApp):
     class Meta:
         label = 'elex'
         base_controller = ElexBaseController
+        exit_on_close = True
         hooks = [
             ('post_setup', cachecontrol_logging_hook),
             ('post_argument_parsing', add_election_hook),
