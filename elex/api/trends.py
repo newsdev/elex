@@ -116,7 +116,7 @@ class BaseTrendReport(utils.UnicodeMixin):
                 party=party['title'],
                 office=self.raw_data['office'],
                 won=self._parse_trend('Won', party['trend']),
-                leading=self._parse_trend('Won', party['trend']),
+                leading=self._parse_trend('Leading', party['trend']),
                 holdovers=self._parse_trend('Holdovers', party['trend']),
                 winning_trend=self._parse_trend('Winning Trend', party['trend']),
                 current=self._parse_trend('Current', party['trend']),
