@@ -6,3 +6,8 @@ dist/
 _build/
 .tox
 build/
+.eggs/
+.vscode/
+*.spec
+nyt_*.py
+nyt_*.json
