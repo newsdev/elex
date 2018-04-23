@@ -56,9 +56,11 @@ class BaseTrendReport(utils.UnicodeMixin):
     office_code = None
     api_report_id = 'Trend / g / US'
 
-    def __init__(self, trend_file=None):
+    def __init__(self, trend_file=None, testresults=False):
         if not self.office_code or not self.api_report_id:
             raise NotImplementedError
+        self.testresults = testresults
+
         self.load_raw_data(self.office_code, trend_file)
         self.parties = []
         self.output_parties()
@@ -70,7 +72,12 @@ class BaseTrendReport(utils.UnicodeMixin):
         if trend_file:
             self.raw_data = self.get_ap_file(trend_file)
         else:
-            self.raw_data = self.get_ap_report(office_code)
+            self.raw_data = self.get_ap_report(
+                office_code,
+                params={
+                    'test': self.testresults
+                }
+            )
 
     def get_ap_file(self, path):
         """
@@ -89,7 +96,7 @@ class BaseTrendReport(utils.UnicodeMixin):
         reports = utils.get_reports(params=params)
         report_id = self.get_report_id(reports, key)
         if report_id:
-            r = utils.api_request('/reports/{0}'.format(report_id), **params)
+            r = utils.api_request('/reports/{0}'.format(report_id))
             return r.json()['trendtable']
 
     def get_report_id(self, reports, key):
@@ -100,7 +107,7 @@ class BaseTrendReport(utils.UnicodeMixin):
         for report in reports:
             if (
                 key == self.office_code and
-                report.get('title') == self.api_report_id
+                report.get('title') in [self.api_report_id, self.api_test_report_id]
             ):
                 id = report.get('id').rsplit('/', 1)[-1]
                 return id
@@ -157,6 +164,7 @@ class USGovernorTrendReport(BaseTrendReport):
     """
     office_code = 'g'
     api_report_id = 'Trend / g / US'
+    api_test_report_id = 'Trend / g / test / US'
 
 
 class USSenateTrendReport(BaseTrendReport):
@@ -165,6 +173,7 @@ class USSenateTrendReport(BaseTrendReport):
     """
     office_code = 's'
     api_report_id = 'Trend / s / US'
+    api_test_report_id = 'Trend / s / test / US'
 
 
 class USHouseTrendReport(BaseTrendReport):
@@ -173,3 +182,4 @@ class USHouseTrendReport(BaseTrendReport):
     """
     office_code = 'h'
     api_report_id = 'Trend / h / US'
+    api_test_report_id = 'Trend / h / test / US'
