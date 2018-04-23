@@ -1,15 +1,9 @@
 import os.path
-from pip.download import PipSession
-from pip.req import parse_requirements
 
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-
-install_reqs = parse_requirements('requirements.txt', session=PipSession())
-reqs = [str(ir.req) for ir in install_reqs]
-
 
 def read(filename):
     return open(os.path.join(os.path.dirname(__file__), filename)).read()
@@ -31,7 +25,15 @@ setup(
     },
     license="Apache License 2.0",
     keywords='election race candidate democracy news associated press',
-    install_requires=reqs,
+    install_requires=[
+        'CacheControl==0.11.7',
+        'cement==2.10.2',
+        'lockfile==0.12.2',
+        'pymongo==3.3',
+        'python-dateutil==2.2',
+        'requests==2.11.1',
+        'ujson==1.35'
+    ],
     classifiers=(
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
