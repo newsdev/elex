@@ -962,7 +962,7 @@ class Election(APElection):
                 self.electiondate = payload.get('electionDate')
                 return payload
         else:
-            payload = self.get('/%s' % self.electiondate, **params)
+            payload = self.get(self.electiondate, **params)
             return payload
 
     def get_race_objects(self, parsed_json):
