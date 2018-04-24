@@ -11,13 +11,13 @@ def read(filename):
 
 setup(
     name='elex',
-    version='2.4.2',
+    version='2.4.3',
     author='Jeremy Bowers, David Eads',
     author_email='jeremy.bowers@nytimes.com, deads@npr.org',
     url='https://github.com/newsdev/elex',
     description='Client for parsing the Associated Press\'s elections API',
     long_description=read('README.rst'),
-    packages=('elex', 'elex.cli', 'elex.api', 'tests'),
+    packages=['elex', 'elex.cli', 'elex.api', 'tests'],
     entry_points={
         'console_scripts': (
             'elex = elex.cli:main',
@@ -34,7 +34,7 @@ setup(
         'requests==2.11.1',
         'ujson==1.35'
     ],
-    classifiers=(
+    classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries :: Python Modules',
@@ -43,5 +43,6 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
-    )
+        'Programming Language :: Python :: 3.6',
+    ]
 )
