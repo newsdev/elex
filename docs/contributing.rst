@@ -50,7 +50,7 @@ Make sure all tests are passing in your environment by running the nose2 tests.
 
    nose2 tests
 
-If you have Python 2.7, 3.5, and pypy installed, run can run :code:`tox` to test in multiple environments.
+If you have Python 2.7, 3.5, 3.6, and pypy installed, run can run :code:`tox` to test in multiple environments.
 
 Writing docs
 ============
