@@ -13,8 +13,7 @@ install:
   - travis_retry pip install -e git+https://github.com/peteut/nose2-cprof.git#egg=nose2cprof
 # command to run tests
 script:
-  - pyflakes elex
-  - pep8 elex
-  - pyflakes tests
-  - pep8 tests
+  - flake8 elex
+  - flake8 tests
+  - make -C docs html
   - python -m nose2.__main__ -v
