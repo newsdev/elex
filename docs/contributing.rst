@@ -16,18 +16,12 @@ Install Elex development environment
 
 1. Fork the project on `Github <https://github.com/newsdev/elex>`_.
 
-2. Install a development version of the code with:
+2. Install a development version of the code and all dependencies with:
 
 .. code:: bash
 
   mkvirtualenv elex-dev
-  pip install -e git+git@github.com:<YOUR_GITHUB_USER>/elex#egg=elex``
-
-3. Install developer dependencies for tests and docs:
-
-.. code:: bash
-
-  pip install -r requirements-dev.txt
+  pip install -e .[dev]
 
 Now you can run the following commands when you want to activate your enviroment and
 cd to the source directory.

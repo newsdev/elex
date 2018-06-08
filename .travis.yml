@@ -6,11 +6,7 @@ python:
   - "3.6"
 # command to install dependencies
 install:
-  - travis_retry pip install .
-  - travis_retry pip install -r requirements.txt
-  - travis_retry pip install -r requirements-dev.txt
-  - travis_retry pip install pep8 pyflakes
-  - travis_retry pip install -e git+https://github.com/peteut/nose2-cprof.git#egg=nose2cprof
+  - travis_retry pip install -e .[dev]
 # command to run tests
 script:
   - flake8 elex

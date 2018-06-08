@@ -35,6 +35,15 @@ setup(
         'requests==2.11.1',
         'ujson==1.35'
     ],
+    extras_require={
+        'dev': [
+            'Sphinx==1.5.6',
+            'nose2==0.6.5',
+            'tox==2.3.1',
+            'flake8==3.5.0',
+            'sphinx-rtd-theme==0.1.9'
+        ]
+    },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
