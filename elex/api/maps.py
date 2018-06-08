@@ -238,6 +238,7 @@ PARTY_NAMES = {
     'IX': 'ILLINOIS GREEN',
     'JP': 'JUSTICE PARTY',
     'JS': 'JESUS PARTY',
+    'LAB': 'LABOR',
     'LBL': 'LIBERAL',
     'LBP': 'LOOKING BACK',
     'LEC': 'LIBERTY,COLOGY,OMMUNITY',
