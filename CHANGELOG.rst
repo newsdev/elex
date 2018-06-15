@@ -41,7 +41,7 @@ Fixes a bug related to national / local flags on races. Running :code:`--local-o
 * Adds a :code:`raceids` feature. :code:`elex races 2016-03-15 --raceids 10675,14897` still downloads the full JSON file but only parses the races passed in the :code:`raceids` argument. Particularly effective when used with the :code:`local-only` flag to grab a subset of non-national races, e.g., every NY state race.
 
 2.0.5 - 2.0.6 - June 6, 2016
----------------------
+----------------------------
 * Fixes a small bug in the ME reporting for the upcoming 6-14 primary.
 
 2.0.1 - 2.0.4 - April 26, 2016

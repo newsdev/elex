@@ -3,17 +3,13 @@ language: python
 python:
   - "2.7"
   - "3.5"
+  - "3.6"
 # command to install dependencies
 install:
-  - travis_retry pip install .
-  - travis_retry pip install -r requirements.txt
-  - travis_retry pip install -r requirements-dev.txt
-  - travis_retry pip install pep8 pyflakes
-  - travis_retry pip install -e git+https://github.com/peteut/nose2-cprof.git#egg=nose2cprof
+  - travis_retry pip install -e .[dev]
 # command to run tests
 script:
-  - pyflakes elex
-  - pep8 elex
-  - pyflakes tests
-  - pep8 tests
+  - flake8 elex
+  - flake8 tests
+  - make -C docs html
   - python -m nose2.__main__ -v
