@@ -26,7 +26,7 @@ setup(
     license="Apache License 2.0",
     keywords='election race candidate democracy news associated press',
     install_requires=[
-        'CacheControl==0.11.7',
+        'CacheControl==0.12.*',
         'cement==2.10.2',
         'lockfile==0.12.2',
         'pymongo==3.3',
