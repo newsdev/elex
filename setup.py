@@ -30,7 +30,7 @@ setup(
         'cement==2.10.2',
         'lockfile==0.12.2',
         'pymongo==3.3',
-        'python-dateutil==2.2',
+        'python-dateutil==2.7.*',
         'requests==2.19.*',
         'ujson==1.35'
     ],
@@ -42,7 +42,6 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ]
 )
