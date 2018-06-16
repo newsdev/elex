@@ -1,5 +1,4 @@
 import os
-import pkg_resources
 import requests
 import tempfile
 
@@ -7,7 +6,7 @@ from cachecontrol import CacheControl
 from cachecontrol.caches import FileCache
 from elex.cachecontrol_heuristics import EtagOnlyCache
 
-__version__ = pkg_resources.get_distribution('elex').version
+__version__ = '2.4.3'
 _DEFAULT_CACHE_DIRECTORY = os.path.join(tempfile.gettempdir(), 'elex-cache')
 
 API_KEY = os.environ.get('AP_API_KEY', None)
