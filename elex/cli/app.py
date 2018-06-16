@@ -146,16 +146,6 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
         .. code:: bash
 
             elex reporting-units 2016-03-26
-
-        Example output:
-
-        .. csv-table::
-
-            id,reportingunitid,reportingunitname,description,electiondate,fipscode,initialization_data,lastupdated,level,national,officeid,officename,precinctsreporting,precinctsreportingpct,precinctstotal,raceid,racetype,racetypeid,seatname,seatnum,statename,statepostal,test,uncontested,votecount
-            state-1,state-1,,,2016-03-26,,False,2016-03-27T03:03:54Z,state,True,P,President,40,1.0,40,2919,Caucus,E,,,Alaska,AK,False,False,539
-            county-2003,county-2003,State House District 1,,2016-03-26,,False,2016-03-27T03:03:54Z,county,True,P,President,1,1.0,1,2919,Caucus,E,,,,AK,False,False,12
-            county-2004,county-2004,State House District 2,,2016-03-26,,False,2016-03-27T03:03:54Z,county,True,P,President,1,1.0,1,2919,Caucus,E,,,,AK,False,False,6
-            ...
         """
         data = self.app.election.reporting_units
         self.app.log.info(
