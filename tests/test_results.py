@@ -64,9 +64,15 @@ class TestGeneralElectionEdgeCases(tests.ElectionResultsTestCase):
     Romney won all 3 of AK's electoral votes in 2012.
     """
     def test_electwon_is_set(self):
-        r = [r for r in self.results if r.officeid == 'P' and r.level == 'state' and r.last == 'Romney' and r.statepostal == 'AK'][0]
+        r = [
+            r for r in self.results
+            if r.officeid == 'P' and r.level == 'state' and r.last == 'Romney' and r.statepostal == 'AK'
+        ][0]
         self.assertEqual(r.electwon, 3)
 
     def test_electtotal_is_set(self):
-        r = [r for r in self.results if r.officeid == 'P' and r.level == 'state' and r.last == 'Romney' and r.statepostal == 'AK'][0]
+        r = [
+            r for r in self.results
+            if r.officeid == 'P' and r.level == 'state' and r.last == 'Romney' and r.statepostal == 'AK'
+        ][0]
         self.assertEqual(r.electtotal, 3)
