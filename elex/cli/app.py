@@ -177,14 +177,6 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
             elex candidate-reporting-units 2016-03-26
 
-        Example output:
-
-        .. csv-table::
-
-            id,raceid,racetype,racetypeid,ballotorder,candidateid,description,delegatecount,electiondate,fipscode,first,incumbent,initialization_data,is_ballot_measure,last,lastupdated,level,national,officeid,officename,party,polid,polnum,precinctsreporting,precinctsreportingpct,precinctstotal,reportingunitid,reportingunitname,runoff,seatname,seatnum,statename,statepostal,test,uncontested,votecount,votepct,winner
-            2919-polid-1445-None,2919,Caucus,E,2,6527,,0,2016-03-26,,Bernie,False,True,False,Sanders,2016-03-27T03:03:54Z,,True,P,President,Dem,1445,4262,0,0.0,0,,,False,,,Alaska,AK,False,False,0,0.0,False
-            2919-polid-1746-None,2919,Caucus,E,1,6526,,0,2016-03-26,,Hillary,False,True,False,Clinton,2016-03-27T03:03:54Z,,True,P,President,Dem,1746,4261,0,0.0,0,,,False,,,Alaska,AK,False,False,0,0.0,False
-
         Notes:
 
         This command can be used to quickly create schemas.
@@ -499,13 +491,6 @@ relative to that date, otherwise will use today's date)")
         .. code:: bash
 
             elex clear-cache
-
-        Example output:
-
-        .. code:: bash
-
-            2016-09-30 00:22:56,992 (INFO) cement:app:elex : Clearing cache (/var/folders/z2/plxshs7c43lm_bctxn/Y/elex-cache)
-            2016-09-30 00:22:56,993 (INFO) cement:app:elex : Cache cleared.
 
         If no cache entries exist, elex will close with exit code 65.
         """
