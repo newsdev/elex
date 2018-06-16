@@ -1,4 +1,4 @@
-elex is maintained by Jeremy Bowers <jeremy.bowers@nytimes.com> and David Eads <deads@npr.org>.
+elex is maintained by Jeremy Bowers <jeremy.bowers@nytimes.com> and David Eads <davideads@gmail.com>.
 
 These individuals have contributed code, tests, documentation, and troubleshooting:
 

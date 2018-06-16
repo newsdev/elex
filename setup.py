@@ -13,7 +13,7 @@ setup(
     name='elex',
     version='2.4.3',
     author='Jeremy Bowers, David Eads',
-    author_email='jeremy.bowers@nytimes.com, deads@npr.org',
+    author_email='jeremy.bowers@nytimes.com, davideads@gmail.com',
     url='https://github.com/newsdev/elex',
     description='Client for parsing the Associated Press\'s elections API',
     long_description=read('README.rst'),
