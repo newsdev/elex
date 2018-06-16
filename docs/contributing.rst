@@ -21,21 +21,16 @@ Install Elex development environment
 .. code:: bash
 
   mkvirtualenv elex-dev
-  pip install -e git+git@github.com:<YOUR_GITHUB_USER>/elex#egg=elex``
+  workon elex-dev
+  git clone git@github.com:<YOUR_GITHUB_USER>/elex.git .``
 
 3. Install developer dependencies for tests and docs:
 
 .. code:: bash
 
+  pip install -r requirements.txt
   pip install -r requirements-dev.txt
 
-Now you can run the following commands when you want to activate your enviroment and
-cd to the source directory.
-
-.. code:: bash
-
-  workon elex-dev
-  cd ${VIRTUAL_ENV}/src/elex
 
 Running tests
 =============
@@ -48,7 +43,7 @@ Make sure all tests are passing in your environment by running the nose2 tests.
 
 .. code:: bash
 
-   nose2 tests
+   make test
 
 If you have Python 2.7, 3.5, and pypy installed, run can run :code:`tox` to test in multiple environments.
 
