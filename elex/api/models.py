@@ -876,6 +876,7 @@ class Election(APElection):
         self.setzerocounts = kwargs.get('setzerocounts', False)
 
         self.raceids = kwargs.get('raceids', [])
+        self.officeids = kwargs.get('officeids', "")
 
         self.set_id_field()
 
@@ -1049,8 +1050,10 @@ class Election(APElection):
             level="ru",
             test=self.testresults,
             national=self.national,
+            officeID=self.officeids,
             apiKey=self.api_key
         )
+
         race_objs = self.get_race_objects(raw_races)
         races, reporting_units, candidate_reporting_units = self.get_units(
             race_objs
@@ -1067,6 +1070,7 @@ class Election(APElection):
             level="ru",
             test=self.testresults,
             national=self.national,
+            officeID=self.officeids,
             apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
@@ -1085,6 +1089,7 @@ class Election(APElection):
             level="ru",
             test=self.testresults,
             national=self.national,
+            officeID=self.officeids,
             apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
@@ -1104,6 +1109,7 @@ class Election(APElection):
             setzerocounts=self.setzerocounts,
             test=self.testresults,
             national=self.national,
+            officeID=self.officeids,
             apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)
@@ -1122,6 +1128,7 @@ class Election(APElection):
             level="ru",
             test=self.testresults,
             national=self.national,
+            officeID=self.officeids,
             apiKey=self.api_key
         )
         race_objs = self.get_race_objects(raw_races)

@@ -90,6 +90,11 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
                 action='store',
                 help='Specify a value for a `batchname` column to append to each row.',
             )),
+            (['--officeids'], dict(
+                action='store',
+                help='Specify officeids to parse',
+                default=[]
+            )),
         ]
 
     @expose(hide=True)

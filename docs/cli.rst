@@ -88,7 +88,8 @@ Commands and flags
       --batch-name BATCH_NAME
                             Specify a value for a `batchname` column to append to
                             each row.
-
+      --officeids OFFICEIDS Specify officeids to parse
+          
 -----------------
 Command reference
 -----------------

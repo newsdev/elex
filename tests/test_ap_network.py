@@ -1,5 +1,6 @@
 import os
 import unittest
+import tests
 
 from elex.cli.app import ElexApp
 from requests.exceptions import HTTPError
@@ -35,6 +36,23 @@ class APNetworkTestCase(NetworkTestCase):
         if response.status_code == 403:
             self.skipTest('over quota limit')
         self.assertEqual(response.status_code, 400)
+
+
+class TestRaceResultsOfficeIdParsing(tests.ElectionResultsParseValidOfficeIdsTestCase):
+
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_officeid_number_of_races(self):
+        self.assertEqual(len(self.races), 536)
+
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_officeid_number_of_results(self):
+        self.assertEqual(len(self.results), 55601)
+
+
+class TestRaceResultsInvalidOfficeIdParsing(tests.ElectionResultsParseInvalidOfficeIdsTestCase):
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_invalid_officeid_number_of_races(self):
+        self.assertEqual(len(self.races), 14)
 
 
 class ElexNetworkCacheTestCase(NetworkTestCase):

@@ -29,6 +29,48 @@ class TrendReportTestCase(unittest.TestCase):
         self.senate_trends = USSenateTrendReport(self.senate_file)
 
 
+class ElectionResultsParseValidOfficeIdsTestCase(unittest.TestCase):
+    def setUp(self, **kwargs):
+        e = Election(
+            electiondate='2016-11-08',
+            testresults=False,
+            liveresults=True,
+            is_test=False,
+            officeids='P,H,G'
+        )
+        self.election = e
+        self.resultslevel = e.resultslevel
+        self.raw_races = e.get_raw_races()
+        self.race_objs = e.get_race_objects(self.raw_races)
+        self.ballot_measures = e.ballot_measures
+        self.candidate_reporting_units = e.candidate_reporting_units
+        self.candidates = e.candidates
+        self.races = e.races
+        self.reporting_units = e.reporting_units
+        self.results = e.results
+
+
+class ElectionResultsParseInvalidOfficeIdsTestCase(unittest.TestCase):
+    def setUp(self, **kwargs):
+        e = Election(
+            electiondate='2016-11-08',
+            testresults=False,
+            liveresults=True,
+            is_test=False,
+            officeids='N,ABC,PS'
+        )
+        self.election = e
+        self.resultslevel = e.resultslevel
+        self.raw_races = e.get_raw_races()
+        self.race_objs = e.get_race_objects(self.raw_races)
+        self.ballot_measures = e.ballot_measures
+        self.candidate_reporting_units = e.candidate_reporting_units
+        self.candidates = e.candidates
+        self.races = e.races
+        self.reporting_units = e.reporting_units
+        self.results = e.results
+
+
 class ElectionResultsParseIdsTestCase(unittest.TestCase):
     data_url = 'tests/data/20151103_national.json'
 
