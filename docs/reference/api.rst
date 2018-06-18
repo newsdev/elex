@@ -21,4 +21,4 @@ elex.api.maps
 --------------
 
 .. automodule:: elex.api.maps
-   :membersmbers:
+   :members:
