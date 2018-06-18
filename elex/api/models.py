@@ -876,7 +876,7 @@ class Election(APElection):
         self.setzerocounts = kwargs.get('setzerocounts', False)
 
         self.raceids = kwargs.get('raceids', [])
-        self.officeids = kwargs.get('officeids', "")
+        self.officeids = kwargs.get('officeids', None)
 
         self.set_id_field()
 

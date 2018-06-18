@@ -57,12 +57,17 @@ when using `elex [gov/house/senate]-trends`'
             )),
             (['--results-level'], dict(
                 action='store',
-                help='Specify reporting level for results',
+                help='Specify reporting level for results.',
                 default='ru'
+            )),
+            (['--officeids'], dict(
+                action='store',
+                help='Specify officeids to parse.',
+                default=None
             )),
             (['--raceids'], dict(
                 action='store',
-                help='Specify raceids to parse',
+                help='Specify raceids to parse.',
                 default=[]
             )),
             (['--set-zero-counts'], dict(
@@ -89,11 +94,6 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             (['--batch-name'], dict(
                 action='store',
                 help='Specify a value for a `batchname` column to append to each row.',
-            )),
-            (['--officeids'], dict(
-                action='store',
-                help='Specify officeids to parse',
-                default=[]
             )),
         ]
 

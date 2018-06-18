@@ -15,7 +15,7 @@ def add_election_hook(app):
         setzerocounts=app.pargs.set_zero_counts,
         is_test=False,
         raceids=[],
-        officeids=""
+        officeids=None
     )
 
     if app.pargs.data_file:
@@ -31,12 +31,14 @@ def add_election_hook(app):
         app.election.raceids = [x.strip() for x in app.pargs.raceids.split(',')]
 
     if app.pargs.officeids:
-        invalid_officeids = [x.strip() for x in app.pargs.officeids.split(',') if x.strip() not in maps.OFFICE_NAMES]
+        invalid_officeids = [x for x in app.pargs.officeids.split(',') if x not in maps.OFFICE_NAMES]
         if invalid_officeids:
             text = '{0} is/are invalid officeID(s). Here is a list of valid officeIDs: {1}'
             app.log.error(text.format(", ".join(invalid_officeids), ", ".join(maps.OFFICE_NAMES.keys())))
             app.close(1)
-        app.election.officeids = app.pargs.officeids
+        else:
+            app.election.officeids = app.pargs.officeids
+            # kept as a comma-delimited string so officeID as a param always appears once in request url (e.g. officeID=P%2CH%2CG)
 
 
 def cachecontrol_logging_hook(app):

@@ -102,7 +102,6 @@ def api_request(path, **params):
     response.raise_for_status()
 
     write_recording(response.json())
-
     return response
 
 

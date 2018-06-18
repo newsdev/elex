@@ -1,8 +1,3 @@
-2.4.1 (hold) - June 13, 2018
-----------------------------
-
-* Adds a :code:`officeids` feature. :code:`elex races 2016-11-08 --officeids P,H,S,G` passes the :code:`officeids` as params in the API request to retrieve data for specific offices. Particularly useful when raceid is unknown. 
-
 2.4.0 - October 23, 2016
 ------------------------
 
