@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import elex
 import os
 import sys
 
 # Path munging
 sys.path.insert(0, os.path.abspath('..'))
+import elex  # NOQA
 
 # Extensions
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx']
