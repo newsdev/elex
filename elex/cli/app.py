@@ -57,12 +57,17 @@ when using `elex [gov/house/senate]-trends`'
             )),
             (['--results-level'], dict(
                 action='store',
-                help='Specify reporting level for results',
+                help='Specify reporting level for results.',
                 default='ru'
+            )),
+            (['--officeids'], dict(
+                action='store',
+                help='Specify officeids to parse.',
+                default=None
             )),
             (['--raceids'], dict(
                 action='store',
-                help='Specify raceids to parse',
+                help='Specify raceids to parse.',
                 default=[]
             )),
             (['--set-zero-counts'], dict(

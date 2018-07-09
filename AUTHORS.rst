@@ -12,3 +12,4 @@ These individuals have contributed code, tests, documentation, and troubleshooti
 * Tom Giratikanon
 * Ryan Pitts
 * Miles Watkins
+* Vanessa Qian

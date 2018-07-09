@@ -1,5 +1,6 @@
 import os
 import unittest
+import tests
 
 from elex.cli.app import ElexApp
 from requests.exceptions import HTTPError
@@ -37,7 +38,42 @@ class APNetworkTestCase(NetworkTestCase):
         self.assertEqual(response.status_code, 400)
 
 
+class TestRaceResultsOfficeIdParsing(NetworkTestCase):
+
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_officeid_number_of_races(self):
+        valid_officeids = self.api_request('/elections/2016-11-08/', officeID='P,H,G')
+        data = valid_officeids.json()
+        self.assertEqual(len(data['races']), 502)
+
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_races_with_officeids_vs_no_officeids(self):
+        w_officeids = self.api_request('/elections/2016-11-08/', officeID='P,H')
+        all_races = self.api_request('/elections/2016-11-08/')
+        data_w_officeids = w_officeids.json()
+        data_all = all_races.json()
+        self.assertLess(len(data_w_officeids['races']), len(data_all['races']))
+
+        raceids_filter_ph_in_all = [elem['raceID'] for elem in data_all['races'] if elem['officeID'] == 'P' or elem['officeID'] == 'H']
+        raceids_w_officeids = [elem['raceID'] for elem in data_w_officeids['races']]
+        self.assertEqual(raceids_filter_ph_in_all, raceids_w_officeids)
+
+    @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
+    def test_raceid_zero_with_officeid_p(self):
+        raceid_req = self.api_request('/elections/2016-11-08/')
+        officeid_req = self.api_request('/elections/2016-11-08/', officeID='P')
+        data_raceid = raceid_req.json()
+        data_officeid = officeid_req.json()
+
+        len_data_raceid_zero = sum([1 for elem in data_raceid['races'] if elem['raceID'] == '0'])
+        self.assertEqual(len(data_officeid['races']), len_data_raceid_zero)
+
+        len_data_officeid_zero = sum([1 for elem in data_officeid['races'] if elem['raceID'] == '0'])
+        self.assertEqual(len_data_officeid_zero, len_data_raceid_zero)
+
+
 class ElexNetworkCacheTestCase(NetworkTestCase):
+
     @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
     def test_elex_cache_miss(self):
         from elex import cache

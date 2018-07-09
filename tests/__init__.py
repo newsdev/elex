@@ -102,6 +102,7 @@ class ElectionDistrictResultsTestCase(unittest.TestCase):
 
 
 class NetworkTestCase(unittest.TestCase):
+
     def api_request(self, *args, **kwargs):
         response = utils.api_request(*args, **kwargs)
         sleep(10)

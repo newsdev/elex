@@ -13,7 +13,7 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx']
 autodoc_member_order = 'bysource'
 
 intersphinx_mapping = {
-    'python': ('http://docs.python.org/3.5', None)
+    'python': ('http://docs.python.org/3.6', None)
 }
 
 # Templates
