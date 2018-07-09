@@ -76,8 +76,9 @@ Commands and flags
       --format-json         Pretty print JSON when using `-o json`.
       -v, --version         show program's version number and exit
       --results-level RESULTS_LEVEL
-                            Specify reporting level for results
-      --raceids RACEIDS     Specify raceids to parse
+                            Specify reporting level for results.
+      --officeids OFFICEIDS Specify officeids to parse.      
+      --raceids RACEIDS     Specify raceids to parse.
       --set-zero-counts     Override results with zeros; omits the winner
                             indicator.Sets the vote, delegate, and reporting
                             precinct counts to zero.
@@ -88,7 +89,7 @@ Commands and flags
       --batch-name BATCH_NAME
                             Specify a value for a `batchname` column to append to
                             each row.
-
+          
 -----------------
 Command reference
 -----------------
