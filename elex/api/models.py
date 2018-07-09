@@ -194,7 +194,7 @@ class BallotMeasure(APElection):
     """
     Canonical representation of a ballot measure.
 
-    Ballot measures are similar to :class:`Candidate`s, but represent a
+    Ballot measures are similar to :class:`Candidate` objects, but represent a
     position on a ballot such as "In favor of" or "Against" for ballot
     measures such as a referendum.
     """
@@ -858,8 +858,10 @@ class Election(APElection):
     """
     def __init__(self, **kwargs):
         """
-        :param electiondate: The date of the election.
-        :param datafile: A cached data file.
+        :param electiondate:
+            The date of the election.
+        :param datafile:
+            A cached data file.
         """
         self.id = None
 
@@ -901,7 +903,7 @@ class Election(APElection):
 
         :param path:
             API url path.
-        :param **params:
+        :param \**params:
             A dict of optional parameters to be included in API request.
         """
         self._response = utils.api_request('/elections/{0}'.format(path), **params)
@@ -953,7 +955,7 @@ class Election(APElection):
         If datafile passed to constructor, the file will be used instead of
         making an HTTP request.
 
-        :param **params:
+        :param \**params:
             A dict of additional parameters to pass to API.
             Ignored if `datafile` was passed to the constructor.
         """

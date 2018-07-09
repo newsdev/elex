@@ -211,8 +211,8 @@ Requirements:
 
 Steps:
 
-* Install :code:`elex-loader` using `these instructions <https://github.com/newsdev/elex-loader/blob/master/README.md>`_.
-* Install :code:`elex-admin` using `these instructions <https://github.com/newsdev/elex-admin/blob/master/README.md>`_.
+* Install :code:`elex-loader` using `the loader instructions <https://github.com/newsdev/elex-loader/blob/master/README.md>`_.
+* Install :code:`elex-admin` using `the admin instructions <https://github.com/newsdev/elex-admin/blob/master/README.md>`_.
 
 Extra steps:
 

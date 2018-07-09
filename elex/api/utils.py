@@ -79,7 +79,7 @@ def api_request(path, **params):
     * Contains an API_KEY.
     * Returns a response object.
 
-    :param **params:
+    :param \**params:
         Extra parameters to pass to `requests`. For example,
         `apiKey="<YOUR API KEY>`, your AP API key, or `national=True`,
         for national-only results.
