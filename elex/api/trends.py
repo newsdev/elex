@@ -82,6 +82,10 @@ class BaseTrendReport(utils.UnicodeMixin):
             self.output_parties()
 
     def format_api_request_params(self):
+        """
+        Sets params for both fetches in a given trend-report download
+        (i.e., list of reports and detail page).
+        """
         params = {}
 
         if self.api_key is not None:
@@ -114,6 +118,7 @@ class BaseTrendReport(utils.UnicodeMixin):
     def get_ap_report(self, params={}):
         """
         Given a report number, returns a list of counts by party.
+
         Makes a request from the AP using requests. Formats that request
         with env vars.
         """
@@ -128,8 +133,13 @@ class BaseTrendReport(utils.UnicodeMixin):
 
     def get_report_id(self, reports):
         """
-        Takes a delSuper or delSum as the argument and returns
-        organization-specific report ID.
+        Narrows a list of all reports to just the type (U.S. House/U.S.
+        Senate/Governorships) specified in the subclass.
+
+        If an election date was specified, limits results to those on
+        that day. Otherwise, finds the overall most recent report.
+
+        Returns the versioned report ID where one exists.
         """
         matching_reports = [
             report for report in reports if report.get('title') in [
