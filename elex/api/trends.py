@@ -56,61 +56,93 @@ class BaseTrendReport(utils.UnicodeMixin):
     office_code = None
     api_report_id = 'Trend / g / US'
 
-    def __init__(self, trend_file=None, testresults=False):
+    def __init__(self, **kwargs):
         if not self.office_code or not self.api_report_id:
             raise NotImplementedError
-        self.testresults = testresults
 
-        self.load_raw_data(self.office_code, trend_file)
-        self.parties = []
-        self.output_parties()
+        self.testresults = kwargs.get('testresults', False)
 
-    def load_raw_data(self, office_code, trend_file=None):
+        self.electiondate = kwargs.get('electiondate', None)
+        self.api_key = kwargs.get('api_key', None)
+        self.trendfile = kwargs.get('trend_file', None)
+
+        self.load_raw_data()
+
+        if self.raw_data is None:
+            # Should we raise an error here, rather than creating an object
+            # that contains no actual results?
+            self.parties = None
+        else:
+            self.parties = []
+            self.output_parties()
+
+    def format_api_request_params(self):
+        params = {}
+
+        if self.api_key is not None:
+            params['apiKey'] = self.api_key
+
+        return params
+
+    def load_raw_data(self):
         """
         Gets underlying data lists we need for parsing.
         """
-        if trend_file:
-            self.raw_data = self.get_ap_file(trend_file)
+        if self.trendfile:
+            self.raw_data = self.get_ap_file()
         else:
             self.raw_data = self.get_ap_report(
-                office_code,
                 params={
-                    'test': self.testresults
+                    'test': self.testresults,
+                    **self.format_api_request_params(),
                 }
             )
 
-    def get_ap_file(self, path):
+    def get_ap_file(self):
         """
         Get raw data file.
         """
-        with open(path, 'r') as readfile:
+        with open(self.trendfile, 'r') as readfile:
             data = json.load(readfile)
             return data['trendtable']
 
-    def get_ap_report(self, key, params={}):
+    def get_ap_report(self, params={}):
         """
-        Given a report number and a key for indexing, returns a list
-        of delegate counts by party. Makes a request from the AP
-        using requests. Formats that request with env vars.
+        Given a report number, returns a list of counts by party.
+        Makes a request from the AP using requests. Formats that request
+        with env vars.
         """
         reports = utils.get_reports(params=params)
-        report_id = self.get_report_id(reports, key)
+        report_id = self.get_report_id(reports)
         if report_id:
-            r = utils.api_request('/reports/{0}'.format(report_id))
+            r = utils.api_request(
+                '/reports/{0}'.format(report_id),
+                **self.format_api_request_params()
+            )
             return r.json()['trendtable']
 
-    def get_report_id(self, reports, key):
+    def get_report_id(self, reports):
         """
         Takes a delSuper or delSum as the argument and returns
         organization-specific report ID.
         """
-        for report in reports:
-            if (
-                key == self.office_code and
-                report.get('title') in [self.api_report_id, self.api_test_report_id]
-            ):
-                id = report.get('id').rsplit('/', 1)[-1]
-                return id
+        matching_reports = [
+            report for report in reports if report.get('title') in [
+                self.api_report_id,
+                self.api_test_report_id
+            ]
+        ]
+
+        if self.electiondate:  # Can also use the explicit 'if is not none'.
+            matching_reports = [
+                report for report in matching_reports
+                if report.get('electionDate') == self.electiondate
+            ]
+
+        if matching_reports:
+            id = matching_reports[0].get('id').rsplit('/', 1)[-1]
+            return id
+
         return None
 
     def output_parties(self):
