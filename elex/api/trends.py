@@ -60,10 +60,11 @@ class BaseTrendReport(utils.UnicodeMixin):
         if not self.office_code or not self.api_report_id:
             raise NotImplementedError
 
-        if len(args):
-            # Shim to support former method signature.
-            defaults['trendfile'] = args[0] if len(args) > 0 else None
-            defaults['testresults'] = args[1] if len(args) > 1 else False
+        # Shim to support former method signature.
+        defaults = {
+            'trendfile': args[0] if len(args) > 0 else None,
+            'testresults': args[1] if len(args) > 1 else False,
+        }
 
         self.testresults = kwargs.get('testresults', defaults['testresults'])
 
@@ -100,12 +101,10 @@ class BaseTrendReport(utils.UnicodeMixin):
         if self.trendfile:
             self.raw_data = self.get_ap_file()
         else:
-            self.raw_data = self.get_ap_report(
-                params={
-                    'test': self.testresults,
-                    **self.format_api_request_params(),
-                }
-            )
+            report_params = self.format_api_request_params()
+            report_params['test'] = self.testresults
+
+            self.raw_data = self.get_ap_report(params=report_params)
 
     def get_ap_file(self):
         """
