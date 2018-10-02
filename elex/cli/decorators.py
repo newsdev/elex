@@ -31,7 +31,9 @@ def accept_date_argument(fn):
     """
     @wraps(fn)
     def decorated(self):
-        if len(self.app.pargs.date) and self.app.pargs.date[0]:
+        if self.app.pargs.data_file:
+            return fn(self)
+        elif len(self.app.pargs.date) and self.app.pargs.date[0]:
             returned_value = attach_election_date(self.app, fn, self)
             return returned_value
         return fn(self)
