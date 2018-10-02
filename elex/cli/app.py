@@ -420,7 +420,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
         report = USGovernorTrendReport(**report_params)
 
-        self.app.render(report.parties)
+        self.app.render(report.parties if report.parties is not None else [])
 
     @expose(help="Get US House trend report")
     @require_ap_api_key
@@ -469,7 +469,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
         report = USHouseTrendReport(**report_params)
 
-        self.app.render(report.parties)
+        self.app.render(report.parties if report.parties is not None else [])
 
     @expose(help="Get US Senate trend report")
     @require_ap_api_key
@@ -518,7 +518,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
         report = USSenateTrendReport(**report_params)
 
-        self.app.render(report.parties)
+        self.app.render(report.parties if report.parties is not None else [])
 
     @expose(help="Get the next election (if date is specified, will be \
 relative to that date, otherwise will use today's date)")
