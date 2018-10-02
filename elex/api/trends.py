@@ -56,15 +56,20 @@ class BaseTrendReport(utils.UnicodeMixin):
     office_code = None
     api_report_id = 'Trend / g / US'
 
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         if not self.office_code or not self.api_report_id:
             raise NotImplementedError
 
-        self.testresults = kwargs.get('testresults', False)
+        if len(args):
+            # Shim to support former method signature.
+            defaults['trendfile'] = args[0] if len(args) > 0 else None
+            defaults['testresults'] = args[1] if len(args) > 1 else False
+
+        self.testresults = kwargs.get('testresults', defaults['testresults'])
 
         self.electiondate = kwargs.get('electiondate', None)
         self.api_key = kwargs.get('api_key', None)
-        self.trendfile = kwargs.get('trend_file', None)
+        self.trendfile = kwargs.get('trend_file', defaults['trendfile'])
 
         self.load_raw_data()
 
