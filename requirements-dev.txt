@@ -4,3 +4,5 @@ sphinx-rtd-theme==0.1.9
 nose2
 tox
 flake8
+
+mock==2.0.0;python_version<'3.0'
