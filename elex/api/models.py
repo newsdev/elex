@@ -171,7 +171,7 @@ class Candidate(APElection):
         Generate and set unique id.
 
         Candidate IDs are not globally unique.
-        AP National Politian IDs (NPIDs or polid)
+        AP National Politician IDs (NPIDs or polid)
         are unique, but only national-level
         candidates have them; everyone else gets '0'.
         The unique key, then, is the NAME of the ID
