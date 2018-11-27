@@ -21,9 +21,11 @@ On Windows machines, use ``setx`` instead
 
 .. code:: bat
 
-    setx AP_API_KEY=<MY_AP_API_KEY>
+    setx AP_API_KEY <MY_AP_API_KEY>
 
 .. note:: ``Setx`` sets a permanent user level environment variable. To set a machine level variable use ``\m`` option
+
+.. note:: After running ``Setx`` you'll need to exit your command prompt and start a new one to pick up the variable
 
 Optional requirements
 =====================
