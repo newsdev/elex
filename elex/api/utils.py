@@ -84,6 +84,7 @@ def api_request(path, **params):
         `apiKey="<YOUR API KEY>`, your AP API key, or `national=True`,
         for national-only results.
     """
+
     params['apiKey'] = params.get('apiKey') or elex.API_KEY
     if not params['apiKey']:
         raise APAPIKeyException()
@@ -94,8 +95,8 @@ def api_request(path, **params):
 
     url = '{0}{1}'.format(elex.BASE_URL, path.replace('//', '/'))
     response = cache.get(url, params=params)
+    # import ipdb; ipdb.set_trace()
     response.raise_for_status()
-
     write_recording(response.json())
     return response
 
