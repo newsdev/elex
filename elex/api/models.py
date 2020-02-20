@@ -625,6 +625,7 @@ class Race(APElection):
         self.initialization_data = kwargs.get('initialization_data', False)
         self.national = kwargs.get('national', False)
         self.candidates = kwargs.get('candidates', [])
+        self.numrunoff = kwargs.get('numRunoff', None)
         self.reportingunits = kwargs.get('reportingUnits', [])
         self.is_ballot_measure = False
 
@@ -782,7 +783,8 @@ class Race(APElection):
             ('statename', self.statename),
             ('statepostal', self.statepostal),
             ('test', self.test),
-            ('uncontested', self.uncontested)
+            ('uncontested', self.uncontested),
+            ('numrunoff', self.numrunoff),
         ))
 
     def __unicode__(self):
