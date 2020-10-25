@@ -28,7 +28,7 @@ setup(
         "lockfile==0.12.2",
         "pymongo==3.3",
         "python-dateutil==2.7.*",
-        "requests==2.20.*",
+        "requests==2.24.*",
         "ujson==1.35",
     ],
     classifiers=[
