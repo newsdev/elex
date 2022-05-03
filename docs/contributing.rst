@@ -16,7 +16,9 @@ Install Elex development environment
 
 1. Fork the project on `Github <https://github.com/newsdev/elex>`_.
 
-2. Install a development version of the code with:
+2. Install `virtualenvwrapper <https://virtualenvwrapper.readthedocs.io/en/latest/install.html>`_.
+
+3. Install a development version of the code with:
 
 .. code:: bash
 
@@ -24,7 +26,7 @@ Install Elex development environment
   workon elex-dev
   git clone git@github.com:<YOUR_GITHUB_USER>/elex.git .``
 
-3. Install developer dependencies for tests and docs:
+4. Install developer dependencies for tests and docs:
 
 .. code:: bash
 
