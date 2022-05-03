@@ -57,7 +57,7 @@ def require_ap_api_key(fn):
             self.app.log.error('HTTP Error {0} - {1}'.format(e.response.status_code, message))
             self.app.log.debug('HTTP Error {0} ({1})'.format(e.response.status_code, e.response.url))
             self.app.close(1)
-        except APAPIKeyException as e:
+        except APAPIKeyException:
             text = 'APAPIKeyError: AP_API_KEY environment variable is not set.'
             self.app.log.error(text)
             self.app.close(1)
