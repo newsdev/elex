@@ -6,6 +6,8 @@ except NameError:
 from elex.api import maps
 import tests
 
+is_ct_county = lambda r: r.statepostal == "CT" and r.level == "county"
+
 
 class TestConnecticutRollups(tests.ElectionResultsTestCase):
     """
@@ -20,9 +22,7 @@ class TestConnecticutRollups(tests.ElectionResultsTestCase):
     def test_ct_has_all_counties(self):
         ct_counties = set()
         raw_counties = [
-            r for r in self.reporting_units if
-            r.statepostal == "CT" and
-            r.level == "county"
+            r for r in self.reporting_units if is_ct_county(r)
         ]
         for c in raw_counties:
             ct_counties.add(c.reportingunitname)
@@ -33,25 +33,23 @@ class TestConnecticutRollups(tests.ElectionResultsTestCase):
 
     def test_ct_counties_match_townships(self):
         ct_counties = [
-            r for r in self.reporting_units if
-            r.statepostal == "CT" and
-            r.level == "county"
+            r for r in self.reporting_units if is_ct_county(r)
         ]
 
         for county in ct_counties:
             races = set([
                 r.raceid for r in self.reporting_units if
-                r.statepostal == "CT" and
-                r.level == "township" and
-                r.fipscode == county.fipscode
+                r.statepostal == "CT" and  # noqa: W504
+                r.level == "township" and  # noqa: W504
+                r.fipscode == county.fipscode  # noqa: W504
             ])
             for race in races:
                 townships = [
                     r.precinctstotal for r in self.reporting_units if
-                    r.statepostal == "CT" and
-                    r.level == "township" and
-                    r.fipscode == county.fipscode and
-                    r.raceid == race
+                    r.statepostal == "CT" and  # noqa: W504
+                    r.level == "township" and  # noqa: W504
+                    r.fipscode == county.fipscode and  # noqa: W504
+                    r.raceid == race  # noqa: W504
                 ]
                 self.assertEqual(county.precinctstotal, sum(townships))
 

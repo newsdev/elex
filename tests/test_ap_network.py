@@ -1,6 +1,5 @@
 import os
 import unittest
-import tests
 
 from elex.cli.app import ElexApp
 from requests.exceptions import HTTPError

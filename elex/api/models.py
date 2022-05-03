@@ -725,10 +725,7 @@ class Race(APElection):
                                 d['precinctsreporting'] += cru.precinctsreporting
 
                                 try:
-                                    d['precinctsreportingpct'] = (
-                                        float(d['precinctsreporting']) /
-                                        float(d['precinctstotal'])
-                                    )
+                                    d['precinctsreportingpct'] = (float(d['precinctsreporting']) / float(d['precinctstotal']))
 
                                 except ZeroDivisionError:
                                     d['precinctsreportingpct'] = 0.0
@@ -894,7 +891,7 @@ class Election(APElection):
         self.id = self.electiondate
 
     def get(self, path, **params):
-        """
+        r"""
         Farms out request to api_request.
         Could possibly handle choosing which
         parser backend to use -- API-only right now.
@@ -947,7 +944,7 @@ class Election(APElection):
         return candidates, ballot_measures
 
     def get_raw_races(self, **params):
-        """
+        r"""
         Convenience method for fetching races by election date.
         Accepts an AP formatting date string, e.g., YYYY-MM-DD.
         Accepts any number of URL params as kwargs.

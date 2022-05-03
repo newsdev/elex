@@ -38,7 +38,8 @@ def add_election_hook(app):
             app.close(1)
         else:
             app.election.officeids = app.pargs.officeids
-            # kept as a comma-delimited string so officeID as a param always appears once in request url (e.g. officeID=P%2CH%2CG)
+            # kept as a comma-delimited string so officeID as a param always appears once in request url
+            # (e.g. officeID=P%2CH%2CG)
 
 
 def cachecontrol_logging_hook(app):
