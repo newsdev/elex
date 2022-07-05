@@ -4,4 +4,4 @@ lockfile==0.12.2
 pymongo==3.3
 python-dateutil==2.7.*
 requests==2.20.*
-ujson==1.35
+ujson==5.4.0
