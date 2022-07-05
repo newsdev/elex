@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+elex = {editable = true, path = "."}
+
+[dev-packages]
+sphinx = "==1.5.6"
+sphinx-rtd-theme = "==0.1.9"
+nose2 = "*"
+tox = "*"
+flake8 = "*"
+
+[requires]
+python_version = "3.10"

@@ -1,7 +1,0 @@
-CacheControl==0.12.*
-cement==2.10.2
-lockfile==0.12.2
-pymongo==3.3
-python-dateutil==2.7.*
-requests==2.20.*
-ujson==5.2.0
