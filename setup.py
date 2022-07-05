@@ -26,9 +26,9 @@ setup(
         "CacheControl==0.12.*",
         "cement==2.10.2",
         "lockfile==0.12.2",
-        "pymongo==3.3",
+        "pymongo==4.1",
         "python-dateutil==2.7.*",
-        "requests==2.20.*",
+        "requests==2.28.*",
         "ujson==5.2.0",
     ],
     classifiers=[
