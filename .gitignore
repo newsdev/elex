@@ -11,3 +11,4 @@ build/
 *.spec
 nyt_*.py
 nyt_*.json
+.env
