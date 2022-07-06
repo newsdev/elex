@@ -324,6 +324,7 @@ class CandidateReportingUnit(APElection):
         self.precinctsreporting = kwargs.get('precinctsreporting', 0)
         self.precinctstotal = kwargs.get('precinctstotal', 0)
         self.precinctsreportingpct = kwargs.get('precinctsreportingpct', 0.0)
+        self.eevp = kwargs.get('eevp', None)
         self.uncontested = kwargs.get('uncontested', False)
         self.test = kwargs.get('test', False)
         self.raceid = kwargs.get('raceid', None)
@@ -409,6 +410,7 @@ class CandidateReportingUnit(APElection):
             ('precinctsreporting', self.precinctsreporting),
             ('precinctsreportingpct', self.precinctsreportingpct),
             ('precinctstotal', self.precinctstotal),
+            ('eevp', self.eevp),
             ('reportingunitid', self.reportingunitid),
             ('reportingunitname', self.reportingunitname),
             ('runoff', self.runoff),
@@ -477,6 +479,8 @@ class ReportingUnit(APElection):
 
         self.precinctsreportingpct = kwargs.get('precinctsReportingPct', 0.0)\
             * 0.01
+
+        self.eevp = kwargs.get('eevp', None)
 
         if kwargs.get('precinctsreportingpct', None):
             self.precinctsreportingpct = kwargs['precinctsreportingpct']
@@ -585,6 +589,7 @@ class ReportingUnit(APElection):
             ('precinctsreporting', self.precinctsreporting),
             ('precinctsreportingpct', self.precinctsreportingpct),
             ('precinctstotal', self.precinctstotal),
+            ('eevp', self.eevp),
             ('raceid', self.raceid),
             ('racetype', self.racetype),
             ('racetypeid', self.racetypeid),
