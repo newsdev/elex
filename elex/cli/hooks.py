@@ -9,8 +9,8 @@ def add_election_hook(app):
     Cache election API object reference after parsing args.
     """
     app.election = Election(
-        testresults=app.pargs.test,
         liveresults=not app.pargs.not_live,
+        resultstype=app.pargs.results_type,
         resultslevel=app.pargs.results_level,
         setzerocounts=app.pargs.set_zero_counts,
         is_test=False,
