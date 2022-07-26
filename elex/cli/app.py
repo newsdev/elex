@@ -19,13 +19,15 @@ class ElexBaseController(CementBaseController):
                 help='Election date (e.g. "2015-11-03"; most common date \
 formats accepted).'
             )),
-            (['-t', '--test'], dict(
-                action='store_true',
-                help='Use testing API calls'
-            )),
             (['-n', '--not-live'], dict(
                 action='store_true',
                 help='Do not use live data API calls'
+            )),
+            (['--results-type'], dict(
+                action='store',
+                help='Specify results type. `t` for test, `l` for live, `c` for certified \
+                    `b` for auto switch from live to certified.',
+                default='l'
             )),
             (['-d', '--data-file'], dict(
                 action='store',

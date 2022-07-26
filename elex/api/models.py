@@ -872,6 +872,7 @@ class Election(APElection):
 
         self.testresults = kwargs.get('testresults', False)
         self.liveresults = kwargs.get('liveresults', False)
+        self.resultstype = kwargs.get('resultstype')
         self.electiondate = kwargs.get('electiondate', None)
         self.national = kwargs.get('national', None)
         self.api_key = kwargs.get('api_key', None)
@@ -1055,7 +1056,7 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
-            test=self.testresults,
+            resultstype=self.resultstype,
             national=self.national,
             officeID=self.officeids,
             apiKey=self.api_key
@@ -1075,7 +1076,7 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=False,
             level="ru",
-            test=self.testresults,
+            resultstype=self.resultstype,
             national=self.national,
             officeID=self.officeids,
             apiKey=self.api_key
@@ -1114,7 +1115,7 @@ class Election(APElection):
             omitResults=False,
             level=self.resultslevel,
             setzerocounts=self.setzerocounts,
-            test=self.testresults,
+            resultstype=self.resultstype,
             national=self.national,
             officeID=self.officeids,
             apiKey=self.api_key
@@ -1133,7 +1134,7 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
-            test=self.testresults,
+            resultstype=self.resultstype,
             national=self.national,
             officeID=self.officeids,
             apiKey=self.api_key
@@ -1155,7 +1156,7 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
-            test=self.testresults,
+            resultstype=self.resultstype,
             national=self.national,
             apiKey=self.api_key
         )
