@@ -20,7 +20,7 @@ class APNetworkTestCase(NetworkTestCase):
         response = error.exception.response
         if response.status_code == 403:
             self.skipTest('over quota limit')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 400)
 
     @unittest.skipUnless(os.environ.get('AP_API_KEY', None), API_MESSAGE)
     def test_nonexistent_date(self):
