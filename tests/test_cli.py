@@ -152,7 +152,7 @@ class ElexCLICSVTestCase(
         )
         self.assertEqual(
             fields,
-            ['id', 'electiondate', 'liveresults', 'testresults']
+            ['id', 'electiondate', 'liveresults', 'testresults', 'resultstype']
         )
 
     def test_csv_elections_length(self):
@@ -191,7 +191,7 @@ class ElexCLICSVTestCase(
         )
         self.assertEqual(
             fields,
-            ['id', 'electiondate', 'liveresults', 'testresults']
+            ['id', 'electiondate', 'liveresults', 'testresults', 'resultstype']
         )
 
     def test_csv_next_election_length(self):
@@ -424,7 +424,7 @@ class ElexCLIJSONTestCase(
         )
         self.assertEqual(
             fields,
-            ['id', 'electiondate', 'liveresults', 'testresults']
+            ['id', 'electiondate', 'liveresults', 'testresults', 'resultstype']
         )
 
     def test_json_elections_length(self):
@@ -463,7 +463,7 @@ class ElexCLIJSONTestCase(
         )
         self.assertEqual(
             fields,
-            ['id', 'electiondate', 'liveresults', 'testresults']
+            ['id', 'electiondate', 'liveresults', 'testresults', 'resultstype']
         )
 
     def test_json_next_election_length(self):
