@@ -243,6 +243,7 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
                 'precinctsreporting',
                 'precinctsreportingpct',
                 'precinctstotal',
+                'eevp',
                 'reportingunitid',
                 'reportingunitname',
                 'runoff',
