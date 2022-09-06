@@ -1,4 +1,6 @@
-.. warning:: Maintenance of this project has ended and the repository is no longer supported. You should not expect it to work. Be bold. Seek out new solutions!
+.. warning::
+
+    Maintenance of this project has ended and the repository is no longer supported. You should not expect it to work. Be bold. Seek out new solutions!
 
 Get database-ready election results from the Associated Press Election API v2.0.
 
