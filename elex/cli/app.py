@@ -3,7 +3,7 @@ from cement.core.foundation import CementApp
 from cement.ext.ext_logging import LoggingLogHandler
 from elex.api import Elections, DelegateReport, USGovernorTrendReport, USHouseTrendReport, USSenateTrendReport
 from elex.cli.constants import BANNER, LOG_FORMAT
-from elex.cli.decorators import require_date_argument, require_ap_api_key
+from elex.cli.decorators import accept_date_argument, require_date_argument, require_ap_api_key
 from elex.cli.hooks import add_election_hook, cachecontrol_logging_hook
 from shutil import rmtree
 
@@ -375,6 +375,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
     @expose(help="Get governor trend report")
     @require_ap_api_key
+    @accept_date_argument
     def governor_trends(self):
         """
         ``elex governor-trends``
@@ -395,11 +396,35 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             Dem,Governor,7,7,12,19,20,0,-1,0
         """
         self.app.log.info('Getting governor trend report')
-        report = USGovernorTrendReport(self.app.pargs.trend_file)
-        self.app.render(report.parties)
+
+        report_params = {
+            'testresults': self.app.pargs.test is True,
+        }
+
+        if self.app.election.electiondate is not None:
+            if self.app.pargs.test is True:
+                self.app.log.info(
+                    'Fetching test report for election {0}'.format(
+                        self.app.election.electiondate
+                    )
+                )
+            else:
+                self.app.log.info('Fetching report for election {0}'.format(
+                    self.app.election.electiondate
+                ))
+
+            report_params['electiondate'] = self.app.election.electiondate
+
+        if self.app.pargs.trend_file is not None:
+            report_params['trend_file'] = self.app.pargs.trend_file
+
+        report = USGovernorTrendReport(**report_params)
+
+        self.app.render(report.parties if report.parties is not None else [])
 
     @expose(help="Get US House trend report")
     @require_ap_api_key
+    @accept_date_argument
     def house_trends(self):
         """
         ``elex house-trends``
@@ -420,11 +445,35 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             Dem,U.S. House,201,201,0,201,193,0,+8,0
         """
         self.app.log.info('Getting US House trend report')
-        report = USHouseTrendReport(self.app.pargs.trend_file)
-        self.app.render(report.parties)
+
+        report_params = {
+            'testresults': self.app.pargs.test is True,
+        }
+
+        if self.app.election.electiondate is not None:
+            if self.app.pargs.test is True:
+                self.app.log.info(
+                    'Fetching test report for election {0}'.format(
+                        self.app.election.electiondate
+                    )
+                )
+            else:
+                self.app.log.info('Fetching report for election {0}'.format(
+                    self.app.election.electiondate
+                ))
+
+            report_params['electiondate'] = self.app.election.electiondate
+
+        if self.app.pargs.trend_file is not None:
+            report_params['trend_file'] = self.app.pargs.trend_file
+
+        report = USHouseTrendReport(**report_params)
+
+        self.app.render(report.parties if report.parties is not None else [])
 
     @expose(help="Get US Senate trend report")
     @require_ap_api_key
+    @accept_date_argument
     def senate_trends(self):
         """
         ``elex senate-trends``
@@ -445,8 +494,31 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             Dem,U.S. Senate,23,23,30,53,51,0,+2,0
         """
         self.app.log.info('Getting US Senate trend report')
-        report = USSenateTrendReport(self.app.pargs.trend_file)
-        self.app.render(report.parties)
+
+        report_params = {
+            'testresults': self.app.pargs.test is True,
+        }
+
+        if self.app.election.electiondate is not None:
+            if self.app.pargs.test is True:
+                self.app.log.info(
+                    'Fetching test report for election {0}'.format(
+                        self.app.election.electiondate
+                    )
+                )
+            else:
+                self.app.log.info('Fetching report for election {0}'.format(
+                    self.app.election.electiondate
+                ))
+
+            report_params['electiondate'] = self.app.election.electiondate
+
+        if self.app.pargs.trend_file is not None:
+            report_params['trend_file'] = self.app.pargs.trend_file
+
+        report = USSenateTrendReport(**report_params)
+
+        self.app.render(report.parties if report.parties is not None else [])
 
     @expose(help="Get the next election (if date is specified, will be \
 relative to that date, otherwise will use today's date)")

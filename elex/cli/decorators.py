@@ -6,9 +6,44 @@ from requests.exceptions import ConnectionError, HTTPError
 from xml.dom.minidom import parseString
 
 
+def attach_election_date(app, wrapped_fn, callback_context):
+    """
+    Attaches value of date argument to election model used in commands.
+
+    Common to both `accept_date_argument` and `require_date_argument`
+    decorators (i.e., this is called whether the date argument is
+    mandatory or optional).
+    """
+    try:
+        app.election.electiondate = parse_date(app.pargs.date[0])
+        return wrapped_fn(callback_context)
+    except ValueError:
+        text = '{0} could not be recognized as a date.'
+        app.log.error(text.format(app.pargs.date[0]))
+        app.close(1)
+
+    return wrapped_fn(callback_context)
+
+
+def accept_date_argument(fn):
+    """
+    Decorator that checks for optional date argument.
+    """
+    @wraps(fn)
+    def decorated(self):
+        if self.app.pargs.data_file:
+            return fn(self)
+        elif len(self.app.pargs.date) and self.app.pargs.date[0]:
+            returned_value = attach_election_date(self.app, fn, self)
+            return returned_value
+        return fn(self)
+
+    return decorated
+
+
 def require_date_argument(fn):
     """
-    Decorator that checks for date argument.
+    Decorator that checks for required date argument.
     """
     @wraps(fn)
     def decorated(self):
@@ -16,17 +51,7 @@ def require_date_argument(fn):
         if self.app.pargs.data_file:
             return fn(self)
         elif len(self.app.pargs.date) and self.app.pargs.date[0]:
-            try:
-                self.app.election.electiondate = parse_date(
-                    self.app.pargs.date[0]
-                )
-                return fn(self)
-            except ValueError:
-                text = '{0} could not be recognized as a date.'
-                self.app.log.error(text.format(self.app.pargs.date[0]))
-                self.app.close(1)
-
-            return fn(self)
+            return attach_election_date(self.app, fn, self)
         else:
             text = 'No election date (e.g. `elex {0} 2015-11-\
 03`) or data file (e.g. `elex {0} --data-file path/to/file.json`) specified.'
