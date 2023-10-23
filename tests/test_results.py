@@ -29,10 +29,7 @@ class TestPrecinctsReportingPctFloat(tests.ElectionResultsTestCase):
         According to bug #236, we should be 1 county short.
         """
         mass_results = [
-            r for r in self.results if
-            r.raceid == '24547' and
-            r.level == 'county' and
-            r.last == 'Trump'
+            r for r in self.results if r.raceid == '24547' and r.level == 'county' and r.last == 'Trump'
         ]
         self.assertEqual(len(mass_results), len(maps.FIPS_TO_STATE['MA']))
 

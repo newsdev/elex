@@ -360,10 +360,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
 
         """
         self.app.log.info('Getting delegate reports')
-        if (
-            self.app.pargs.delegate_super_file and
-            self.app.pargs.delegate_sum_file
-        ):
+        if (self.app.pargs.delegate_super_file and self.app.pargs.delegate_sum_file):
             report = DelegateReport(
                 delsuper_datafile=self.app.pargs.delegate_super_file,
                 delsum_datafile=self.app.pargs.delegate_sum_file
