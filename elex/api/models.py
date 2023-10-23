@@ -638,6 +638,8 @@ class Race(APElection):
             self.set_new_england_counties()
 
     def set_new_england_counties(self):
+        is_new_england_unit = lambda r, c: r.level == 'township' and "Mail Ballots C.D." not in r.reportingunitname and r.fipscode == c
+
         if self.statepostal in maps.FIPS_TO_STATE.keys():
 
             counties = {}
@@ -646,10 +648,7 @@ class Race(APElection):
                 try:
                     counties[c] = dict([
                         r.__dict__ for
-                        r in self.reportingunits if
-                        r.level == 'township' and
-                        "Mail Ballots C.D." not in r.reportingunitname and
-                        r.fipscode == c
+                        r in self.reportingunits if is_new_england_unit(r, c)
                     ][0])
 
                     # Set some basic information we know about the county.
@@ -665,26 +664,17 @@ class Race(APElection):
 
                     reporting_units = [
                         r for
-                        r in self.reportingunits if
-                        r.level == 'township' and
-                        "Mail Ballots C.D." not in r.reportingunitname and
-                        r.fipscode == c
+                        r in self.reportingunits if is_new_england_unit(r, c)
                     ]
 
                     # Declaratively sum the precincts / votes for this county.
                     counties[c]['precinctstotal'] = sum([
                         r.precinctstotal for
-                        r in reporting_units if
-                        r.level == 'township' and
-                        "Mail Ballots C.D." not in r.reportingunitname and
-                        r.fipscode == c
+                        r in reporting_units if is_new_england_unit(r, c)
                     ])
                     counties[c]['precinctsreporting'] = sum([
                         r.precinctsreporting for
-                        r in reporting_units if
-                        r.level == 'township' and
-                        "Mail Ballots C.D." not in r.reportingunitname and
-                        r.fipscode == c
+                        r in reporting_units if is_new_england_unit(r, c)
                     ])
 
                     pcts_tot = float(counties[c]['precinctstotal'])
@@ -697,10 +687,7 @@ class Race(APElection):
 
                     counties[c]['votecount'] = sum([
                         int(r.votecount or 0) for
-                        r in reporting_units if
-                        r.level == 'township' and
-                        "Mail Ballots C.D." not in r.reportingunitname and
-                        r.fipscode == c
+                        r in reporting_units if is_new_england_unit(r, c)
                     ])
 
                     for r in reporting_units:
@@ -894,7 +881,7 @@ class Election(APElection):
         self.id = self.electiondate
 
     def get(self, path, **params):
-        """
+        r"""
         Farms out request to api_request.
         Could possibly handle choosing which
         parser backend to use -- API-only right now.
@@ -947,7 +934,7 @@ class Election(APElection):
         return candidates, ballot_measures
 
     def get_raw_races(self, **params):
-        """
+        r"""
         Convenience method for fetching races by election date.
         Accepts an AP formatting date string, e.g., YYYY-MM-DD.
         Accepts any number of URL params as kwargs.

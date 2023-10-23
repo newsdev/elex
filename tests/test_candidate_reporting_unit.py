@@ -135,10 +135,7 @@ class TestCandidateReportingUnit(tests.ElectionResultsTestCase):
         reporting_unit = self.reporting_units[0]
         candidate_reporting_units = self.candidate_reporting_units[0:2]
         self.assertEqual(
-            (
-                candidate_reporting_units[0].votecount /
-                float(reporting_unit.votecount)
-            ),
+            (candidate_reporting_units[0].votecount / float(reporting_unit.votecount)),
             0.694266390666554
         )
 

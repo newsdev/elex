@@ -69,7 +69,7 @@ def write_recording(payload):
 
 
 def api_request(path, **params):
-    """
+    r"""
     Function wrapping Python-requests
     for making a request to the AP's
     elections API.

@@ -105,10 +105,7 @@ class BaseTrendReport(utils.UnicodeMixin):
         organization-specific report ID.
         """
         for report in reports:
-            if (
-                key == self.office_code and
-                report.get('title') in [self.api_report_id, self.api_test_report_id]
-            ):
+            if (key == self.office_code and report.get('title') in [self.api_report_id, self.api_test_report_id]):
                 id = report.get('id').rsplit('/', 1)[-1]
                 return id
         return None

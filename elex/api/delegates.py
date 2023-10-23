@@ -203,13 +203,10 @@ class DelegateReport(utils.UnicodeMixin):
         """
 
         for report in reports:
-            if (
-                key == 'delSum' and
-                report.get('title') == 'Delegates / delsum'
-            ) or (
-                key == 'delSuper' and
-                report.get('title') == 'Delegates / delsuper'
-            ):
+            delsum = key == 'delSum' and report.get('title') == 'Delegates / delsum'
+            delsuper = key == 'delSuper' and report.get('title') == 'Delegates / delsuper'
+
+            if delsum or delsuper:
                 id = report.get('id').rsplit('/', 1)[-1]
                 return id
 
